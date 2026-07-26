@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "static-site",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "C:\\Users\\USER\\Pictures\\Desktop\\tiger-commerce-lab\\.claude\\static-server.ps1"
+      ],
+      "port": 8934
+    }
+  ]
+}

@@ -83,7 +83,7 @@ button { font-family: inherit; cursor: pointer; }
   padding: 10px 20px;
 }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .01em; }
-.brand-mark { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.brand-mark { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: #FFFFFF; }
 .brand-name { font-size: 15px; }
 
 .btn {
@@ -146,8 +146,15 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width: 860px) { .side-nav { display: none; } }
 
 /* ---------- Layout helpers ---------- */
+/* 전 섹션 공통 컨테이너 — 이 값 하나로만 가로 폭/중앙 정렬을 통일한다.
+   섹션마다 다른 max-width를 따로 두지 않고, 모두 이 클래스를 그대로 쓴다. */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
 .section { padding: 100px 20px; overflow: hidden; }
-.section-inner { max-width: 1080px; margin: 0 auto; }
+.section-inner { }
 .eyebrow {
   display: inline-block;
   font-size: 13px;
@@ -208,13 +215,19 @@ button { font-family: inherit; cursor: pointer; }
   z-index: 0;
 }
 .hero-intro-char {
+  /* width만으로 크기를 잡으면(예: min(380px,62vw)) 세로가 긴 인물 이미지라
+     뷰포트가 낮은 화면에서는 카피 전체(제목+스크롤 유도)가 min-height:100vh
+     박스 밖으로 밀려나 첫 화면에 헤드라인이 안 보이는 문제가 있었다.
+     height를 뷰포트 높이 기준으로 제한해 항상 헤드라인이 함께 보이도록 한다. */
   position: relative;
   z-index: 1;
-  width: min(380px, 62vw);
+  height: min(42vh, 360px);
+  width: auto;
+  aspect-ratio: 845 / 1516;
   margin-bottom: 24px;
   animation: heroFloat 4.5s ease-in-out infinite;
 }
-.hero-intro-img { width: 100%; filter: drop-shadow(0 26px 30px rgba(28, 26, 24, .2)); }
+.hero-intro-img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 26px 30px rgba(28, 26, 24, .2)); }
 @keyframes heroFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-18px); }
@@ -263,15 +276,24 @@ button { font-family: inherit; cursor: pointer; }
    STORY GROUP (PAIN POINT / MARKET / PROCESS / CASES)
    ========================================================= */
 .story {
+  /* vw 단위를 써서 이 변수가 어느 자손 요소에서 재사용되든(퍼센트와
+     달리) 항상 같은 픽셀 값으로 계산되게 한다 — 아래 .panel .container의
+     max-width 보정에 그대로 재사용하기 위함. */
+  --sidebar-w: clamp(180px, 22vw, 260px);
   display: flex;
   align-items: flex-start;
   background: var(--bg);
 }
 .story-visual {
+  /* 캐릭터가 텍스트 컬럼과 겹치지 않도록 실제 폭을 갖는 사이드바로 유지한다
+     (폭을 0으로 만들면 .container가 전체 뷰포트 기준으로 중앙정렬되긴 하지만,
+     캐릭터가 텍스트 위에 그대로 겹쳐버리는 더 심각한 문제가 생긴다).
+     대신 .panel의 좌우 패딩을 .section과 동일한 값(20px)으로 맞춰서
+     (아래 .panel 규칙 참고) 사이드바로 인한 정렬 오차를 최소화한다. */
   position: sticky;
   top: 0;
   z-index: 1;
-  width: clamp(180px, 22%, 260px);
+  width: var(--sidebar-w);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -356,15 +378,25 @@ button { font-family: inherit; cursor: pointer; }
 
 .story-panels { flex: 1; min-width: 0; position: relative; z-index: 2; }
 .panel {
+  /* 좌우 패딩을 .section과 동일한 값(20px)으로 맞춰, .container가
+     다른 섹션과 완전히 같은 위치에서 시작/종료하도록 통일한다. */
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 100px 5vw 100px 4vw;
+  justify-content: center;
+  padding: 100px 20px;
 }
-.panel-inner { max-width: 640px; }
+/* panel-inner의 가로폭/중앙정렬은 .container 클래스 하나로 통일한다
+   (섹션마다 640/720/100%로 제각각이던 값을 여기서 없앤다).
+   다만 .panel 안의 .container는 왼쪽에 사이드바(--sidebar-w)가 실제로
+   폭을 차지하고 있어, 다른 섹션과 똑같이 1200px까지 늘어나면 우측
+   가장자리가 더 이상 맞지 않는다(사이드바+본문 합이 1200을 넘어가므로).
+   그래서 상한을 "1200px - 사이드바 폭"으로 낮춰 사이드바+본문의 합이
+   항상 다른 섹션의 1200px과 같아지도록 맞춘다 — 넓은 데스크톱 화면에서도
+   모든 섹션의 우측 가장자리가 일치한다. */
+.panel .container { max-width: calc(1200px - var(--sidebar-w)); }
 
 /* HERO panel */
-.panel-hero .panel-inner { max-width: 720px; }
 .hero-title {
   font-size: clamp(2.1rem, 5vw, 3.4rem);
   font-weight: 800;
@@ -580,7 +612,7 @@ button { font-family: inherit; cursor: pointer; }
   background-image: radial-gradient(var(--line) 1.5px, transparent 1.5px);
   background-size: 24px 24px;
 }
-.panel-cases .panel-inner { max-width: 100%; position: relative; z-index: 1; }
+.panel-cases .panel-inner { position: relative; z-index: 1; }
 .case-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
 .case-card {
   background: var(--white);
@@ -619,7 +651,6 @@ button { font-family: inherit; cursor: pointer; }
 
 /* 맛집감별사 연결 (독립 섹션) */
 .section-promo { padding: 64px 20px; }
-.section-promo .section-inner { max-width: 1080px; }
 .promo-card {
   display: flex;
   align-items: center;
@@ -771,6 +802,44 @@ button { font-family: inherit; cursor: pointer; }
 .scope-card-6 { background: #FFE6C9; }
 
 /* =========================================================
+   SNS 채널 강조
+   ========================================================= */
+.sns-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 8px;
+}
+.sns-card {
+  position: relative;
+  background: var(--white);
+  border: 2px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.sns-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.sns-card-title { font-size: 16.5px; font-weight: 800; color: var(--ink); margin-bottom: 10px; }
+.sns-card-desc { font-size: 13.5px; font-weight: 500; color: var(--ink-soft); line-height: 1.65; }
+
+/* "콘텐츠는 복리로 쌓인다" 카드만 오렌지 톤으로 강조 + 진입 시 pulse */
+.sns-card-highlight {
+  border-color: var(--orange);
+  background: linear-gradient(160deg, var(--orange-soft) 0%, var(--white) 65%);
+}
+.sns-card-highlight .sns-card-title,
+.sns-card-highlight .sns-card-desc { color: var(--orange-dark); }
+.sns-card-highlight.is-visible {
+  animation: snsCardPulse 1.6s var(--ease) .7s 1 backwards;
+}
+@keyframes snsCardPulse {
+  0%   { transform: scale(1); box-shadow: var(--shadow-sm); }
+  40%  { transform: scale(1.04); box-shadow: 0 0 0 10px rgba(255, 106, 26, .16), var(--shadow-md); }
+  100% { transform: scale(1); box-shadow: var(--shadow-sm); }
+}
+
+/* =========================================================
    FOUNDER
    ========================================================= */
 .section-founder { position: relative; }
@@ -918,7 +987,7 @@ button { font-family: inherit; cursor: pointer; }
    FOOTER
    ========================================================= */
 .site-footer { background: #121110; color: rgba(255,255,255,.6); padding: 48px 20px 32px; }
-.footer-inner { max-width: 1080px; margin: 0 auto; text-align: center; }
+.footer-inner { text-align: center; }
 .footer-brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; color: #fff; margin-bottom: 18px; }
 .footer-biz { font-size: 13px; line-height: 1.8; margin-bottom: 20px; }
 .footer-biz a { color: var(--yellow); font-weight: 700; }
@@ -938,24 +1007,61 @@ button { font-family: inherit; cursor: pointer; }
        있다. fixed로 고정해 스크롤 방향과 무관하게 항상 같은 화면 위치에
        렌더링하고, 노출 여부는 JS가 opacity로만 제어한다(순수 위치 함수). */
     position: fixed;
-    top: 60px;
+    top: 68px; /* 모바일 헤더 실측 높이(~50~58px)보다 넉넉히 아래로 */
     left: 0;
     width: 100%;
+    /* height를 고정/제한하지 않는다 — 안에 있는 캐릭터 이미지(최대 60vh)가
+       어떤 값이 되든 부모가 그 높이를 그대로 감싸도록 두고, overflow도
+       명시적으로 visible로 지정해 절대 잘리지 않게 한다. */
     height: auto;
-    min-height: 190px;
-    max-height: 230px;
+    overflow: visible;
     z-index: 10;
+    /* 말풍선이 캐릭터 머리 위로 튀어나오는 여백을 이 padding-top 안에
+       담는다. align-items를 flex-start로 바꿔서 이 padding이 실제로
+       "캐릭터 위 여백"이 되도록 고정한다(센터 정렬이면 여백이 반으로
+       쪼개져 부족해진다). */
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 56px;
     padding-bottom: 0;
     background: linear-gradient(180deg, var(--bg) 55%, rgba(255,253,248,0));
     opacity: 0;
     pointer-events: none;
   }
-  .char-stage { height: min(21vh, 168px); width: auto; }
-  .char-badge { font-size: 11px; padding: 6px 12px; }
+  .char-stage {
+    /* 캐릭터 이미지 크기를 그대로 따라가도록 고정 height를 두지 않는다. */
+    height: auto;
+    width: auto;
+    overflow: visible;
+  }
+  .char-img {
+    /* 데스크톱 규칙(inset:0; width:100%; height:100%)은 부모 박스를
+       가득 채우는 방식이라 부모 높이가 곧 이미지 높이의 상한이 된다.
+       모바일에서는 반대로 "이미지 자체"에 max-height를 걸고 부모가
+       그 크기를 따라가게 해서, 어떤 부모 높이 값과도 무관하게
+       이미지가 잘리지 않도록 한다. */
+    position: absolute;
+    inset: 0 auto auto 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: auto;
+    max-width: 80vw;
+    max-height: 60vh;
+  }
+  .char-badge {
+    font-size: 11px;
+    padding: 6px 12px;
+    /* 캐릭터 높이가 가변(최대 60vh)이라 %기반 transform으로 위치를
+       잡으면 캐릭터 높이에 따라 화면 밖으로 밀려날 수 있다. 대신
+       캐릭터를 감싸는 .char-stage(position:relative) 기준으로 top을
+       고정된 음수 px 값으로 제한해, 항상 캐릭터 머리 바로 위 화면
+       안쪽에 오도록 한다. */
+    top: -40px;
+    transform: translateX(-50%);
+  }
   .story-panels { width: 100%; }
   .panel { min-height: auto; padding: 48px 24px 72px; align-items: flex-start; }
   .panel-cases { padding-top: 48px; }
-  .panel-inner { max-width: 100%; }
   .hero-title { font-size: clamp(1.9rem, 7vw, 2.6rem); }
   .mini-char-stage { margin-bottom: 24px; }
   .mini-char-img { height: min(21vh, 168px); }
@@ -976,6 +1082,7 @@ button { font-family: inherit; cursor: pointer; }
   .plan-grid { grid-template-columns: repeat(2, 1fr); }
   .scope-grid { grid-template-columns: repeat(2, 1fr); }
   .quote-grid { grid-template-columns: repeat(2, 1fr); }
+  .sns-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (min-width: 900px) {
@@ -992,5 +1099,6 @@ button { font-family: inherit; cursor: pointer; }
   .hero-intro-char,
   .korea-map-ring-1, .korea-map-ring-2, .korea-map-ring-3,
   .char-badge.is-bouncing,
-  .mini-char-stage.is-visible .char-badge { animation: none !important; }
+  .mini-char-stage.is-visible .char-badge,
+  .sns-card-highlight.is-visible { animation: none !important; }
 }

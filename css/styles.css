@@ -251,6 +251,16 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* =========================================================
+   캐릭터 이미지 공통 래퍼 (히어로/스토리/미니캐릭터 전 섹션 공용)
+   ========================================================= */
+/* 데스크톱·태블릿에서는 display:contents로 완전히 투명하게 동작해
+   기존 레이아웃(절대배치 크로스페이드 등)에 전혀 영향을 주지 않는다.
+   480px 이하에서만 실제 박스(140x220)를 갖는 clip 컨테이너로 바뀐다
+   (아래 반응형 섹션 참고). 말풍선(.char-badge)은 이 래퍼 밖의 형제
+   요소이므로, 이 래퍼의 overflow:hidden에 절대 잘리지 않는다. */
+.char-img-wrap { display: contents; }
+
+/* =========================================================
    재사용 미니 캐릭터 + 말풍선 (섹션 헤딩 옆 배치)
    ========================================================= */
 /* 프로세스 섹션 스티키 캐릭터(.char-stage)와 정확히 같은 높이 기준을 사용해
@@ -1074,6 +1084,51 @@ button { font-family: inherit; cursor: pointer; }
   .brand { gap: 6px; }
   .brand-name { font-size: 12px; }
   .header-cta.header-cta { padding: 8px 14px; font-size: 12px; }
+}
+
+/* =========================================================
+   모바일(480px 이하) 캐릭터 이미지 고정 크기
+   실기기(360~430px 폭)에서 vh 기반 크기(최대 60vh 등)가 화면 비율에
+   따라 과도하게 커져 헤드라인/본문 텍스트를 가리는 문제가 있었다.
+   그래서 여기서는 상대 단위(vw/vh)를 전혀 쓰지 않고, 히어로/스토리
+   4패널(데이터·프로세스·진행사례 등)/추천·서비스·SNS·문의 섹션의
+   캐릭터 이미지 전부에 동일한 고정 px 값을 공통으로 적용한다.
+   ========================================================= */
+@media (max-width: 480px) {
+  /* !important: 인라인 스타일이나 다른 규칙이 나중에 크기를 다시
+     지정하더라도, 이 480px 이하 구간에서는 반드시 이 고정값이
+     최종적으로 이기도록 강제한다. */
+  .char-img,
+  .mini-char-img,
+  .hero-intro-img {
+    max-width: 140px !important;
+    max-height: 220px !important;
+    width: auto !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+  }
+  /* 캐릭터 이미지를 감싸는 전용 래퍼에도 동일한 상한 + overflow:hidden을
+     이중으로 걸어, 이미지 자체가 어떤 이유로든 커지더라도 컨테이너
+     밖으로 튀어나오지 못하게 한다. (말풍선은 이 래퍼의 형제 요소라
+     영향을 받지 않는다.) */
+  .char-img-wrap {
+    display: block;
+    position: relative;
+    width: 140px !important;
+    height: 220px !important;
+    max-width: 140px !important;
+    max-height: 220px !important;
+    overflow: hidden !important;
+    margin: 0 auto;
+  }
+  /* 텍스트 콘텐츠가 캐릭터보다 항상 위에 그려지도록, 캐릭터 쪽
+     stacking을 텍스트보다 낮춘다 — 특히 position:fixed인 스토리
+     캐릭터 레일이 패널 텍스트를 덮던 문제를 근본적으로 막는다. */
+  .story-visual { z-index: 0; }
+  .story-panels { position: relative; z-index: 5; }
+  .mini-char-stage { z-index: 0; }
+  .section-inner, .panel-inner { position: relative; z-index: 5; }
 }
 
 @media (min-width: 640px) {

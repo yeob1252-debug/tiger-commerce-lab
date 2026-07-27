@@ -96,6 +96,62 @@
     navSections.forEach((sec) => navObserver.observe(sec));
   }
 
+  /* ---------- 프로세스 단계 심화 설명 (PC 호버 / 모바일 탭) ----------
+     펼침 자체는 CSS :hover로 처리되지만, 터치 기기는 hover가 불안정하므로
+     클릭/탭 시 .is-open을 토글해 명시적으로 펼치고 접을 수 있게 한다. */
+  document.querySelectorAll('.process-step').forEach((step) => {
+    step.addEventListener('click', (e) => {
+      // 링크/버튼 등 다른 인터랙션 요소를 누른 경우는 토글하지 않는다(현재는 없지만 안전장치)
+      if (e.target.closest('a, button')) return;
+      const isOpen = step.classList.contains('is-open');
+      document.querySelectorAll('.process-step.is-open').forEach((other) => {
+        if (other !== step) other.classList.remove('is-open');
+      });
+      step.classList.toggle('is-open', !isOpen);
+    });
+  });
+
+  /* ---------- "이런 분들께 추천해요" 말풍선 아코디언 ---------- */
+  document.querySelectorAll('.quote-bubble').forEach((bubble) => {
+    bubble.addEventListener('click', () => {
+      const isOpen = bubble.classList.contains('is-open');
+      bubble.classList.toggle('is-open', !isOpen);
+      bubble.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  /* ---------- 모달(찜 고객 vs 팬 고객 비교) ---------- */
+  function openModal(modal) {
+    modal.hidden = false;
+    // hidden 해제와 같은 틱에 바로 is-open을 주면 트랜지션이 안 걸리는
+    // 경우가 있어 한 틱 미룬다. requestAnimationFrame은 탭이 실제로
+    // 프레임을 그리고 있지 않으면(백그라운드 탭 등) 아예 호출되지 않을 수
+    // 있어, 렌더링 여부와 무관하게 항상 실행되는 setTimeout을 쓴다.
+    window.setTimeout(() => modal.classList.add('is-open'), 10);
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(modal) {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    window.setTimeout(() => { modal.hidden = true; }, 260);
+  }
+  document.querySelectorAll('[data-modal-open]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const modal = document.getElementById(trigger.getAttribute('data-modal-open'));
+      if (modal) openModal(modal);
+    });
+  });
+  document.querySelectorAll('.modal-overlay').forEach((modal) => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || e.target.closest('[data-modal-close]')) {
+        closeModal(modal);
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(modal);
+    });
+  });
+
   /* ---------- 캐릭터 크로스페이드 (스티키 마스코트) ---------- */
   const charImgs = document.querySelectorAll('.char-img');
   const charBadge = document.getElementById('charBadge');

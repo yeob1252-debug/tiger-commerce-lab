@@ -97,12 +97,10 @@
   }
 
   /* ---------- 프로세스 단계 심화 설명 (PC 호버 / 모바일 탭) ----------
-     펼침 자체는 CSS :hover로 처리되지만, 터치 기기는 hover가 불안정하므로
-     클릭/탭 시 .is-open을 토글해 명시적으로 펼치고 접을 수 있게 한다. */
+     펼침 자체는 CSS :hover로도 살짝 보이지만, "더 알아보기" 버튼을 눌러야
+     명시적으로 열리고 고정된다(터치 기기는 hover가 불안정하기 때문). */
   document.querySelectorAll('.process-step').forEach((step) => {
-    step.addEventListener('click', (e) => {
-      // 링크/버튼 등 다른 인터랙션 요소를 누른 경우는 토글하지 않는다(현재는 없지만 안전장치)
-      if (e.target.closest('a, button')) return;
+    step.addEventListener('click', () => {
       const isOpen = step.classList.contains('is-open');
       document.querySelectorAll('.process-step.is-open').forEach((other) => {
         if (other !== step) other.classList.remove('is-open');
@@ -138,7 +136,20 @@
   document.querySelectorAll('[data-modal-open]').forEach((trigger) => {
     trigger.addEventListener('click', () => {
       const modal = document.getElementById(trigger.getAttribute('data-modal-open'));
-      if (modal) openModal(modal);
+      if (!modal) return;
+      openModal(modal);
+      // 지도 팝업은 열릴 때마다 화살표 확산 애니메이션을 처음부터 다시 재생한다.
+      const mapEl = modal.querySelector('.korea-map');
+      if (mapEl) {
+        mapEl.classList.remove('is-visible');
+        mapEl.querySelectorAll('.korea-map-arrow').forEach((path) => {
+          path.setAttribute('d', 'M381 653 L381 653');
+        });
+        window.setTimeout(() => {
+          mapEl.classList.add('is-visible');
+          animateKoreaMap(mapEl);
+        }, 150);
+      }
     });
   });
   document.querySelectorAll('.modal-overlay').forEach((modal) => {

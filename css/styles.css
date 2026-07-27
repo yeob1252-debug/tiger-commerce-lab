@@ -509,7 +509,37 @@ button { font-family: inherit; cursor: pointer; }
   margin-top: 40px;
   width: min(280px, 72vw);
 }
-.korea-map-frame { position: relative; }
+.korea-map-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform .3s var(--ease);
+}
+.korea-map-frame:hover, .korea-map-frame:focus-visible { transform: translateY(-4px); }
+.korea-map-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+  animation: mapHintBob 1.8s ease-in-out infinite;
+}
+@keyframes mapHintBob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
 .korea-map-img {
   display: block;
   width: 100%;
@@ -647,64 +677,62 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* PROCESS panel */
-.process-list { display: flex; flex-direction: column; gap: 0; position: relative; }
-.process-step {
-  display: flex;
-  gap: 20px;
-  padding: 18px 0;
-  position: relative;
-}
-.process-step::before {
+/* 사업의 핵심 단계라 다른 패널보다 세로로 넉넉하게 잡는다 (카드가
+   세로로 길어진 만큼, 섹션 자체도 min-height를 더 키운다). */
+.panel-process { min-height: 130vh; padding-top: 130px; padding-bottom: 130px; }
+/* 프로세스 5단계 — 카드뉴스형: 큰 숫자 + 세로로 긴 카드 + 카드 사이 연결
+   화살표 + 눈에 띄는 오렌지색 "더 알아보기" 버튼으로 심화 설명을 연다. */
+.process-list { display: flex; flex-direction: column; gap: 32px; position: relative; }
+.process-step { position: relative; }
+.process-step::after {
+  /* 카드 사이를 잇는 아래방향 화살표(마지막 카드 제외) */
   content: "";
   position: absolute;
-  left: 21px;
-  top: 46px;
-  bottom: -4px;
-  width: 2px;
-  background: var(--line-strong);
+  left: 32px;
+  bottom: -26px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 11px solid var(--line-strong);
+  z-index: 1;
 }
-.process-step:last-child::before { display: none; }
-.process-num {
+.process-step:last-child::after { display: none; }
+.process-card {
+  position: relative;
+  min-height: 200px;
+  background: var(--white);
+  border: 2px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: border-color .3s var(--ease), box-shadow .3s var(--ease), transform .3s var(--ease);
+}
+.process-card:hover,
+.process-step.is-open .process-card {
+  border-color: var(--orange);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+.process-card-head { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+.process-num-big {
   flex-shrink: 0;
-  width: 44px; height: 44px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: var(--ink);
   color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800;
-  font-size: 14px;
-  z-index: 1;
-}
-.process-step:nth-child(4) .process-num,
-.process-step:nth-child(5) .process-num { background: var(--orange); }
-.process-body h3 { font-size: 19px; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-.process-body p { font-size: 14.5px; color: var(--ink-soft); font-weight: 500; }
-/* 호버(PC)/탭(모바일, .is-open은 JS로 토글)로 심화 설명을 펼친다 */
-.process-step { cursor: pointer; }
-.process-toggle {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 1.5px solid var(--line-strong);
-  color: var(--ink-faint);
-  font-size: 12px;
-  font-weight: 700;
-  flex-shrink: 0;
-  transition: transform .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
+  font-weight: 800;
+  font-size: 24px;
 }
-.process-step:hover .process-num,
-.process-step.is-open .process-num {
-  box-shadow: 0 0 0 4px var(--orange-soft);
-}
-.process-step:hover .process-toggle,
-.process-step.is-open .process-toggle {
-  transform: rotate(135deg);
-  border-color: var(--orange);
-  color: var(--orange-dark);
-}
+.process-step:nth-child(4) .process-num-big,
+.process-step:nth-child(5) .process-num-big { background: var(--orange); }
+.process-card-head h3 { font-size: 21px; font-weight: 800; }
+.process-desc { font-size: 15px; color: var(--ink-soft); font-weight: 500; line-height: 1.6; }
 .process-detail {
   max-height: 0;
   opacity: 0;
@@ -716,12 +744,33 @@ button { font-family: inherit; cursor: pointer; }
   line-height: 1.65;
   transition: max-height .35s var(--ease), opacity .3s var(--ease), margin-top .35s var(--ease);
 }
-.process-step:hover .process-detail,
+.process-card:hover .process-detail,
 .process-step.is-open .process-detail {
   max-height: 200px;
   opacity: 1;
-  margin-top: 10px !important;
+  margin-top: 12px !important;
 }
+/* 심화 설명을 여는 CTA — 오렌지 강조색의 눈에 띄는 알약 버튼 */
+.process-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13.5px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 106, 26, .35);
+  transition: background .2s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.process-more:hover { background: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255, 106, 26, .45); }
+.process-more-arrow { display: inline-block; transition: transform .3s var(--ease); }
+.process-step.is-open .process-more { background: var(--orange-dark); }
+.process-step.is-open .process-more-arrow { transform: rotate(180deg); }
 
 /* CASES panel */
 .panel-cases {
@@ -837,23 +886,35 @@ button { font-family: inherit; cursor: pointer; }
   box-shadow: var(--shadow-sm);
   transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease);
 }
-.quote-bubble-text { display: block; padding-right: 30px; }
-.quote-bubble-toggle {
-  position: absolute;
-  top: 20px;
-  right: 22px;
+.quote-bubble-text { display: block; }
+/* "왜 그럴까요?" CTA — 빨간 계열 텍스트 버튼처럼 보이도록 테두리+배경+밑줄을
+   주고, 호버/열림 시 확대 + 채워진 배경으로 눈에 띄게 한다. */
+.quote-bubble-cta {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid var(--line-strong);
-  color: var(--ink-faint);
+  gap: 4px;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border: 1.5px solid var(--red);
+  border-radius: 999px;
+  background: rgba(230, 57, 70, .08);
+  color: var(--red);
   font-size: 13px;
-  font-weight: 700;
-  transition: transform .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: transform .25s var(--ease), background .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease);
 }
+.quote-bubble-cta-arrow { display: inline-block; transition: transform .3s var(--ease); }
+.quote-bubble:hover .quote-bubble-cta,
+.quote-bubble.is-open .quote-bubble-cta {
+  transform: scale(1.07);
+  background: var(--red);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(230, 57, 70, .4);
+}
+.quote-bubble.is-open .quote-bubble-cta-arrow { transform: rotate(180deg); }
 .quote-bubble-answer {
   display: block;
   max-height: 0;
@@ -871,11 +932,6 @@ button { font-family: inherit; cursor: pointer; }
   transform: rotate(0deg);
   border-color: var(--orange);
   box-shadow: var(--shadow-md);
-}
-.quote-bubble.is-open .quote-bubble-toggle {
-  transform: rotate(135deg);
-  border-color: var(--orange);
-  color: var(--orange-dark);
 }
 .quote-bubble.is-open .quote-bubble-answer {
   max-height: 320px;
@@ -1024,16 +1080,26 @@ button { font-family: inherit; cursor: pointer; }
 }
 .sns-card-highlight .sns-card-title,
 .sns-card-highlight .sns-card-desc { color: var(--orange-dark); }
+/* 배경(오렌지 그라데이션)과 색이 비슷해 안 띄던 문제를 해결하기 위해
+   진한 오렌지 배경의 꽉 찬 알약 버튼으로 바꾸고, 아이콘도 붙인다. */
 .sns-card-more {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  margin-top: 14px;
-  font-size: 13px;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 13.5px;
   font-weight: 800;
-  color: var(--orange-dark);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  box-shadow: 0 4px 14px rgba(255, 106, 26, .35);
+  transition: background .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+}
+.sns-card-highlight:hover .sns-card-more {
+  background: var(--orange-dark);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(219, 78, 5, .45);
 }
 .sns-card-highlight.is-visible {
   animation: snsCardPulse 1.6s var(--ease) .7s 1 backwards;
@@ -1117,6 +1183,24 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--orange-soft);
   border-radius: var(--radius-md);
   padding: 18px 20px;
+}
+
+/* 지도 팝업(전국 택배 확장) */
+.modal-box-map { max-width: 420px; text-align: center; }
+.modal-box-map .map-modal-visual.korea-map {
+  width: min(200px, 52vw);
+  margin: 0 auto 22px;
+}
+.map-modal-title {
+  font-size: clamp(1.3rem, 3.4vw, 1.7rem);
+  font-weight: 800;
+  line-height: 1.42;
+  margin-bottom: 12px;
+}
+.map-modal-sub {
+  font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+  font-weight: 800;
+  color: var(--orange-dark);
 }
 
 /* =========================================================

@@ -138,18 +138,6 @@
       const modal = document.getElementById(trigger.getAttribute('data-modal-open'));
       if (!modal) return;
       openModal(modal);
-      // 지도 팝업은 열릴 때마다 화살표 확산 애니메이션을 처음부터 다시 재생한다.
-      const mapEl = modal.querySelector('.korea-map');
-      if (mapEl) {
-        mapEl.classList.remove('is-visible');
-        mapEl.querySelectorAll('.korea-map-arrow').forEach((path) => {
-          path.setAttribute('d', 'M381 653 L381 653');
-        });
-        window.setTimeout(() => {
-          mapEl.classList.add('is-visible');
-          animateKoreaMap(mapEl);
-        }, 150);
-      }
     });
   });
   document.querySelectorAll('.modal-overlay').forEach((modal) => {
@@ -162,6 +150,20 @@
       if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(modal);
     });
   });
+
+  /* ---------- 지도 호버(PC)/탭(모바일) 팝업 ---------- */
+  const koreaMapHover = document.getElementById('koreaMapHover');
+  if (koreaMapHover) {
+    koreaMapHover.addEventListener('click', (e) => {
+      e.stopPropagation();
+      koreaMapHover.classList.toggle('is-open');
+    });
+    document.addEventListener('click', (e) => {
+      if (koreaMapHover.classList.contains('is-open') && !koreaMapHover.contains(e.target)) {
+        koreaMapHover.classList.remove('is-open');
+      }
+    });
+  }
 
   /* ---------- 캐릭터 크로스페이드 (스티키 마스코트) ---------- */
   const charImgs = document.querySelectorAll('.char-img');

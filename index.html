@@ -89,8 +89,8 @@
             하고 계신가요?
           </h1>
           <p class="hero-desc reveal">외식업 12년 · 전국 40호점을 만든 사람이 만드는<br class="only-desktop"> 온라인 판매 시스템</p>
-          <div class="korea-map reveal">
-            <button type="button" class="korea-map-frame" data-modal-open="map-modal" aria-label="2km 반경을 넘어 전국 택배 판매로 확장하기 — 자세히 보기">
+          <div class="korea-map reveal" id="koreaMapHover">
+            <div class="korea-map-frame" tabindex="0" aria-describedby="koreaMapPopover">
               <img src="assets/characters/cutout/map-korea.png" alt="" class="korea-map-img">
               <svg viewBox="0 0 781 1113" class="korea-map-overlay">
                 <circle class="korea-map-ring korea-map-ring-1" cx="381" cy="653" r="20"/>
@@ -109,38 +109,12 @@
                   </marker>
                 </defs>
               </svg>
-              <span class="korea-map-hint">👆 탭해서 자세히 보기</span>
-            </button>
-          </div>
-
-          <!-- 전국 택배 확장 임팩트 팝업 -->
-          <div class="modal-overlay" id="map-modal" hidden>
-            <div class="modal-box modal-box-map" role="dialog" aria-modal="true" aria-labelledby="mapModalTitle">
-              <button type="button" class="modal-close" data-modal-close aria-label="닫기">✕</button>
-              <div class="map-modal-visual korea-map" aria-hidden="true">
-                <div class="korea-map-frame">
-                  <img src="assets/characters/cutout/map-korea.png" alt="" class="korea-map-img">
-                  <svg viewBox="0 0 781 1113" class="korea-map-overlay">
-                    <circle class="korea-map-ring korea-map-ring-1" cx="381" cy="653" r="20"/>
-                    <circle class="korea-map-ring korea-map-ring-2" cx="381" cy="653" r="20"/>
-                    <circle class="korea-map-ring korea-map-ring-3" cx="381" cy="653" r="20"/>
-                    <g class="korea-map-arrows">
-                      <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="400" data-y2="120" marker-end="url(#arrowHeadModal)"/>
-                      <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="510" data-y2="70" marker-end="url(#arrowHeadModal)"/>
-                      <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="150" data-y2="330" marker-end="url(#arrowHeadModal)"/>
-                      <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="100" data-y2="920" marker-end="url(#arrowHeadModal)"/>
-                      <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="650" data-y2="830" marker-end="url(#arrowHeadModal)"/>
-                    </g>
-                    <defs>
-                      <marker id="arrowHeadModal" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-                        <path d="M0,0 L8,4 L0,8 Z" fill="var(--orange)"/>
-                      </marker>
-                    </defs>
-                  </svg>
-                </div>
-              </div>
-              <p id="mapModalTitle" class="map-modal-title">2km 반경 영업에서 벗어나<br>내 음식 메뉴를 <span class="hl">전국 택배</span>로</p>
-              <p class="map-modal-sub">매출 한계 돌파, 성장의 시작</p>
+              <span class="korea-map-hint">👆 눌러서 확인하기</span>
+            </div>
+            <div class="map-popover" id="koreaMapPopover" role="note">
+              <p class="map-popover-badge">🙅‍♂️ <span>배달수수료 해방</span></p>
+              <p class="map-popover-badge">🚚 <span>전국 배달 시작</span></p>
+              <p class="map-popover-sub">2km 반경을 넘어 <span class="hl">전국</span>이 내 매장 손님이 됩니다</p>
             </div>
           </div>
         </div>
@@ -242,6 +216,10 @@
           </div>
 
           <p class="authenticity-punch reveal">사장님 매장에서 직접 만든 그 맛, 온라인에서도 통합니다.<br>손님들은 이미 <span class="hl">'진짜'</span>를 찾고 있어요.</p>
+
+          <div class="authenticity-compare reveal">
+            <img src="assets/compare-hmr-vs-restaurant.png" alt="가공식품(HMR)과 매장에서 직접 만든 음식 비교 이미지" loading="lazy">
+          </div>
         </div>
       </section>
 
@@ -265,7 +243,6 @@
                 </div>
                 <p class="process-desc">잘 팔리는 메뉴를 골라 이름, 스토리, 패키지까지 온라인에 맞게 다시 설계합니다</p>
                 <p class="process-detail">오프라인 메뉴를 그대로 옮기지 않습니다. 비슷한 소구점을 가진 메뉴가 온라인 시장에서 실제로 어떻게 반응하는지 분석해서, 온라인 전용/라이브 판매용/이벤트 한정판 등 목적별로 다르게 브랜딩합니다</p>
-                <button type="button" class="process-more">더 알아보기 <span class="process-more-arrow" aria-hidden="true">↓</span></button>
               </div>
             </li>
             <li class="process-step reveal">
@@ -276,7 +253,6 @@
                 </div>
                 <p class="process-desc">브랜드의 얼굴이 될 인스타그램·유튜브 등 SNS 채널을 새로 만들고 세팅합니다</p>
                 <p class="process-detail">브랜드 톤에 맞춘 채널명·프로필·콘텐츠 방향을 먼저 설계한 뒤 개설합니다</p>
-                <button type="button" class="process-more">더 알아보기 <span class="process-more-arrow" aria-hidden="true">↓</span></button>
               </div>
             </li>
             <li class="process-step reveal">
@@ -287,7 +263,6 @@
                 </div>
                 <p class="process-desc">구매 욕구를 자극하는 숏폼 콘텐츠를 기획·촬영·제작해 꾸준히 업로드합니다</p>
                 <p class="process-detail">메뉴의 맛·비주얼·스토리 중 가장 강한 소구점을 분석해, 3초 안에 시선을 붙잡는 후킹 구조로 기획합니다</p>
-                <button type="button" class="process-more">더 알아보기 <span class="process-more-arrow" aria-hidden="true">↓</span></button>
               </div>
             </li>
             <li class="process-step reveal">
@@ -298,18 +273,16 @@
                 </div>
                 <p class="process-desc">콘텐츠로 모인 관심을 스마트스토어 판매로 실제 매출까지 연결합니다</p>
                 <p class="process-detail">구매 전환율에 최적화된 상세페이지·옵션 구조로 설계합니다</p>
-                <button type="button" class="process-more">더 알아보기 <span class="process-more-arrow" aria-hidden="true">↓</span></button>
               </div>
             </li>
             <li class="process-step reveal">
               <div class="process-card">
                 <div class="process-card-head">
                   <span class="process-num-big">05</span>
-                  <h3>라이브커머스 +@</h3>
+                  <h3>라이브커머스</h3>
                 </div>
                 <p class="process-desc">라이브커머스, 메타 광고 등으로 판매 채널을 계속 확장해 나갑니다</p>
                 <p class="process-detail">실시간 반응 데이터를 다음 콘텐츠 기획에 반영하는 순환 구조로 운영합니다</p>
-                <button type="button" class="process-more">더 알아보기 <span class="process-more-arrow" aria-hidden="true">↓</span></button>
               </div>
             </li>
           </ol>

@@ -60,6 +60,52 @@
     </div>
   </section>
 
+  <!-- ============ 0.5 보물상자 인터랙션 ============ -->
+  <section id="treasure" class="section section-treasure">
+    <div class="section-inner container">
+      <p class="treasure-hook reveal">돈 쓸어 담고 있는<br>음식점들의 <span class="hl">비밀?</span></p>
+      <button type="button" class="treasure-box" id="treasureBox" aria-expanded="false">
+        <span class="treasure-box-glow" aria-hidden="true"></span>
+        <span class="treasure-box-icon" aria-hidden="true">🎁</span>
+        <span class="treasure-box-label">눌러서 확인하기</span>
+      </button>
+      <div class="treasure-reveal" id="treasureReveal">
+        <div class="treasure-float-icons" aria-hidden="true">
+          <span class="treasure-float treasure-float-1">🎵</span>
+          <span class="treasure-float treasure-float-2">▶️</span>
+          <span class="treasure-float treasure-float-3">📷</span>
+          <span class="treasure-float treasure-float-4">👍</span>
+          <span class="treasure-float treasure-float-5">🔔</span>
+          <span class="treasure-float treasure-float-6">❤️</span>
+        </div>
+        <p class="treasure-reveal-text">음식점 메뉴, <span class="hl">틱톡·유튜브·네이버</span>로<br>전국 판매</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 0.6 SNS+네이버+쿠팡 연결 매출 그래프 ============ -->
+  <section id="channel-graph" class="section section-channel-graph">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">GROWTH</p>
+      <h2 class="section-title reveal">채널이 연결되면 <span class="hl">매출이 폭등</span>합니다</h2>
+      <p class="section-lead reveal">SNS 채널 + 네이버 스마트스토어 + 쿠팡, 3개가 연결되는 순간부터 매출 곡선이 달라집니다</p>
+
+      <div class="channel-graph-wrap reveal" id="channelGraphWrap">
+        <div class="channel-nodes">
+          <span class="channel-node channel-node-sns">📲<em>SNS</em><small>틱톡·유튜브·인스타·스레드</small></span>
+          <span class="channel-node channel-node-naver">🛍️<em>네이버</em><small>스마트스토어</small></span>
+          <span class="channel-node channel-node-coupang">📦<em>쿠팡</em><small>로켓그로스</small></span>
+        </div>
+        <svg class="channel-graph-svg" viewBox="0 0 800 320" preserveAspectRatio="none">
+          <line class="channel-connect-line" x1="120" y1="40" x2="400" y2="140"/>
+          <line class="channel-connect-line" x1="400" y1="40" x2="400" y2="140"/>
+          <line class="channel-connect-line" x1="680" y1="40" x2="400" y2="140"/>
+          <path class="channel-sales-line" d="M60,280 C 220,270 300,250 400,190 C 500,130 560,60 740,30"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ STORY GROUP: PAIN POINT / MARKET / PROCESS / CASES (스티키 마스코트) ============ -->
   <div class="story">
 
@@ -157,6 +203,7 @@
                 </div>
               </div>
               <p class="stat-source">자료: 통계청</p>
+              <p class="stat-note">코로나 이후 배달·택배 문화가 완전히 일상이 됐습니다</p>
             </div>
 
             <div class="stat-card stat-card-chart">
@@ -184,7 +231,21 @@
                 </div>
               </div>
               <p class="stat-source">자료: 교보증권·한국인터넷진흥원</p>
+              <p class="stat-note">라이브커머스에서 가장 많이 팔리는 게 식품입니다<span class="stat-note-highlight">(구매 상품 1위, 54.8%)</span><span class="plan-note-source">출처: 서울시 조사</span></p>
             </div>
+          </div>
+
+          <div class="market-compare reveal">
+            <div class="market-compare-side">
+              <p class="market-compare-label">상세페이지</p>
+              <p class="market-compare-desc">글과 사진으로 설명</p>
+            </div>
+            <span class="market-compare-vs" aria-hidden="true">vs</span>
+            <div class="market-compare-side market-compare-side-highlight">
+              <p class="market-compare-label">라이브커머스</p>
+              <p class="market-compare-desc">실시간으로 직접 보여줌</p>
+            </div>
+            <p class="market-compare-result">구매전환율 <strong>3~10배</strong> 차이</p>
           </div>
         </div>
       </section>
@@ -199,6 +260,30 @@
           <p class="eyebrow reveal">REAL TASTE</p>
           <h2 class="section-title reveal">그래도, 사람들은 <span class="hl">'진짜'</span>를 찾습니다</h2>
           <p class="section-lead reveal">손님들은 이미 가공식품보다 매장에서 직접 만든 음식을 신뢰하고 있습니다</p>
+
+          <div class="authenticity-demo reveal">
+            <p class="authenticity-demo-lead">온라인스토어·SNS에서 식품을 주문하는 건 <span class="hl">30~40대 여성이 80%대</span>입니다. 아이들과 가족, 그리고 음식에 민감한 여성들이 주 고객층입니다</p>
+            <div class="bar-chart authenticity-demo-chart" data-max="45">
+              <div class="bar-chart-row">
+                <div class="bar-chart-track"><div class="bar-chart-fill" data-value="8"></div></div>
+                <div class="bar-chart-meta"><span class="bar-chart-year">20대 이하</span><span class="bar-chart-num">8<em>%</em></span></div>
+              </div>
+              <div class="bar-chart-row bar-chart-row-final">
+                <div class="bar-chart-track"><div class="bar-chart-fill" data-value="42"></div></div>
+                <div class="bar-chart-meta"><span class="bar-chart-year">30대 여성</span><span class="bar-chart-num"><span class="count-up" data-count-to="42">0</span><em>%</em></span></div>
+              </div>
+              <div class="bar-chart-row bar-chart-row-final">
+                <div class="bar-chart-track"><div class="bar-chart-fill" data-value="38"></div></div>
+                <div class="bar-chart-meta"><span class="bar-chart-year">40대 여성</span><span class="bar-chart-num"><span class="count-up" data-count-to="38">0</span><em>%</em></span></div>
+              </div>
+              <div class="bar-chart-row">
+                <div class="bar-chart-track"><div class="bar-chart-fill" data-value="12"></div></div>
+                <div class="bar-chart-meta"><span class="bar-chart-year">50대 이상</span><span class="bar-chart-num">12<em>%</em></span></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="authenticity-loyalty reveal">SNS로 모인 단골은 채널 자체에 애정이 있어서, <span class="hl">재주문이 상당히 높습니다</span></p>
 
           <div class="authenticity-stat reveal">
             <p class="authenticity-stat-title">소비자가 가정간편식(가공식품)을 구입하지 않는 이유</p>
@@ -317,8 +402,12 @@
               <div class="case-body">
                 <span class="case-tag">간장게장 전문점</span>
                 <h3>장지녕간장게장</h3>
+                <p class="case-cert">한식명장 장지녕 간장게장</p>
                 <p>한남동 본점 · 기장 연화리점<br>온라인 판매 총괄</p>
                 <span class="case-award">🏅 2026 Red Ribbon Restaurant 선정</span>
+                <div class="case-links">
+                  <a class="case-link" href="https://youtu.be/UrxGC9U0HA8" target="_blank" rel="noopener" aria-label="장지녕간장게장 유튜브 보기">▶️ 유튜브</a>
+                </div>
               </div>
             </article>
 
@@ -331,6 +420,10 @@
                 <span class="case-tag">김치찜 전문점</span>
                 <h3>김치를찜하다 구미본점</h3>
                 <p>리뷰 1,000+ · 재방문율 높은 로컬 맛집<br>온라인 판매 채널 구축</p>
+                <div class="case-links">
+                  <a class="case-link" href="https://youtube.com/channel/UClNW2X_sq7UAs9V29saak9g" target="_blank" rel="noopener" aria-label="김치를찜하다 유튜브 보기">▶️ 유튜브</a>
+                  <a class="case-link" href="https://www.tiktok.com/@joganemgg" target="_blank" rel="noopener" aria-label="김치를찜하다 틱톡 보기">🎵 틱톡</a>
+                </div>
               </div>
             </article>
 
@@ -343,6 +436,10 @@
                 <span class="case-tag">반찬 전문점</span>
                 <h3>손찬 구미인동점</h3>
                 <p>리뷰 800+ 반찬 맛집<br>온라인 판매 채널 구축</p>
+                <div class="case-links">
+                  <a class="case-link" href="https://youtube.com/channel/UClNW2X_sq7UAs9V29saak9g" target="_blank" rel="noopener" aria-label="손찬 유튜브 보기">▶️ 유튜브</a>
+                  <a class="case-link" href="https://www.tiktok.com/@joganemgg" target="_blank" rel="noopener" aria-label="손찬 틱톡 보기">🎵 틱톡</a>
+                </div>
               </div>
             </article>
           </div>
@@ -431,6 +528,7 @@
           <p class="plan-desc">브랜딩부터 콘텐츠, 라이브커머스까지 안정적으로 성장 곡선을 만드는 장기 플랜</p>
           <p class="plan-price">가격 상담 시 안내</p>
           <p class="plan-note">💡 브랜딩부터 콘텐츠 축적까지, 진짜 찐팬층·구독자가 쌓이기 시작하는 데는 보통 6개월~1년의 꾸준한 시간이 필요합니다. 빠른 경우도 있지만, 대부분의 채널 성장은 이 정도의 축적 시간을 필요로 합니다. <span class="plan-note-source">(참고: 콘텐츠 마케팅 업계에서는 일반적으로 채널이 의미 있게 성장하기까지 6~12개월의 꾸준한 콘텐츠 축적이 필요하다고 알려져 있습니다)</span></p>
+          <p class="plan-note plan-note-reason">✅ 채널이 자리 잡는 성장 기간 + 단골 관리 공간(오픈채팅·홈페이지) 구축 + 라이브커머스 확장 + 안정화 이후에는 라이브 운영 자동화(전담 인력 운영 등)까지 기획 가능합니다. <span class="plan-note-source">(업체·제품에 따라 소요 기간은 차이가 있습니다)</span></p>
         </div>
       </div>
 
@@ -464,18 +562,18 @@
         <div class="scope-card scope-card-6 reveal">
           <span class="scope-card-icon" aria-hidden="true">📡</span>
           <p class="scope-card-title">라이브커머스</p>
-          <p class="scope-card-desc">쌓인 팬과 콘텐츠를 실제 매출로 터뜨리는 마지막 단계</p>
+          <p class="scope-card-desc">사장님이 직접 라이브 방송을 진행할 수 있도록 지원합니다</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 6.5 SNS 채널 강조 ============ -->
+  <!-- ============ 6.5 매장 SNS채널 운영의 복리효과 ============ -->
   <section id="sns" class="section section-sns">
     <div class="section-inner container">
-      <p class="eyebrow reveal">SNS</p>
-      <h2 class="section-title reveal">매장 SNS채널을 꼭 해야 하는 <span class="hl">이유</span></h2>
-      <p class="section-lead reveal">한 번 만든 콘텐츠는 사라지지 않고, 광고비보다 오래 남습니다</p>
+      <p class="eyebrow reveal">COMPOUND EFFECT</p>
+      <h2 class="section-title reveal">매장 SNS채널 운영의 <span class="hl">복리효과</span></h2>
+      <p class="section-lead reveal">한 번 만든 콘텐츠는 사라지지 않고, 시간이 지날수록 더 크게 돌아옵니다</p>
 
       <div class="mini-char-stage sns-char reveal" aria-hidden="true">
         <div class="char-badge">SNS가 미래다</div>
@@ -484,25 +582,32 @@
         </span>
       </div>
 
-      <div class="sns-grid">
-        <div class="sns-card reveal">
-          <p class="sns-card-title">쌓이는 구독자</p>
-          <p class="sns-card-desc">콘텐츠가 쌓일수록 구독자가 늘어나고, 댓글 이벤트 등으로 계속 살아있는 채널이 됩니다</p>
-        </div>
-        <div class="sns-card reveal">
-          <p class="sns-card-title">광고비 대비 압도적 효율</p>
-          <p class="sns-card-desc">네이버 검색 CPC 등 매번 나가는 광고비 대비, SNS 콘텐츠는 훨씬 적은 비용으로 지속적인 모객이 가능합니다</p>
-        </div>
-        <div class="sns-card reveal">
-          <p class="sns-card-title">재구매로 이어지는 단골 구조</p>
-          <p class="sns-card-desc">오픈채팅방 등 단골방을 운영하면 한 번 온 손님이 계속 재구매하는 구조를 만들 수 있습니다</p>
-        </div>
-        <button type="button" class="sns-card sns-card-highlight reveal" data-modal-open="fan-modal">
-          <p class="sns-card-title">콘텐츠는 복리로 쌓인다</p>
-          <p class="sns-card-desc">조회수 높은 영상이 하나씩 쌓일수록 알고리즘 노출이 함께 늘어납니다. 광고는 멈추면 끝이지만, 콘텐츠는 멈춰도 사라지지 않는 자산입니다</p>
-          <span class="sns-card-more"><span aria-hidden="true">🔍</span> 찜 고객과 뭐가 다를까요?</span>
-        </button>
-      </div>
+      <ol class="sns-timeline">
+        <li class="sns-timeline-step reveal">
+          <span class="sns-timeline-num">01</span>
+          <div class="sns-timeline-body">
+            <p class="sns-timeline-title">🌱 꾸준함의 시간</p>
+            <p class="sns-timeline-desc">SNS 성장은 보통 6개월~1년 정도의 꾸준한 시간이 필요합니다. 콘텐츠가 쌓일수록 구독자가 늘고, 광고비 대비 압도적으로 효율적인 채널이 됩니다.</p>
+          </div>
+        </li>
+        <li class="sns-timeline-step reveal">
+          <span class="sns-timeline-num">02</span>
+          <div class="sns-timeline-body">
+            <p class="sns-timeline-title">💬 평생 단골이 되는 순간</p>
+            <p class="sns-timeline-desc">SNS콘텐츠로 유입된 손님은 카카오톡 오픈채팅방에서 평생 단골이 됩니다. 광고는 멈추면 끝이지만, 이렇게 쌓인 커뮤니티는 멈춰도 사라지지 않는 자산입니다.</p>
+            <button type="button" class="sns-timeline-cta" data-modal-open="fan-modal">
+              <span aria-hidden="true">🔍</span> 찜 고객과 뭐가 다를까요?
+            </button>
+          </div>
+        </li>
+        <li class="sns-timeline-step reveal">
+          <span class="sns-timeline-num">03</span>
+          <div class="sns-timeline-body">
+            <p class="sns-timeline-title">🚀 폭발적 성장, 라이브커머스</p>
+            <p class="sns-timeline-desc">안정기에 접어들면 라이브커머스로 폭발적인 노출과 성과를 기대할 수 있습니다. 꾸준히 쌓아온 콘텐츠와 팬이 실제 매출로 터지는 순간입니다.</p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -564,7 +669,7 @@
         </a>
       </div>
       <div class="founder-visual reveal" aria-hidden="true">
-        <img src="assets/characters/cutout/hero.png" alt="">
+        <img src="assets/characters/founder.png" alt="">
       </div>
     </div>
   </section>
@@ -575,6 +680,8 @@
       <p class="eyebrow reveal light">LET'S TALK</p>
       <h2 class="section-title reveal light">지금, 상담을 <span class="hl">시작</span>하세요</h2>
       <p class="section-lead reveal light">아래 정보를 남겨주시면 빠르게 연락드리겠습니다</p>
+
+      <p class="contact-hook reveal light">지금 시작한 사장님은 이미 <span class="hl">전국에서 주문</span>을 받고 있습니다</p>
 
       <div class="mini-char-stage contact-char reveal" aria-hidden="true">
         <div class="char-badge">자, 이제 시작해볼까요?</div>

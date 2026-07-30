@@ -165,6 +165,15 @@
     });
   }
 
+  /* ---------- 보물상자 인터랙션 ---------- */
+  const treasureBox = document.getElementById('treasureBox');
+  if (treasureBox) {
+    treasureBox.addEventListener('click', () => {
+      const isOpen = treasureBox.classList.toggle('is-open');
+      treasureBox.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+
   /* ---------- 캐릭터 크로스페이드 (스티키 마스코트) ---------- */
   const charImgs = document.querySelectorAll('.char-img');
   const charBadge = document.getElementById('charBadge');
@@ -307,7 +316,10 @@
   }
 
   /* ---------- 데이터 섹션: 5년 추이 바 차트 + 카운트업 강조 애니메이션 ---------- */
-  const statGrid = document.querySelector('.stat-grid');
+  /* .stat-grid(시장 데이터)뿐 아니라 .authenticity-demo(30~40대 여성 비중)처럼
+     이후 추가된 .bar-chart 블록에도 동일하게 적용되도록, 컨테이너 하나로
+     한정하지 않고 .bar-chart를 담고 있는 모든 블록을 각각 관찰한다. */
+  const statBlocks = document.querySelectorAll('.stat-grid, .authenticity-demo');
 
   function animateCountUp(counter, { duration = 1300, delay = 0 } = {}) {
     const target = parseFloat(counter.getAttribute('data-count-to')) || 0;
@@ -332,7 +344,7 @@
     }, delay);
   }
 
-  if (statGrid) {
+  if (statBlocks.length) {
     const statObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -358,7 +370,7 @@
       },
       { threshold: 0.4 }
     );
-    statObserver.observe(statGrid);
+    statBlocks.forEach((block) => statObserver.observe(block));
   }
 
   /* ---------- 문의 폼 → 구글폼 연동 제출 ---------- */

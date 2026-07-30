@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사장님 대시보드 | 타이거커머스랩</title>
+<meta name="robots" content="noindex, nofollow">
+<base href="/">
+<link rel="icon" type="image/png" href="assets/characters/logo.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dash-body">
+
+<header class="dash-header">
+  <a href="/" class="dash-header-brand">
+    <span class="brand-mark">
+      <img class="brand-mark-img" src="assets/characters/logo.png" alt="타이거커머스랩 로고">
+    </span>
+    <span class="dash-store-name" id="storeNameLabel">타이거커머스랩</span>
+  </a>
+  <button type="button" class="dash-logout" id="logoutBtn">로그아웃</button>
+</header>
+
+<main class="dash-main">
+  <div class="dash-loading" id="dashLoading">대시보드를 불러오는 중입니다...</div>
+
+  <div id="dashContent" hidden>
+
+    <section class="dash-section">
+      <div class="dash-card">
+        <div class="dash-progress-row">
+          <span class="dash-progress-label">계약 진행률</span>
+          <span class="dash-progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="dash-progress-track"><div class="dash-progress-fill" id="progressFill"></div></div>
+      </div>
+    </section>
+
+    <section class="dash-section">
+      <div class="dash-scorecards" id="scorecards"></div>
+    </section>
+
+    <section class="dash-section">
+      <h2 class="dash-section-title"><span class="dash-section-icon" aria-hidden="true">🚀</span> 진행 단계</h2>
+      <div class="dash-card">
+        <div class="dash-phases" id="phasesWrap"></div>
+      </div>
+    </section>
+
+    <section class="dash-section">
+      <h2 class="dash-section-title"><span class="dash-section-icon" aria-hidden="true">📈</span> 월간 성과</h2>
+      <div class="dash-card">
+        <div class="dash-chart-tabs" id="chartTabs">
+          <button type="button" class="dash-chart-tab is-active" data-metric="조회수">조회수</button>
+          <button type="button" class="dash-chart-tab" data-metric="매출">매출</button>
+          <button type="button" class="dash-chart-tab" data-metric="ROAS">ROAS</button>
+        </div>
+        <div class="dash-chart-canvas-wrap"><canvas id="monthlyChart"></canvas></div>
+        <button type="button" class="dash-table-toggle" id="rawTableToggle">
+          원본 데이터 보기 <span class="dash-table-toggle-arrow" aria-hidden="true">▾</span>
+        </button>
+        <div class="dash-raw-table-wrap" id="rawTableWrap">
+          <table class="dash-table" id="monthlyTable"></table>
+        </div>
+      </div>
+    </section>
+
+    <section class="dash-section">
+      <h2 class="dash-section-title"><span class="dash-section-icon" aria-hidden="true">📅</span> 운영 캘린더</h2>
+      <div class="dash-card" id="calendarWrap"></div>
+    </section>
+
+    <section class="dash-section">
+      <h2 class="dash-section-title"><span class="dash-section-icon" aria-hidden="true">🍽️</span> 메뉴 단가표</h2>
+      <div class="dash-card">
+        <table class="dash-table dash-menu-table" id="menuTable"></table>
+      </div>
+    </section>
+
+    <section class="dash-section">
+      <h2 class="dash-section-title"><span class="dash-section-icon" aria-hidden="true">💬</span> 소통 게시판</h2>
+      <div class="dash-card">
+        <form class="dash-board-form" id="boardForm">
+          <textarea class="dash-board-input" id="boardInput" rows="1" placeholder="궁금한 점이나 하고 싶은 말을 남겨주세요"></textarea>
+          <button type="submit" class="btn btn-primary dash-board-submit">등록</button>
+        </form>
+        <div class="dash-board-list" id="boardList"></div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgTQWibboQnYlT2M-_Mz2aDsm-t366b6u3-wwr4XIOaPvEruRW1keAzSwzXNYGn-DV2Q/exec';
+</script>
+<script>
+/* 미리보기 모드: /client/demo?mock=1 로 접속하면 실제 시트 연동 없이
+   샘플 데이터로 디자인을 바로 확인할 수 있다. 실제 서비스 동작에는
+   전혀 영향을 주지 않는다(?mock=1이 없으면 이 블록은 아무 일도 안 함). */
+if (location.search.indexOf('mock=1') !== -1) {
+  window.fetch = function() {
+    return Promise.resolve({ json: function() { return Promise.resolve({
+      storeName: '장지녕간장게장',
+      dashboard: {
+        '계약시작일': '2026-01-01', '계약종료일': '2026-12-31',
+        '총영업외추가매출액': 12500000, '유튜브틱톡누적조회수': 452000, '단골가두기방회원수': 318,
+        '1단계명':'메뉴 브랜딩','1단계상태':'완료','2단계명':'SNS 채널 개설','2단계상태':'진행중',
+        '3단계명':'콘텐츠 확장','3단계상태':'예정','4단계명':'라이브커머스','4단계상태':'예정'
+      },
+      monthly: [
+        {'월':'2026-01','조회수':12000,'매출':3200000,'ROAS':2.1},
+        {'월':'2026-02','조회수':18500,'매출':4100000,'ROAS':2.6},
+        {'월':'2026-03','조회수':25400,'매출':5300000,'ROAS':3.0},
+        {'월':'2026-04','조회수':31000,'매출':6800000,'ROAS':3.4},
+        {'월':'2026-05','조회수':44200,'매출':9100000,'ROAS':3.9},
+        {'월':'2026-06','조회수':52000,'매출':11400000,'ROAS':4.2}
+      ],
+      calendar: [
+        {'주차':'30주차','시작일': new Date().toISOString().slice(0,10), '콘텐츠':'여름 특선 숏폼', '설명':'냉면 메뉴 후킹 콘텐츠', '상태':'진행중'},
+        {'주차':'29주차','시작일':'2026-07-20','콘텐츠':'매장 브이로그','설명':'주방 비하인드','상태':'완료'},
+        {'주차':'31주차','시작일':'2026-08-03','콘텐츠':'라이브 예고편','설명':'첫 라이브커머스 티저','상태':'예정'}
+      ],
+      menu: [
+        {'메뉴명':'간장게장 정식','가격':32000,'비고':'2인 기준'},
+        {'메뉴명':'양념게장 정식','가격':34000,'비고':'2인 기준'}
+      ],
+      board: [
+        {'날짜':'2026-07-25 10:00','작성자':'YB','내용':'이번 주 콘텐츠 시안 공유드렸습니다!'},
+        {'날짜':'2026-07-24 18:20','작성자':'장지녕간장게장','내용':'네 확인했습니다 감사합니다'}
+      ]
+    })}});
+  };
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/dashboard-common.js"></script>
+<script src="js/client.js"></script>
+</body>
+</html>

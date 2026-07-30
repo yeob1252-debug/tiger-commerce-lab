@@ -26,6 +26,10 @@ while ($listener.IsListening) {
     try {
         $path = [System.Uri]::UnescapeDataString($req.Url.AbsolutePath)
         if ($path -eq "/") { $path = "/index.html" }
+        # vercel.json의 rewrites를 로컬에서도 동일하게 재현 (client/[slug], login, admin)
+        if ($path -match "^/client/[^/]+$") { $path = "/client.html" }
+        elseif ($path -eq "/login") { $path = "/login.html" }
+        elseif ($path -eq "/admin") { $path = "/admin.html" }
         $filePath = Join-Path $Root ($path.TrimStart("/"))
         if (Test-Path $filePath -PathType Leaf) {
             $ext = [System.IO.Path]::GetExtension($filePath).ToLower()

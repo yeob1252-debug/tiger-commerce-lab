@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>매장 관리 | 타이거커머스랩</title>
+<meta name="robots" content="noindex, nofollow">
+<base href="/">
+<link rel="icon" type="image/png" href="assets/characters/logo.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="admin-body">
+
+<header class="dash-header">
+  <a href="/" class="dash-header-brand">
+    <span class="brand-mark">
+      <img class="brand-mark-img" src="assets/characters/logo.png" alt="타이거커머스랩 로고">
+    </span>
+    <span class="dash-store-name">타이거커머스랩 매장 관리</span>
+  </a>
+</header>
+
+<main class="admin-main">
+  <h1 class="admin-title">등록된 매장</h1>
+  <div class="dash-loading" id="adminLoading">불러오는 중입니다...</div>
+  <div class="admin-list" id="adminList" hidden></div>
+</main>
+
+<script>
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgTQWibboQnYlT2M-_Mz2aDsm-t366b6u3-wwr4XIOaPvEruRW1keAzSwzXNYGn-DV2Q/exec';
+</script>
+<script>
+/* 미리보기 모드: /admin?mock=1 로 접속하면 샘플 매장 목록으로 디자인을 확인할 수 있다. */
+if (location.search.indexOf('mock=1') !== -1) {
+  window.fetch = function() {
+    return Promise.resolve({ json: function() { return Promise.resolve([
+      {slug:'jangjinyeong', storeName:'장지녕간장게장'},
+      {slug:'gimchi', storeName:'김치를찜하다 구미본점'}
+    ])}});
+  };
+}
+</script>
+<script src="js/dashboard-common.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

@@ -310,7 +310,7 @@
   /* .stat-grid(시장 데이터)뿐 아니라 .authenticity-demo(30~40대 여성 비중)처럼
      이후 추가된 .bar-chart 블록에도 동일하게 적용되도록, 컨테이너 하나로
      한정하지 않고 .bar-chart를 담고 있는 모든 블록을 각각 관찰한다. */
-  const statBlocks = document.querySelectorAll('.stat-grid, .authenticity-demo');
+  const statBlocks = document.querySelectorAll('.stat-grid, .authenticity-demo, .channel-store-grid');
 
   function animateCountUp(counter, { duration = 1300, delay = 0 } = {}) {
     const target = parseFloat(counter.getAttribute('data-count-to')) || 0;
@@ -364,7 +364,7 @@
     statBlocks.forEach((block) => statObserver.observe(block));
   }
 
-  /* ---------- .bar-chart 밖에 홀로 있는 카운트업 숫자 (예: 구매전환율 "3배") ---------- */
+  /* ---------- .bar-chart 밖에 홀로 있는 카운트업 숫자 ---------- */
   const standaloneCounters = document.querySelectorAll('.count-up:not(.bar-chart .count-up)');
   if (standaloneCounters.length) {
     const counterObserver = new IntersectionObserver(

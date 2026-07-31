@@ -364,6 +364,22 @@
     statBlocks.forEach((block) => statObserver.observe(block));
   }
 
+  /* ---------- .bar-chart 밖에 홀로 있는 카운트업 숫자 (예: 구매전환율 "3배") ---------- */
+  const standaloneCounters = document.querySelectorAll('.count-up:not(.bar-chart .count-up)');
+  if (standaloneCounters.length) {
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          counterObserver.unobserve(entry.target);
+          animateCountUp(entry.target, { duration: 1000 });
+        });
+      },
+      { threshold: 0.6 }
+    );
+    standaloneCounters.forEach((el) => counterObserver.observe(el));
+  }
+
   /* ---------- 문의 폼 → 구글폼 연동 제출 ---------- */
   const GOOGLE_FORM_ACTION =
     'https://docs.google.com/forms/d/e/1FAIpQLScP5FnNGQbpHRVy5_fFzDju0I0FiSq36ajaP3aOo3s8UUx_hA/formResponse';

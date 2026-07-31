@@ -42,6 +42,8 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
+  /* 한글 단어가 화면 폭에 따라 중간에서 어색하게 끊기지 않도록 전역 적용 */
+  word-break: keep-all;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -111,11 +113,14 @@ button { font-family: inherit; cursor: pointer; }
 .header-actions { display: flex; align-items: center; gap: 16px; }
 .header-login-link {
   font-size: 13px;
-  font-weight: 700;
-  color: var(--ink-faint);
-  transition: color .2s var(--ease);
+  font-weight: 800;
+  color: var(--orange-dark);
+  border: 1.5px solid var(--orange);
+  border-radius: 999px;
+  padding: 7px 16px;
+  transition: color .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
 }
-.header-login-link:hover { color: var(--orange-dark); }
+.header-login-link:hover { color: #fff; background: var(--orange); }
 
 .btn {
   display: inline-flex;
@@ -286,10 +291,20 @@ button { font-family: inherit; cursor: pointer; }
 /* =========================================================
    히어로 문구를 감싸며 떠다니는 채널/인게이지먼트 아이콘
    ========================================================= */
+/* 문구와 아이콘이 서로 남남처럼 흩어져 보이지 않도록, 카드 배경 하나로
+   전체를 감싸 "하나의 시각적 구성"으로 묶는다. */
+.hero-orbit-card {
+  display: inline-block;
+  background: linear-gradient(165deg, var(--white) 0%, var(--bg-alt) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  box-shadow: var(--shadow-lg);
+}
 .hero-orbit {
   position: relative;
   display: inline-block;
-  padding: 76px 64px;
+  padding: 64px 52px;
 }
 .hero-orbit-icon {
   position: absolute;
@@ -334,7 +349,8 @@ span.hero-orbit-icon {
    같은 translate 기준을 유지해야 흔들리지 않고 제자리에서 떠다닌다. */
 
 @media (max-width: 640px) {
-  .hero-orbit { padding: 52px 40px; }
+  .hero-orbit-card { padding: 8px; }
+  .hero-orbit { padding: 44px 32px; }
   img.hero-orbit-icon { width: 30px; height: 30px; padding: 6px; }
   span.hero-orbit-icon { font-size: 19px; }
   .hero-orbit-subscribe { font-size: 9.5px !important; padding: 5px 8px; }
@@ -343,31 +359,34 @@ span.hero-orbit-icon {
 /* =========================================================
    SNS+네이버+쿠팡 연결 매출 그래프 섹션
    ========================================================= */
-.section-channel-graph { background: var(--white); }
-.channel-graph-wrap {
-  position: relative;
-  margin-top: 20px;
-}
-.channel-nodes {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-}
-.channel-node {
-  flex: 1;
+.panel-channel-graph { background: var(--white); }
+.channel-rows {
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+}
+.channel-row {
+  display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   background: var(--bg-alt);
   border-radius: var(--radius-md);
-  padding: 22px 12px;
+  padding: 20px 24px;
   box-shadow: var(--shadow-sm);
 }
-.channel-node-logos { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
-.channel-node-logos img {
-  width: 28px;
-  height: 28px;
+.channel-row-logos {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  width: 96px;
+}
+.channel-row-logos img {
+  width: 30px;
+  height: 30px;
   object-fit: contain;
   background: var(--white);
   border-radius: 50%;
@@ -384,42 +403,51 @@ span.hero-orbit-icon {
   border-radius: 8px;
 }
 .channel-node-badge-coupang { background: #C90E45; }
-.channel-node em { font-style: normal; font-size: 15px; font-weight: 800; color: var(--ink); }
-.channel-node small { font-size: 11.5px; font-weight: 600; color: var(--ink-faint); text-align: center; }
-.channel-node-coupang { background: var(--orange-soft); }
-
-.channel-connector-svg { display: block; width: 100%; height: 60px; overflow: visible; }
-.channel-connect-line {
-  fill: none;
-  stroke: url(#channelConnectorGradient);
-  stroke-width: 3;
-  stroke-linecap: round;
+.channel-row-title { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+.channel-row-desc { font-size: 13px; font-weight: 500; color: var(--ink-soft); line-height: 1.55; }
+.channel-row-plus {
+  align-self: center;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--orange);
+  padding: 4px 0;
 }
-.channel-connect-dot { fill: var(--orange-dark); }
 
+.channel-result-card {
+  margin-top: 28px;
+  background: linear-gradient(165deg, var(--bg-alt) 0%, var(--white) 60%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-md);
+}
 .channel-result-message {
   text-align: center;
   font-size: clamp(1.15rem, 2.6vw, 1.5rem);
   font-weight: 800;
   line-height: 1.55;
   color: var(--ink);
-  margin: 4px 0 32px;
+  margin: 0 0 28px;
 }
 
-.channel-sales-chart { position: relative; padding: 0 8px 28px 40px; }
+.channel-sales-chart {
+  position: relative;
+  padding: 0 8px 28px 40px;
+  /* 스크롤 진입 시 왼쪽에서부터 그래프가 "차오르듯" 드러난다 */
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.4s var(--ease);
+}
+.channel-result-card.is-visible .channel-sales-chart { clip-path: inset(0 0% 0 0); }
 .channel-sales-svg { display: block; width: 100%; height: auto; overflow: visible; }
 .channel-axis-line { stroke: var(--line-strong); stroke-width: 2; }
+.channel-sales-area { fill: url(#channelAreaGradient); stroke: none; }
 .channel-sales-line {
   fill: none;
   stroke: var(--orange);
   stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 900;
-  stroke-dashoffset: 900;
-  transition: stroke-dashoffset 1.8s var(--ease);
 }
-.channel-graph-wrap.is-visible .channel-sales-line { stroke-dashoffset: 0; }
 .channel-axis-label {
   position: absolute;
   font-size: 12px;
@@ -428,6 +456,15 @@ span.hero-orbit-icon {
 }
 .channel-axis-label-y { top: 4px; left: 0; writing-mode: vertical-rl; }
 .channel-axis-label-x { bottom: 0; right: 8px; }
+
+@media (max-width: 640px) {
+  .channel-row { padding: 16px 18px; gap: 14px; }
+  .channel-row-logos { width: 72px; }
+  .channel-row-logos img { width: 24px; height: 24px; }
+  .channel-row-title { font-size: 14.5px; }
+  .channel-row-desc { font-size: 12px; }
+  .channel-result-card { padding: 24px 18px; }
+}
 
 /* =========================================================
    캐릭터 이미지 공통 래퍼 (히어로/스토리/미니캐릭터 전 섹션 공용)
@@ -640,39 +677,11 @@ span.hero-orbit-icon {
   color: var(--orange);
   margin-bottom: 22px;
 }
-.hero-desc {
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
-  color: var(--ink-soft);
-  font-weight: 500;
-  margin-bottom: 56px;
-}
-.scroll-cue {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .18em;
-  color: var(--ink-faint);
-}
-.scroll-cue-line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(var(--ink-faint), transparent);
-  animation: scrollDown 1.8s infinite;
-}
-@keyframes scrollDown {
-  0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
-  40% { transform: scaleY(1); transform-origin: top; opacity: 1; }
-  60% { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
-  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
-}
-
 /* 2km 반경 섹션 — 한국 지도 비주얼(PNG 이미지 + 애니메이션 오버레이) */
 .korea-map {
   position: relative;
-  margin-top: 40px;
-  width: min(280px, 72vw);
+  margin: 40px auto 0;
+  width: min(380px, 82vw);
 }
 .korea-map-frame {
   position: relative;
@@ -686,25 +695,6 @@ span.hero-orbit-icon {
   transition: transform .3s var(--ease);
 }
 .korea-map-frame:hover, .korea-map-frame:focus-visible { transform: translateY(-4px); }
-.korea-map-hint {
-  position: absolute;
-  left: 50%;
-  bottom: 4%;
-  transform: translateX(-50%);
-  background: var(--ink);
-  color: #fff;
-  font-size: 11.5px;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 999px;
-  white-space: nowrap;
-  box-shadow: var(--shadow-md);
-  animation: mapHintBob 1.8s ease-in-out infinite;
-}
-@keyframes mapHintBob {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-4px); }
-}
 .korea-map-img {
   display: block;
   width: 100%;
@@ -739,6 +729,57 @@ span.hero-orbit-icon {
   transition: opacity .3s var(--ease);
 }
 .korea-map.is-visible .korea-map-arrow { opacity: .9; }
+
+/* 후킹 문구 배너 */
+.panel-hook { min-height: auto; padding: 60px 0; }
+.hook-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  text-align: center;
+  padding: 36px 28px;
+  background: linear-gradient(115deg, var(--bg-alt) 0%, var(--orange-soft) 100%);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+.hook-banner-part {
+  font-size: clamp(1.3rem, 3.2vw, 1.9rem);
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.hook-banner-part-highlight { color: var(--orange-dark); }
+.hook-banner-arrow {
+  display: inline-flex;
+  color: var(--orange);
+  width: 48px;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity .6s var(--ease) .2s, transform .6s var(--ease) .2s;
+}
+.hook-banner-arrow svg { width: 100%; height: auto; }
+.hook-banner.is-visible .hook-banner-arrow {
+  opacity: 1;
+  transform: translateX(0);
+  animation: hookArrowNudge 1.6s ease-in-out .8s infinite;
+}
+@keyframes hookArrowNudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+@media (max-width: 640px) {
+  .panel-hook { padding: 32px 0; }
+  .hook-banner { padding: 26px 20px; gap: 12px; }
+  .hook-banner-arrow { width: 34px; transform: rotate(90deg) translateX(-12px); }
+  .hook-banner.is-visible .hook-banner-arrow { transform: rotate(90deg); animation: hookArrowNudgeMobile 1.6s ease-in-out .8s infinite; }
+  @keyframes hookArrowNudgeMobile {
+    0%, 100% { transform: rotate(90deg) translateY(0); }
+    50% { transform: rotate(90deg) translateY(8px); }
+  }
+}
 
 /* MARKET panel */
 .stat-grid {
@@ -800,30 +841,53 @@ span.hero-orbit-icon {
 .market-compare {
   margin-top: 28px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
   gap: 16px;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  padding: 24px 26px;
-  box-shadow: var(--shadow-sm);
 }
-.market-compare-side { flex: 1; min-width: 130px; text-align: center; }
-.market-compare-label { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
+.market-compare-side {
+  flex: 1;
+  min-width: 160px;
+  text-align: center;
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 26px 20px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.market-compare-side:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.market-compare-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  font-size: 24px;
+  background: var(--bg-alt);
+  border-radius: 50%;
+  margin-bottom: 14px;
+}
+.market-compare-label { font-weight: 800; font-size: 17px; margin-bottom: 6px; }
 .market-compare-desc { font-size: 13px; color: var(--ink-faint); font-weight: 600; }
 .market-compare-note {
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 12.5px;
   color: var(--ink-soft);
   font-weight: 500;
   line-height: 1.55;
 }
+.market-compare-side-highlight {
+  background: linear-gradient(165deg, var(--orange-soft) 0%, var(--white) 65%);
+  border-color: var(--orange);
+}
+.market-compare-side-highlight .market-compare-icon { background: var(--orange); }
 .market-compare-side-highlight .market-compare-label { color: var(--orange-dark); }
 .market-compare-side-highlight .market-compare-note { color: var(--orange-dark); font-weight: 600; }
 .market-compare-vs {
   flex-shrink: 0;
+  align-self: center;
   font-weight: 800;
   font-size: 13px;
   color: var(--ink-faint);
@@ -841,9 +905,8 @@ span.hero-orbit-icon {
   font-size: 15px;
   font-weight: 700;
   color: var(--ink-soft);
-  padding-top: 12px;
+  padding-top: 18px;
   margin-top: 4px;
-  border-top: 1px dashed var(--line-strong);
 }
 .market-compare-result strong { color: var(--orange-dark); font-size: 19px; }
 
@@ -1790,7 +1853,7 @@ span.hero-orbit-icon {
   .hero-title { font-size: clamp(1.9rem, 7vw, 2.6rem); }
   .mini-char-stage { margin-bottom: 24px; }
   .mini-char-img { height: min(21vh, 168px); }
-  .korea-map { width: min(220px, 64vw); margin-top: 28px; }
+  .korea-map { width: min(300px, 78vw); margin: 28px auto 0; }
 }
 
 @media (max-width: 520px) {
@@ -1798,7 +1861,7 @@ span.hero-orbit-icon {
   .site-header.is-scrolled { padding: 8px 14px; }
   .brand { gap: 6px; }
   .header-actions { gap: 8px; }
-  .header-login-link { font-size: 11px; }
+  .header-login-link { font-size: 11px; padding: 5px 12px; }
   .brand-name { font-size: 12px; }
   .header-cta.header-cta { padding: 8px 14px; font-size: 12px; }
 }
@@ -1891,7 +1954,6 @@ span.hero-orbit-icon {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal, .char-img, .bar-chart-fill, .btn, .case-card { transition: none !important; }
-  .scroll-cue-line,
   .hero-intro-char,
   .korea-map-ring-1, .korea-map-ring-2, .korea-map-ring-3,
   .char-badge.is-bouncing,

@@ -371,8 +371,9 @@ body.admin-body {
 }
 .dash-cal-day-entry[data-status="업무진행중"] { background: var(--orange); border-color: var(--orange-dark); color: #fff; }
 .dash-cal-day-entry[data-status="업무예정"] { background: var(--bg-alt); border-color: var(--line-strong); color: var(--ink-soft); }
+.dash-cal-day-entry[data-status="업무완료"] { background: #E5E7EB; border-color: #9CA3AF; color: #4B5563; }
 .dash-cal-day-entry[data-status="이벤트"] { background: #F3E8FF; border-color: #C4B5FD; color: #7C3AED; }
-.dash-cal-day-entry:not([data-status="업무진행중"]):not([data-status="업무예정"]):not([data-status="이벤트"]) {
+.dash-cal-day-entry:not([data-status="업무진행중"]):not([data-status="업무예정"]):not([data-status="업무완료"]):not([data-status="이벤트"]) {
   background: var(--bg-alt); border-color: var(--line-strong); color: var(--ink-soft);
 }
 
@@ -381,6 +382,7 @@ body.admin-body {
 .dash-cal-legend-item i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
 .dash-cal-legend-item i[data-status="업무진행중"] { background: var(--orange); }
 .dash-cal-legend-item i[data-status="업무예정"] { background: var(--bg-alt); border: 1px solid var(--line-strong); }
+.dash-cal-legend-item i[data-status="업무완료"] { background: #E5E7EB; border: 1px solid #9CA3AF; }
 .dash-cal-legend-item i[data-status="이벤트"] { background: #F3E8FF; border: 1px solid #C4B5FD; }
 
 /* 날짜 상세 팝업 */
@@ -433,6 +435,7 @@ body.admin-body {
 }
 .dash-cal-popup-status[data-status="업무진행중"] { background: var(--orange); color: #fff; }
 .dash-cal-popup-status[data-status="업무예정"] { background: var(--bg-alt); color: var(--ink-soft); }
+.dash-cal-popup-status[data-status="업무완료"] { background: #E5E7EB; color: #4B5563; }
 .dash-cal-popup-status[data-status="이벤트"] { background: #F3E8FF; color: #7C3AED; }
 .dash-cal-popup-date { font-size: 12px; color: var(--ink-faint); font-weight: 600; margin-bottom: 6px; }
 .dash-cal-popup-title { font-size: 18px; font-weight: 800; margin-bottom: 16px; }

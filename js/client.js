@@ -64,6 +64,16 @@
     setupBoardForm();
   }
 
+  /* 시트에 콤마(1,234)나 원(₩) 기호가 섞인 텍스트로 숫자가 입력되어 있어도
+     Number()가 NaN을 반환해 0으로 표시되던 문제가 있었다 — 숫자가 아닌
+     문자를 걷어내고 파싱한다. */
+  function toNum(v) {
+    if (typeof v === 'number') return v;
+    if (v === null || v === undefined || v === '') return 0;
+    const n = parseFloat(String(v).replace(/[^0-9.\-]/g, ''));
+    return isNaN(n) ? 0 : n;
+  }
+
   /* ---------- 카운트업 ---------- */
   function countUp(el, target, opts) {
     opts = opts || {};
@@ -85,19 +95,19 @@
     const items = [
       {
         icon: '▶️',
-        value: Number(dash['유튜브조회수']) || 0,
+        value: toNum(dash['유튜브조회수']),
         label: '유튜브 조회수',
         format: function (v) { return Math.round(v).toLocaleString('ko-KR') + '회'; },
       },
       {
         icon: '🎵',
-        value: Number(dash['틱톡조회수']) || 0,
+        value: toNum(dash['틱톡조회수']),
         label: '틱톡 조회수',
         format: function (v) { return Math.round(v).toLocaleString('ko-KR') + '회'; },
       },
       {
         icon: '👥',
-        value: Number(dash['단골가두기방회원수']) || 0,
+        value: toNum(dash['단골가두기방회원수']),
         label: '단골 가두기방 회원수',
         format: function (v) { return Math.round(v).toLocaleString('ko-KR') + '명'; },
       },
@@ -131,7 +141,7 @@
 
   function renderPhases(dash) {
     const wrap = document.getElementById('phasesWrap');
-    const current = Number(dash['현재단계']) || 1;
+    const current = toNum(dash['현재단계']) || 1;
     wrap.innerHTML = ROADMAP_STEPS.map(function (name, idx) {
       const step = idx + 1;
       const stateClass = step < current ? 'is-done' : step === current ? 'is-current' : '';
@@ -195,8 +205,8 @@
 
   function drawChart() {
     const ctx = document.getElementById('monthlyChart').getContext('2d');
-    const labels = monthlyRows.map(function (r) { return r['월']; });
-    const values = monthlyRows.map(function (r) { return Number(r[currentMetric]) || 0; });
+    const labels = monthlyRows.map(function (r) { return String(r['월'] || ''); });
+    const values = monthlyRows.map(function (r) { return toNum(r[currentMetric]); });
 
     if (monthlyChart) monthlyChart.destroy();
 
@@ -300,11 +310,13 @@
         if (key === todayKey) classes.push('is-today');
         if (entry) classes.push('has-entry');
         const tag = entry ? 'button' : 'div';
+        const entryStatus = entry ? (entry['진행상황'] || '') : '';
+        const entryPrefix = entryStatus === '업무완료' ? '✓ ' : '';
         cellsHtml +=
           '<' + tag + (entry ? ' type="button" data-date="' + key + '"' : '') + ' class="' + classes.join(' ') + '">' +
           '<span class="dash-cal-day-num">' + dayNum + '</span>' +
           (entry
-            ? '<span class="dash-cal-day-entry" data-status="' + (entry['진행상황'] || '') + '">' + (entry['콘텐츠주제'] || '') + '</span>'
+            ? '<span class="dash-cal-day-entry" data-status="' + entryStatus + '">' + entryPrefix + (entry['콘텐츠주제'] || '') + '</span>'
             : '') +
           '</' + tag + '>';
       }
@@ -320,6 +332,7 @@
         '<div class="dash-cal-legend">' +
         '<span class="dash-cal-legend-item"><i data-status="업무진행중"></i>업무진행중</span>' +
         '<span class="dash-cal-legend-item"><i data-status="업무예정"></i>업무예정</span>' +
+        '<span class="dash-cal-legend-item"><i data-status="업무완료"></i>업무완료</span>' +
         '<span class="dash-cal-legend-item"><i data-status="이벤트"></i>이벤트</span>' +
         '</div>';
 
@@ -366,9 +379,10 @@
       });
     }
     const status = entry['진행상황'] || '';
+    const statusLabel = status === '업무완료' ? '✓ ' + status : status;
     const body = overlay.querySelector('.dash-cal-popup-body');
     body.innerHTML =
-      '<span class="dash-cal-popup-status" data-status="' + status + '">' + status + '</span>' +
+      '<span class="dash-cal-popup-status" data-status="' + status + '">' + statusLabel + '</span>' +
       '<p class="dash-cal-popup-date">' + formatDate(entry['날짜']) + '</p>' +
       '<h3 class="dash-cal-popup-title">' + (entry['콘텐츠주제'] || '') + '</h3>' +
       (entry['대표님협조사항']

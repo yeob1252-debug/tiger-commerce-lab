@@ -115,11 +115,17 @@ function sheetToObjects_(sheet) {
     });
 }
 
-function sheetToKeyValue_(sheet) {
+/* '대시보드' 탭은 1행에 항목 이름, 2행에 실제 값이 가로로 나열된 표
+   형식이다(세로형 key-value가 아님) — 헤더 행을 키로, 그 아래 첫 데이터
+   행을 값으로 매핑한다. */
+function sheetRowToObject_(sheet) {
   const values = sheet.getDataRange().getValues();
+  if (values.length < 2) return {};
+  const headers = values[0];
+  const row = values[1];
   const obj = {};
-  values.forEach((row) => {
-    if (row[0] !== '') obj[row[0]] = row[1];
+  headers.forEach((h, i) => {
+    if (h !== '') obj[h] = row[i];
   });
   return obj;
 }
@@ -140,7 +146,7 @@ function getClientData_(slug, token) {
 
   return {
     storeName: client['매장명'],
-    dashboard: dashboardSheet ? sheetToKeyValue_(dashboardSheet) : {},
+    dashboard: dashboardSheet ? sheetRowToObject_(dashboardSheet) : {},
     monthly: monthlySheet ? sheetToObjects_(monthlySheet) : [],
     calendar: calendarSheet ? sheetToObjects_(calendarSheet) : [],
     menu: menuSheet ? sheetToObjects_(menuSheet) : [],

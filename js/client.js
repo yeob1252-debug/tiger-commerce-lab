@@ -401,6 +401,20 @@
   }
 
   /* ---------- 메뉴 단가표 ---------- */
+  function channelBadge(channel) {
+    const c = String(channel || '').trim();
+    if (c === '틱톡전용') {
+      return '<span class="dash-menu-channel dash-menu-channel-tiktok"><img src="https://cdn.simpleicons.org/tiktok" alt="">틱톡전용</span>';
+    }
+    if (c === '유튜브전용') {
+      return '<span class="dash-menu-channel dash-menu-channel-youtube"><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="">유튜브전용</span>';
+    }
+    if (c === '전체공통') {
+      return '<span class="dash-menu-channel dash-menu-channel-all">🌐 전체공통</span>';
+    }
+    return c ? '<span class="dash-menu-channel">' + c + '</span>' : '';
+  }
+
   function renderMenu(rows) {
     const table = document.getElementById('menuTable');
     if (!rows.length) {
@@ -408,14 +422,17 @@
       return;
     }
     table.innerHTML =
-      '<thead><tr><th>메뉴명</th><th>가격</th><th>비고</th></tr></thead>' +
+      '<thead><tr><th>메뉴명</th><th>채널</th><th>가격</th><th>비고</th></tr></thead>' +
       '<tbody>' +
       rows
         .map(function (r) {
-          const price = Number(r['가격']);
+          const rawPrice = r['가격'];
+          const price = toNum(rawPrice);
+          const priceDisplay = !rawPrice && rawPrice !== 0 ? '' : price ? '₩' + price.toLocaleString('ko-KR') : rawPrice;
           return (
             '<tr><td>' + (r['메뉴명'] || '') + '</td>' +
-            '<td class="dash-menu-price">' + (isNaN(price) ? r['가격'] : '₩' + price.toLocaleString('ko-KR')) + '</td>' +
+            '<td>' + channelBadge(r['채널']) + '</td>' +
+            '<td class="dash-menu-price">' + priceDisplay + '</td>' +
             '<td>' + (r['비고'] || '') + '</td></tr>'
           );
         })

@@ -30,21 +30,15 @@
   <div id="dashContent" hidden>
 
     <section class="dash-section">
-      <div class="dash-card">
-        <div class="dash-progress-row">
-          <span class="dash-progress-label">계약 진행률</span>
-          <span class="dash-progress-pct" id="progressPct">0%</span>
-        </div>
-        <div class="dash-progress-track"><div class="dash-progress-fill" id="progressFill"></div></div>
+      <div class="dash-card dash-channel-status-card">
+        <img class="dash-channel-logo" id="channelLogo" src="assets/characters/logo.png" alt="매장 로고">
+        <p class="dash-channel-status-title">운영중인 채널현황</p>
+        <div class="dash-scorecards" id="scorecards"></div>
       </div>
     </section>
 
     <section class="dash-section">
-      <div class="dash-scorecards" id="scorecards"></div>
-    </section>
-
-    <section class="dash-section">
-      <h2 class="dash-section-title"><span class="dash-section-icon" aria-hidden="true">🚀</span> 진행 단계</h2>
+      <h2 class="dash-section-title"><span class="dash-section-icon" aria-hidden="true">🚀</span> 업무 로드맵</h2>
       <div class="dash-card">
         <div class="dash-phases" id="phasesWrap"></div>
       </div>
@@ -102,14 +96,18 @@
    샘플 데이터로 디자인을 바로 확인할 수 있다. 실제 서비스 동작에는
    전혀 영향을 주지 않는다(?mock=1이 없으면 이 블록은 아무 일도 안 함). */
 if (location.search.indexOf('mock=1') !== -1) {
+  const pad = function(n) { return String(n).padStart(2, '0'); };
+  const today = new Date();
+  const ymd = function(offset) {
+    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + offset);
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  };
   window.fetch = function() {
     return Promise.resolve({ json: function() { return Promise.resolve({
-      storeName: '장지녕간장게장',
+      storeName: '조가네맛곳간',
       dashboard: {
-        '계약시작일': '2026-01-01', '계약종료일': '2026-12-31',
-        '총영업외추가매출액': 12500000, '유튜브틱톡누적조회수': 452000, '단골가두기방회원수': 318,
-        '1단계명':'메뉴 브랜딩','1단계상태':'완료','2단계명':'SNS 채널 개설','2단계상태':'진행중',
-        '3단계명':'콘텐츠 확장','3단계상태':'예정','4단계명':'라이브커머스','4단계상태':'예정'
+        '유튜브조회수': 268000, '틱톡조회수': 184000, '단골가두기방회원수': 318,
+        '현재단계': 2
       },
       monthly: [
         {'월':'2026-01','조회수':12000,'매출':3200000,'ROAS':2.1},
@@ -120,9 +118,11 @@ if (location.search.indexOf('mock=1') !== -1) {
         {'월':'2026-06','조회수':52000,'매출':11400000,'ROAS':4.2}
       ],
       calendar: [
-        {'주차':'30주차','시작일': new Date().toISOString().slice(0,10), '콘텐츠':'여름 특선 숏폼', '설명':'냉면 메뉴 후킹 콘텐츠', '상태':'진행중'},
-        {'주차':'29주차','시작일':'2026-07-20','콘텐츠':'매장 브이로그','설명':'주방 비하인드','상태':'완료'},
-        {'주차':'31주차','시작일':'2026-08-03','콘텐츠':'라이브 예고편','설명':'첫 라이브커머스 티저','상태':'예정'}
+        {'날짜': ymd(0), '진행상황':'업무진행중', '콘텐츠주제':'여름 특선 숏폼', '대표님협조사항':'냉면 재료 클로즈업 촬영 협조 부탁드립니다', '콘텐츠비용':'0원'},
+        {'날짜': ymd(-3), '진행상황':'업무예정', '콘텐츠주제':'매장 브이로그', '대표님협조사항':'주방 촬영 10분 정도 소요됩니다', '콘텐츠비용':'0원'},
+        {'날짜': ymd(2), '진행상황':'업무예정', '콘텐츠주제':'신메뉴 티저', '대표님협조사항':'신메뉴 시식 인터뷰 요청드립니다', '콘텐츠비용':'50,000원'},
+        {'날짜': ymd(5), '진행상황':'이벤트', '콘텐츠주제':'첫 라이브커머스', '대표님협조사항':'라이브 방송 1시간 매장 공간 확보 부탁드립니다', '콘텐츠비용':'150,000원'},
+        {'날짜': ymd(-7), '진행상황':'업무진행중', '콘텐츠주제':'댓글 이벤트 진행', '대표님협조사항':'', '콘텐츠비용':'30,000원'}
       ],
       menu: [
         {'메뉴명':'간장게장 정식','가격':32000,'비고':'2인 기준'},
@@ -130,7 +130,7 @@ if (location.search.indexOf('mock=1') !== -1) {
       ],
       board: [
         {'날짜':'2026-07-25 10:00','작성자':'YB','내용':'이번 주 콘텐츠 시안 공유드렸습니다!'},
-        {'날짜':'2026-07-24 18:20','작성자':'장지녕간장게장','내용':'네 확인했습니다 감사합니다'}
+        {'날짜':'2026-07-24 18:20','작성자':'조가네맛곳간','내용':'네 확인했습니다 감사합니다'}
       ]
     })}});
   };

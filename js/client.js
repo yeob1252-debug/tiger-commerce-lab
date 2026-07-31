@@ -30,19 +30,31 @@
         loadingEl.textContent = '데이터를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.';
         return;
       }
-      renderDashboard(data);
+      // #dashContent를 먼저 보이게 한 다음 렌더링해야 한다. 숨겨진(display:none)
+      // 상태에서 Chart.js 캔버스를 만들면 캔버스 크기가 0으로 고정되어 버려서
+      // (데이터가 1건이든 여러 건이든) 그래프 자체가 그려지지 않는 문제가 있었다.
       loadingEl.hidden = true;
       contentEl.hidden = false;
+      renderDashboard(data);
     })
     .catch(function () {
       loadingEl.textContent = '연결에 실패했습니다. 인터넷 연결을 확인해주세요.';
     });
 
+  /* 매장 slug별 로고 — 시트에 로고 컬럼이 없어 코드에서 매핑한다.
+     새 매장이 추가되면 이 목록에 한 줄만 추가하면 된다. */
+  const STORE_LOGOS = {
+    joganemgg: 'assets/characters/joga_profile_full.png',
+  };
+
   function renderDashboard(data) {
     document.getElementById('storeNameLabel').textContent = data.storeName || '타이거커머스랩';
     document.title = (data.storeName || '사장님') + ' 대시보드 | 타이거커머스랩';
 
-    renderProgress(data.dashboard);
+    const logoEl = document.getElementById('channelLogo');
+    logoEl.src = STORE_LOGOS[slug] || 'assets/characters/logo.png';
+    logoEl.alt = (data.storeName || '매장') + ' 로고';
+
     renderScorecards(data.dashboard);
     renderPhases(data.dashboard);
     renderMonthly(data.monthly || []);
@@ -68,36 +80,19 @@
     requestAnimationFrame(tick);
   }
 
-  /* ---------- 계약 진행률 ---------- */
-  function renderProgress(dash) {
-    const start = new Date(dash['계약시작일']);
-    const end = new Date(dash['계약종료일']);
-    const now = new Date();
-    let pct = 0;
-    if (!isNaN(start) && !isNaN(end) && end > start) {
-      pct = Math.max(0, Math.min(100, Math.round(((now - start) / (end - start)) * 100)));
-    }
-    const fill = document.getElementById('progressFill');
-    const pctLabel = document.getElementById('progressPct');
-    window.setTimeout(function () {
-      fill.style.width = pct + '%';
-    }, 100);
-    countUp(pctLabel, pct, { duration: 1100, format: function (v) { return Math.round(v) + '%'; } });
-  }
-
-  /* ---------- 스코어카드 ---------- */
+  /* ---------- 스코어카드: 운영중인 채널현황 ---------- */
   function renderScorecards(dash) {
     const items = [
       {
-        icon: '💰',
-        value: Number(dash['총영업외추가매출액']) || 0,
-        label: '총 영업외 추가매출액',
-        format: function (v) { return '₩' + Math.round(v).toLocaleString('ko-KR'); },
+        icon: '▶️',
+        value: Number(dash['유튜브조회수']) || 0,
+        label: '유튜브 조회수',
+        format: function (v) { return Math.round(v).toLocaleString('ko-KR') + '회'; },
       },
       {
-        icon: '🎬',
-        value: Number(dash['유튜브틱톡누적조회수']) || 0,
-        label: '유튜브·틱톡 누적조회수',
+        icon: '🎵',
+        value: Number(dash['틱톡조회수']) || 0,
+        label: '틱톡 조회수',
         format: function (v) { return Math.round(v).toLocaleString('ko-KR') + '회'; },
       },
       {
@@ -125,24 +120,31 @@
     });
   }
 
-  /* ---------- Phase 타임라인 ---------- */
+  /* ---------- 업무 로드맵 (고정 5단계, 시트의 '현재단계' 숫자로 진행상태만 결정) ---------- */
+  var ROADMAP_STEPS = [
+    '브랜딩 작업',
+    'SNS 채널 오픈 및 콘텐츠 축적',
+    'SNS 댓글·구매문의 대응',
+    '라이브 방송',
+    '스마트스토어 판매라인 확장',
+  ];
+
   function renderPhases(dash) {
     const wrap = document.getElementById('phasesWrap');
-    const phases = [1, 2, 3, 4].map(function (i) {
-      return { name: dash[i + '단계명'] || i + '단계', status: dash[i + '단계상태'] || '예정' };
-    });
-    wrap.innerHTML = phases
-      .map(function (p) {
-        const stateClass = p.status === '완료' ? 'is-done' : p.status === '진행중' ? 'is-current' : '';
-        return (
-          '<div class="dash-phase ' + stateClass + '">' +
-          '<div class="dash-phase-badge">' + (p.status === '완료' ? '✓' : phases.indexOf(p) + 1) + '</div>' +
-          '<div class="dash-phase-name">' + p.name + '</div>' +
-          '<span class="dash-phase-status">' + p.status + '</span>' +
-          '</div>'
-        );
-      })
-      .join('');
+    const current = Number(dash['현재단계']) || 1;
+    wrap.innerHTML = ROADMAP_STEPS.map(function (name, idx) {
+      const step = idx + 1;
+      const stateClass = step < current ? 'is-done' : step === current ? 'is-current' : '';
+      const status = step < current ? '완료' : step === current ? '진행중' : '예정';
+      const isMain = step === 2;
+      return (
+        '<div class="dash-phase ' + stateClass + '">' +
+        '<div class="dash-phase-badge">' + (step < current ? '✓' : step) + '</div>' +
+        '<div class="dash-phase-name">' + name + (isMain ? ' <span class="dash-phase-main-tag">메인 업무</span>' : '') + '</div>' +
+        '<span class="dash-phase-status">' + status + '</span>' +
+        '</div>'
+      );
+    }).join('');
   }
 
   /* ---------- 월간 성과 ---------- */
@@ -252,81 +254,130 @@
         },
       },
     });
+
+    // 방어적 재계산: 탭이 비활성 상태 등으로 최초 생성 시점에 캔버스 크기가
+    // 0으로 잡히는 경우가 있어, 다음 프레임에 한 번 더 리사이즈를 강제한다.
+    requestAnimationFrame(function () {
+      if (monthlyChart) monthlyChart.resize();
+    });
   }
 
-  /* ---------- 운영 캘린더 ---------- */
-  function getWeekRange(date) {
-    const d = new Date(date);
-    const day = d.getDay();
-    const diffToMonday = (day === 0 ? -6 : 1) - day;
-    const monday = new Date(d);
-    monday.setDate(d.getDate() + diffToMonday);
-    monday.setHours(0, 0, 0, 0);
-    const sunday = new Date(monday);
-    sunday.setDate(monday.getDate() + 6);
-    sunday.setHours(23, 59, 59, 999);
-    return [monday, sunday];
-  }
+  /* ---------- 운영 캘린더: 월간 달력 ---------- */
+  const WEEKDAY_LABELS = ['일', '월', '화', '수', '목', '금', '토'];
+
+  function pad2(n) { return String(n).padStart(2, '0'); }
+  function dateKeyOf(y, m, d) { return y + '-' + pad2(m + 1) + '-' + pad2(d); }
 
   function renderCalendar(rows) {
     const wrap = document.getElementById('calendarWrap');
-    if (!rows.length) {
-      wrap.innerHTML = '<p class="dash-board-empty">등록된 콘텐츠 일정이 없습니다</p>';
-      return;
-    }
-    const [weekStart, weekEnd] = getWeekRange(new Date());
-    const current = [];
-    const others = [];
+    const today = new Date();
+    const todayKey = dateKeyOf(today.getFullYear(), today.getMonth(), today.getDate());
+
+    const byDate = {};
     rows.forEach(function (r) {
-      const d = new Date(r['시작일']);
-      if (!isNaN(d) && d >= weekStart && d <= weekEnd) current.push(r);
-      else others.push(r);
+      const key = String(r['날짜'] || '').trim().slice(0, 10);
+      if (key) byDate[key] = r;
     });
-    others.sort(function (a, b) { return new Date(a['시작일']) - new Date(b['시작일']); });
 
-    let html = '';
-    if (current.length) {
-      html += current
-        .map(function (r) {
-          return (
-            '<div class="dash-calendar-current">' +
-            '<span class="dash-calendar-current-badge">이번 주</span>' +
-            '<p class="dash-calendar-title">' + (r['콘텐츠'] || '') + '</p>' +
-            '<p class="dash-calendar-desc">' + (r['설명'] || '') + '</p>' +
-            '<p class="dash-calendar-meta">' + (r['주차'] || '') + ' · ' + formatDate(r['시작일']) + (r['상태'] ? ' · ' + r['상태'] : '') + '</p>' +
-            '</div>'
-          );
-        })
-        .join('');
-    } else {
-      html += '<p class="dash-board-empty">이번 주 예정된 콘텐츠가 없습니다</p>';
-    }
+    const state = { year: today.getFullYear(), month: today.getMonth() };
 
-    if (others.length) {
-      html +=
-        '<div class="dash-calendar-accordion">' +
-        others
-          .map(function (r, i) {
-            return (
-              '<div class="dash-calendar-row" data-idx="' + i + '">' +
-              '<div class="dash-calendar-row-head">' +
-              '<span>' + (r['주차'] || '') + ' · ' + (r['콘텐츠'] || '') + '</span>' +
-              '<span class="dash-calendar-row-arrow" aria-hidden="true">▾</span>' +
-              '</div>' +
-              '<div class="dash-calendar-row-body">' + (r['설명'] || '') + ' (' + formatDate(r['시작일']) + (r['상태'] ? ', ' + r['상태'] : '') + ')</div>' +
-              '</div>'
-            );
-          })
-          .join('') +
+    function draw() {
+      const first = new Date(state.year, state.month, 1);
+      const startWeekday = first.getDay();
+      const daysInMonth = new Date(state.year, state.month + 1, 0).getDate();
+      const totalCells = Math.ceil((startWeekday + daysInMonth) / 7) * 7;
+
+      let cellsHtml = '';
+      for (let i = 0; i < totalCells; i++) {
+        const dayNum = i - startWeekday + 1;
+        if (dayNum < 1 || dayNum > daysInMonth) {
+          cellsHtml += '<div class="dash-cal-day is-empty" aria-hidden="true"></div>';
+          continue;
+        }
+        const key = dateKeyOf(state.year, state.month, dayNum);
+        const entry = byDate[key];
+        const classes = ['dash-cal-day'];
+        if (key === todayKey) classes.push('is-today');
+        if (entry) classes.push('has-entry');
+        const tag = entry ? 'button' : 'div';
+        cellsHtml +=
+          '<' + tag + (entry ? ' type="button" data-date="' + key + '"' : '') + ' class="' + classes.join(' ') + '">' +
+          '<span class="dash-cal-day-num">' + dayNum + '</span>' +
+          (entry
+            ? '<span class="dash-cal-day-entry" data-status="' + (entry['진행상황'] || '') + '">' + (entry['콘텐츠주제'] || '') + '</span>'
+            : '') +
+          '</' + tag + '>';
+      }
+
+      wrap.innerHTML =
+        '<div class="dash-cal-nav">' +
+        '<button type="button" class="dash-cal-nav-btn" id="calPrevBtn" aria-label="이전 달">‹</button>' +
+        '<span class="dash-cal-nav-label">' + state.year + '년 ' + (state.month + 1) + '월</span>' +
+        '<button type="button" class="dash-cal-nav-btn" id="calNextBtn" aria-label="다음 달">›</button>' +
+        '</div>' +
+        '<div class="dash-cal-weekdays">' + WEEKDAY_LABELS.map(function (d) { return '<span>' + d + '</span>'; }).join('') + '</div>' +
+        '<div class="dash-cal-grid">' + cellsHtml + '</div>' +
+        '<div class="dash-cal-legend">' +
+        '<span class="dash-cal-legend-item"><i data-status="업무진행중"></i>업무진행중</span>' +
+        '<span class="dash-cal-legend-item"><i data-status="업무예정"></i>업무예정</span>' +
+        '<span class="dash-cal-legend-item"><i data-status="이벤트"></i>이벤트</span>' +
         '</div>';
-    }
-    wrap.innerHTML = html;
 
-    wrap.querySelectorAll('.dash-calendar-row-head').forEach(function (head) {
-      head.addEventListener('click', function () {
-        head.parentElement.classList.toggle('is-open');
+      document.getElementById('calPrevBtn').addEventListener('click', function () {
+        state.month--;
+        if (state.month < 0) { state.month = 11; state.year--; }
+        draw();
       });
-    });
+      document.getElementById('calNextBtn').addEventListener('click', function () {
+        state.month++;
+        if (state.month > 11) { state.month = 0; state.year++; }
+        draw();
+      });
+      wrap.querySelectorAll('.dash-cal-day.has-entry').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          showCalPopup(byDate[btn.getAttribute('data-date')]);
+        });
+      });
+    }
+
+    draw();
+  }
+
+  function showCalPopup(entry) {
+    if (!entry) return;
+    let overlay = document.getElementById('calPopupOverlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'calPopupOverlay';
+      overlay.className = 'dash-cal-popup-overlay';
+      overlay.innerHTML =
+        '<div class="dash-cal-popup">' +
+        '<button type="button" class="dash-cal-popup-close" aria-label="닫기">✕</button>' +
+        '<div class="dash-cal-popup-body"></div>' +
+        '</div>';
+      document.body.appendChild(overlay);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay || e.target.closest('.dash-cal-popup-close')) {
+          overlay.classList.remove('is-open');
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') overlay.classList.remove('is-open');
+      });
+    }
+    const status = entry['진행상황'] || '';
+    const body = overlay.querySelector('.dash-cal-popup-body');
+    body.innerHTML =
+      '<span class="dash-cal-popup-status" data-status="' + status + '">' + status + '</span>' +
+      '<p class="dash-cal-popup-date">' + formatDate(entry['날짜']) + '</p>' +
+      '<h3 class="dash-cal-popup-title">' + (entry['콘텐츠주제'] || '') + '</h3>' +
+      (entry['대표님협조사항']
+        ? '<div class="dash-cal-popup-row"><strong>대표님 협조사항</strong><p>' + entry['대표님협조사항'] + '</p></div>'
+        : '') +
+      (entry['콘텐츠비용']
+        ? '<div class="dash-cal-popup-row"><strong>콘텐츠 비용</strong><p>' + entry['콘텐츠비용'] + '</p></div>'
+        : '');
+    overlay.classList.add('is-open');
   }
 
   function formatDate(v) {

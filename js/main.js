@@ -165,15 +165,6 @@
     });
   }
 
-  /* ---------- 보물상자 인터랙션 ---------- */
-  const treasureBox = document.getElementById('treasureBox');
-  if (treasureBox) {
-    treasureBox.addEventListener('click', () => {
-      const isOpen = treasureBox.classList.toggle('is-open');
-      treasureBox.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-  }
-
   /* ---------- 캐릭터 크로스페이드 (스티키 마스코트) ---------- */
   const charImgs = document.querySelectorAll('.char-img');
   const charBadge = document.getElementById('charBadge');

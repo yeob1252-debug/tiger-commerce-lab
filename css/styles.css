@@ -271,10 +271,12 @@ button { font-family: inherit; cursor: pointer; }
   align-items: center;
 }
 .hero-intro-title {
-  font-size: clamp(2.1rem, 6vw, 3.6rem);
+  /* 두 번째 히어로(.hero-title, "2km 반경")와 완전히 동일한 크기/줄간격
+     기준을 써서 사이트 전체 타이포 시스템과 통일한다. */
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  margin-bottom: 36px;
+  line-height: 1.28;
 }
 
 @media (max-width: 860px) {
@@ -282,114 +284,60 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* =========================================================
-   보물상자 인터랙션 섹션
+   히어로 문구를 감싸며 떠다니는 채널/인게이지먼트 아이콘
    ========================================================= */
-.section-treasure {
-  text-align: center;
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
-}
-.treasure-hook {
-  font-size: clamp(1.7rem, 4.2vw, 2.6rem);
-  font-weight: 800;
-  line-height: 1.35;
-  margin-bottom: 44px;
-}
-.treasure-box {
+.hero-orbit {
   position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  border: none;
-  background: none;
-  padding: 0;
+  display: inline-block;
+  padding: 76px 64px;
 }
-.treasure-box-glow {
+.hero-orbit-icon {
   position: absolute;
-  left: 50%;
-  top: 40%;
-  width: 180px;
-  height: 180px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, var(--orange-soft) 0%, rgba(255,227,204,0) 70%);
-  animation: treasureGlowPulse 2s ease-in-out infinite;
-}
-@keyframes treasureGlowPulse {
-  0%, 100% { opacity: .6; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
-}
-.treasure-box-icon {
-  position: relative;
-  font-size: 96px;
-  line-height: 1;
-  animation: treasureBounce 1.6s ease-in-out infinite;
-  filter: drop-shadow(0 14px 18px rgba(28, 26, 24, .2));
-}
-@keyframes treasureBounce {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-14px) rotate(-4deg); }
-}
-.treasure-box.is-open .treasure-box-icon { animation: none; transform: scale(1.1) rotate(-8deg); }
-.treasure-box-label {
-  position: relative;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--orange-dark);
-  background: var(--orange-soft);
-  padding: 8px 18px;
-  border-radius: 999px;
-}
-.treasure-reveal {
-  position: relative;
-  max-width: 0;
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  margin: 0 auto;
-  transition: max-height .5s var(--ease), opacity .4s var(--ease), margin .5s var(--ease);
-}
-.treasure-box.is-open + .treasure-reveal {
-  max-width: 100%;
-  max-height: 320px;
-  opacity: 1;
-  margin-top: 36px;
-}
-.treasure-reveal-text {
-  position: relative;
   z-index: 2;
-  font-size: clamp(1.3rem, 3.2vw, 1.9rem);
-  font-weight: 800;
-  line-height: 1.5;
+  animation: heroOrbitFloat 5s ease-in-out infinite;
+}
+img.hero-orbit-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(28, 26, 24, .16));
   background: var(--white);
-  border: 2px solid var(--orange);
-  border-radius: var(--radius-lg);
-  padding: 28px 32px;
-  box-shadow: var(--shadow-lg);
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: var(--shadow-sm);
 }
-.treasure-float-icons {
-  position: relative;
-  height: 0;
+span.hero-orbit-icon {
+  font-size: 26px;
+  filter: drop-shadow(0 4px 8px rgba(28, 26, 24, .14));
 }
-.treasure-float {
-  position: absolute;
-  font-size: 30px;
-  opacity: 0;
-  filter: drop-shadow(0 6px 10px rgba(28, 26, 24, .18));
+.hero-orbit-subscribe {
+  font-size: 11px !important;
+  font-weight: 800;
+  color: #fff;
+  background: var(--red);
+  padding: 6px 10px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
 }
-.treasure-box.is-open + .treasure-reveal .treasure-float {
-  animation: treasureFloatUp 2.6s ease-in-out infinite;
+.hero-orbit-tiktok    { top: 2%;   left: 50%;  transform: translate(-50%, -50%); animation-delay: 0s; }
+.hero-orbit-youtube   { top: 20%;  left: 96%;  transform: translate(-50%, -50%); animation-delay: .7s; }
+.hero-orbit-naver     { top: 66%;  left: 100%; transform: translate(-50%, -50%); animation-delay: 1.4s; }
+.hero-orbit-heart     { top: 96%;  left: 66%;  transform: translate(-50%, -50%); animation-delay: 2.1s; }
+.hero-orbit-bell      { top: 96%;  left: 12%;  transform: translate(-50%, -50%); animation-delay: 2.8s; }
+.hero-orbit-comment   { top: 62%;  left: -2%;  transform: translate(-50%, -50%); animation-delay: 3.5s; }
+.hero-orbit-subscribe { top: 16%;  left: 0%;   transform: translate(-50%, -50%); animation-delay: 4.2s; }
+@keyframes heroOrbitFloat {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0) rotate(0deg); }
+  50% { transform: translate(-50%, -50%) translateY(-14px) rotate(6deg); }
 }
-.treasure-float-1 { left: 6%;  top: -40px; animation-delay: .1s !important; }
-.treasure-float-2 { left: 22%; top: -80px; animation-delay: .5s !important; }
-.treasure-float-3 { left: 78%; top: -60px; animation-delay: .3s !important; }
-.treasure-float-4 { left: 92%; top: -20px; animation-delay: .7s !important; }
-.treasure-float-5 { left: 48%; top: -100px; animation-delay: .9s !important; }
-.treasure-float-6 { left: 64%; top: -30px; animation-delay: .2s !important; }
-@keyframes treasureFloatUp {
-  0%   { opacity: 0; transform: translateY(20px) scale(.7); }
-  20%  { opacity: 1; transform: translateY(0) scale(1); }
-  80%  { opacity: 1; transform: translateY(-14px) scale(1); }
-  100% { opacity: 0; transform: translateY(-34px) scale(.9); }
+/* 각 아이콘의 좌표에 이미 translate(-50%,-50%)가 들어있어, keyframes에서도
+   같은 translate 기준을 유지해야 흔들리지 않고 제자리에서 떠다닌다. */
+
+@media (max-width: 640px) {
+  .hero-orbit { padding: 52px 40px; }
+  img.hero-orbit-icon { width: 30px; height: 30px; padding: 6px; }
+  span.hero-orbit-icon { font-size: 19px; }
+  .hero-orbit-subscribe { font-size: 9.5px !important; padding: 5px 8px; }
 }
 
 /* =========================================================
@@ -404,30 +352,63 @@ button { font-family: inherit; cursor: pointer; }
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 8px;
 }
 .channel-node {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  font-size: 34px;
+  gap: 10px;
   background: var(--bg-alt);
   border-radius: var(--radius-md);
-  padding: 20px 12px;
+  padding: 22px 12px;
   box-shadow: var(--shadow-sm);
 }
+.channel-node-logos { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+.channel-node-logos img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  background: var(--white);
+  border-radius: 50%;
+  padding: 5px;
+  box-shadow: var(--shadow-sm);
+}
+.channel-node-badge {
+  font-size: 13px;
+  font-weight: 800;
+  font-style: italic;
+  color: #fff;
+  background: var(--ink);
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+.channel-node-badge-coupang { background: #C90E45; }
 .channel-node em { font-style: normal; font-size: 15px; font-weight: 800; color: var(--ink); }
 .channel-node small { font-size: 11.5px; font-weight: 600; color: var(--ink-faint); text-align: center; }
 .channel-node-coupang { background: var(--orange-soft); }
-.channel-graph-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.channel-connector-svg { display: block; width: 100%; height: 60px; overflow: visible; }
 .channel-connect-line {
-  stroke: var(--line-strong);
+  fill: none;
+  stroke: url(#channelConnectorGradient);
   stroke-width: 3;
-  stroke-dasharray: 6 8;
   stroke-linecap: round;
 }
+.channel-connect-dot { fill: var(--orange-dark); }
+
+.channel-result-message {
+  text-align: center;
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 4px 0 32px;
+}
+
+.channel-sales-chart { position: relative; padding: 0 8px 28px 40px; }
+.channel-sales-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.channel-axis-line { stroke: var(--line-strong); stroke-width: 2; }
 .channel-sales-line {
   fill: none;
   stroke: var(--orange);
@@ -439,6 +420,14 @@ button { font-family: inherit; cursor: pointer; }
   transition: stroke-dashoffset 1.8s var(--ease);
 }
 .channel-graph-wrap.is-visible .channel-sales-line { stroke-dashoffset: 0; }
+.channel-axis-label {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-faint);
+}
+.channel-axis-label-y { top: 4px; left: 0; writing-mode: vertical-rl; }
+.channel-axis-label-x { bottom: 0; right: 8px; }
 
 /* =========================================================
    캐릭터 이미지 공통 래퍼 (히어로/스토리/미니캐릭터 전 섹션 공용)
@@ -824,7 +813,15 @@ button { font-family: inherit; cursor: pointer; }
 .market-compare-side { flex: 1; min-width: 130px; text-align: center; }
 .market-compare-label { font-weight: 800; font-size: 16px; margin-bottom: 4px; }
 .market-compare-desc { font-size: 13px; color: var(--ink-faint); font-weight: 600; }
+.market-compare-note {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  line-height: 1.55;
+}
 .market-compare-side-highlight .market-compare-label { color: var(--orange-dark); }
+.market-compare-side-highlight .market-compare-note { color: var(--orange-dark); font-weight: 600; }
 .market-compare-vs {
   flex-shrink: 0;
   font-weight: 800;
@@ -908,6 +905,17 @@ button { font-family: inherit; cursor: pointer; }
   min-width: 0;
   margin: 0;
   text-align: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  box-shadow: var(--shadow-md);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.authenticity-compare-side:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.authenticity-compare-frame {
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 .authenticity-compare-side img {
   display: block;
@@ -915,15 +923,17 @@ button { font-family: inherit; cursor: pointer; }
   height: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
 }
 .authenticity-compare-side figcaption {
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 14px;
   font-weight: 800;
   color: var(--ink-soft);
 }
+.authenticity-compare-side-highlight {
+  border-color: var(--orange);
+}
+.authenticity-compare-side-highlight figcaption { color: var(--orange-dark); }
 .authenticity-compare-vs {
   flex-shrink: 0;
   width: 52px;
@@ -1885,5 +1895,6 @@ button { font-family: inherit; cursor: pointer; }
   .hero-intro-char,
   .korea-map-ring-1, .korea-map-ring-2, .korea-map-ring-3,
   .char-badge.is-bouncing,
-  .mini-char-stage.is-visible .char-badge { animation: none !important; }
+  .mini-char-stage.is-visible .char-badge,
+  .hero-orbit-icon { animation: none !important; }
 }

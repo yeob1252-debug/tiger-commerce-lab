@@ -55,33 +55,19 @@
     </div>
     <div class="hero-intro-content">
       <p class="eyebrow reveal">TIGER COMMERCE LAB</p>
-      <h1 class="hero-intro-title reveal">전국이 <span class="hl">사장님 손님</span>입니다</h1>
+      <div class="hero-orbit reveal">
+        <img class="hero-orbit-icon hero-orbit-tiktok" src="https://cdn.simpleicons.org/tiktok" alt="틱톡">
+        <img class="hero-orbit-icon hero-orbit-youtube" src="https://cdn.simpleicons.org/youtube" alt="유튜브">
+        <img class="hero-orbit-icon hero-orbit-naver" src="https://cdn.simpleicons.org/naver" alt="네이버">
+        <span class="hero-orbit-icon hero-orbit-heart" aria-hidden="true">❤️</span>
+        <span class="hero-orbit-icon hero-orbit-bell" aria-hidden="true">🔔</span>
+        <span class="hero-orbit-icon hero-orbit-comment" aria-hidden="true">💬</span>
+        <span class="hero-orbit-icon hero-orbit-subscribe" aria-hidden="true">구독</span>
+        <h1 class="hero-intro-title">음식점 메뉴<br><span class="hl">틱톡·유튜브·네이버</span>로<br>전국 판매</h1>
+      </div>
       <div class="scroll-cue reveal" aria-hidden="true">
         <span>SCROLL</span>
         <div class="scroll-cue-line"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 0.5 보물상자 인터랙션 ============ -->
-  <section id="treasure" class="section section-treasure">
-    <div class="section-inner container">
-      <p class="treasure-hook reveal">돈 쓸어 담고 있는<br>음식점들의 <span class="hl">비밀?</span></p>
-      <button type="button" class="treasure-box" id="treasureBox" aria-expanded="false">
-        <span class="treasure-box-glow" aria-hidden="true"></span>
-        <span class="treasure-box-icon" aria-hidden="true">🎁</span>
-        <span class="treasure-box-label">눌러서 확인하기</span>
-      </button>
-      <div class="treasure-reveal" id="treasureReveal">
-        <div class="treasure-float-icons" aria-hidden="true">
-          <span class="treasure-float treasure-float-1">🎵</span>
-          <span class="treasure-float treasure-float-2">▶️</span>
-          <span class="treasure-float treasure-float-3">📷</span>
-          <span class="treasure-float treasure-float-4">👍</span>
-          <span class="treasure-float treasure-float-5">🔔</span>
-          <span class="treasure-float treasure-float-6">❤️</span>
-        </div>
-        <p class="treasure-reveal-text">음식점 메뉴, <span class="hl">틱톡·유튜브·네이버</span>로<br>전국 판매</p>
       </div>
     </div>
   </section>
@@ -95,16 +81,56 @@
 
       <div class="channel-graph-wrap reveal" id="channelGraphWrap">
         <div class="channel-nodes">
-          <span class="channel-node channel-node-sns">📲<em>SNS</em><small>틱톡·유튜브·인스타·스레드</small></span>
-          <span class="channel-node channel-node-naver">🛍️<em>네이버</em><small>스마트스토어</small></span>
-          <span class="channel-node channel-node-coupang">📦<em>쿠팡</em><small>로켓그로스</small></span>
+          <div class="channel-node channel-node-sns">
+            <div class="channel-node-logos">
+              <img src="https://cdn.simpleicons.org/tiktok" alt="틱톡">
+              <img src="https://cdn.simpleicons.org/youtube" alt="유튜브">
+              <img src="https://cdn.simpleicons.org/instagram/E4405F" alt="인스타그램">
+              <img src="https://cdn.simpleicons.org/threads" alt="스레드">
+            </div>
+            <em>SNS 채널</em>
+            <small>틱톡·유튜브·인스타·스레드</small>
+          </div>
+          <div class="channel-node channel-node-naver">
+            <div class="channel-node-logos">
+              <img src="https://cdn.simpleicons.org/naver" alt="네이버">
+            </div>
+            <em>네이버</em>
+            <small>스마트스토어</small>
+          </div>
+          <div class="channel-node channel-node-coupang">
+            <div class="channel-node-logos">
+              <span class="channel-node-badge channel-node-badge-coupang">Coupang</span>
+            </div>
+            <em>쿠팡</em>
+            <small>로켓그로스</small>
+          </div>
         </div>
-        <svg class="channel-graph-svg" viewBox="0 0 800 320" preserveAspectRatio="none">
-          <line class="channel-connect-line" x1="120" y1="40" x2="400" y2="140"/>
-          <line class="channel-connect-line" x1="400" y1="40" x2="400" y2="140"/>
-          <line class="channel-connect-line" x1="680" y1="40" x2="400" y2="140"/>
-          <path class="channel-sales-line" d="M60,280 C 220,270 300,250 400,190 C 500,130 560,60 740,30"/>
+
+        <svg class="channel-connector-svg" viewBox="0 0 800 90" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="channelConnectorGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--orange)"/>
+              <stop offset="100%" stop-color="var(--orange-dark)"/>
+            </linearGradient>
+          </defs>
+          <path class="channel-connect-line" d="M120,0 C120,55 400,55 400,88"/>
+          <path class="channel-connect-line" d="M400,0 L400,88"/>
+          <path class="channel-connect-line" d="M680,0 C680,55 400,55 400,88"/>
+          <circle class="channel-connect-dot" cx="400" cy="88" r="7"/>
         </svg>
+
+        <p class="channel-result-message">SNS + 스마트스토어 + 쿠팡이 연결되면<br><span class="hl">매출이 폭발적으로 상승</span>합니다</p>
+
+        <div class="channel-sales-chart">
+          <svg class="channel-sales-svg" viewBox="0 0 800 300" preserveAspectRatio="none">
+            <line class="channel-axis-line" x1="56" y1="12" x2="56" y2="256"/>
+            <line class="channel-axis-line" x1="56" y1="256" x2="770" y2="256"/>
+            <path class="channel-sales-line" d="M56,240 L 234,206 L 412,140 L 590,72 L 758,20"/>
+          </svg>
+          <span class="channel-axis-label channel-axis-label-y">매출</span>
+          <span class="channel-axis-label channel-axis-label-x">시간</span>
+        </div>
       </div>
     </div>
   </section>
@@ -242,11 +268,13 @@
             <div class="market-compare-side">
               <p class="market-compare-label">상세페이지</p>
               <p class="market-compare-desc">글과 사진으로 설명</p>
+              <p class="market-compare-note">글과 사진, 요즘은 잘 안 읽습니다. 지금은 영상의 시대입니다.</p>
             </div>
             <span class="market-compare-vs" aria-hidden="true">vs</span>
             <div class="market-compare-side market-compare-side-highlight">
               <p class="market-compare-label">라이브커머스</p>
               <p class="market-compare-desc">실시간으로 직접 보여줌</p>
+              <p class="market-compare-note">SNS 발달로 라이브 방송이 익숙해진 시대, 사람들은 읽는 것보다 보는 것을 선호합니다. 라이브로 직접 보면 구매 욕구가 훨씬 커집니다.</p>
             </div>
             <p class="market-compare-result">구매전환율 <strong>3~10배</strong> 차이</p>
           </div>
@@ -307,12 +335,16 @@
 
           <div class="authenticity-compare reveal">
             <figure class="authenticity-compare-side">
-              <img src="assets/compare-factory.png" alt="공장에서 대량 생산되는 가공식품" loading="lazy">
+              <div class="authenticity-compare-frame">
+                <img src="assets/compare-factory.png" alt="공장에서 대량 생산되는 가공식품" loading="lazy">
+              </div>
               <figcaption>공장 가공식품</figcaption>
             </figure>
             <span class="authenticity-compare-vs" aria-hidden="true">VS</span>
-            <figure class="authenticity-compare-side">
-              <img src="assets/compare-restaurant.png" alt="맛집에서 직접 조리하는 음식" loading="lazy">
+            <figure class="authenticity-compare-side authenticity-compare-side-highlight">
+              <div class="authenticity-compare-frame">
+                <img src="assets/compare-restaurant.png" alt="맛집에서 직접 조리하는 음식" loading="lazy">
+              </div>
               <figcaption>맛집 직접 조리</figcaption>
             </figure>
           </div>

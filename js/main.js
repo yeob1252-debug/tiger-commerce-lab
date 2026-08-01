@@ -306,15 +306,33 @@
     });
   }
 
-  /* ---------- 대시보드 화면 5장: 순차 fly-in ----------
-     위 전역 스태거는 문서 전체 .reveal 인덱스를 5로 나눈 나머지라, 이 카드
-     5장이 문서상 몇 번째 .reveal인지에 따라 delay 순서가 뒤섞일 수 있다
-     (예: 시작 인덱스가 13이면 180,240,0,60,120ms 순으로 꼬여 카드3이 카드1보다
-     먼저 등장한다). 카드 자신의 순서(0~4)만 기준으로 delay를 다시 지정해
-     "하나씩 순서대로" 날아 들어오는 것을 보장한다. */
-  document.querySelectorAll('.dash-shot-card').forEach((el, i) => {
-    el.style.transitionDelay = i * 120 + 'ms';
-  });
+  /* ---------- 대시보드 화면 카드: 전용 IntersectionObserver로 순차 fly-in ----------
+     전역 .reveal observer(스크롤 리빌 애니메이션)를 재사용하지 않는다 — 문서
+     전체 .reveal 인덱스를 5로 나눈 나머지로 delay를 정하는 방식이라, 이 카드
+     5장이 문서상 몇 번째 .reveal인지에 따라 순서가 뒤섞일 수 있었다(예: 시작
+     인덱스가 13이면 180,240,0,60,120ms 순으로 꼬여 카드3이 카드1보다 먼저
+     등장). 이 섹션만의 전용 Observer를 만들어 카드 자신의 순서(0~4) 기준으로
+     0.15초 간격 delay를 지정하고, 화면에 들어오면 .is-visible을 붙여
+     opacity 0→1 + translateY(40px)→0 전환이 걸리게 한다(CSS는 styles.css의
+     .dash-shot-card / .dash-shot-card.is-visible 참고). */
+  const dashShotCards = document.querySelectorAll('.dash-shot-card');
+  if (dashShotCards.length) {
+    const dashShotObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            dashShotObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+    );
+    dashShotCards.forEach((el, i) => {
+      el.style.transitionDelay = i * 150 + 'ms';
+      dashShotObserver.observe(el);
+    });
+  }
 
   /* ---------- 데이터 섹션: 5년 추이 바 차트 + 카운트업 강조 애니메이션 ---------- */
   /* .stat-grid(시장 데이터)뿐 아니라 .authenticity-demo(30~40대 여성 비중)처럼

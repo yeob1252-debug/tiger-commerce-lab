@@ -310,7 +310,11 @@
   /* .stat-grid(시장 데이터)뿐 아니라 .authenticity-demo(30~40대 여성 비중)처럼
      이후 추가된 .bar-chart 블록에도 동일하게 적용되도록, 컨테이너 하나로
      한정하지 않고 .bar-chart를 담고 있는 모든 블록을 각각 관찰한다. */
-  const statBlocks = document.querySelectorAll('.stat-grid, .authenticity-demo, .channel-store-grid');
+  /* .market-cards 전체를 하나로 관찰하면 래퍼 키가 너무 커져(카드 6개 세로
+     나열) threshold(0.4) 비율을 절대 채울 수 없어 그래프가 영영 애니메이션
+     되지 않는다 — 카드 각각을 개별로 관찰해 "그 카드가 보일 때" 그 카드
+     안의 그래프만 애니메이션되게 한다. */
+  const statBlocks = document.querySelectorAll('.market-card, .channel-store-grid');
 
   function animateCountUp(counter, { duration = 1300, delay = 0 } = {}) {
     const target = parseFloat(counter.getAttribute('data-count-to')) || 0;

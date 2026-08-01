@@ -340,6 +340,14 @@
   }
 
   if (statBlocks.length) {
+    /* threshold:0.4는 "카드 전체 면적의 40%가 보여야" 트리거되는데, 카드마다
+       실제 높이가 크게 달라(예: "주 구매층 데이터" 카드는 리드 문구+바 4줄+
+       하이라이트 박스까지 있어 다른 카드보다 훨씬 크다) 큰 카드는 뷰포트
+       안에 40%가 다 들어오기 전에는 절대 트리거되지 않아 애니메이션이 안
+       도는 것처럼 보였다 — .market-cards 전체를 한 번에 관찰했을 때와
+       같은 종류의 문제다. rootMargin으로 "카드 상단이 화면 아래쪽에서
+       일정 지점을 지나면" 트리거되도록(면적 비율이 아니라) 바꿔 카드
+       크기와 무관하게 일관되게 작동시킨다. */
     const statObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -363,7 +371,7 @@
           });
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
     );
     statBlocks.forEach((block) => statObserver.observe(block));
   }

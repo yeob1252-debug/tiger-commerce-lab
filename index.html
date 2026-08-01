@@ -381,27 +381,33 @@
           <div class="channel-result-card reveal" id="channelGraphWrap">
             <p class="channel-result-message">SNS + 스마트스토어 + 쿠팡이 연결되면<br><span class="hl">매출이 폭발적으로 상승</span>합니다</p>
             <div class="channel-sales-chart">
-              <svg class="channel-sales-svg" viewBox="0 0 800 300" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="channelAreaGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="var(--orange)" stop-opacity=".35"/>
-                    <stop offset="100%" stop-color="var(--orange)" stop-opacity="0"/>
-                  </linearGradient>
-                  <linearGradient id="channelLineGradient" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="var(--yellow)"/>
-                    <stop offset="100%" stop-color="var(--orange-dark)"/>
-                  </linearGradient>
-                </defs>
+              <!-- 축/배경 틀: 처음부터 고정으로 보이며 애니메이션되지 않는다 -->
+              <svg class="channel-sales-svg channel-sales-frame-svg" viewBox="0 0 800 300" preserveAspectRatio="none">
                 <line class="channel-axis-line" x1="56" y1="12" x2="56" y2="256"/>
                 <line class="channel-axis-line" x1="56" y1="256" x2="770" y2="256"/>
-                <path class="channel-sales-area" d="M56,240 L 234,206 L 412,140 L 590,72 L 758,20 L 758,256 L 56,256 Z"/>
-                <path class="channel-sales-line" d="M56,240 L 234,206 L 412,140 L 590,72 L 758,20"/>
-                <circle class="channel-sales-dot" cx="56" cy="240" r="7"/>
-                <circle class="channel-sales-dot" cx="234" cy="206" r="7"/>
-                <circle class="channel-sales-dot" cx="412" cy="140" r="7"/>
-                <circle class="channel-sales-dot" cx="590" cy="72" r="7"/>
-                <circle class="channel-sales-dot channel-sales-dot-final" cx="758" cy="20" r="9"/>
               </svg>
+              <!-- 데이터(영역+선+점)만 스크롤 진입 시 왼쪽→오른쪽으로 그려진다 -->
+              <div class="channel-sales-data-wrap">
+                <svg class="channel-sales-svg channel-sales-data-svg" viewBox="0 0 800 300" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="channelAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--orange)" stop-opacity=".35"/>
+                      <stop offset="100%" stop-color="var(--orange)" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="channelLineGradient" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="var(--yellow)"/>
+                      <stop offset="100%" stop-color="var(--orange-dark)"/>
+                    </linearGradient>
+                  </defs>
+                  <path class="channel-sales-area" d="M56,240 L 234,206 L 412,140 L 590,72 L 758,20 L 758,256 L 56,256 Z"/>
+                  <path class="channel-sales-line" d="M56,240 L 234,206 L 412,140 L 590,72 L 758,20"/>
+                  <circle class="channel-sales-dot" cx="56" cy="240" r="7"/>
+                  <circle class="channel-sales-dot" cx="234" cy="206" r="7"/>
+                  <circle class="channel-sales-dot" cx="412" cy="140" r="7"/>
+                  <circle class="channel-sales-dot" cx="590" cy="72" r="7"/>
+                  <circle class="channel-sales-dot channel-sales-dot-final" cx="758" cy="20" r="9"/>
+                </svg>
+              </div>
               <span class="channel-axis-label channel-axis-label-y">매출</span>
               <span class="channel-axis-label channel-axis-label-x">시간</span>
             </div>
@@ -673,6 +679,80 @@
           <span class="quote-bubble-cta" aria-hidden="true">왜 그럴까요? <span class="quote-bubble-cta-arrow">▾</span></span>
           <span class="quote-bubble-answer"><strong>왜 그럴까요?</strong> 라이브커머스는 기획, 진행, 실시간 소통까지 준비할 게 많아서 처음 시도하기엔 진입장벽이 높게 느껴집니다. 타이거커머스랩이 기획부터 진행, 사후 콘텐츠 활용까지 함께해서, 처음이어도 걱정 없이 시작하실 수 있습니다.</span>
         </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5.5 사장님과 실시간 소통 ============ -->
+  <section id="dashboard-preview" class="section section-dashboard-preview">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">LIVE DASHBOARD</p>
+      <h2 class="section-title reveal">사장님과 <span class="hl">실시간 소통</span></h2>
+
+      <div class="dash-preview-intro reveal">
+        <div class="mini-char-stage dash-preview-char" aria-hidden="true">
+          <span class="char-img-wrap">
+            <img src="assets/characters/cutout/hero.png" alt="" class="mini-char-img">
+          </span>
+        </div>
+        <p class="dash-preview-lead">주간, 월간, 목표 및<br>업무소통 대시보드 운영</p>
+      </div>
+
+      <div class="dash-preview-shots">
+        <figure class="dash-preview-shot reveal">
+          <div class="browser-mock">
+            <div class="browser-mock-bar">
+              <span class="browser-mock-dot"></span><span class="browser-mock-dot"></span><span class="browser-mock-dot"></span>
+              <span class="browser-mock-address">tigercommercelab.com/login</span>
+            </div>
+            <img src="assets/dashboard-preview/login-screenshot.JPEG" alt="사장님 전용 로그인 화면" loading="lazy">
+          </div>
+          <figcaption>사장님 전용 계정으로 접속</figcaption>
+        </figure>
+
+        <figure class="dash-preview-shot reveal">
+          <div class="browser-mock">
+            <div class="browser-mock-bar">
+              <span class="browser-mock-dot"></span><span class="browser-mock-dot"></span><span class="browser-mock-dot"></span>
+              <span class="browser-mock-address">tigercommercelab.com/client</span>
+            </div>
+            <img src="assets/dashboard-preview/dashboard-1-score-roadmap.JPEG" alt="운영중인 채널현황과 업무 로드맵 화면" loading="lazy">
+          </div>
+          <figcaption>지금 어느 단계에 와있는지 한눈에</figcaption>
+        </figure>
+
+        <figure class="dash-preview-shot reveal">
+          <div class="browser-mock">
+            <div class="browser-mock-bar">
+              <span class="browser-mock-dot"></span><span class="browser-mock-dot"></span><span class="browser-mock-dot"></span>
+              <span class="browser-mock-address">tigercommercelab.com/client</span>
+            </div>
+            <img src="assets/dashboard-preview/dashboard-2-monthly-performance.JPEG" alt="월간 성과 그래프 화면" loading="lazy">
+          </div>
+          <figcaption>매달 쌓이는 성과를 그래프로 확인</figcaption>
+        </figure>
+
+        <figure class="dash-preview-shot reveal">
+          <div class="browser-mock">
+            <div class="browser-mock-bar">
+              <span class="browser-mock-dot"></span><span class="browser-mock-dot"></span><span class="browser-mock-dot"></span>
+              <span class="browser-mock-address">tigercommercelab.com/client</span>
+            </div>
+            <img src="assets/dashboard-preview/dashboard-3-calendar.JPEG" alt="운영 캘린더 화면" loading="lazy">
+          </div>
+          <figcaption>이번 주 무슨 작업이 진행되는지 실시간 공유</figcaption>
+        </figure>
+
+        <figure class="dash-preview-shot reveal">
+          <div class="browser-mock">
+            <div class="browser-mock-bar">
+              <span class="browser-mock-dot"></span><span class="browser-mock-dot"></span><span class="browser-mock-dot"></span>
+              <span class="browser-mock-address">tigercommercelab.com/client</span>
+            </div>
+            <img src="assets/dashboard-preview/dashboard-4-menu-board.JPEG" alt="메뉴 단가표와 소통 게시판 화면" loading="lazy">
+          </div>
+          <figcaption>궁금한 건 게시판으로 바로 소통</figcaption>
+        </figure>
       </div>
     </div>
   </section>

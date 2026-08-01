@@ -44,6 +44,10 @@ body {
   line-height: 1.5;
   /* 한글 단어가 화면 폭에 따라 중간에서 어색하게 끊기지 않도록 전역 적용 */
   word-break: keep-all;
+  /* 모바일에서 좌우로 화면이 밀리는 문제의 안전장치. overflow-x만 제한하고
+     overflow-y는 건드리지 않아 .story-visual의 position:sticky 세로 고정
+     동작에는 영향이 없다. */
+  overflow-x: hidden;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -491,14 +495,24 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0 0 28px;
 }
 
+/* 축/배경(틀)은 처음부터 고정으로 보이고, 그 위에 겹쳐진 데이터
+   레이어(.channel-sales-data-wrap)만 스크롤 진입 시 왼쪽→오른쪽으로
+   그려지도록 두 개의 SVG로 분리한다 — 틀까지 함께 나타났다 사라지는
+   느낌을 없애기 위함. */
 .channel-sales-chart {
   position: relative;
   padding: 0 8px 34px 46px;
-  /* 스크롤 진입 시 왼쪽에서부터 그래프가 "차오르듯" 드러난다 */
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.4s var(--ease);
 }
-.channel-result-card.is-visible .channel-sales-chart { clip-path: inset(0 0% 0 0); }
+.channel-sales-frame-svg { position: relative; }
+.channel-sales-data-wrap {
+  position: absolute;
+  inset: 0;
+  /* 스크롤 진입 시 왼쪽에서부터 데이터(선+영역+점)만 "그려지듯" 드러난다 */
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.6s var(--ease);
+}
+.channel-result-card.is-visible .channel-sales-data-wrap { clip-path: inset(0 0% 0 0); }
+.channel-sales-data-svg { width: 100%; height: 100%; display: block; overflow: visible; }
 .channel-sales-svg { display: block; width: 100%; height: auto; overflow: visible; }
 .channel-axis-line { stroke: var(--line-strong); stroke-width: 2; }
 .channel-sales-area { fill: url(#channelAreaGradient); stroke: none; }
@@ -614,7 +628,13 @@ button { font-family: inherit; cursor: pointer; }
      (아래 .panel 규칙 참고) 사이드바로 인한 정렬 오차를 최소화한다. */
   position: sticky;
   top: 0;
-  z-index: 1;
+  /* .story-panels(z-index:2)보다 높여, 캐릭터가 오른쪽으로 살짝 겹치는
+     지점에 .channel-result-card 같은 배경이 있는 박스가 와도 캐릭터
+     팔이 그 박스에 가려지지 않고 항상 앞에 보이게 한다. 클릭 가능한
+     요소가 안에 전혀 없는 순수 장식이라 pointer-events:none으로 고정해
+     밑에 깔린 본문 클릭을 절대 막지 않는다. */
+  z-index: 3;
+  pointer-events: none;
   width: var(--sidebar-w);
   height: 100vh;
   display: flex;
@@ -1421,6 +1441,87 @@ button { font-family: inherit; cursor: pointer; }
 .quote-bubble:hover::after { border-color: var(--orange); }
 
 /* =========================================================
+   사장님과 실시간 소통 (대시보드 미리보기)
+   ========================================================= */
+.section-dashboard-preview { background: var(--bg); }
+.dash-preview-intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 40px);
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.dash-preview-char { margin: 0; }
+.dash-preview-char .mini-char-img { height: min(34vh, 300px); }
+.dash-preview-lead {
+  font-size: clamp(1.5rem, 4vw, 2.3rem);
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--ink);
+  text-align: left;
+}
+
+.dash-preview-shots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.dash-preview-shot { width: 100%; text-align: center; }
+.browser-mock {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.browser-mock-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 14px;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--line);
+}
+.browser-mock-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  flex-shrink: 0;
+}
+.browser-mock-dot:nth-child(1) { background: #FF5F57; }
+.browser-mock-dot:nth-child(2) { background: #FEBC2E; }
+.browser-mock-dot:nth-child(3) { background: #28C840; }
+.browser-mock-address {
+  margin-left: 10px;
+  padding: 4px 14px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-faint);
+}
+.browser-mock img { width: 100%; height: auto; display: block; }
+.dash-preview-shot figcaption {
+  margin-top: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 640px) {
+  .dash-preview-intro { flex-direction: column; text-align: center; margin-bottom: 36px; }
+  .dash-preview-lead { text-align: center; font-size: 1.5rem; }
+  .dash-preview-shots { gap: 40px; }
+  .browser-mock-address { font-size: 10px; padding: 3px 10px; }
+}
+
+/* =========================================================
    SERVICES
    ========================================================= */
 .section-services { background: var(--bg-alt); }
@@ -1593,7 +1694,11 @@ button { font-family: inherit; cursor: pointer; }
   pointer-events: none;
   transition: opacity .25s var(--ease);
 }
-.modal-overlay[hidden] { display: flex; }
+/* 이전에는 [hidden]일 때도 display:flex를 강제해서, 모달이 닫혀 있어도
+   폭이 넓은 .modal-table(min-width:460px)이 문서 흐름에 그대로 남아
+   모바일에서 페이지 전체가 가로로 밀리는 원인이 됐다 — hidden이면
+   실제로 완전히 렌더링에서 제외되도록 되돌린다. */
+.modal-overlay[hidden] { display: none; }
 .modal-overlay.is-open {
   opacity: 1;
   pointer-events: auto;

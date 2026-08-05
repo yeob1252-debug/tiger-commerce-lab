@@ -9,6 +9,7 @@
 <link rel="icon" type="image/png" href="assets/characters/logo.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css">
 <link rel="stylesheet" href="css/styles.css">
 <meta name="google-site-verification" content="D_nknhxPdTUllNEdwfu13hCmwJPx0tzdXM2vDn9mHgM" />
 <meta name="naver-site-verification" content="c19c40aabff5f3d7694179467705e2c27bdafa1a" />
@@ -35,595 +36,406 @@
 <!-- 우측 섹션 내비게이션 -->
 <nav class="side-nav" id="sideNav" aria-label="섹션 이동">
   <button class="side-nav-dot" data-target="hero" aria-label="HERO로 이동"><span>HERO</span></button>
-  <button class="side-nav-dot" data-target="market" aria-label="시장 데이터로 이동"><span>MARKET</span></button>
-  <button class="side-nav-dot" data-target="process" aria-label="프로세스로 이동"><span>PROCESS</span></button>
+  <button class="side-nav-dot" data-target="free-check" aria-label="무료 점검으로 이동"><span>CHECK</span></button>
+  <button class="side-nav-dot" data-target="main-service" aria-label="메인 서비스로 이동"><span>SERVICE</span></button>
   <button class="side-nav-dot" data-target="cases" aria-label="진행 사례로 이동"><span>CASES</span></button>
-  <button class="side-nav-dot" data-target="services" aria-label="서비스로 이동"><span>SERVICES</span></button>
-  <button class="side-nav-dot" data-target="founder" aria-label="대표자 소개로 이동"><span>FOUNDER</span></button>
+  <button class="side-nav-dot" data-target="process" aria-label="프로세스로 이동"><span>PROCESS</span></button>
+  <button class="side-nav-dot" data-target="market" aria-label="시장 데이터로 이동"><span>MARKET</span></button>
+  <button class="side-nav-dot" data-target="pricing" aria-label="서비스안내로 이동"><span>PRICING</span></button>
+  <button class="side-nav-dot" data-target="dashboard-preview" aria-label="대시보드로 이동"><span>DASHBOARD</span></button>
   <button class="side-nav-dot" data-target="contact" aria-label="문의로 이동"><span>TALK</span></button>
 </nav>
 
 <main>
 
-  <!-- ============ 0. HERO INTRO (풀스크린 캐릭터 스플래시) ============ -->
+  <!-- ============ 1. HERO ============ -->
   <section id="hero" class="hero-intro">
     <div class="hero-intro-glow" aria-hidden="true"></div>
-    <div class="hero-intro-row">
-      <!-- 아래 "2km 반경" 섹션의 .story-visual(캐릭터 사이드바)과 정확히 같은
-           폭(--sidebar-w)을 차지하는 빈 스페이서. 캐릭터는 없지만 폭만
-           동일하게 유지해야 본문 시작 지점이 그 섹션과 일치한다. -->
-      <div class="hero-intro-spacer" aria-hidden="true"></div>
-      <div class="hero-intro-panel">
-        <div class="hero-intro-content container">
-          <p class="eyebrow reveal">TIGER COMMERCE LAB</p>
-          <h1 class="hero-intro-title reveal">음식점 메뉴 <span class="hl">틱톡·유튜브·네이버</span>로<br>전국 판매</h1>
-          <p class="hero-intro-subcopy reveal">배달앱 수수료 없이, 전국 단위로 매출을 만드는 방법</p>
-          <div class="hero-trust-strip reveal">
-            <img src="https://cdn.simpleicons.org/tiktok" alt="틱톡" class="hero-trust-logo">
-            <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="유튜브" class="hero-trust-logo">
-            <img src="https://cdn.simpleicons.org/naver/03C75A" alt="네이버" class="hero-trust-logo">
-            <span class="channel-node-badge channel-node-badge-coupang hero-trust-coupang">Coupang</span>
+    <div class="hero-intro-content container">
+      <div class="hero-intro-copy">
+        <p class="eyebrow reveal">TIGER COMMERCE LAB</p>
+        <h1 class="hero-intro-title reveal">음식점 메뉴<br><span class="cycle-word" id="cycleWord">틱톡</span>으로<br>전국 판매</h1>
+        <p class="hero-intro-subcopy reveal">배달앱 수수료 없이, 전국 단위로 매출을 만드는 방법</p>
+        <div class="hero-trust-strip reveal">
+          <img src="https://cdn.simpleicons.org/tiktok" alt="틱톡" class="hero-trust-logo">
+          <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="유튜브" class="hero-trust-logo">
+          <img src="https://cdn.simpleicons.org/naver/03C75A" alt="네이버" class="hero-trust-logo">
+          <span class="channel-node-badge channel-node-badge-coupang hero-trust-coupang">Coupang</span>
+        </div>
+        <button type="button" class="btn btn-primary btn-large hero-intro-cta" data-scroll-to="free-check">무료 점검 신청하기</button>
+      </div>
+
+      <!-- 폰 프레임 목업: AI 이미지 생성이 아니라 실제 HTML/CSS로 구현 -->
+      <div class="hero-phone-wrap reveal" aria-hidden="true">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-app-bar">
+              <span class="phone-app-live">LIVE</span>
+              <span class="phone-app-viewers">👁 1,204</span>
+            </div>
+            <div class="phone-video-area">
+              <p class="phone-video-caption">간장게장 특가 라이브 🦀</p>
+            </div>
+            <div class="phone-product-card">
+              <div class="phone-product-thumb"></div>
+              <div class="phone-product-info">
+                <p class="phone-product-name">한식명장 간장게장 1kg</p>
+                <p class="phone-product-price">32,000<span>원</span></p>
+              </div>
+              <button class="phone-buy-btn" type="button">구매</button>
+            </div>
+            <div class="phone-comment-row">
+              <span class="phone-comment">🔥맛있겠다 바로 주문</span>
+            </div>
           </div>
-          <button type="button" class="btn btn-primary btn-large hero-intro-cta" data-scroll-to="contact">무료 점검 신청하기</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ STORY GROUP: PAIN POINT / MARKET / PROCESS / CASES (스티키 마스코트) ============ -->
-  <div class="story">
+  <!-- ============ 2. 무료 플레이스 점검 ============ -->
+  <section id="free-check" class="section section-free-check">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">FREE CHECK</p>
+      <h2 class="section-title reveal">매장 정보, 지금 이대로면 <span class="hl">손님한테 안 보입니다</span></h2>
+      <p class="section-lead reveal">사업자정보·매장사진·키워드까지, 지금 그대로 방치되어 있으면 검색에서 밀려납니다</p>
+      <span class="free-badge reveal">0원으로 신청 가능 · 추가비용 절대 없음</span>
 
-    <!-- 스티키 캐릭터 스테이지 -->
-    <div class="story-visual" aria-hidden="true">
-      <div class="char-stage">
-        <div class="char-badge" id="charBadge">엄지척!</div>
-        <span class="char-img-wrap">
-          <img src="assets/characters/cutout/hero.png" alt="" class="char-img" data-char="hero">
-          <img src="assets/characters/cutout/surprised.png" alt="" class="char-img" data-char="surprised">
-          <img src="assets/characters/cutout/curious.png" alt="" class="char-img" data-char="curious">
-        </span>
+      <div class="free-check-grid">
+        <div class="free-check-copy reveal">
+          <ul class="free-check-list">
+            <li><span class="fc-icon" aria-hidden="true">✓</span>사업자등록증 정보 일치 여부</li>
+            <li><span class="fc-icon" aria-hidden="true">✓</span>고화질 매장 사진 (가로형 1200px 이상)</li>
+            <li><span class="fc-icon" aria-hidden="true">✓</span>메뉴판·가격표 사진</li>
+            <li><span class="fc-icon" aria-hidden="true">✓</span>정확한 지도 핀 위치</li>
+            <li><span class="fc-icon" aria-hidden="true">✓</span>검색 키워드 최적화 상세설명</li>
+          </ul>
+        </div>
+
+        <form id="freeCheckForm" class="free-check-form reveal" novalidate>
+          <div class="form-row">
+            <label for="fcStoreName">매장명 <span class="req">*</span></label>
+            <input type="text" id="fcStoreName" name="storeName" placeholder="예) 장지녕간장게장 한남동본점" required>
+          </div>
+          <div class="form-row">
+            <label for="fcStoreArea">매장 지역 <span class="req">*</span></label>
+            <input type="text" id="fcStoreArea" name="storeArea" placeholder="예) 서울 용산구" required>
+          </div>
+          <div class="form-row">
+            <label for="fcPhone">연락처 <span class="req">*</span></label>
+            <input type="tel" id="fcPhone" name="phone" placeholder="예) 010-1234-5678" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large form-submit">
+            <span class="btn-label">무료 점검 신청하기</span>
+          </button>
+          <p class="form-status" id="fcFormStatus" role="status" aria-live="polite"></p>
+          <p class="form-note">입력하신 정보는 상담 목적으로만 사용되며, 상담 완료 후 안전하게 관리됩니다. 신청 시 개인정보 수집·이용에 동의한 것으로 간주됩니다.</p>
+        </form>
       </div>
     </div>
+  </section>
 
-    <div class="story-panels">
-
-      <!-- 1. PAIN POINT (2km 반경) -->
-      <section id="pain-point" class="panel panel-hero" data-char="hero">
-        <div class="panel-inner container">
-          <div class="mini-char-stage mobile-only-char reveal" aria-hidden="true">
-            <div class="char-badge">엄지척!</div>
-            <img src="assets/characters/cutout/hero.png" alt="" class="mini-char-img">
-          </div>
-          <h1 class="hero-title reveal">
-            매장 손님, <span class="text-underline">2km 반경</span> 영업만<br>
-            하고 계신가요?
-          </h1>
-          <div class="korea-map reveal" id="koreaMapHover">
-            <div class="korea-map-frame" tabindex="0" aria-describedby="koreaMapPopover">
-              <img src="assets/characters/cutout/map-korea.png" alt="" class="korea-map-img">
-              <svg viewBox="0 0 781 1113" class="korea-map-overlay">
-                <circle class="korea-map-ring korea-map-ring-1" cx="381" cy="653" r="20"/>
-                <circle class="korea-map-ring korea-map-ring-2" cx="381" cy="653" r="20"/>
-                <circle class="korea-map-ring korea-map-ring-3" cx="381" cy="653" r="20"/>
-                <g class="korea-map-arrows">
-                  <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="400" data-y2="120" marker-end="url(#arrowHead)"/>
-                  <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="510" data-y2="70" marker-end="url(#arrowHead)"/>
-                  <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="150" data-y2="330" marker-end="url(#arrowHead)"/>
-                  <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="100" data-y2="920" marker-end="url(#arrowHead)"/>
-                  <path class="korea-map-arrow" d="M381 653 L381 653" data-x2="650" data-y2="830" marker-end="url(#arrowHead)"/>
-                </g>
-                <defs>
-                  <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-                    <path d="M0,0 L8,4 L0,8 Z" fill="var(--orange)"/>
-                  </marker>
-                </defs>
-              </svg>
-            </div>
-            <div class="map-popover" id="koreaMapPopover" role="note">
-              <p class="map-popover-badge">🙅‍♂️ <span>배달수수료 해방</span></p>
-              <p class="map-popover-badge">🚚 <span>전국 배달 시작</span></p>
-              <p class="map-popover-sub">2km 반경을 넘어 <span class="hl">전국</span>이 내 매장 손님이 됩니다</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 1.5 후킹 문구 -->
-      <section id="hook" class="panel panel-hook" data-char="hero">
-        <div class="panel-inner container">
-          <div class="mini-char-stage mobile-only-char reveal" aria-hidden="true">
-            <div class="char-badge">엄지척!</div>
-            <img src="assets/characters/cutout/hero.png" alt="" class="mini-char-img">
-          </div>
-          <div class="hook-banner reveal">
-            <span class="hook-banner-part">매장 메뉴 전국판매</span>
-            <span class="hook-banner-arrow" aria-hidden="true">
-              <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 12H56M56 12L45 2M56 12L45 22" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <span class="hook-banner-part hook-banner-part-highlight">매출·단골 폭발 증가</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2. MARKET DATA -->
-      <section id="market" class="panel panel-market" data-char="surprised">
-        <div class="panel-inner container">
-          <div class="mini-char-stage mobile-only-char reveal" aria-hidden="true">
-            <div class="char-badge">헉, 벌써 이만큼?!</div>
-            <img src="assets/characters/cutout/surprised.png" alt="" class="mini-char-img">
-          </div>
-          <p class="eyebrow reveal">WHY NOW</p>
-          <h2 class="section-title reveal">시장이 왜 <span class="hl">지금</span>인가</h2>
-          <p class="section-lead reveal">온라인 판매 시장은 한 해도 쉬지 않고 커지고 있고, 손님들은 여전히 매장의 '진짜' 맛을 찾습니다</p>
-
-          <div class="market-cards">
-            <div class="market-card reveal">
-              <div class="market-card-head">
-                <span class="market-card-eyebrow">MARKET SIZE</span>
-                <p class="market-card-title">온라인 식품 거래액 <span class="stat-unit">(조원)</span></p>
-              </div>
-              <div class="bar-chart" data-max="40.7">
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="17"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2019</span><span class="bar-chart-num">17</span></div>
-                </div>
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="25.3"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2020</span><span class="bar-chart-num">25.3</span></div>
-                </div>
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="31.2"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2021</span><span class="bar-chart-num">31.2</span></div>
-                </div>
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="36.1"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2022</span><span class="bar-chart-num">36.1</span></div>
-                </div>
-                <div class="bar-chart-row bar-chart-row-final">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="40.7"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2023</span><span class="bar-chart-num"><span class="count-up" data-count-to="40.7" data-decimals="1">0</span></span></div>
-                </div>
-              </div>
-              <p class="stat-source">자료: 통계청</p>
-              <p class="stat-note">코로나 이후 배달·택배 문화가 완전히 일상이 됐습니다</p>
-            </div>
-
-            <div class="market-card reveal">
-              <div class="market-card-head">
-                <span class="market-card-eyebrow">MARKET SIZE</span>
-                <p class="market-card-title">SNS·라이브커머스 시장 규모 <span class="stat-unit">(조원)</span></p>
-              </div>
-              <div class="bar-chart" data-max="25.6">
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="2.8"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2021</span><span class="bar-chart-num">2.8</span></div>
-                </div>
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="6.2"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2022</span><span class="bar-chart-num">6.2</span></div>
-                </div>
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="10"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2023</span><span class="bar-chart-num">10</span></div>
-                </div>
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="25"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2024</span><span class="bar-chart-num">25</span></div>
-                </div>
-                <div class="bar-chart-row bar-chart-row-final">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="25.6"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2025(전망)</span><span class="bar-chart-num"><span class="count-up" data-count-to="25.6" data-decimals="1">0</span></span></div>
-                </div>
-              </div>
-              <p class="stat-source">자료: 교보증권·한국인터넷진흥원</p>
-              <p class="stat-note">라이브커머스에서 가장 많이 팔리는 게 식품입니다<span class="stat-note-highlight">(구매 상품 1위, 54.8%)</span><span class="plan-note-source">출처: 서울시 조사</span></p>
-            </div>
-
-            <div class="market-card market-card-compare reveal">
-              <div class="market-card-head">
-                <span class="market-card-eyebrow">CONVERSION</span>
-                <p class="market-card-title">글보다 강한 영상의 힘</p>
-              </div>
-              <div class="market-compare">
-                <div class="market-compare-side">
-                  <span class="market-compare-icon" aria-hidden="true">📄</span>
-                  <p class="market-compare-label market-card-title">상세페이지</p>
-                  <p class="market-compare-desc stat-note">글과 사진으로 설명</p>
-                  <p class="market-compare-note stat-note">글과 사진, 요즘은 잘 안 읽습니다. 지금은 영상의 시대입니다.</p>
-                </div>
-                <span class="market-compare-vs" aria-hidden="true">vs</span>
-                <div class="market-compare-side market-compare-side-highlight">
-                  <span class="market-compare-badge">압도적 우위</span>
-                  <span class="market-compare-icon" aria-hidden="true">🎥</span>
-                  <p class="market-compare-label market-card-title">라이브커머스</p>
-                  <p class="market-compare-desc stat-note">실시간으로 직접 보여줌</p>
-                  <p class="market-compare-note stat-note">SNS 발달로 라이브 방송이 익숙해진 시대, 사람들은 읽는 것보다 보는 것을 선호합니다. 라이브로 직접 보면 구매 욕구가 훨씬 커집니다.</p>
-                </div>
-                <p class="market-compare-result market-compare-result-big">압도적인 <span class="hl">구매전환율</span>과 <span class="hl">재구매율</span></p>
-              </div>
-            </div>
-
-            <div class="market-card reveal">
-              <div class="market-card-head">
-                <span class="market-card-eyebrow">WHO'S BUYING</span>
-                <p class="market-card-title">주 구매층 데이터</p>
-              </div>
-              <div class="authenticity-demo">
-                <p class="authenticity-demo-lead">온라인스토어·SNS에서 식품을 주문하는 건 <span class="hl">30~40대 여성이 80%대</span>입니다. 아이들과 가족, 그리고 음식에 민감한 여성들이 주 고객층입니다</p>
-                <div class="bar-chart authenticity-demo-chart" data-max="45">
-                  <div class="bar-chart-row">
-                    <div class="bar-chart-track"><div class="bar-chart-fill" data-value="8"></div></div>
-                    <div class="bar-chart-meta"><span class="bar-chart-year">20대 이하</span><span class="bar-chart-num">8<em>%</em></span></div>
-                  </div>
-                  <div class="bar-chart-row bar-chart-row-final">
-                    <div class="bar-chart-track"><div class="bar-chart-fill" data-value="42"></div></div>
-                    <div class="bar-chart-meta"><span class="bar-chart-year">30대 여성</span><span class="bar-chart-num"><span class="count-up" data-count-to="42">0</span><em>%</em></span></div>
-                  </div>
-                  <div class="bar-chart-row bar-chart-row-final">
-                    <div class="bar-chart-track"><div class="bar-chart-fill" data-value="38"></div></div>
-                    <div class="bar-chart-meta"><span class="bar-chart-year">40대 여성</span><span class="bar-chart-num"><span class="count-up" data-count-to="38">0</span><em>%</em></span></div>
-                  </div>
-                  <div class="bar-chart-row">
-                    <div class="bar-chart-track"><div class="bar-chart-fill" data-value="12"></div></div>
-                    <div class="bar-chart-meta"><span class="bar-chart-year">50대 이상</span><span class="bar-chart-num">12<em>%</em></span></div>
-                  </div>
-                </div>
-              </div>
-              <p class="authenticity-loyalty">SNS로 모인 단골은 채널 자체에 애정이 있어서, <span class="hl">재주문이 상당히 높습니다</span></p>
-            </div>
-
-            <div class="market-card reveal">
-              <div class="market-card-head">
-                <span class="market-card-eyebrow">REAL TASTE</span>
-                <p class="market-card-title">그래도, 사람들은 <span class="hl">'진짜'</span>를 찾습니다</p>
-              </div>
-              <div class="authenticity-stat">
-                <p class="authenticity-stat-title">소비자가 가정간편식(가공식품)을 구입하지 않는 이유</p>
-                <div class="authenticity-stat-row">
-                  <div class="authenticity-stat-num">
-                    <span class="authenticity-stat-value">15.6<em>%</em></span>
-                    <span class="authenticity-stat-label">원재료 원산지·품질 의심</span>
-                  </div>
-                  <div class="authenticity-stat-num">
-                    <span class="authenticity-stat-value">13.5<em>%</em></span>
-                    <span class="authenticity-stat-label">신선도·안전성 우려</span>
-                  </div>
-                </div>
-                <p class="stat-source">자료: 한국농촌경제연구원 2024년 가공식품 소비자태도조사</p>
-              </div>
-              <p class="authenticity-punch">사장님 매장에서 직접 만든 그 맛, 온라인에서도 통합니다.<br>손님들은 이미 <span class="hl">'진짜'</span>를 찾고 있어요.</p>
-            </div>
-
-            <div class="market-card market-card-compare-img reveal">
-              <div class="authenticity-compare">
-                <figure class="authenticity-compare-side">
-                  <div class="authenticity-compare-frame">
-                    <img src="assets/compare-factory.png" alt="공장에서 대량 생산되는 가공식품" loading="lazy">
-                  </div>
-                  <figcaption>공장 가공식품</figcaption>
-                </figure>
-                <span class="authenticity-compare-vs" aria-hidden="true">VS</span>
-                <figure class="authenticity-compare-side authenticity-compare-side-highlight">
-                  <div class="authenticity-compare-frame">
-                    <img src="assets/compare-restaurant.png" alt="맛집에서 직접 조리하는 음식" loading="lazy">
-                  </div>
-                  <figcaption>맛집 직접 조리</figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2.6 SNS+네이버+쿠팡 연결 매출 그래프 -->
-      <section id="channel-graph" class="panel panel-channel-graph" data-char="hero">
-        <div class="panel-inner container">
-          <div class="mini-char-stage mobile-only-char reveal" aria-hidden="true">
-            <div class="char-badge">엄지척!</div>
-            <img src="assets/characters/cutout/hero.png" alt="" class="mini-char-img">
-          </div>
-          <p class="eyebrow reveal">GROWTH</p>
-          <h2 class="section-title reveal">채널이 연결되면 <span class="hl">매출이 폭등</span>합니다</h2>
-          <p class="section-lead reveal">SNS 채널 + 네이버 스마트스토어 + 쿠팡, 3개가 연결되는 순간부터 매출 곡선이 달라집니다</p>
-
-          <div class="channel-sns-band reveal">
-            <div class="channel-sns-logos">
-              <span class="channel-sns-logo channel-sns-logo-tiktok"><img src="https://cdn.simpleicons.org/tiktok" alt="틱톡"></span>
-              <span class="channel-sns-logo channel-sns-logo-youtube"><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="유튜브"></span>
-              <span class="channel-sns-logo channel-sns-logo-instagram"><img src="https://cdn.simpleicons.org/instagram/E4405F" alt="인스타그램"></span>
-              <span class="channel-sns-logo channel-sns-logo-threads"><img src="https://cdn.simpleicons.org/threads" alt="스레드"></span>
-            </div>
-            <p class="channel-row-title">SNS 채널</p>
-            <p class="channel-row-desc">틱톡·유튜브·인스타·스레드로 잠재 고객에게 브랜드와 메뉴를 알립니다</p>
-          </div>
-
-          <div class="channel-row-plus" aria-hidden="true">+</div>
-
-          <div class="channel-store-grid reveal">
-            <div class="channel-store-card">
-              <div class="channel-store-head">
-                <img src="https://cdn.simpleicons.org/naver/03C75A" alt="네이버">
-                <p class="channel-store-name">네이버 스마트스토어</p>
-              </div>
-              <p class="channel-row-desc">SNS로 모인 관심을 실제 구매로 전환하는 판매 채널입니다</p>
-              <div class="bar-chart channel-store-chart" data-max="189">
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="100"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2023</span><span class="bar-chart-num">100</span></div>
-                </div>
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="145"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2024</span><span class="bar-chart-num">145</span></div>
-                </div>
-                <div class="bar-chart-row bar-chart-row-final">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="189"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2025</span><span class="bar-chart-num"><span class="count-up" data-count-to="189">0</span></span></div>
-                </div>
-              </div>
-              <p class="stat-source">국내 온라인 식품 카테고리 판매량 성장 지수 (2023=100, 업계 추정치)</p>
-            </div>
-            <div class="channel-store-card">
-              <div class="channel-store-head">
-                <span class="channel-node-badge channel-node-badge-coupang">Coupang</span>
-                <p class="channel-store-name">쿠팡</p>
-              </div>
-              <p class="channel-row-desc">일반 판매 입점으로 쿠팡을 이용하는 고객까지 판매 채널을 넓힙니다</p>
-              <div class="bar-chart channel-store-chart" data-max="221">
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="100"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2023</span><span class="bar-chart-num">100</span></div>
-                </div>
-                <div class="bar-chart-row">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="158"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2024</span><span class="bar-chart-num">158</span></div>
-                </div>
-                <div class="bar-chart-row bar-chart-row-final">
-                  <div class="bar-chart-track"><div class="bar-chart-fill" data-value="221"></div></div>
-                  <div class="bar-chart-meta"><span class="bar-chart-year">2025</span><span class="bar-chart-num"><span class="count-up" data-count-to="221">0</span></span></div>
-                </div>
-              </div>
-              <p class="stat-source">국내 온라인 식품 카테고리 판매량 성장 지수 (2023=100, 업계 추정치)</p>
-            </div>
-          </div>
-
-          <div class="channel-result-card reveal" id="channelGraphWrap">
-            <p class="channel-result-message">SNS + 스마트스토어 + 쿠팡이 연결되면<br><span class="hl">매출이 폭발적으로 상승</span>합니다</p>
-            <div class="channel-sales-chart">
-              <!-- 축/배경 틀: 처음부터 고정으로 보이며 애니메이션되지 않는다 -->
-              <svg class="channel-sales-svg channel-sales-frame-svg" viewBox="0 0 800 300" preserveAspectRatio="none">
-                <line class="channel-axis-line" x1="56" y1="12" x2="56" y2="256"/>
-                <line class="channel-axis-line" x1="56" y1="256" x2="770" y2="256"/>
-              </svg>
-              <!-- 데이터(영역+선+점)만 스크롤 진입 시 왼쪽→오른쪽으로 그려진다 -->
-              <div class="channel-sales-data-wrap">
-                <svg class="channel-sales-svg channel-sales-data-svg" viewBox="0 0 800 300" preserveAspectRatio="none">
-                  <defs>
-                    <linearGradient id="channelAreaGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="var(--orange)" stop-opacity=".35"/>
-                      <stop offset="100%" stop-color="var(--orange)" stop-opacity="0"/>
-                    </linearGradient>
-                    <linearGradient id="channelLineGradient" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stop-color="var(--yellow)"/>
-                      <stop offset="100%" stop-color="var(--orange-dark)"/>
-                    </linearGradient>
-                  </defs>
-                  <path class="channel-sales-area" d="M56,240 L 234,206 L 412,140 L 590,72 L 758,20 L 758,256 L 56,256 Z"/>
-                  <path class="channel-sales-line" d="M56,240 L 234,206 L 412,140 L 590,72 L 758,20"/>
-                  <circle class="channel-sales-dot" cx="56" cy="240" r="7"/>
-                  <circle class="channel-sales-dot" cx="234" cy="206" r="7"/>
-                  <circle class="channel-sales-dot" cx="412" cy="140" r="7"/>
-                  <circle class="channel-sales-dot" cx="590" cy="72" r="7"/>
-                  <circle class="channel-sales-dot channel-sales-dot-final" cx="758" cy="20" r="9"/>
-                </svg>
-              </div>
-              <span class="channel-axis-label channel-axis-label-y">매출</span>
-              <span class="channel-axis-label channel-axis-label-x">시간</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2.7 매장 SNS채널 운영의 복리효과 -->
-      <!-- 3. PROCESS -->
-      <section id="process" class="panel panel-process" data-char="curious">
-        <div class="panel-inner container">
-          <div class="mini-char-stage mobile-only-char reveal" aria-hidden="true">
-            <div class="char-badge">오, 이거 궁금한데?</div>
-            <img src="assets/characters/cutout/curious.png" alt="" class="mini-char-img">
-          </div>
-          <p class="eyebrow reveal">HOW IT WORKS</p>
-          <h2 class="section-title reveal">어떻게 <span class="hl">판매</span>되는가</h2>
-          <p class="section-lead reveal">메뉴 하나가 전국구 히트상품이 되기까지, 타이거커머스랩이 함께 갑니다</p>
-
-          <ol class="process-list">
-            <li class="process-step reveal">
-              <div class="process-card">
-                <div class="process-card-head">
-                  <span class="process-num-big">01</span>
-                  <h3>메뉴 브랜딩</h3>
-                </div>
-                <p class="process-desc">잘 팔리는 메뉴를 골라 이름, 스토리, 패키지까지 온라인에 맞게 다시 설계합니다</p>
-                <p class="process-detail">오프라인 메뉴를 그대로 옮기지 않습니다. 비슷한 소구점을 가진 메뉴가 온라인 시장에서 실제로 어떻게 반응하는지 분석해서, 온라인 전용/라이브 판매용/이벤트 한정판 등 목적별로 다르게 브랜딩합니다</p>
-              </div>
-            </li>
-            <li class="process-step reveal">
-              <div class="process-card">
-                <div class="process-card-head">
-                  <span class="process-num-big">02</span>
-                  <h3>SNS 채널 개설</h3>
-                </div>
-                <p class="process-desc">브랜드의 얼굴이 될 인스타그램·유튜브 등 SNS 채널을 새로 만들고 세팅합니다</p>
-                <p class="process-detail">브랜드 톤에 맞춘 채널명·프로필·콘텐츠 방향을 먼저 설계한 뒤 개설합니다</p>
-              </div>
-            </li>
-            <li class="process-step reveal">
-              <div class="process-card">
-                <div class="process-card-head">
-                  <span class="process-num-big">03</span>
-                  <h3>숏폼 콘텐츠 제작</h3>
-                </div>
-                <p class="process-desc">구매 욕구를 자극하는 숏폼 콘텐츠를 기획·촬영·제작해 꾸준히 업로드합니다</p>
-                <p class="process-detail">메뉴의 맛·비주얼·스토리 중 가장 강한 소구점을 분석해, 3초 안에 시선을 붙잡는 후킹 구조로 기획합니다</p>
-              </div>
-            </li>
-            <li class="process-step reveal">
-              <div class="process-card">
-                <div class="process-card-head">
-                  <span class="process-num-big">04</span>
-                  <h3>스마트스토어 연결 판매</h3>
-                </div>
-                <p class="process-desc">콘텐츠로 모인 관심을 스마트스토어 판매로 실제 매출까지 연결합니다</p>
-                <p class="process-detail">구매 전환율에 최적화된 상세페이지·옵션 구조로 설계합니다</p>
-              </div>
-            </li>
-            <li class="process-step reveal">
-              <div class="process-card">
-                <div class="process-card-head">
-                  <span class="process-num-big">05</span>
-                  <h3>라이브커머스</h3>
-                </div>
-                <p class="process-desc">라이브커머스, 메타 광고 등으로 판매 채널을 계속 확장해 나갑니다</p>
-                <p class="process-detail">실시간 반응 데이터를 다음 콘텐츠 기획에 반영하는 순환 구조로 운영합니다</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <!-- 4. CASES -->
-      <section id="cases" class="panel panel-cases" data-char="hero">
-        <div class="panel-inner container">
-          <div class="mini-char-stage mobile-only-char reveal" aria-hidden="true">
-            <div class="char-badge">엄지척!</div>
-            <img src="assets/characters/cutout/hero.png" alt="" class="mini-char-img">
-          </div>
-          <p class="eyebrow reveal">TRACK RECORD</p>
-          <h2 class="section-title reveal">진행 <span class="hl">사례</span></h2>
-          <p class="section-lead reveal">타이거커머스랩이 직접 온라인 판매를 총괄한 매장들입니다</p>
-
-          <div class="case-grid">
-            <article class="case-card reveal">
-              <div class="case-media">
-                <img src="assets/cases/2.JPEG" alt="장지녕간장게장 메뉴 사진" loading="lazy">
-                <img class="case-media-badge" src="assets/cases/1.JPEG" alt="2026 Red Ribbon Restaurant 수상 인증서" loading="lazy">
-              </div>
-              <div class="case-body">
-                <span class="case-tag">간장게장 전문점</span>
-                <h3>장지녕간장게장</h3>
-                <p class="case-cert">한식명장 장지녕 간장게장</p>
-                <p>한남동 본점 · 기장 연화리점<br>온라인 판매 총괄</p>
-                <span class="case-award">🏅 2026 Red Ribbon Restaurant 선정</span>
-                <div class="case-links">
-                  <a class="case-link" href="https://youtu.be/UrxGC9U0HA8" target="_blank" rel="noopener" aria-label="장지녕간장게장 유튜브 보기">▶️ 유튜브</a>
-                </div>
-              </div>
-            </article>
-
-            <article class="case-card reveal">
-              <div class="case-media">
-                <img src="assets/cases/6.JPEG" alt="김치를찜하다 구미본점 매장 내부" loading="lazy">
-                <img class="case-media-badge" src="assets/cases/4.JPEG" alt="김치를찜하다 구미본점 네이버 플레이스 정보" loading="lazy">
-              </div>
-              <div class="case-body">
-                <span class="case-tag">김치찜 전문점</span>
-                <h3>김치를찜하다 구미본점</h3>
-                <p>리뷰 1,000+ · 재방문율 높은 로컬 맛집<br>온라인 판매 채널 구축</p>
-                <div class="case-links">
-                  <a class="case-link" href="https://youtube.com/channel/UClNW2X_sq7UAs9V29saak9g" target="_blank" rel="noopener" aria-label="김치를찜하다 유튜브 보기">▶️ 유튜브</a>
-                  <a class="case-link" href="https://www.tiktok.com/@joganemgg" target="_blank" rel="noopener" aria-label="김치를찜하다 틱톡 보기">🎵 틱톡</a>
-                </div>
-              </div>
-            </article>
-
-            <article class="case-card reveal">
-              <div class="case-media">
-                <img src="assets/cases/8.JPEG" alt="손찬 반찬가게 진열대" loading="lazy">
-                <img class="case-media-badge" src="assets/cases/5.JPEG" alt="손찬 구미인동점 매장 전경" loading="lazy">
-              </div>
-              <div class="case-body">
-                <span class="case-tag">반찬 전문점</span>
-                <h3>손찬 구미인동점</h3>
-                <p>리뷰 800+ 반찬 맛집<br>온라인 판매 채널 구축</p>
-                <div class="case-links">
-                  <a class="case-link" href="https://youtube.com/channel/UClNW2X_sq7UAs9V29saak9g" target="_blank" rel="noopener" aria-label="손찬 유튜브 보기">▶️ 유튜브</a>
-                  <a class="case-link" href="https://www.tiktok.com/@joganemgg" target="_blank" rel="noopener" aria-label="손찬 틱톡 보기">🎵 틱톡</a>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-    </div><!-- /.story-panels -->
-  </div><!-- /.story -->
-
-  <!-- ============ 5. SERVICES ============ -->
-  <section id="services" class="section section-services">
+  <!-- ============ 3. 메인 서비스 ============ -->
+  <section id="main-service" class="section section-main-service">
     <div class="section-inner container">
-      <p class="eyebrow reveal">SERVICES</p>
-      <h2 class="section-title reveal">서비스 <span class="hl">안내</span></h2>
-      <p class="section-lead reveal">무료 점검부터 시작해, 매장 상황에 맞는 플랜으로 이어갑니다. 가격은 상담 시 안내드립니다.</p>
-
-      <div class="mini-char-stage services-char reveal" aria-hidden="true">
-        <div class="char-badge">이거 모르면 진짜 손해예요</div>
-        <span class="char-img-wrap">
-          <img src="assets/characters/cutout/emphasize.png" alt="" class="mini-char-img">
-        </span>
+      <p class="eyebrow reveal">MAIN SERVICE</p>
+      <h2 class="main-service-headline reveal">음식점 메뉴<br>틱톡·유튜브·네이버로<br><span class="hl">전국 판매</span></h2>
+      <p class="section-lead reveal">배달앱 반경 안에 갇혀있던 매출을, 전국 단위 온라인 판매 채널로 옮겨드립니다</p>
+      <div class="main-service-marquee-wrap reveal">
+        <div class="marquee">
+          <div class="marquee-track">
+            <span class="marquee-item"><img src="https://cdn.simpleicons.org/tiktok" alt="">틱톡</span>
+            <span class="marquee-item"><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="">유튜브</span>
+            <span class="marquee-item"><img src="https://cdn.simpleicons.org/naver/03C75A" alt="">네이버</span>
+            <span class="marquee-item channel-node-badge channel-node-badge-coupang">Coupang</span>
+            <span class="marquee-item"><img src="https://cdn.simpleicons.org/tiktok" alt="">틱톡</span>
+            <span class="marquee-item"><img src="https://cdn.simpleicons.org/youtube/FF0000" alt="">유튜브</span>
+            <span class="marquee-item"><img src="https://cdn.simpleicons.org/naver/03C75A" alt="">네이버</span>
+            <span class="marquee-item channel-node-badge channel-node-badge-coupang">Coupang</span>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="service-grid">
-        <div class="service-card reveal">
-          <span class="service-card-badge service-card-badge-free">무료</span>
-          <p class="service-card-name">먼저, 무료로<br>점검해드립니다</p>
-          <p class="service-card-desc">온라인 판매를 시작하기 전, 이 6가지만 맞아도 절반은 성공입니다</p>
-          <ul class="service-card-checklist">
-            <li>사업자등록증 정보 일치</li>
-            <li>고화질 매장 사진 (가로형 1200px 이상)</li>
-            <li>메뉴판·가격표 사진</li>
-            <li>업체명·연락처 일치</li>
-            <li>정확한 지도 핀 위치</li>
-            <li>검색 키워드 최적화 상세설명</li>
-          </ul>
-          <button type="button" class="btn btn-outline service-card-btn" data-scroll-to="contact">무료 점검 신청하기</button>
+  <!-- ============ 4. 진행사례 ============ -->
+  <section id="cases" class="section section-cases">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">[ 진행사례 ]</p>
+      <h2 class="section-title reveal">진행 <span class="hl">사례</span></h2>
+      <p class="section-lead reveal">타이거커머스랩이 직접 온라인 판매를 총괄한 매장들입니다</p>
+
+      <div class="case-grid">
+        <article class="case-card reveal">
+          <div class="case-card-photo">
+            <img src="assets/cases/2.JPEG" alt="장지녕간장게장 메뉴 사진" loading="lazy">
+            <div class="case-card-photo-overlay">
+              <span class="case-card-brand">장지녕간장게장</span>
+            </div>
+          </div>
+          <div class="case-card-body">
+            <div class="case-badge-bar">
+              <a class="case-badge" href="https://youtu.be/UrxGC9U0HA8" target="_blank" rel="noopener">
+                <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="유튜브"><span>유튜브</span>
+              </a>
+            </div>
+            <p class="case-card-result">한남동 최고 맛집, 이제 전국에서 주문받습니다</p>
+            <a class="case-card-cta" href="https://youtu.be/UrxGC9U0HA8" target="_blank" rel="noopener">성과 보기 <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="case-card reveal">
+          <div class="case-card-photo">
+            <img src="assets/cases/6.JPEG" alt="김치를찜하다 구미본점 매장 내부" loading="lazy">
+            <div class="case-card-photo-overlay">
+              <span class="case-card-brand">김치를찜하다 구미본점</span>
+            </div>
+          </div>
+          <div class="case-card-body">
+            <div class="case-badge-bar">
+              <a class="case-badge" href="https://youtube.com/channel/UClNW2X_sq7UAs9V29saak9g" target="_blank" rel="noopener">
+                <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="유튜브"><span>유튜브</span>
+              </a>
+              <a class="case-badge case-badge-tiktok" href="https://www.tiktok.com/@joganemgg" target="_blank" rel="noopener">
+                <img src="https://cdn.simpleicons.org/tiktok/FFFFFF" alt="틱톡"><span>틱톡</span>
+              </a>
+            </div>
+            <p class="case-card-result">리뷰 1,000+ 로컬 맛집, 온라인 판매 채널까지 구축했습니다</p>
+            <a class="case-card-cta" href="https://youtube.com/channel/UClNW2X_sq7UAs9V29saak9g" target="_blank" rel="noopener">성과 보기 <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+
+        <article class="case-card reveal">
+          <div class="case-card-photo">
+            <img src="assets/cases/8.JPEG" alt="손찬 반찬가게 진열대" loading="lazy">
+            <div class="case-card-photo-overlay">
+              <span class="case-card-brand">손찬 구미인동점</span>
+            </div>
+          </div>
+          <div class="case-card-body">
+            <div class="case-badge-bar">
+              <a class="case-badge" href="https://youtube.com/channel/UClNW2X_sq7UAs9V29saak9g" target="_blank" rel="noopener">
+                <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="유튜브"><span>유튜브</span>
+              </a>
+              <a class="case-badge case-badge-tiktok" href="https://www.tiktok.com/@joganemgg" target="_blank" rel="noopener">
+                <img src="https://cdn.simpleicons.org/tiktok/FFFFFF" alt="틱톡"><span>틱톡</span>
+              </a>
+            </div>
+            <p class="case-card-result">리뷰 800+ 반찬 맛집, 전국구 온라인 매출을 만듭니다</p>
+            <a class="case-card-cta" href="https://youtube.com/channel/UClNW2X_sq7UAs9V29saak9g" target="_blank" rel="noopener">성과 보기 <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. 업무 프로세스 6단계 ============ -->
+  <section id="process" class="section section-process">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">[ 프로세스 ]</p>
+      <h2 class="section-title reveal">업무 <span class="hl">프로세스</span> 6단계</h2>
+      <p class="section-lead reveal">계약부터 라이브판매까지, 타이거커머스랩이 순서대로 함께 갑니다</p>
+
+      <div class="timeline-track"><div class="timeline-fill" id="tlFill"></div></div>
+      <div class="timeline-cards">
+        <div class="tl-card" data-step="1">
+          <span class="tl-step-num">STEP 1</span>
+          <h3>계약</h3>
+          <p>대표메뉴·강점 분석 및 소구점 도출 / 서비스 범위·기간 확정</p>
+        </div>
+        <div class="tl-card" data-step="2">
+          <span class="tl-step-num">STEP 2</span>
+          <h3>브랜딩 (SNS채널+플레이스)</h3>
+          <p>캐릭터·톤앤매너 기획, 브랜드 아이덴티티(로고·컬러·폰트) / 틱톡·유튜브 채널 개설 / 네이버 스마트플레이스 세팅(대표사진·정보란·키워드)</p>
+          <p class="tl-card-warning">플레이스 세팅에 따라 노출·클릭·방문이 갈립니다. 아직 안 하고 계신다면, 지금 이 순간에도 손님을 놓치고 있는 겁니다.</p>
+        </div>
+        <div class="tl-card" data-step="3">
+          <span class="tl-step-num">STEP 3</span>
+          <h3>콘텐츠 생성</h3>
+          <p>첫 영상~10개 기획(훅·구성·대본) / 발행 스케줄 수립</p>
+        </div>
+        <div class="tl-card" data-step="4">
+          <span class="tl-step-num">STEP 4</span>
+          <h3>제작</h3>
+          <p>촬영 / 편집 / 자막·폰트 디자인 / 썸네일 디자인</p>
+        </div>
+        <div class="tl-card" data-step="5">
+          <span class="tl-step-num">STEP 5</span>
+          <h3>단골모객 DB</h3>
+          <p>오픈채팅·커뮤니티 구축 / 실시간 업무 대시보드 공유</p>
+        </div>
+        <div class="tl-card" data-step="6">
+          <span class="tl-step-num">STEP 6</span>
+          <h3>스마트스토어 연동(선택) → 라이브판매</h3>
+          <p>온라인 판매 라인 확장 / 사장님이 직접 라이브 판매(장비·진행 코칭)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. 시장 데이터 ============ -->
+  <section id="market" class="section section-market">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">[ 시장데이터 ]</p>
+      <h2 class="section-title reveal">시장이 왜 <span class="hl">지금</span>인가</h2>
+      <p class="section-lead reveal">온라인 판매 시장은 한 해도 쉬지 않고 커지고 있고, 손님들은 여전히 매장의 '진짜' 맛을 찾습니다</p>
+
+      <div class="market-cards">
+        <div class="market-card reveal">
+          <div class="market-card-head">
+            <span class="market-card-eyebrow">MARKET SIZE</span>
+            <p class="market-card-title">온라인 식품 거래액 <span class="stat-unit">(조원)</span></p>
+          </div>
+          <div class="bar-chart" data-max="40.7">
+            <div class="bar-chart-row">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="17"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2019</span><span class="bar-chart-num">17</span></div>
+            </div>
+            <div class="bar-chart-row">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="25.3"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2020</span><span class="bar-chart-num">25.3</span></div>
+            </div>
+            <div class="bar-chart-row">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="31.2"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2021</span><span class="bar-chart-num">31.2</span></div>
+            </div>
+            <div class="bar-chart-row">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="36.1"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2022</span><span class="bar-chart-num">36.1</span></div>
+            </div>
+            <div class="bar-chart-row bar-chart-row-final">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="40.7"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2023</span><span class="bar-chart-num"><span class="count-up" data-count-to="40.7" data-decimals="1">0</span></span></div>
+            </div>
+          </div>
+          <p class="stat-source">자료: 통계청</p>
+          <p class="stat-note">코로나 이후 배달·택배 문화가 완전히 일상이 됐습니다</p>
         </div>
 
-        <div class="service-card service-card-start reveal">
-          <div class="service-card-badge-row">
-            <span class="service-card-badge">START</span>
-            <span class="service-card-duration">6개월형</span>
+        <div class="market-card reveal">
+          <div class="market-card-head">
+            <span class="market-card-eyebrow">MARKET SIZE</span>
+            <p class="market-card-title">SNS·라이브커머스 시장 규모 <span class="stat-unit">(조원)</span></p>
           </div>
-          <p class="service-card-name">SNS·온라인스토어<br>판매 시작형</p>
-          <p class="service-card-desc">온라인 판매 구조를 처음부터 세팅하는 단기 집중 플랜</p>
-          <ul class="service-card-list">
-            <li>메뉴 브랜딩 및 스토리 재설계</li>
-            <li>SNS 채널(유튜브·틱톡) 신규 개설·세팅</li>
-            <li>월 8회 이상 숏폼 콘텐츠 기획·촬영·제작</li>
-            <li>스마트스토어 개설 및 상세페이지 제작</li>
-          </ul>
-          <p class="service-card-price">가격 상담 시 안내</p>
-          <button type="button" class="btn btn-primary service-card-btn" data-scroll-to="contact">상담 신청</button>
+          <div class="bar-chart" data-max="25.6">
+            <div class="bar-chart-row">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="2.8"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2021</span><span class="bar-chart-num">2.8</span></div>
+            </div>
+            <div class="bar-chart-row">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="6.2"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2022</span><span class="bar-chart-num">6.2</span></div>
+            </div>
+            <div class="bar-chart-row">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="10"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2023</span><span class="bar-chart-num">10</span></div>
+            </div>
+            <div class="bar-chart-row">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="25"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2024</span><span class="bar-chart-num">25</span></div>
+            </div>
+            <div class="bar-chart-row bar-chart-row-final">
+              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="25.6"></div></div>
+              <div class="bar-chart-meta"><span class="bar-chart-year">2025(전망)</span><span class="bar-chart-num"><span class="count-up" data-count-to="25.6" data-decimals="1">0</span></span></div>
+            </div>
+          </div>
+          <p class="stat-source">자료: 교보증권·한국인터넷진흥원</p>
+          <p class="stat-note">라이브커머스에서 가장 많이 팔리는 게 식품입니다<span class="stat-note-highlight">(구매 상품 1위, 54.8%)</span><span class="plan-note-source">출처: 서울시 조사</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. 서비스안내 ============ -->
+  <section id="pricing" class="section section-pricing">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">[ 서비스안내 ]</p>
+      <h2 class="section-title reveal">서비스 <span class="hl">안내</span></h2>
+      <p class="pricing-value-headline reveal">브랜드 디자이너, 영상 촬영·편집자, SNS 마케터 — 이 일엔 보통 전문인력 2~3명이 필요합니다. 각각 채용하면 인건비만 매달 수백만원. 저희는 이 과정을 혼자 시스템화해서, <span class="hl">아르바이트생 한 명 채용하는 비용</span>으로 전체를 대행합니다.</p>
+
+      <div class="pricing-layout">
+        <div class="phase-accordion reveal">
+          <div class="phase-item" data-phase="1">
+            <button type="button" class="phase-item-head" aria-expanded="true">
+              <span class="phase-num">Phase 1</span>
+              <span class="phase-name">브랜딩 셋업</span>
+              <span class="phase-duration-badge phase-duration-common">6·12개월 공통</span>
+              <span class="phase-toggle" aria-hidden="true">−</span>
+            </button>
+            <div class="phase-item-body">
+              <ul>
+                <li>대표메뉴·강점 분석 및 소구점 도출</li>
+                <li>캐릭터·톤앤매너 기획</li>
+                <li>브랜드 아이덴티티 제작</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase-item" data-phase="2">
+            <button type="button" class="phase-item-head" aria-expanded="false">
+              <span class="phase-num">Phase 2</span>
+              <span class="phase-name">채널 구축</span>
+              <span class="phase-duration-badge phase-duration-common">6·12개월 공통</span>
+              <span class="phase-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="phase-item-body" hidden>
+              <ul>
+                <li>틱톡·유튜브 채널 개설</li>
+                <li>네이버 스마트스토어 연동</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase-item" data-phase="3">
+            <button type="button" class="phase-item-head" aria-expanded="false">
+              <span class="phase-num">Phase 3</span>
+              <span class="phase-name">콘텐츠 기획</span>
+              <span class="phase-duration-badge phase-duration-common">6·12개월 공통</span>
+              <span class="phase-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="phase-item-body" hidden>
+              <ul>
+                <li>첫 영상~10개 콘텐츠 기획(훅·구성·대본)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase-item" data-phase="4">
+            <button type="button" class="phase-item-head" aria-expanded="false">
+              <span class="phase-num">Phase 4</span>
+              <span class="phase-name">제작</span>
+              <span class="phase-duration-badge phase-duration-common">6·12개월 공통</span>
+              <span class="phase-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="phase-item-body" hidden>
+              <ul>
+                <li>촬영 / 편집</li>
+                <li>자막·폰트 디자인</li>
+                <li>썸네일 디자인</li>
+              </ul>
+            </div>
+          </div>
+          <div class="phase-item" data-phase="5">
+            <button type="button" class="phase-item-head" aria-expanded="false">
+              <span class="phase-num">Phase 5</span>
+              <span class="phase-name">운영·확장</span>
+              <span class="phase-duration-badge phase-duration-premium">12개월 전용</span>
+              <span class="phase-toggle" aria-hidden="true">+</span>
+            </button>
+            <div class="phase-item-body" hidden>
+              <ul>
+                <li>멀티채널 업로드</li>
+                <li>성과 모니터링(대시보드)</li>
+                <li>라이브커머스 확장</li>
+              </ul>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary btn-large pricing-cta" data-scroll-to="contact">무료 점검 신청하기</button>
         </div>
 
-        <div class="service-card service-card-featured reveal">
-          <div class="service-card-badge-row">
-            <span class="service-card-badge service-card-badge-featured">추천 · EXPAND</span>
-            <span class="service-card-duration service-card-duration-featured">12개월형</span>
-          </div>
-          <p class="service-card-name">SNS·온라인스토어<br>판매 확장형</p>
-          <p class="service-card-desc">시작형의 모든 업무 + 채널이 자리 잡고 매출이 안정화되는 장기 플랜</p>
-          <ul class="service-card-list">
-            <li><strong>시작형 업무 전부 포함</strong></li>
-            <li>SNS 콘텐츠 지속 축적으로 팬층·구독자 확대</li>
-            <li>카카오톡 오픈채팅 단골 관리 공간 구축 — <button type="button" class="service-card-inline-link" data-modal-open="fan-modal">찜 고객과 뭐가 다를까요?</button></li>
-            <li>라이브커머스 진행 (사장님 직접 방송 지원)</li>
-            <li>반응 데이터 기반 판매 채널 지속 확장 → 매출 안정화</li>
-            <li>안정기 진입 후 라이브 운영 자동화 설계까지 가능 <span class="service-card-note">(업체·제품마다 차이가 있습니다)</span></li>
-          </ul>
-          <p class="service-card-tip">💡 채널이 의미 있게 성장하기까지는 보통 6개월~1년의 꾸준한 시간이 필요합니다</p>
-          <p class="service-card-price">가격 상담 시 안내</p>
-          <button type="button" class="btn btn-primary service-card-btn" data-scroll-to="contact">상담 신청</button>
+        <div class="phase-character-stage reveal" aria-hidden="true">
+          <img src="assets/characters/cutout/tiger-part-body.png" alt="" class="tiger-part tiger-part-body" data-phase="1">
+          <img src="assets/characters/cutout/tiger-part-head.png" alt="" class="tiger-part tiger-part-head" data-phase="2">
+          <img src="assets/characters/cutout/tiger-part-arms.png" alt="" class="tiger-part tiger-part-arms" data-phase="3">
+          <img src="assets/characters/cutout/tiger-part-prop.png" alt="" class="tiger-part tiger-part-prop" data-phase="4">
         </div>
       </div>
     </div>
@@ -671,10 +483,10 @@
     </div>
   </section>
 
-  <!-- ============ 5.5 실시간 업무 대시보드 ============ -->
+  <!-- ============ 8. 실시간 업무 대시보드 쇼케이스 ============ -->
   <section id="dashboard-preview" class="section section-dashboard-preview">
     <div class="section-inner container">
-      <p class="eyebrow reveal">LIVE DASHBOARD</p>
+      <p class="eyebrow reveal">[ 대시보드 ]</p>
       <h2 class="section-title reveal">실시간 <span class="hl">업무 대시보드</span></h2>
 
       <div class="dash-preview-intro reveal">
@@ -732,95 +544,45 @@
     </div>
   </section>
 
-  <!-- ============ 5.6 이런 분들께 추천해요 ============ -->
-  <section id="audience" class="section section-audience">
-    <div class="section-inner container">
-      <p class="eyebrow reveal">FOR YOU</p>
-      <h2 class="section-title reveal">이런 분들께 <span class="hl">추천</span>해요</h2>
-
-      <div class="mini-char-stage audience-char reveal" aria-hidden="true">
-        <div class="char-badge">어? 이거 완전 내 얘기잖아?</div>
-        <span class="char-img-wrap">
-          <img src="assets/characters/cutout/found-it.png" alt="" class="mini-char-img">
-        </span>
-      </div>
-
-      <div class="quote-grid">
-        <button type="button" class="quote-bubble reveal" aria-expanded="false">
-          <span class="quote-bubble-text">배달앱만으로는 매출이 더 안 늘어요...</span>
-          <span class="quote-bubble-cta" aria-hidden="true">왜 그럴까요? <span class="quote-bubble-cta-arrow">▾</span></span>
-          <span class="quote-bubble-answer"><strong>왜 그럴까요?</strong> 30평·20테이블 매장 기준, 홀+배달을 24시간 최대로 돌려도 좌석 회전율과 배달 처리량에는 물리적 한계가 있습니다. 그 안에서 최저~최고 매출이 이미 정해져 있는 구조예요. 그런데 온라인 판매가 더해지면? 테이블 수·배달 반경이라는 물리적 제한 없이, 전국 단위로 새로운 매출 채널이 생깁니다.</span>
-        </button>
-        <button type="button" class="quote-bubble reveal" aria-expanded="false">
-          <span class="quote-bubble-text">온라인판매, 시작하고는 싶은데 방법을 모르겠어요</span>
-          <span class="quote-bubble-cta" aria-hidden="true">왜 그럴까요? <span class="quote-bubble-cta-arrow">▾</span></span>
-          <span class="quote-bubble-answer"><strong>왜 그럴까요?</strong> 스마트스토어 개설, SNS 채널 세팅, 콘텐츠 제작까지 혼자 하나씩 알아보려면 무엇부터 시작해야 할지 막막하고 시간도 오래 걸립니다. 타이거커머스랩은 메뉴 브랜딩부터 채널 개설, 콘텐츠 제작, 판매 연결까지 순서대로 원스톱 대행해드려서, 사장님은 매장 운영에만 집중하시면 됩니다.</span>
-        </button>
-        <button type="button" class="quote-bubble reveal" aria-expanded="false">
-          <span class="quote-bubble-text">스마트스토어는 만들었는데 매출이 안 나요</span>
-          <span class="quote-bubble-cta" aria-hidden="true">왜 그럴까요? <span class="quote-bubble-cta-arrow">▾</span></span>
-          <span class="quote-bubble-answer"><strong>왜 그럴까요?</strong> 스마트스토어는 '만들기'보다 '찾아오게 만들기'가 핵심입니다. 콘텐츠로 유입을 만들지 않으면 스토어는 그냥 빈 매장과 같아요. 타이거커머스랩은 콘텐츠 → 유입 → 구매전환까지 전체 흐름을 함께 설계합니다.</span>
-        </button>
-        <button type="button" class="quote-bubble reveal" aria-expanded="false">
-          <span class="quote-bubble-text">SNS는 만들었는데 왜 매출로 안 이어질까요?</span>
-          <span class="quote-bubble-cta" aria-hidden="true">왜 그럴까요? <span class="quote-bubble-cta-arrow">▾</span></span>
-          <span class="quote-bubble-answer"><strong>왜 그럴까요?</strong> 채널은 있지만 '구매로 연결되는 구조'(스토어 연동, 댓글 유도, 오픈채팅 안내)가 없으면 팔로워는 늘어도 매출은 그대로예요. 콘텐츠와 판매 채널을 처음부터 하나의 흐름으로 설계해야 매출로 이어집니다.</span>
-        </button>
-        <button type="button" class="quote-bubble reveal" aria-expanded="false">
-          <span class="quote-bubble-text">SNS로 전국에 우리 가게를 알리고 싶어요</span>
-          <span class="quote-bubble-cta" aria-hidden="true">왜 그럴까요? <span class="quote-bubble-cta-arrow">▾</span></span>
-          <span class="quote-bubble-answer"><strong>왜 그럴까요?</strong> 마음은 있어도 어떤 콘텐츠를 어떤 톤으로, 얼마나 자주 올려야 하는지 기준이 없으면 채널은 금방 멈추게 됩니다. 타이거커머스랩은 브랜드 톤에 맞는 콘텐츠 기획부터 촬영·업로드까지 꾸준히 운영해, 전국 손님에게 매장을 자연스럽게 알립니다.</span>
-        </button>
-        <button type="button" class="quote-bubble reveal" aria-expanded="false">
-          <span class="quote-bubble-text">메뉴는 자신 있는데 사진·영상 찍을 시간이 없어요</span>
-          <span class="quote-bubble-cta" aria-hidden="true">왜 그럴까요? <span class="quote-bubble-cta-arrow">▾</span></span>
-          <span class="quote-bubble-answer"><strong>왜 그럴까요?</strong> 매장 운영만으로도 하루가 부족한데, 좋은 콘텐츠를 위한 촬영·편집까지 직접 하기는 현실적으로 어렵습니다. 타이거커머스랩이 직접 매장을 방문해 촬영부터 편집까지 맡아 진행하니, 사장님은 시간 걱정 없이 메뉴에만 집중하시면 됩니다.</span>
-        </button>
-        <button type="button" class="quote-bubble reveal" aria-expanded="false">
-          <span class="quote-bubble-text">라이브커머스 해보고 싶은데 방법을 모르겠어요</span>
-          <span class="quote-bubble-cta" aria-hidden="true">왜 그럴까요? <span class="quote-bubble-cta-arrow">▾</span></span>
-          <span class="quote-bubble-answer"><strong>왜 그럴까요?</strong> 라이브커머스는 기획, 진행, 실시간 소통까지 준비할 게 많아서 처음 시도하기엔 진입장벽이 높게 느껴집니다. 타이거커머스랩이 기획부터 진행, 사후 콘텐츠 활용까지 함께해서, 처음이어도 걱정 없이 시작하실 수 있습니다.</span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 7. FOUNDER ============ -->
-  <section id="founder" class="section section-founder">
-    <div class="section-inner founder-inner container">
-      <div class="founder-text reveal">
-        <p class="eyebrow">FOUNDER</p>
-        <h2 class="section-title">대표자 <span class="hl">소개</span></h2>
-        <p class="founder-name">와이비 <span class="founder-role">Tiger Commerce Lab 대표</span></p>
-        <p class="founder-desc">
-          외식업 현장에서 12년, 전국 40호점을 직접 만들어 온 브랜드 빌더입니다.<br>
-          매장 하나하나의 강점을 찾아 온라인 판매 시스템으로 옮기는 일을 합니다.
-        </p>
-        <a class="btn btn-outline founder-link" href="#" target="_blank" rel="noopener">
-          자세히 보기 <span aria-hidden="true">→</span>
-        </a>
-      </div>
-      <div class="founder-visual reveal" aria-hidden="true">
-        <img src="assets/characters/founder.png" alt="">
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 8. CONTACT ============ -->
+  <!-- ============ 9. FAQ + 최종 CTA ============ -->
   <section id="contact" class="section section-contact">
     <div class="section-inner container">
-      <p class="eyebrow reveal light">LET'S TALK</p>
+      <p class="eyebrow reveal">[ FAQ ]</p>
+      <h2 class="section-title reveal">자주 묻는 <span class="hl">질문</span></h2>
+
+      <div class="faq-accordion reveal">
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false"><span class="faq-num">01</span>정말 0원으로 신청할 수 있나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>네, 무료 플레이스 점검은 추가 비용 없이 진행됩니다. 점검 이후 실제 대행이 필요하다고 판단되실 때만 상담을 통해 플랜을 결정하시면 됩니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false"><span class="faq-num">02</span>계약 기간은 어떻게 되나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>매장 상황에 맞춰 6개월형·12개월형으로 나뉘며, 채널이 의미 있게 성장하기까지는 보통 6개월~1년의 꾸준한 시간이 필요합니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false"><span class="faq-num">03</span>촬영은 어디서 진행하나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>타이거커머스랩이 직접 매장을 방문해 촬영부터 편집까지 진행합니다. 사장님은 메뉴 준비에만 집중하시면 됩니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false"><span class="faq-num">04</span>스마트스토어가 이미 있는데도 신청할 수 있나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>네, 기존 스토어를 그대로 활용하면서 콘텐츠·유입·구매전환 흐름을 새로 설계해 드립니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false"><span class="faq-num">05</span>라이브커머스는 사장님이 직접 하나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>네, 장비·진행 방식을 저희가 코칭해 드리고 사장님이 직접 라이브를 진행합니다. 필요 시 촬영·진행 지원도 함께합니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false"><span class="faq-num">06</span>가격은 얼마인가요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>매장 상황에 따라 달라져 상담 시 정확히 안내드립니다. 전문인력 2~3명을 각각 채용하는 것보다 훨씬 낮은 비용으로 전체를 대행합니다.</p></div>
+        </div>
+      </div>
+
+      <p class="eyebrow reveal light" style="margin-top:64px;">LET'S TALK</p>
       <h2 class="section-title reveal light">지금, 상담을 <span class="hl">시작</span>하세요</h2>
       <p class="section-lead reveal light">아래 정보를 남겨주시면 빠르게 연락드리겠습니다</p>
+      <span class="free-badge reveal light">0원으로 신청 가능 · 추가비용 절대 없음</span>
 
       <p class="contact-hook reveal light">지금 시작한 사장님은 이미 <span class="hl">전국에서 주문</span>을 받고 있습니다</p>
-
-      <div class="mini-char-stage contact-char reveal" aria-hidden="true">
-        <div class="char-badge">자, 이제 시작해볼까요?</div>
-        <span class="char-img-wrap">
-          <img src="assets/characters/cutout/welcome.png" alt="" class="mini-char-img">
-        </span>
-      </div>
 
       <div class="contact-grid">
         <form id="contactForm" class="contact-form reveal" novalidate>
@@ -877,7 +639,7 @@
     </div>
   </section>
 
-  <!-- ============ 9. 맛집 광고 연결 (독립 섹션) ============ -->
+  <!-- ============ 맛집 광고 연결 (독립 섹션, 9섹션 구조 밖 유지) ============ -->
   <section id="promo" class="section section-promo">
     <div class="section-inner container">
       <div class="promo-card reveal">
@@ -890,7 +652,7 @@
     </div>
   </section>
 
-  <!-- ============ 10. FOOTER ============ -->
+  <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="footer-inner container">
       <div class="footer-brand">

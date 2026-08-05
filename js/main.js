@@ -78,48 +78,41 @@
     navSections.forEach((sec) => navObserver.observe(sec));
   }
 
-  /* ---------- 히어로 키워드 순환 (v2 §5 코드 그대로 이식) ---------- */
-  const cycleWordEl = document.getElementById('cycleWord');
-  if (cycleWordEl) {
-    const words = ['틱톡', '유튜브', '네이버'];
-    let i = 0;
-    setInterval(() => {
-      i = (i + 1) % words.length;
-      cycleWordEl.style.opacity = 0;
-      setTimeout(() => {
-        cycleWordEl.textContent = words[i];
-        cycleWordEl.style.opacity = 1;
-      }, 200);
-    }, 1800);
-  }
-
-  /* ---------- 업무 프로세스 6단계: 스크롤 타임라인 (v2 §8 코드 그대로 이식) ---------- */
+  /* ---------- 업무프로세스: 연속 스크롤 진행 스토리 (600vh, sticky 트랙) ----------
+     기존 IntersectionObserver 방식은 카드가 threshold를 넘는 순간 한번에
+     "몰아서 점등"되는 점프 버그가 있었다. 대신 스크롤 위치에서 진행률을
+     실시간으로 계산해 진행바 너비와 카드별 상태(active/passed)를 매 프레임 갱신한다. */
+  const processScroll = document.querySelector('.process-scroll');
   const tlCards = document.querySelectorAll('.tl-card');
   const tlFill = document.getElementById('tlFill');
-  if (tlCards.length && tlFill) {
-    const tlObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('lit');
-            tlFill.style.width = (+e.target.dataset.step / tlCards.length * 100) + '%';
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-    tlCards.forEach((c) => tlObserver.observe(c));
+  if (processScroll && tlCards.length && tlFill) {
+    function updateProcessScroll() {
+      const rect = processScroll.getBoundingClientRect();
+      const total = rect.height - viewportHeight();
+      const scrolled = Math.min(Math.max(-rect.top, 0), total);
+      const progress = total > 0 ? scrolled / total : 0;
+
+      tlFill.style.width = (progress * 100) + '%';
+
+      const activeStep = Math.min(Math.floor(progress * tlCards.length), tlCards.length - 1);
+      tlCards.forEach((card, i) => {
+        card.classList.toggle('passed', i < activeStep);
+        card.classList.toggle('active', i === activeStep);
+      });
+    }
+    window.addEventListener('scroll', updateProcessScroll, { passive: true });
+    window.addEventListener('resize', updateProcessScroll);
+    updateProcessScroll();
   }
 
-  /* ---------- 서비스안내 Phase 아코디언 + 캐릭터 파츠 조립 (v2 §9) ----------
-     아코디언을 펼칠 때마다 해당 phase까지의 파츠가 하나씩 조립된 상태로
-     보이게 한다(Phase 1→body만, Phase 2→body+head, ... Phase 4 이상→전부). */
+  /* ---------- 서비스안내 Phase 아코디언 + 캐릭터 파츠 조립 ----------
+     현재 열린 phase에 해당하는 파츠 딱 1개만 보이게 한다(누적 조립 아님).
+     매칭되는 파츠가 없는 phase(5)에서는 전부 숨긴다. */
   const phaseItems = document.querySelectorAll('.phase-item');
   const tigerParts = document.querySelectorAll('.tiger-part');
-  function assembleParts(upToPhase) {
+  function showActivePart(phase) {
     tigerParts.forEach((part) => {
-      const partPhase = +part.dataset.phase;
-      part.classList.toggle('assembled', partPhase <= upToPhase);
+      part.classList.toggle('active-part', +part.dataset.phase === phase);
     });
   }
   phaseItems.forEach((item) => {
@@ -137,11 +130,31 @@
       });
       head.setAttribute('aria-expanded', String(!isOpen));
       body.hidden = isOpen;
-      if (!isOpen) assembleParts(+item.dataset.phase);
+      if (!isOpen) showActivePart(+item.dataset.phase);
     });
   });
-  // 초기 상태(Phase 1 펼쳐짐)에 맞춰 파츠 1개만 조립해 둔다
-  if (phaseItems.length) assembleParts(1);
+  // 초기 상태(Phase 1 펼쳐짐)에 맞춰 해당 파츠 1개만 표시해 둔다
+  if (phaseItems.length) showActivePart(1);
+
+  /* ---------- 히어로 스크롤 스토리: 스크롤 위치에 따라 4단계 이미지/캡션 전환 ---------- */
+  const scrollstory = document.querySelector('.scrollstory');
+  const scrollstoryImgs = document.querySelectorAll('.scrollstory__img');
+  const scrollstoryCaptions = document.querySelectorAll('.scrollstory__caption');
+  if (scrollstory && scrollstoryImgs.length) {
+    const steps = scrollstoryImgs.length;
+    function updateScrollstory() {
+      const rect = scrollstory.getBoundingClientRect();
+      const total = rect.height - viewportHeight();
+      const scrolled = Math.min(Math.max(-rect.top, 0), total);
+      const progress = total > 0 ? scrolled / total : 0;
+      const step = Math.min(Math.floor(progress * steps), steps - 1);
+      scrollstoryImgs.forEach((el) => el.classList.toggle('active', +el.dataset.step === step));
+      scrollstoryCaptions.forEach((el) => el.classList.toggle('active', +el.dataset.step === step));
+    }
+    window.addEventListener('scroll', updateScrollstory, { passive: true });
+    window.addEventListener('resize', updateScrollstory);
+    updateScrollstory();
+  }
 
   /* ---------- FAQ 아코디언 ---------- */
   document.querySelectorAll('.faq-item').forEach((item) => {
@@ -238,7 +251,7 @@
   }
 
   /* ---------- 데이터 섹션: 5년 추이 바 차트 + 카운트업 강조 애니메이션 (v2 §10) ---------- */
-  const statBlocks = document.querySelectorAll('.market-card, .channel-store-grid');
+  const statBlocks = document.querySelectorAll('.market-card, .channel-store-grid, .dash-mock-card');
 
   function animateCountUp(counter, { duration = 1300, delay = 0 } = {}) {
     const target = parseFloat(counter.getAttribute('data-count-to')) || 0;

@@ -81,7 +81,7 @@
   /* ---------- 업무프로세스: 연속 스크롤 진행 스토리 (600vh, sticky 트랙) ----------
      기존 IntersectionObserver 방식은 카드가 threshold를 넘는 순간 한번에
      "몰아서 점등"되는 점프 버그가 있었다. 대신 스크롤 위치에서 진행률을
-     실시간으로 계산해 진행바 너비와 카드별 상태(active/passed)를 매 프레임 갱신한다. */
+     실시간으로 계산해 진행바 너비와 활성 카드를 매 프레임 갱신한다. */
   const processScroll = document.querySelector('.process-scroll');
   const tlCards = document.querySelectorAll('.tl-card');
   const tlFill = document.getElementById('tlFill');
@@ -96,7 +96,6 @@
 
       const activeStep = Math.min(Math.floor(progress * tlCards.length), tlCards.length - 1);
       tlCards.forEach((card, i) => {
-        card.classList.toggle('passed', i < activeStep);
         card.classList.toggle('active', i === activeStep);
       });
     }
@@ -105,16 +104,8 @@
     updateProcessScroll();
   }
 
-  /* ---------- 서비스안내 Phase 아코디언 + 캐릭터 파츠 조립 ----------
-     현재 열린 phase에 해당하는 파츠 딱 1개만 보이게 한다(누적 조립 아님).
-     매칭되는 파츠가 없는 phase(5)에서는 전부 숨긴다. */
+  /* ---------- 서비스안내 Phase 아코디언 ---------- */
   const phaseItems = document.querySelectorAll('.phase-item');
-  const tigerParts = document.querySelectorAll('.tiger-part');
-  function showActivePart(phase) {
-    tigerParts.forEach((part) => {
-      part.classList.toggle('active-part', +part.dataset.phase === phase);
-    });
-  }
   phaseItems.forEach((item) => {
     const head = item.querySelector('.phase-item-head');
     const body = item.querySelector('.phase-item-body');
@@ -130,11 +121,8 @@
       });
       head.setAttribute('aria-expanded', String(!isOpen));
       body.hidden = isOpen;
-      if (!isOpen) showActivePart(+item.dataset.phase);
     });
   });
-  // 초기 상태(Phase 1 펼쳐짐)에 맞춰 해당 파츠 1개만 표시해 둔다
-  if (phaseItems.length) showActivePart(1);
 
   /* ---------- 히어로 스크롤 스토리: 스크롤 위치에 따라 4단계 이미지/캡션 전환 ---------- */
   const scrollstory = document.querySelector('.scrollstory');
@@ -331,9 +319,13 @@
     onlineSales: 'entry.1558172882',
     message: 'entry.1781088824',
   };
+  /* 신청 유형 구분값("무료 플레이스점검" / "SNS온라인판매 문의")을 시트에 남기려면
+     구글폼 편집 화면에서 "구분" 단답형 질문을 추가한 뒤, 그 질문의 entry.ID를
+     아래에 채워 넣어야 한다. 비워두면(현재 상태) 이 값은 전송되지 않는다. */
+  const GOOGLE_FORM_CATEGORY_ENTRY = ''; // 예: 'entry.987654321'
   const hiddenIframe = document.getElementById('hiddenFormTarget');
 
-  function submitToGoogleForm(data, { onFinish } = {}) {
+  function submitToGoogleForm(data, category, { onFinish } = {}) {
     const gForm = document.createElement('form');
     gForm.action = GOOGLE_FORM_ACTION;
     gForm.method = 'POST';
@@ -347,6 +339,14 @@
       input.value = (data.get(key) || '').toString();
       gForm.appendChild(input);
     });
+
+    if (GOOGLE_FORM_CATEGORY_ENTRY && category) {
+      const categoryInput = document.createElement('input');
+      categoryInput.type = 'hidden';
+      categoryInput.name = GOOGLE_FORM_CATEGORY_ENTRY;
+      categoryInput.value = category;
+      gForm.appendChild(categoryInput);
+    }
 
     let finished = false;
     const finish = () => {
@@ -389,7 +389,7 @@
       formStatus.textContent = '전송 중입니다...';
       formStatus.className = 'form-status';
 
-      submitToGoogleForm(data, {
+      submitToGoogleForm(data, 'SNS온라인판매 문의', {
         onFinish: () => {
           formStatus.textContent = '상담 신청이 접수되었습니다. 빠르게 연락드릴게요!';
           formStatus.className = 'form-status is-success';
@@ -424,7 +424,7 @@
       fcFormStatus.textContent = '전송 중입니다...';
       fcFormStatus.className = 'form-status';
 
-      submitToGoogleForm(data, {
+      submitToGoogleForm(data, '무료 플레이스점검', {
         onFinish: () => {
           fcFormStatus.textContent = '무료 점검 신청이 접수되었습니다. 빠르게 연락드릴게요!';
           fcFormStatus.className = 'form-status is-success';

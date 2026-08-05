@@ -98,7 +98,7 @@
             <input type="tel" id="fcPhone" name="phone" placeholder="예) 010-1234-5678" required>
           </div>
           <button type="submit" class="btn btn-primary btn-large form-submit">
-            <span class="btn-label">무료 점검 신청하기</span>
+            <span class="btn-label">네이버플레이스 무료 보고서신청하기</span>
           </button>
           <p class="form-status" id="fcFormStatus" role="status" aria-live="polite"></p>
           <p class="form-note">입력하신 정보는 상담 목적으로만 사용되며, 상담 완료 후 안전하게 관리됩니다. 신청 시 개인정보 수집·이용에 동의한 것으로 간주됩니다.</p>
@@ -506,59 +506,61 @@
         </div>
       </div>
 
-      <div class="dash-mock-grid reveal">
-        <div class="dash-mock-card">
-          <p class="dash-mock-card-title">조회수 현황</p>
-          <div class="dash-mock-kpis">
-            <div class="dash-mock-kpi"><span class="count-up" data-count-to="15820">0</span><label>이번달 조회수</label></div>
-            <div class="dash-mock-kpi"><span class="count-up" data-count-to="342">0</span><label>신규 팔로워</label></div>
-          </div>
-          <svg class="dash-mock-spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
-            <polyline points="0,25 20,21 40,23 60,11 80,13 100,4"></polyline>
-          </svg>
-        </div>
-        <div class="dash-mock-card">
-          <p class="dash-mock-card-title">업무 로드맵</p>
-          <ul class="dash-mock-steps">
-            <li class="is-done">브랜딩 셋업</li>
-            <li class="is-done">채널 구축</li>
-            <li class="is-active">콘텐츠 기획</li>
-            <li>제작</li>
-            <li>운영·확장</li>
-          </ul>
-        </div>
-        <div class="dash-mock-card">
-          <p class="dash-mock-card-title">월간 성과</p>
-          <div class="bar-chart dash-mock-bar" data-max="220">
-            <div class="bar-chart-row">
-              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="120"></div></div>
-              <div class="bar-chart-meta"><span class="bar-chart-year">1월</span><span class="bar-chart-num">120</span></div>
+      <div class="dashboard-panel reveal">
+        <div class="dash-mock-grid">
+          <div class="dash-mock-card">
+            <p class="dash-mock-card-title">조회수 현황</p>
+            <div class="dash-mock-kpis">
+              <div class="dash-mock-kpi"><span class="count-up" data-count-to="15820">0</span><label>이번달 조회수</label></div>
+              <div class="dash-mock-kpi"><span class="count-up" data-count-to="342">0</span><label>신규 팔로워</label></div>
             </div>
-            <div class="bar-chart-row">
-              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="165"></div></div>
-              <div class="bar-chart-meta"><span class="bar-chart-year">2월</span><span class="bar-chart-num">165</span></div>
-            </div>
-            <div class="bar-chart-row bar-chart-row-final">
-              <div class="bar-chart-track"><div class="bar-chart-fill" data-value="210"></div></div>
-              <div class="bar-chart-meta"><span class="bar-chart-year">3월</span><span class="bar-chart-num"><span class="count-up" data-count-to="210">0</span></span></div>
+            <svg class="dash-mock-spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
+              <polyline class="dash-mock-spark-line" points="0,25 20,21 40,23 60,11 80,13 100,4"></polyline>
+            </svg>
+          </div>
+          <div class="dash-mock-card">
+            <p class="dash-mock-card-title">업무 로드맵</p>
+            <ul class="dash-mock-steps">
+              <li class="is-done">브랜딩 셋업</li>
+              <li class="is-done">채널 구축</li>
+              <li class="is-active">콘텐츠 기획</li>
+              <li>제작</li>
+              <li>운영·확장</li>
+            </ul>
+          </div>
+          <div class="dash-mock-card">
+            <p class="dash-mock-card-title">월간 성과</p>
+            <div class="bar-chart dash-mock-bar" data-max="220">
+              <div class="bar-chart-row">
+                <div class="bar-chart-track"><div class="bar-chart-fill" data-value="120"></div></div>
+                <div class="bar-chart-meta"><span class="bar-chart-year">1월</span><span class="bar-chart-num">120</span></div>
+              </div>
+              <div class="bar-chart-row">
+                <div class="bar-chart-track"><div class="bar-chart-fill" data-value="165"></div></div>
+                <div class="bar-chart-meta"><span class="bar-chart-year">2월</span><span class="bar-chart-num">165</span></div>
+              </div>
+              <div class="bar-chart-row bar-chart-row-final">
+                <div class="bar-chart-track"><div class="bar-chart-fill" data-value="210"></div></div>
+                <div class="bar-chart-meta"><span class="bar-chart-year">3월</span><span class="bar-chart-num"><span class="count-up" data-count-to="210">0</span></span></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="dash-mock-card">
-          <p class="dash-mock-card-title">운영 캘린더</p>
-          <div class="dash-mock-calendar">
-            <span>월</span><span>화</span><span>수</span><span class="is-today">목</span><span>금</span><span>토</span><span>일</span>
+          <div class="dash-mock-card">
+            <p class="dash-mock-card-title">운영 캘린더</p>
+            <div class="dash-mock-calendar">
+              <span>월</span><span>화</span><span>수</span><span class="is-today">목</span><span>금</span><span>토</span><span>일</span>
+            </div>
+          </div>
+          <div class="dash-mock-card">
+            <p class="dash-mock-card-title">메뉴단가·소통게시판</p>
+            <ul class="dash-mock-list">
+              <li><span>간장게장 1kg</span><strong>32,000원</strong></li>
+              <li><span>새 댓글</span><strong>3건</strong></li>
+            </ul>
           </div>
         </div>
-        <div class="dash-mock-card">
-          <p class="dash-mock-card-title">메뉴단가·소통게시판</p>
-          <ul class="dash-mock-list">
-            <li><span>간장게장 1kg</span><strong>32,000원</strong></li>
-            <li><span>새 댓글</span><strong>3건</strong></li>
-          </ul>
-        </div>
+        <p class="dash-mock-caption">실제 업무 이해를 돕기 위한 예시 화면입니다</p>
       </div>
-      <p class="dash-mock-caption reveal">실제 업무 이해를 돕기 위한 예시 화면입니다</p>
     </div>
   </section>
 

@@ -300,10 +300,17 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% center;
   opacity: 0;
   transition: opacity .6s var(--ease);
 }
 .scrollstory__img.active { opacity: 1; }
+/* 좁고 긴 모바일 화면에서 object-fit:cover가 좌우를 크게 잘라내는데,
+   기본 50% 중앙 크롭으로는 각 사진의 핵심 피사체(폰 화면/박스더미/배송 트럭)가
+   화면 밖으로 밀려나 실제 기기에서 확인 후 사진별로 위치를 다시 잡았다 */
+.scrollstory__img[data-step="1"] { object-position: 39% center; }
+.scrollstory__img[data-step="2"] { object-position: 30% center; }
+.scrollstory__img[data-step="3"] { object-position: 72% center; }
 .scrollstory__gradient {
   position: absolute;
   inset: 0;
@@ -539,14 +546,31 @@ button { font-family: inherit; cursor: pointer; }
 }
 .tl-card.active .tl-step-num,
 .tl-card.active h3 { color: var(--accent); }
-@media (max-width: 860px) {
-  .timeline-cards { grid-template-columns: repeat(2, 1fr); }
+/* 900px 미만: N행×2~3열 카드가 100vh sticky 트랙 안에 다 안 들어가서 뒤쪽
+   카드가 화면 밖으로 잘려 "반응이 멈춘 것처럼" 보이던 버그. 스크롤 하이재킹
+   자체를 포기하고 일반 문서 흐름의 카드 그리드로 전환한다(터치 스크롤에서
+   더 안정적이기도 하다). */
+@media (max-width: 899px) {
+  .process-scroll { height: auto; }
+  .process-scroll__track {
+    position: static;
+    height: auto;
+    display: block;
+    padding: 48px 0 0;
+  }
+  .timeline-track { display: none; }
+  .timeline-cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tl-card {
+    height: auto;
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+    max-height: none;
+    opacity: 1;
+  }
 }
 @media (max-width: 560px) {
-  .process-scroll { height: 500vh; }
-  .process-scroll__track { padding: 0; justify-content: flex-start; padding-top: 90px; }
   .timeline-cards { grid-template-columns: 1fr; gap: 10px; }
-  .tl-card { height: auto; aspect-ratio: 16 / 9; min-height: 0; max-height: none; }
+  .tl-card { aspect-ratio: 16 / 9; }
 }
 
 /* ---- 5-2. 서비스안내: Phase 아코디언(축약) + 캐릭터 조립 + 요금 카드 2종 ---- */
@@ -803,21 +827,28 @@ button { font-family: inherit; cursor: pointer; }
 .mini-char-img { display: block; height: min(34vh, 300px); width: auto; filter: drop-shadow(0 12px 14px rgba(0,0,0,.35)); }
 .char-img-wrap { display: contents; }
 
-/* 코딩 목업(AI 이미지 아님) — 카운트업/그래프 실제 구현. 스크린샷 카드를
-   전부 걷어낸 뒤 이 목업이 섹션의 유일한 시각 요소가 되므로 크기·비중을 키운다 */
-.dash-mock-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-  margin-bottom: 16px;
-}
-.dash-mock-card {
+/* 코딩 목업(AI 이미지 아님) — 카운트업/그래프 실제 구현.
+   개별 카드가 따로 떠 있는 느낌을 없애고 하나의 큰 패널 안에 통일해서 담는다. */
+.dashboard-panel {
   background: var(--card);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-lg);
-  padding: 32px 28px;
-  box-shadow: var(--shadow-sm);
+  padding: clamp(28px, 4vw, 48px);
+  box-shadow: var(--shadow-md);
 }
+.dash-mock-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 24px;
+}
+.dash-mock-card {
+  padding: 28px clamp(16px, 2.5vw, 32px);
+  border-top: 1px solid var(--card-border);
+  border-left: 1px solid var(--card-border);
+  min-width: 0;
+}
+.dash-mock-grid .dash-mock-card:nth-child(-n+3) { border-top: none; }
+.dash-mock-grid .dash-mock-card:nth-child(3n+1) { border-left: none; }
 .dash-mock-card-title {
   font-size: 13px;
   font-weight: 800;
@@ -828,12 +859,33 @@ button { font-family: inherit; cursor: pointer; }
   border-radius: 999px;
   margin-bottom: 22px;
 }
-.dash-mock-kpis { display: flex; gap: 28px; margin-bottom: 22px; }
-.dash-mock-kpi { display: flex; flex-direction: column; }
-.dash-mock-kpi span { font-family: var(--font-display); font-size: 32px; font-weight: 900; color: var(--text); }
-.dash-mock-kpi label { font-size: 12.5px; font-weight: 600; color: var(--text-muted); margin-top: 4px; }
+.dash-mock-kpis { display: flex; gap: clamp(16px, 2.5vw, 28px); margin-bottom: 22px; flex-wrap: wrap; }
+.dash-mock-kpi { display: flex; flex-direction: column; min-width: 0; }
+.dash-mock-kpi span { font-family: var(--font-display); font-size: clamp(24px, 2.4vw, 32px); font-weight: 900; color: var(--text); white-space: nowrap; }
+.dash-mock-kpi label { font-size: 12.5px; font-weight: 600; color: var(--text-muted); margin-top: 4px; white-space: nowrap; }
 .dash-mock-spark { width: 100%; height: 56px; }
-.dash-mock-spark polyline { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.dash-mock-spark-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset 1.4s var(--ease);
+}
+@media (max-width: 860px) {
+  .dash-mock-grid { grid-template-columns: repeat(2, 1fr); }
+  .dash-mock-grid .dash-mock-card:nth-child(-n+3) { border-top: 1px solid var(--card-border); }
+  .dash-mock-grid .dash-mock-card:nth-child(-n+2) { border-top: none; }
+  .dash-mock-grid .dash-mock-card:nth-child(3n+1) { border-left: 1px solid var(--card-border); }
+  .dash-mock-grid .dash-mock-card:nth-child(odd) { border-left: none; }
+}
+@media (max-width: 520px) {
+  .dash-mock-grid { grid-template-columns: 1fr; }
+  .dash-mock-grid .dash-mock-card { border-left: none !important; border-top: 1px solid var(--card-border) !important; }
+  .dash-mock-grid .dash-mock-card:first-child { border-top: none !important; }
+}
 .dash-mock-steps { display: flex; flex-direction: column; gap: 16px; }
 .dash-mock-steps li {
   position: relative;
@@ -1124,13 +1176,33 @@ button { font-family: inherit; cursor: pointer; }
 .footer-copyright { font-size: 12px; color: rgba(255,255,255,.35); margin-top: 32px; }
 
 .footer-brand-cards { display: grid; grid-template-columns: 1fr; gap: 16px; text-align: left; max-width: 760px; margin: 0 auto; }
-.footer-brand-card { border: 1px solid var(--card-border); border-radius: 16px; padding: 28px; background: var(--card); }
-.fb-eyebrow.fb-eyebrow { margin-bottom: 12px; font-size: 12px; }
+.footer-brand-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,151,0,.35);
+  border-radius: 16px;
+  padding: 28px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255,151,0,.16) 0%, rgba(255,151,0,0) 55%),
+    var(--card);
+}
+.fb-eyebrow.fb-eyebrow {
+  margin-bottom: 12px;
+  font-size: 12px;
+  background: linear-gradient(90deg, #FF9700, #FFC857, #FF9700);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fbShimmer 3s linear infinite;
+}
+@keyframes fbShimmer { to { background-position: 200% center; } }
 .fb-title { color: var(--accent); font-size: 24px; font-weight: 800; font-family: var(--font-display); margin-bottom: 8px; }
 .fb-desc { font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,.7); margin-bottom: 18px; }
 .fb-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 800; color: #fff; }
 .fb-link:hover { color: var(--accent); }
 @media (min-width: 640px) { .footer-brand-cards { grid-template-columns: 1fr 1fr; } }
+@media (prefers-reduced-motion: reduce) { .fb-eyebrow.fb-eyebrow { animation: none; } }
 
 /* 채널 배지(쿠팡 등) — 마퀴/히어로/진행사례에서 재사용 */
 .channel-node-badge {

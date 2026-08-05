@@ -81,12 +81,17 @@
   /* ---------- 업무프로세스: 연속 스크롤 진행 스토리 (600vh, sticky 트랙) ----------
      기존 IntersectionObserver 방식은 카드가 threshold를 넘는 순간 한번에
      "몰아서 점등"되는 점프 버그가 있었다. 대신 스크롤 위치에서 진행률을
-     실시간으로 계산해 진행바 너비와 활성 카드를 매 프레임 갱신한다. */
+     실시간으로 계산해 진행바 너비와 활성 카드를 매 프레임 갱신한다.
+     899px 이하에서는 CSS가 sticky 트랙을 일반 문서 흐름으로 되돌리므로
+     (6장이 100vh 안에 다 안 들어가 뒤쪽 카드가 화면 밖에 갇히는 문제 때문)
+     이 스크롤 하이재킹 계산 자체를 데스크톱에서만 돌린다. */
   const processScroll = document.querySelector('.process-scroll');
   const tlCards = document.querySelectorAll('.tl-card');
   const tlFill = document.getElementById('tlFill');
+  const desktopProcessMq = window.matchMedia('(min-width: 900px)');
   if (processScroll && tlCards.length && tlFill) {
     function updateProcessScroll() {
+      if (!desktopProcessMq.matches) return;
       const rect = processScroll.getBoundingClientRect();
       const total = rect.height - viewportHeight();
       const scrolled = Math.min(Math.max(-rect.top, 0), total);
@@ -286,6 +291,17 @@
               if (counter) animateCountUp(counter, { duration: 900, delay });
             });
           });
+
+          const sparkLine = entry.target.querySelector('.dash-mock-spark-line');
+          if (sparkLine) {
+            const length = sparkLine.getTotalLength();
+            sparkLine.style.transition = 'none';
+            sparkLine.style.strokeDasharray = length;
+            sparkLine.style.strokeDashoffset = length;
+            void sparkLine.getBoundingClientRect();
+            sparkLine.style.transition = 'stroke-dashoffset 1.4s ease';
+            requestAnimationFrame(() => { sparkLine.style.strokeDashoffset = '0'; });
+          }
         });
       },
       { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }

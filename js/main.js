@@ -131,17 +131,17 @@
 
   /* ---------- 히어로 스크롤 스토리: 스크롤 위치에 따라 4단계 이미지/캡션 전환 ---------- */
   const scrollstory = document.querySelector('.scrollstory');
-  const scrollstoryImgs = document.querySelectorAll('.scrollstory__img');
+  const scrollstoryImgWraps = document.querySelectorAll('.scrollstory__img-wrap');
   const scrollstoryCaptions = document.querySelectorAll('.scrollstory__caption');
-  if (scrollstory && scrollstoryImgs.length) {
-    const steps = scrollstoryImgs.length;
+  if (scrollstory && scrollstoryImgWraps.length) {
+    const steps = scrollstoryImgWraps.length;
     function updateScrollstory() {
       const rect = scrollstory.getBoundingClientRect();
       const total = rect.height - viewportHeight();
       const scrolled = Math.min(Math.max(-rect.top, 0), total);
       const progress = total > 0 ? scrolled / total : 0;
       const step = Math.min(Math.floor(progress * steps), steps - 1);
-      scrollstoryImgs.forEach((el) => el.classList.toggle('active', +el.dataset.step === step));
+      scrollstoryImgWraps.forEach((el) => el.classList.toggle('active', +el.dataset.step === step));
       scrollstoryCaptions.forEach((el) => el.classList.toggle('active', +el.dataset.step === step));
     }
     window.addEventListener('scroll', updateScrollstory, { passive: true });

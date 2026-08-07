@@ -459,6 +459,16 @@
     'https://script.google.com/macros/s/AKfycbwiFxOMP-nPOJK_KIOEOaB6SfaktJz8b9EPmlSRKtyx85pnrlhMdtXqTt1wpVurmaxf/exec';
   const nationalCheckForm = document.getElementById('nationalCheckForm');
   const ncFormStatus = document.getElementById('ncFormStatus');
+  const ncOpenFormBtn = document.getElementById('ncOpenFormBtn');
+
+  if (ncOpenFormBtn && nationalCheckForm) {
+    ncOpenFormBtn.addEventListener('click', () => {
+      nationalCheckForm.hidden = false;
+      requestAnimationFrame(() => {
+        nationalCheckForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
 
   if (nationalCheckForm) {
     // 즉석판매제조가공업 신고가 "없음"일 때만 현재 영업형태 질문을 보여준다
@@ -521,11 +531,12 @@
           return res.text();
         })
         .then(() => {
-          ncFormStatus.textContent = '전국판매 무료점검 신청이 접수되었습니다. 빠르게 연락드릴게요!';
-          ncFormStatus.className = 'form-status is-success';
-          submitBtn.disabled = false;
-          nationalCheckForm.reset();
-          if (businessTypeRow) businessTypeRow.hidden = true;
+          nationalCheckForm.innerHTML =
+            '<div class="submit-complete">' +
+            '<div class="check-icon">✓</div>' +
+            '<p>제출 완료되었습니다</p>' +
+            '<p class="sub">확인 후 빠르게 연락드리겠습니다</p>' +
+            '</div>';
         })
         .catch(() => {
           ncFormStatus.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해주세요.';

@@ -389,7 +389,26 @@ button { font-family: inherit; cursor: pointer; }
   padding: 40px clamp(20px, 4vw, 44px);
   position: relative;
 }
+.nc-form:not([hidden]) { animation: ncFormReveal .5s var(--ease); }
+@keyframes ncFormReveal {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .nc-form-anchor { position: absolute; top: -90px; left: 0; }
+.submit-complete { padding: 40px 20px; text-align: center; }
+.submit-complete .check-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: 1px solid rgba(255,151,0,.4);
+  color: var(--accent);
+  font-size: 26px;
+  font-weight: 800;
+}
+.submit-complete p { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+.submit-complete p.sub { font-size: 14px; font-weight: 500; color: var(--text-soft); margin-bottom: 0; }
 .nc-form-section { margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--card-border); }
 .nc-form-section:last-of-type { border-bottom: none; margin-bottom: 24px; padding-bottom: 0; }
 .nc-form-section-title {
@@ -722,19 +741,30 @@ button { font-family: inherit; cursor: pointer; }
 .phase-item-body ul { display: flex; flex-direction: column; gap: 6px; }
 .phase-item-body li {
   position: relative;
-  padding-left: 18px;
+  padding-left: 22px;
   font-size: 13px;
   font-weight: 500;
   color: var(--text-soft);
   line-height: 1.5;
+  opacity: 0;
+  transform: translateY(6px);
 }
 .phase-item-body li::before {
-  content: "";
+  content: "✓";
   position: absolute;
-  left: 0; top: 7px;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
+  left: 0; top: 0;
+  color: var(--accent);
+  font-weight: 800;
+}
+.phase-item-body:not([hidden]) li { animation: phaseLiIn .4s var(--ease) forwards; }
+.phase-item-body li:nth-child(1) { animation-delay: .03s; }
+.phase-item-body li:nth-child(2) { animation-delay: .09s; }
+.phase-item-body li:nth-child(3) { animation-delay: .15s; }
+.phase-item-body li:nth-child(4) { animation-delay: .21s; }
+.phase-item-body li:nth-child(5) { animation-delay: .27s; }
+.phase-item-body li:nth-child(6) { animation-delay: .33s; }
+@keyframes phaseLiIn {
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* 서비스안내 캐릭터 마스코트 — 파츠 조립 연출은 원본 소스 이미지가 실제로는

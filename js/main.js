@@ -56,7 +56,7 @@
   });
 
   /* ---------- 사이드 내비 활성 점 ---------- */
-  const navSectionIds = ['hero', 'free-check', 'main-service', 'cases', 'process', 'market', 'pricing', 'dashboard-preview', 'contact'];
+  const navSectionIds = ['hero', 'national-check', 'free-check', 'main-service', 'cases', 'process', 'market', 'pricing', 'dashboard-preview', 'contact'];
   const navSections = navSectionIds
     .map((id) => document.getElementById(id))
     .filter(Boolean);
@@ -448,6 +448,90 @@
           freeCheckForm.reset();
         },
       });
+    });
+  }
+
+  /* ---------- 전국판매 무료점검 리드폼 ----------
+     Apps Script Web App에 JSON POST. Content-Type을 text/plain으로 보내
+     브라우저의 CORS preflight(OPTIONS)를 피하는 방식 — Apps Script doPost는
+     e.postData.contents를 JSON.parse해서 그대로 읽으면 된다. */
+  const NATIONAL_CHECK_ENDPOINT =
+    'https://script.google.com/macros/s/AKfycbwiFxOMP-nPOJK_KIOEOaB6SfaktJz8b9EPmlSRKtyx85pnrlhMdtXqTt1wpVurmaxf/exec';
+  const nationalCheckForm = document.getElementById('nationalCheckForm');
+  const ncFormStatus = document.getElementById('ncFormStatus');
+
+  if (nationalCheckForm) {
+    // 즉석판매제조가공업 신고가 "없음"일 때만 현재 영업형태 질문을 보여준다
+    const businessTypeRow = document.getElementById('ncBusinessTypeRow');
+    nationalCheckForm.querySelectorAll('input[name="foodMfgReport"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        businessTypeRow.hidden = radio.value !== '없음';
+      });
+    });
+
+    nationalCheckForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const data = new FormData(nationalCheckForm);
+      const get = (key) => (data.get(key) || '').toString().trim();
+
+      const required = ['bizNum', 'foodMfgReport', 'onlineSalesReport', 'spaceSeparation', 'healthCert', 'hygieneEdu', 'storeName', 'storeArea', 'phone', 'operatingPeriod', 'menu1', 'menu1Price', 'privacyConsent'];
+      const missing = required.some((key) => !get(key));
+      if (missing) {
+        ncFormStatus.textContent = '필수 항목(*)을 모두 입력해주세요.';
+        ncFormStatus.className = 'form-status is-error';
+        return;
+      }
+
+      const payload = {
+        매장명: get('storeName'),
+        지역: get('storeArea'),
+        사업자등록여부: get('bizNum'),
+        즉석판매제조가공업여부: get('foodMfgReport'),
+        통신판매업여부: get('onlineSalesReport'),
+        현재영업형태: get('businessType'),
+        공간분리가능여부: get('spaceSeparation'),
+        보건증: get('healthCert'),
+        위생교육: get('hygieneEdu'),
+        대표메뉴1: get('menu1'),
+        대표메뉴1가격: get('menu1Price'),
+        대표메뉴2: get('menu2'),
+        대표메뉴2가격: get('menu2Price'),
+        대표메뉴3: get('menu3'),
+        대표메뉴3가격: get('menu3Price'),
+        포장비: get('packagingCost'),
+        배송비부담주체: get('deliveryCostBy'),
+        운영기간: get('operatingPeriod'),
+        강점스토리: get('storyStrength'),
+        연락처: get('phone'),
+      };
+
+      const submitBtn = nationalCheckForm.querySelector('.form-submit');
+      submitBtn.disabled = true;
+      ncFormStatus.textContent = '전송 중입니다...';
+      ncFormStatus.className = 'form-status';
+
+      fetch(NATIONAL_CHECK_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.text();
+        })
+        .then(() => {
+          ncFormStatus.textContent = '전국판매 무료점검 신청이 접수되었습니다. 빠르게 연락드릴게요!';
+          ncFormStatus.className = 'form-status is-success';
+          submitBtn.disabled = false;
+          nationalCheckForm.reset();
+          if (businessTypeRow) businessTypeRow.hidden = true;
+        })
+        .catch(() => {
+          ncFormStatus.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해주세요.';
+          ncFormStatus.className = 'form-status is-error';
+          submitBtn.disabled = false;
+        });
     });
   }
 })();

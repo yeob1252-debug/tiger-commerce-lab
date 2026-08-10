@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/client/:slug", "destination": "/client.html" },
     { "source": "/login", "destination": "/login.html" },
-    { "source": "/admin", "destination": "/admin.html" }
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/proposal/:slug", "destination": "/proposal.html" }
   ]
 }

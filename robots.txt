@@ -2,4 +2,5 @@ User-agent: *
 Disallow: /login
 Disallow: /client/
 Disallow: /admin
+Disallow: /proposal/
 Allow: /

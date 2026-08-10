@@ -17,6 +17,7 @@ $mime = @{
     ".jpeg" = "image/jpeg"
     ".svg"  = "image/svg+xml"
     ".ico"  = "image/x-icon"
+    ".json" = "application/json"
 }
 
 while ($listener.IsListening) {
@@ -30,6 +31,7 @@ while ($listener.IsListening) {
         if ($path -match "^/client/[^/]+$") { $path = "/client.html" }
         elseif ($path -eq "/login") { $path = "/login.html" }
         elseif ($path -eq "/admin") { $path = "/admin.html" }
+        elseif ($path -match "^/proposal/[^/]+$") { $path = "/proposal.html" }
         $filePath = Join-Path $Root ($path.TrimStart("/"))
         if (Test-Path $filePath -PathType Leaf) {
             $ext = [System.IO.Path]::GetExtension($filePath).ToLower()

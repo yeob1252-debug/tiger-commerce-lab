@@ -1,0 +1,151 @@
+{
+  "_comment": "TEST FIXTURE — 신규 업체 추가가 코드 수정 없이 동작하는지 검증하기 위한 샘플. 실제 업체가 아니다.",
+  "meta": {
+    "proposal_id": "TIGER-SAMPLE-RESTAURANT-TEST",
+    "client_name": "샘플식당",
+    "client_slug": "sample-restaurant",
+    "status": "SAMPLE",
+    "template": "TIGER_PROPOSAL_WEB"
+  },
+  "client": {
+    "business_name": "샘플식당",
+    "category": "테스트용 샘플 업종",
+    "region": "서울 강남",
+    "business_type_primary": "LOCAL_VISIT"
+  },
+  "channels": {
+    "naver_place": { "status": "ACTIVE", "url": null, "analysis": "샘플 분석 문구 — 매장 검색과 방문 판단을 담당하는 접점이다." },
+    "instagram": { "status": "NOT_VERIFIED", "url": null, "analysis": "샘플 분석 문구 — 공식 운영 여부를 확인해야 한다." }
+  },
+  "hero": {
+    "eyebrow": "TIGER COMMERCE LAB × 샘플식당",
+    "headline": "이것은 렌더러 검증용 샘플 헤드라인이다.",
+    "subheadline": "공통 Proposal Template이 업체별 JSON만으로 정상 렌더링되는지 확인하기 위한 테스트 문구이다.",
+    "primary_cta": "PERFORMANCE 운영안 시작하기",
+    "secondary_cta": "월 운영 구조 보기",
+    "trust_note": "샘플식당 맞춤 SNS 통합 운영 제안 (테스트)"
+  },
+  "strategy": {
+    "platform_roles": [
+      { "platform": "Instagram", "role": "샘플 역할", "customer_action": "샘플 고객 행동" }
+    ],
+    "content_pillars": ["샘플 소재 1", "샘플 소재 2"]
+  },
+  "sections": [
+    { "id": "section-01", "type": "hero" },
+    {
+      "id": "section-02",
+      "type": "current-position",
+      "eyebrow": "ALREADY STRONG",
+      "headline": "샘플식당은 이미 시작점이 다르다.",
+      "body": "샘플 검증용 본문이다.",
+      "cards": ["샘플 강점 1", "샘플 강점 2"]
+    },
+    {
+      "id": "section-03",
+      "type": "opportunity",
+      "eyebrow": "THE GAP",
+      "headline": "샘플 기회 헤드라인",
+      "body": "샘플 본문",
+      "comparison": [{ "before": "샘플 이전", "after": "샘플 이후" }]
+    },
+    {
+      "id": "section-04",
+      "type": "why-now",
+      "eyebrow": "WHY NOW",
+      "headline": "샘플 WHY NOW 헤드라인",
+      "body": "샘플 본문",
+      "highlight": "샘플 강조 문구"
+    },
+    {
+      "id": "section-05",
+      "type": "customer-flow",
+      "eyebrow": "ONE CONNECTED JOURNEY",
+      "headline": "SNS → 검색 → 방문 → 구매 → 재구매",
+      "body": "샘플 본문",
+      "steps": ["SNS 발견", "검색", "방문", "구매", "재구매"]
+    },
+    {
+      "id": "section-06",
+      "type": "content-engine",
+      "eyebrow": "CONTENT ENGINE",
+      "headline": "샘플 콘텐츠 엔진 헤드라인",
+      "body": "샘플 본문",
+      "framework": ["HOOK", "RETENTION", "VALUE", "CTA"]
+    },
+    {
+      "id": "section-07",
+      "type": "content-examples",
+      "eyebrow": "MADE FOR SAMPLE RESTAURANT",
+      "headline": "샘플식당이라서 만들 수 있는 콘텐츠이다.",
+      "body": "샘플 본문",
+      "content_example_ids": ["sample-shorts-01"]
+    },
+    { "id": "section-08", "type": "proof-case" },
+    {
+      "id": "section-09",
+      "type": "monthly-execution",
+      "eyebrow": "FIRST 30 DAYS",
+      "headline": "샘플 30일 실행 헤드라인",
+      "weeks": [
+        { "week": "WEEK 1", "focus": "샘플 포커스", "actions": ["샘플 액션 1"] }
+      ]
+    },
+    {
+      "id": "section-10",
+      "type": "plans",
+      "eyebrow": "CHOOSE THE GROWTH LEVEL",
+      "headline": "샘플식당에는 PERFORMANCE가 가장 현실적인 성장 속도이다.",
+      "body": "샘플 본문",
+      "highlight_plan": "PERFORMANCE",
+      "plan_ids": ["BASIC", "GROWTH", "PERFORMANCE", "COMMERCE"]
+    },
+    { "id": "section-11", "type": "why-tiger" },
+    {
+      "id": "section-12",
+      "type": "final-cta",
+      "headline": "샘플 최종 CTA 헤드라인",
+      "body": "샘플 본문",
+      "primary_cta": "PERFORMANCE 운영안 시작하기"
+    }
+  ],
+  "content_examples": [
+    {
+      "id": "sample-shorts-01",
+      "title": "샘플 콘텐츠 제목",
+      "format": "SHORTS / REELS / TIKTOK",
+      "hook": "샘플 훅",
+      "retention": "샘플 리텐션",
+      "value": "샘플 밸류",
+      "cta": "샘플 CTA"
+    }
+  ],
+  "case_study": {
+    "enabled": true,
+    "case_id": "JOGANE",
+    "connection_to_client": "샘플식당 검증용 연결 문구 — 조가네맛곳간 CASE를 샘플식당에 어떻게 연결하는지 보여주는 테스트 문장이다."
+  },
+  "recommendation": {
+    "recommended_plan": "PERFORMANCE",
+    "monthly_price_krw": 1500000,
+    "reason": "샘플 추천 사유 문구이다."
+  },
+  "assets": {
+    "base_path": "/assets/proposals/sample-restaurant/",
+    "client": []
+  },
+  "final_cta": {
+    "headline": "샘플 최종 CTA 헤드라인",
+    "body": "샘플 본문",
+    "contact_method": "기존 TIGER COMMERCE LAB 홈페이지의 상담 버튼·연락 경로를 그대로 재사용한다."
+  },
+  "web": {
+    "proposal_path": "/proposal/sample-restaurant",
+    "public_navigation": false,
+    "include_in_sitemap": false,
+    "noindex": true,
+    "robots": "noindex,nofollow,noarchive",
+    "page_title": "샘플식당 SNS 통합 운영 제안 (TEST) | TIGER COMMERCE LAB",
+    "meta_description": "Proposal Template 렌더러 검증용 샘플 데이터."
+  }
+}

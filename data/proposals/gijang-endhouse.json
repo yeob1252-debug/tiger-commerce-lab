@@ -141,12 +141,7 @@
     {
       "id": "section-08",
       "type": "proof-case",
-      "eyebrow": "REAL RESPONSE, VERIFIED",
-      "headline": "조회수가 아니라 고객이 말을 걸기 시작했다.",
-      "body": "조가네맛곳간 대표 콘텐츠에서 확인된 반응이다. 기장끝집에서는 반응을 매장 검색과 밀키트 구매까지 이어지게 설계한다.",
-      "metrics": ["66.1K VIEWS", "278 LIKES", "53 COMMENTS", "26 SAVES", "+69 FOLLOWERS"],
-      "disclaimer": "제공된 대표 콘텐츠 성과 캡처 기준이며 매출·구매전환 성과를 의미하지 않는다.",
-      "asset_slots": ["case.jogane_tiktok_capture", "case.jogane_content"]
+      "_comment": "조가네 CASE 본문(헤드라인/수치/캡처/문구)은 공통 템플릿(data/proposals/_common.json)에서 렌더링된다. 업체별로 필요한 것은 case_study.connection_to_client 한 문장뿐이다."
     },
     {
       "id": "section-09",
@@ -167,16 +162,12 @@
       "headline": "기장끝집에는 PERFORMANCE가 가장 현실적인 성장 속도이다.",
       "body": "매장 방문과 온라인 판매를 함께 움직이려면 숏폼, 검색 콘텐츠, 관계 콘텐츠를 끊기지 않게 운영해야 한다.",
       "highlight_plan": "PERFORMANCE",
-      "plan_ids": ["STARTER", "GROWTH", "PERFORMANCE", "COMMERCE"]
+      "plan_ids": ["BASIC", "GROWTH", "PERFORMANCE", "COMMERCE"]
     },
     {
       "id": "section-11",
       "type": "why-tiger",
-      "eyebrow": "WHY TIGER",
-      "headline": "팔아본 사람이 콘텐츠를 만들면 다음 행동을 보는 지점이 다르다.",
-      "body": "TIGER는 콘텐츠 제작, 고객 반응, 검색, 매장 방문, 판매채널을 하나의 운영 시스템으로 본다.",
-      "points": ["기획부터 제작·운영까지 연결", "플랫폼별 카피와 CTA 재설계", "라이브커머스·판매 현장 경험", "확인 가능한 반응을 다음 콘텐츠에 반영"],
-      "asset_slots": ["brand.yb_profile"]
+      "_comment": "WHY TIGER는 업체별 데이터 없이 완전히 공통 템플릿(data/proposals/_common.json의 tiger)에서 렌더링된다."
     },
     {
       "id": "section-12",
@@ -238,52 +229,23 @@
   "case_study": {
     "enabled": true,
     "case_id": "JOGANE",
-    "headline": "조회수가 아니라 고객이 말을 걸기 시작했다.",
-    "connection_to_client": "조가네맛곳간에서 확인한 댓글·저장·팔로우 반응 구조를 기장끝집에서는 네이버 검색, 매장 방문, 밀키트 판매채널까지 연결한다.",
-    "verified_metrics": { "views": "66.1K", "likes": 278, "comments": 53, "saves": 26, "new_followers": 69 },
-    "scope_note": "제공된 대표 TikTok 콘텐츠 성과 기준",
-    "asset_ids": ["CASE_JOGANE_TIKTOK_ANALYTICS", "CASE_JOGANE_TIKTOK_POST"]
+    "connection_to_client": "조가네맛곳간에서 확인한 댓글·저장·팔로우 반응 구조를 기장끝집에서는 네이버 검색, 매장 방문, 밀키트 판매채널까지 연결한다."
   },
   "recommendation": {
     "recommended_plan": "PERFORMANCE",
-    "monthly_price_krw": 1490000,
+    "monthly_price_krw": 1500000,
     "reason": "기장끝집은 매장 방문 수요와 온라인 판매 인프라를 함께 보유하고 있다. 월 6편 숏폼으로 신규 발견을 만들고, 카드뉴스·Threads로 저장과 관계를 쌓으며, 월 8건 블로그로 검색자산을 축적해야 두 전환축이 함께 움직인다.",
     "expected_role": "도달 → 반응 → 반복노출 → 검색 → 방문·구매 연결",
     "commerce_extension": "판매형 콘텐츠와 라이브커머스 비중을 적극 확대할 시 COMMERCE로 전환한다."
   },
-  "plans": {
-    "show_all_plans": true,
-    "highlight_plan": "PERFORMANCE",
-    "source": "TIGER_SERVICE_PACKAGE.md",
-    "items": [
-      { "id": "STARTER", "name": "STARTER", "price_krw": 690000, "level": "시작", "shorts": 2, "card_news": 4, "threads": 4, "blog": 2, "value": "멈춰 있던 SNS를 다시 움직이는 운영 기반" },
-      { "id": "GROWTH", "name": "GROWTH", "price_krw": 990000, "level": "성장", "shorts": 4, "card_news": 6, "threads": 6, "blog": 4, "value": "꾸준한 노출과 검색자산을 함께 축적" },
-      { "id": "PERFORMANCE", "name": "PERFORMANCE", "price_krw": 1490000, "level": "성과형 운영", "shorts": 6, "card_news": 8, "threads": 8, "blog": 8, "value": "발견과 반응을 매장 방문·판매로 연결", "recommended": true },
-      { "id": "COMMERCE", "name": "COMMERCE", "price_krw": 1990000, "level": "판매 확장", "shorts": 12, "card_news": 12, "threads": 12, "blog": 12, "value": "SNS와 판매채널·라이브커머스를 통합" }
-    ],
-    "performance_note": "성과·매출·조회수·상위노출을 보장하지 않으며, 확인 가능한 반응 데이터를 바탕으로 지속 개선한다."
-  },
-  "tiger": {
-    "why_tiger_headline": "조회수에서 끝나는 콘텐츠가 아니라 고객의 다음 행동까지 설계한다.",
-    "why_tiger_points": ["콘텐츠 기획부터 제작·운영까지 연결", "숏폼·카드뉴스·검색·커머스를 하나의 동선으로 통합", "라이브커머스와 실제 판매 현장의 고객 행동을 콘텐츠에 반영", "반응 데이터를 다음 기획과 후킹에 반영"],
-    "profile_source": "TIGER_YB_PROFILE.md"
-  },
   "assets": {
     "base_path": "/assets/proposals/gijang-endhouse/",
-    "brand": [
-      { "id": "TIGER_LOGO_PRIMARY", "filename": "TIGER_LOGO_PRIMARY.png", "source_filename": "06-TIGER_LOGO_PRIMARY.png", "placement": ["sticky-header", "section-01", "footer"], "required": true, "status": "ONBOARDING_REQUIRED" },
-      { "id": "TIGER_YB_PROFILE", "filename": "TIGER_YB_PROFILE_ORIGINAL.jpg", "source_filename": "02_TIGER_YB_PROFILE_ORIGINAL.jpg", "placement": ["section-11"], "required": true, "status": "ACTIVE" },
-      { "id": "TIGER_YB_BUSINESS_CARD", "filename": "TIGER_YB_BUSINESS_CARD_ORIGINAL.jpg", "source_filename": "03_TIGER_YB_BUSINESS_CARD_ORIGINAL.jpg", "placement": ["section-12-contact-drawer"], "required": true, "status": "ACTIVE" }
-    ],
+    "_comment": "브랜드(YB 프로필/명함/로고)와 조가네 CASE 이미지는 공통 자산이라 여기 없다 — data/proposals/_common.json 참고. 아래는 기장끝집 전용 이미지만.",
     "client": [
       { "id": "CLIENT_GIJANG_ENDHOUSE_HERO_01", "filename": "CLIENT_gijang-endhouse_HERO_01.jpg", "placement": ["section-01-background"], "status": "ONBOARDING_REQUIRED", "fallback": "기존 홈페이지 디자인 시스템의 컬러 배경과 텍스트 중심 HERO를 사용하고 깨진 이미지는 노출하지 않는다." },
       { "id": "CLIENT_GIJANG_ENDHOUSE_STORE_01", "filename": "CLIENT_gijang-endhouse_STORE_01.jpg", "placement": ["section-02"], "status": "ONBOARDING_REQUIRED" },
       { "id": "CLIENT_GIJANG_ENDHOUSE_PRODUCT_01", "filename": "CLIENT_gijang-endhouse_PRODUCT_01.jpg", "placement": ["section-06", "section-07"], "status": "ONBOARDING_REQUIRED" },
       { "id": "CLIENT_GIJANG_ENDHOUSE_PRODUCT_02", "filename": "CLIENT_gijang-endhouse_PRODUCT_02.jpg", "placement": ["section-07-card-news"], "status": "ONBOARDING_REQUIRED" }
-    ],
-    "case": [
-      { "id": "CASE_JOGANE_TIKTOK_ANALYTICS", "filename": "CASE_JOGANE_TIKTOK_ANALYTICS.png", "placement": ["section-08-primary-proof"], "status": "ACTIVE", "caption": "TikTok Studio 실제 분석 화면" },
-      { "id": "CASE_JOGANE_TIKTOK_POST", "filename": "CASE_JOGANE_TIKTOK_POST.png", "placement": ["section-08-secondary-proof"], "status": "ACTIVE", "caption": "실제 게시물 반응 화면" }
     ]
   },
   "responsive": {
@@ -317,7 +279,6 @@
     "온라인 판매채널 정확한 URL과 대표 판매상품",
     "매장 주소·영업시간·예약·포장 정보",
     "클라이언트 로고·매장·전복죽·밀키트 원본 이미지 사용 승인",
-    "조가네맛곳간 성과 캡처와 카드뉴스 이미지 파일 연결",
     "상담 버튼의 최종 연락 경로"
   ],
   "implementation_instruction_file": "TIGER_PROPOSAL_gijang-endhouse_IMPLEMENTATION.md"

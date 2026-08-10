@@ -7,12 +7,17 @@
   const root = document.getElementById('proposalRoot');
   if (!root) return;
 
-  fetch('/data/proposals/' + slug + '.json')
-    .then((res) => {
+  Promise.all([
+    fetch('/data/proposals/' + slug + '.json').then((res) => {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
-    })
-    .then((data) => render(data))
+    }),
+    fetch('/data/proposals/_common.json').then((res) => {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }),
+  ])
+    .then(([data, common]) => render(data, common))
     .catch(() => {
       root.innerHTML =
         '<div class="prop-error">' +
@@ -29,16 +34,15 @@
   function byId(list, id) {
     return (list || []).find((item) => item.id === id);
   }
-  /* ---------- 브랜드/케이스 자산 조회 (assets.brand는 공용 폴더, assets.case/client는 업체별 base_path) ---------- */
-  function brandAssetUrl(data, id) {
-    const a = byId(data.assets && data.assets.brand, id);
-    if (!a || a.status === 'ONBOARDING_REQUIRED') return null;
-    return '/assets/proposals/_brand/' + a.filename;
+  /* ---------- 공용 브랜드/케이스 자산은 항상 /assets/proposals/_brand/ 에서 조회 (업체별 base_path와 분리) ---------- */
+  function brandAssetUrl(common, id) {
+    const a = byId(common.brand_assets, id);
+    return a ? '/assets/proposals/_brand/' + a.filename : null;
   }
-  function placementAsset(list, basePath, placement) {
-    const a = (list || []).find((item) => (item.placement || []).includes(placement) && item.status !== 'ONBOARDING_REQUIRED');
+  function commonPlacementAsset(list, placement) {
+    const a = (list || []).find((item) => (item.placement || []).includes(placement));
     if (!a) return null;
-    return { url: basePath + a.filename, caption: a.caption || '' };
+    return { url: '/assets/proposals/_brand/' + a.filename, caption: a.caption || '' };
   }
   function statusLabel(status) {
     if (status === 'ACTIVE') return '운영 중';
@@ -50,7 +54,7 @@
   }
 
   /* ---------- 메인 렌더 ---------- */
-  function render(data) {
+  function render(data, common) {
     document.title = (data.web && data.web.page_title) || document.title;
     const descMeta = document.querySelector('meta[name="description"]');
     if (descMeta && data.web && data.web.meta_description) descMeta.setAttribute('content', data.web.meta_description);
@@ -64,11 +68,11 @@
       'customer-flow': (s) => renderCustomerFlow(s, data),
       'content-engine': (s) => renderContentEngine(s, data),
       'content-examples': (s) => renderContentExamples(s, data),
-      'proof-case': (s) => renderProofCase(s, data),
+      'proof-case': (s) => renderProofCase(s, data, common),
       'monthly-execution': (s) => renderMonthlyExecution(s),
-      'plans': (s) => renderPlans(s, data),
-      'why-tiger': (s) => renderWhyTiger(s, data),
-      'final-cta': (s) => renderFinalCta(s, data),
+      'plans': (s) => renderPlans(s, data, common),
+      'why-tiger': () => renderWhyTiger(common),
+      'final-cta': (s) => renderFinalCta(s, data, common),
     };
 
     root.innerHTML = sections.map((s) => {
@@ -82,7 +86,7 @@
     wireCtaScrolls();
   }
 
-  /* ---------- SECTION 01 — HERO ---------- */
+  /* ---------- SECTION 01 — HERO (업체별) ---------- */
   function renderHero(data) {
     const h = data.hero || {};
     return `
@@ -100,7 +104,7 @@
     </section>`;
   }
 
-  /* ---------- SECTION 02 — CURRENT POSITION ---------- */
+  /* ---------- SECTION 02 — CURRENT POSITION (업체별) ---------- */
   function renderCurrentPosition(s, data) {
     const cards = (s.cards || []).map((c) => `<div class="prop-chip reveal">${esc(c)}</div>`).join('');
     const channelOrder = ['naver_place', 'naver_blog', 'instagram', 'tiktok', 'youtube', 'threads'];
@@ -131,7 +135,7 @@
     </section>`;
   }
 
-  /* ---------- SECTION 03 — OPPORTUNITY ---------- */
+  /* ---------- SECTION 03 — OPPORTUNITY (업체별) ---------- */
   function renderOpportunity(s) {
     const rows = (s.comparison || []).map((c) => `
       <div class="prop-compare-row reveal">
@@ -150,7 +154,7 @@
     </section>`;
   }
 
-  /* ---------- SECTION 04 — WHY NOW ---------- */
+  /* ---------- SECTION 04 — WHY NOW (업체별) ---------- */
   function renderWhyNow(s) {
     return `
     <section id="section-04" class="prop-section prop-why-now">
@@ -163,7 +167,7 @@
     </section>`;
   }
 
-  /* ---------- SECTION 05 — CUSTOMER FLOW ---------- */
+  /* ---------- SECTION 05 — CUSTOMER FLOW (업체별) ---------- */
   function renderCustomerFlow(s, data) {
     const steps = (s.steps || []).map((step, i) => `
       <div class="prop-flow-step reveal">
@@ -191,7 +195,7 @@
     </section>`;
   }
 
-  /* ---------- SECTION 06 — CONTENT ENGINE ---------- */
+  /* ---------- SECTION 06 — CONTENT ENGINE (업체별) ---------- */
   function renderContentEngine(s, data) {
     const framework = (s.framework || []).map((f) => `<div class="prop-framework-box reveal"><span>${esc(f)}</span></div>`).join('<span class="prop-flow-arrow reveal" aria-hidden="true">→</span>');
     const pillars = ((data.strategy && data.strategy.content_pillars) || []).map((p) => `<span class="prop-chip reveal">${esc(p)}</span>`).join('');
@@ -207,7 +211,7 @@
     </section>`;
   }
 
-  /* ---------- SECTION 07 — CONTENT EXAMPLES ---------- */
+  /* ---------- SECTION 07 — CONTENT EXAMPLES (업체별) ---------- */
   function renderContentExamples(s, data) {
     const cards = (s.content_example_ids || []).map((id) => byId(data.content_examples, id)).filter(Boolean).map((ex) => `
       <article class="prop-example-card card-notch card-bracket reveal">
@@ -232,9 +236,12 @@
     </section>`;
   }
 
-  /* ---------- SECTION 08 — PROOF / CASE ---------- */
-  function renderProofCase(s, data) {
-    const cs = data.case_study || {};
+  /* ---------- SECTION 08 — PROOF / CASE ----------
+     조가네 CASE는 TIGER 공통 Proof 자산 (common.case_studies.JOGANE).
+     업체별로 달라지는 것은 이 CASE를 해당 업체에 어떻게 연결하는지 설명하는
+     한 문장(data.case_study.connection_to_client)뿐이다. */
+  function renderProofCase(s, data, common) {
+    const cs = (common.case_studies && common.case_studies.JOGANE) || {};
     const m = cs.verified_metrics || {};
     const metricCards = [
       { label: 'VIEWS', value: m.views, isNumber: false },
@@ -250,30 +257,30 @@
         <span class="prop-metric-label">${item.label}</span>
       </div>`).join('');
 
-    const basePath = (data.assets && data.assets.base_path) || '';
-    const caseList = data.assets && data.assets.case;
-    const primary = placementAsset(caseList, basePath, 'section-08-primary-proof');
-    const secondary = placementAsset(caseList, basePath, 'section-08-secondary-proof');
+    const primary = commonPlacementAsset(cs.assets, 'section-08-primary-proof');
+    const secondary = commonPlacementAsset(cs.assets, 'section-08-secondary-proof');
     const shots = [primary, secondary].filter(Boolean).map((shot) => `
       <figure class="prop-case-shot reveal">
         <img src="${esc(shot.url)}" alt="${esc(shot.caption)}" loading="lazy">
         ${shot.caption ? `<figcaption>${esc(shot.caption)}</figcaption>` : ''}
       </figure>`).join('');
 
+    const connection = (data.case_study && data.case_study.connection_to_client) || '';
+
     return `
     <section id="section-08" class="prop-section prop-proof-case">
       <div class="section-inner container">
-        <p class="eyebrow reveal">${esc(s.eyebrow)}</p>
-        <h2 class="section-title reveal">${esc(s.headline)}</h2>
-        <p class="section-lead reveal">${esc(s.body)}</p>
+        <p class="eyebrow reveal">${esc(cs.eyebrow)}</p>
+        <h2 class="section-title reveal">${esc(cs.headline)}</h2>
+        <p class="section-lead reveal">${esc(connection)}</p>
         <div class="prop-metric-grid">${metricCards}</div>
         ${shots ? `<div class="prop-case-shots">${shots}</div>` : ''}
-        <p class="prop-disclaimer reveal">${esc(s.disclaimer)}</p>
+        <p class="prop-disclaimer reveal">${esc(cs.disclaimer)}</p>
       </div>
     </section>`;
   }
 
-  /* ---------- SECTION 09 — MONTHLY EXECUTION ---------- */
+  /* ---------- SECTION 09 — MONTHLY EXECUTION (업체별) ---------- */
   function renderMonthlyExecution(s) {
     const weeks = (s.weeks || []).map((w) => `
       <div class="prop-week-card card-notch card-bracket reveal">
@@ -291,10 +298,13 @@
     </section>`;
   }
 
-  /* ---------- SECTION 10 — PLANS ---------- */
-  function renderPlans(s, data) {
-    const items = (s.plan_ids || []).map((id) => byId(data.plans && data.plans.items, id)).filter(Boolean);
-    const highlight = s.highlight_plan;
+  /* ---------- SECTION 10 — PLANS ----------
+     가격/구성표는 TIGER 공통 서비스 데이터(common.plans). 업체별로 달라지는
+     것은 헤드라인·추천 사유(rec)와 어떤 플랜을 추천(highlight_plan)하는지뿐이다. */
+  function renderPlans(s, data, common) {
+    const planIds = (s.plan_ids && s.plan_ids.length) ? s.plan_ids : ['BASIC', 'GROWTH', 'PERFORMANCE', 'COMMERCE'];
+    const items = planIds.map((id) => byId(common.plans && common.plans.items, id)).filter(Boolean);
+    const highlight = s.highlight_plan || (data.recommendation && data.recommendation.recommended_plan);
     const cards = items.map((p) => {
       const isHighlight = p.id === highlight;
       return `
@@ -322,23 +332,24 @@
         <p class="section-lead reveal">${esc(s.body)}</p>
         <div class="prop-plan-grid">${cards}</div>
         ${rec.reason ? `<p class="prop-highlight reveal">${esc(rec.reason)}</p>` : ''}
-        ${data.plans && data.plans.performance_note ? `<p class="prop-disclaimer reveal">${esc(data.plans.performance_note)}</p>` : ''}
+        ${common.plans && common.plans.performance_note ? `<p class="prop-disclaimer reveal">${esc(common.plans.performance_note)}</p>` : ''}
       </div>
     </section>`;
   }
 
-  /* ---------- SECTION 11 — WHY TIGER ---------- */
-  function renderWhyTiger(s, data) {
-    const points = (s.points || []).map((p) => `<li>${esc(p)}</li>`).join('');
-    const profileUrl = brandAssetUrl(data, 'TIGER_YB_PROFILE');
+  /* ---------- SECTION 11 — WHY TIGER (완전 공통, 업체별 데이터 없음) ---------- */
+  function renderWhyTiger(common) {
+    const t = common.tiger || {};
+    const points = (t.points || []).map((p) => `<li>${esc(p)}</li>`).join('');
+    const profileUrl = brandAssetUrl(common, t.profile_asset_id);
     return `
     <section id="section-11" class="prop-section prop-why-tiger">
       <div class="section-inner container">
         <div class="prop-tiger-layout${profileUrl ? '' : ' no-image'}">
           <div class="prop-tiger-copy">
-            <p class="eyebrow reveal">${esc(s.eyebrow)}</p>
-            <h2 class="section-title reveal">${esc(s.headline)}</h2>
-            <p class="section-lead reveal">${esc(s.body)}</p>
+            <p class="eyebrow reveal">${esc(t.eyebrow)}</p>
+            <h2 class="section-title reveal">${esc(t.headline)}</h2>
+            <p class="section-lead reveal">${esc(t.body)}</p>
             <ul class="prop-tiger-list reveal">${points}</ul>
           </div>
           ${profileUrl ? `
@@ -350,10 +361,10 @@
     </section>`;
   }
 
-  /* ---------- SECTION 12 — FINAL CTA ---------- */
-  function renderFinalCta(s, data) {
+  /* ---------- SECTION 12 — FINAL CTA (문구는 업체별, 명함 이미지는 공통) ---------- */
+  function renderFinalCta(s, data, common) {
     const fc = data.final_cta || {};
-    const cardUrl = brandAssetUrl(data, 'TIGER_YB_BUSINESS_CARD');
+    const cardUrl = brandAssetUrl(common, 'TIGER_YB_BUSINESS_CARD');
     return `
     <section id="section-12" class="prop-section prop-final-cta">
       <div class="section-inner container">

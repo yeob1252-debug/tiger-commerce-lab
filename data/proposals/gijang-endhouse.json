@@ -234,7 +234,9 @@
   "recommendation": {
     "recommended_plan": "PERFORMANCE",
     "monthly_price_krw": 1500000,
-    "reason": "기장끝집은 매장 방문 수요와 온라인 판매 인프라를 함께 보유하고 있다. 월 6편 숏폼으로 신규 발견을 만들고, 카드뉴스·Threads로 저장과 관계를 쌓으며, 월 8건 블로그로 검색자산을 축적해야 두 전환축이 함께 움직인다.",
+    "reason_short": "기장끝집에는 콘텐츠 개수보다 고객이 움직이는 연결이 필요합니다.",
+    "flow": ["쇼츠 발견", "검색", "플레이스", "매장 방문", "온라인 구매", "재구매"],
+    "conclusion": "그래서 PERFORMANCE를 추천합니다.",
     "expected_role": "도달 → 반응 → 반복노출 → 검색 → 방문·구매 연결",
     "commerce_extension": "판매형 콘텐츠와 라이브커머스 비중을 적극 확대할 시 COMMERCE로 전환한다."
   },

@@ -184,6 +184,96 @@ body.proposal-body { background: var(--bg); }
 .prop-plan-card.is-highlight .prop-plan-list li::before { color: var(--accent); }
 .prop-plan-value { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
 
+/* ---------- SECTION 10 서비스 한눈에 비교 ---------- */
+.prop-compare { margin-bottom: 32px; }
+.prop-compare-title { font-family: var(--font-display); font-size: 19px; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+.prop-compare-subtitle { font-size: 13.5px; color: var(--text-soft); margin-bottom: 24px; }
+
+/* PC 비교표 */
+.prop-compare-table-wrap { overflow-x: auto; }
+.prop-compare-table { width: 100%; border-collapse: collapse; }
+.prop-compare-table th,
+.prop-compare-table td {
+  padding: 14px 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--card-border);
+  font-size: 14px;
+  white-space: nowrap;
+}
+.prop-compare-table thead th {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--text);
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--card-border);
+}
+.prop-compare-row-label { width: 1%; }
+.prop-compare-table tbody th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-soft);
+  font-size: 13px;
+  white-space: nowrap;
+}
+.prop-compare-table tbody tr:first-child td,
+.prop-compare-table tbody tr:first-child th {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--text);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.prop-compare-table td.is-highlight,
+.prop-compare-table th.is-highlight {
+  background: var(--accent-soft);
+  position: relative;
+}
+.prop-compare-table thead th.is-highlight { border-radius: 12px 12px 0 0; }
+.prop-compare-rec {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.prop-compare-check { color: var(--accent); font-weight: 900; font-size: 16px; }
+.prop-compare-dash { color: var(--text-muted); opacity: .45; }
+
+/* 모바일 카드 (표는 감추고 카드로 재구성 — 축소 표시 금지) */
+.prop-compare-cards { display: none; flex-direction: column; gap: 14px; }
+.prop-compare-card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius-md); padding: 20px 22px; }
+.prop-compare-card.is-highlight { border-color: var(--accent); background: var(--accent-soft); }
+.prop-compare-card-head { font-family: var(--font-display); font-size: 16px; font-weight: 900; color: var(--text); margin-bottom: 8px; }
+.prop-compare-card-qty { font-size: 13px; color: var(--text-soft); margin-bottom: 14px; line-height: 1.6; }
+.prop-compare-card-list { display: flex; flex-direction: column; gap: 7px; }
+.prop-compare-card-list li { font-size: 13.5px; font-weight: 600; }
+.prop-compare-card-list li.is-yes { color: var(--text); }
+.prop-compare-card-list li.is-no { color: var(--text-muted); opacity: .6; }
+
+/* PERFORMANCE 추천 이유 (짧은 구조) */
+.prop-recommend-flow { max-width: 680px; margin-bottom: 24px; }
+.prop-recommend-line { font-family: var(--font-display); font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 14px; }
+.prop-recommend-conclusion { color: var(--accent); margin-bottom: 0; margin-top: 14px; }
+.prop-mini-flow-track { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.prop-mini-flow-step {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-soft);
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+.prop-mini-flow-arrow { color: var(--text-muted); font-size: 12px; }
+
+@media (max-width: 767px) {
+  .prop-compare-table-wrap { display: none; }
+  .prop-compare-cards { display: flex; }
+}
+
 /* ---------- SECTION 11 WHY TIGER ---------- */
 .prop-tiger-layout { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
 .prop-tiger-list { display: flex; flex-direction: column; gap: 10px; max-width: 640px; }

@@ -299,12 +299,18 @@
   }
 
   /* ---------- SECTION 10 — PLANS ----------
-     가격/구성표는 TIGER 공통 서비스 데이터(common.plans). 업체별로 달라지는
-     것은 헤드라인·추천 사유(rec)와 어떤 플랜을 추천(highlight_plan)하는지뿐이다. */
+     가격/구성 수량/기능 비교표는 TIGER 공통 서비스 데이터(common.plans).
+     업체별로 달라지는 것은 헤드라인·추천 플랜(highlight_plan)·추천 사유뿐이다. */
+  function manwon(n) {
+    return Math.round(n / 10000) + '만원';
+  }
+
   function renderPlans(s, data, common) {
     const planIds = (s.plan_ids && s.plan_ids.length) ? s.plan_ids : ['BASIC', 'GROWTH', 'PERFORMANCE', 'COMMERCE'];
     const items = planIds.map((id) => byId(common.plans && common.plans.items, id)).filter(Boolean);
     const highlight = s.highlight_plan || (data.recommendation && data.recommendation.recommended_plan);
+    const featureRows = (common.plans && common.plans.feature_rows) || [];
+
     const cards = items.map((p) => {
       const isHighlight = p.id === highlight;
       return `
@@ -323,7 +329,56 @@
       </div>`;
     }).join('');
 
+    /* ---- 서비스 한눈에 비교: PC 표 ---- */
+    const quantityRows = [
+      { label: '월 이용료', values: items.map((p) => manwon(p.price_krw)) },
+      { label: '쇼츠 제작', values: items.map((p) => p.shorts + '편') },
+      { label: '카드뉴스', values: items.map((p) => p.card_news + '건') },
+      { label: 'Threads', values: items.map((p) => p.threads + '건') },
+      { label: '네이버 블로그', values: items.map((p) => p.blog + '건') },
+    ];
+    const boolCell = (v) => v
+      ? '<span class="prop-compare-check" aria-label="제공">✓</span>'
+      : '<span class="prop-compare-dash" aria-hidden="true">—</span>';
+    const highlightIdx = items.findIndex((p) => p.id === highlight);
+    const colClass = (i) => i === highlightIdx ? ' class="is-highlight"' : '';
+
+    const theadCells = items.map((p, i) => `
+        <th scope="col"${colClass(i)}>${p.id === highlight ? '<span class="prop-compare-rec">추천</span>' : ''}${esc(p.name)}</th>`).join('');
+    const quantityTrs = quantityRows.map((row) => `
+        <tr><th scope="row">${esc(row.label)}</th>${row.values.map((v, i) => `<td${colClass(i)}>${esc(v)}</td>`).join('')}</tr>`).join('');
+    const featureTrs = featureRows.map((row) => `
+        <tr><th scope="row">${esc(row.label)}</th>${row.values.map((v, i) => `<td${colClass(i)}>${boolCell(v)}</td>`).join('')}</tr>`).join('');
+
+    /* ---- 서비스 한눈에 비교: 모바일 카드 ---- */
+    const compareCards = items.map((p, i) => {
+      const isHighlight = i === highlightIdx;
+      const quantityLine = `숏폼 ${p.shorts}편 · 카드뉴스 ${p.card_news}건 · Threads ${p.threads}건 · 블로그 ${p.blog}건`;
+      const featureLines = featureRows.map((row) => `
+          <li class="${row.values[i] ? 'is-yes' : 'is-no'}">${row.values[i] ? '✓' : '—'} ${esc(row.label)}</li>`).join('');
+      return `
+      <div class="prop-compare-card ${isHighlight ? 'is-highlight' : ''} reveal">
+        <p class="prop-compare-card-head">${esc(p.name)} · ${manwon(p.price_krw)}${isHighlight ? ' · <span class="prop-compare-rec">추천</span>' : ''}</p>
+        <p class="prop-compare-card-qty">${quantityLine}</p>
+        <ul class="prop-compare-card-list">${featureLines}</ul>
+      </div>`;
+    }).join('');
+
+    /* ---- PERFORMANCE 추천 이유 (짧은 구조) ---- */
     const rec = data.recommendation || {};
+    let recBlock = '';
+    if (rec.reason_short || (rec.flow && rec.flow.length) || rec.conclusion) {
+      const flowChips = (rec.flow || []).map((step) => `<span class="prop-mini-flow-step reveal">${esc(step)}</span>`).join('<span class="prop-mini-flow-arrow" aria-hidden="true">→</span>');
+      recBlock = `
+        <div class="prop-recommend-flow reveal">
+          ${rec.reason_short ? `<p class="prop-recommend-line">${esc(rec.reason_short)}</p>` : ''}
+          ${flowChips ? `<div class="prop-mini-flow-track">${flowChips}</div>` : ''}
+          ${rec.conclusion ? `<p class="prop-recommend-line prop-recommend-conclusion">${esc(rec.conclusion)}</p>` : ''}
+        </div>`;
+    } else if (rec.reason) {
+      recBlock = `<p class="prop-highlight reveal">${esc(rec.reason)}</p>`;
+    }
+
     return `
     <section id="section-10" class="prop-section prop-plans">
       <div class="section-inner container">
@@ -331,7 +386,20 @@
         <h2 class="section-title reveal">${esc(s.headline)}</h2>
         <p class="section-lead reveal">${esc(s.body)}</p>
         <div class="prop-plan-grid">${cards}</div>
-        ${rec.reason ? `<p class="prop-highlight reveal">${esc(rec.reason)}</p>` : ''}
+
+        <div class="prop-compare reveal">
+          <h3 class="prop-compare-title">${esc(common.plans && common.plans.compare_title)}</h3>
+          <p class="prop-compare-subtitle">${esc(common.plans && common.plans.compare_subtitle)}</p>
+          <div class="prop-compare-table-wrap">
+            <table class="prop-compare-table">
+              <thead><tr><th scope="col" class="prop-compare-row-label"></th>${theadCells}</tr></thead>
+              <tbody>${quantityTrs}${featureTrs}</tbody>
+            </table>
+          </div>
+          <div class="prop-compare-cards">${compareCards}</div>
+        </div>
+
+        ${recBlock}
         ${common.plans && common.plans.performance_note ? `<p class="prop-disclaimer reveal">${esc(common.plans.performance_note)}</p>` : ''}
       </div>
     </section>`;

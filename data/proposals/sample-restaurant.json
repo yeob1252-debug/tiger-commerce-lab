@@ -128,7 +128,9 @@
   "recommendation": {
     "recommended_plan": "PERFORMANCE",
     "monthly_price_krw": 1500000,
-    "reason": "샘플 추천 사유 문구이다."
+    "reason_short": "샘플식당에는 콘텐츠 개수보다 고객이 움직이는 연결이 필요합니다.",
+    "flow": ["발견", "검색", "방문", "구매", "재구매"],
+    "conclusion": "그래서 PERFORMANCE를 추천합니다."
   },
   "assets": {
     "base_path": "/assets/proposals/sample-restaurant/",

@@ -298,9 +298,11 @@
     </section>`;
   }
 
-  /* ---------- SECTION 10 — PLANS ----------
-     가격/구성 수량/기능 비교표는 TIGER 공통 서비스 데이터(common.plans).
-     업체별로 달라지는 것은 헤드라인·추천 플랜(highlight_plan)·추천 사유뿐이다. */
+  /* ---------- SECTION 10 — PLANS (통합 요금제 카드) ----------
+     가격/구성 수량/포함 서비스는 TIGER 공통 서비스 데이터(common.plans)에서
+     한 번만 관리한다. 업체별로 달라지는 것은 헤드라인·추천 플랜(highlight_plan)·
+     추천 사유뿐이다. 가격·수량·서비스 범위를 별도 비교표로 중복 노출하지 않고
+     플랜 카드 하나에 전부 담는다. */
   function manwon(n) {
     return Math.round(n / 10000) + '만원';
   }
@@ -311,56 +313,17 @@
     const highlight = s.highlight_plan || (data.recommendation && data.recommendation.recommended_plan);
     const featureRows = (common.plans && common.plans.feature_rows) || [];
 
-    const cards = items.map((p) => {
+    const cards = items.map((p, i) => {
       const isHighlight = p.id === highlight;
+      const included = featureRows.filter((row) => row.values[i]).map((row) => `<li>${esc(row.label)}</li>`).join('');
       return `
       <div class="prop-plan-card ${isHighlight ? 'is-highlight' : ''} reveal">
         ${isHighlight ? '<span class="prop-plan-badge">추천</span>' : ''}
-        <p class="prop-plan-level">${esc(p.level)}</p>
         <h3 class="prop-plan-name">${esc(p.name)}</h3>
-        <p class="prop-plan-price">${krw(p.price_krw)}<span>/월</span></p>
-        <ul class="prop-plan-list">
-          <li>숏폼 월 ${p.shorts}편</li>
-          <li>카드뉴스 월 ${p.card_news}건</li>
-          <li>Threads 월 ${p.threads}건</li>
-          <li>블로그 월 ${p.blog}건</li>
-        </ul>
+        <p class="prop-plan-price">${manwon(p.price_krw)}<span>/월</span></p>
+        <p class="prop-plan-qty">쇼츠 ${p.shorts}편 · 카드뉴스 ${p.card_news}건 · Threads ${p.threads}건 · 블로그 ${p.blog}건</p>
+        <ul class="prop-plan-list">${included}</ul>
         <p class="prop-plan-value">${esc(p.value)}</p>
-      </div>`;
-    }).join('');
-
-    /* ---- 서비스 한눈에 비교: PC 표 ---- */
-    const quantityRows = [
-      { label: '월 이용료', values: items.map((p) => manwon(p.price_krw)) },
-      { label: '쇼츠 제작', values: items.map((p) => p.shorts + '편') },
-      { label: '카드뉴스', values: items.map((p) => p.card_news + '건') },
-      { label: 'Threads', values: items.map((p) => p.threads + '건') },
-      { label: '네이버 블로그', values: items.map((p) => p.blog + '건') },
-    ];
-    const boolCell = (v) => v
-      ? '<span class="prop-compare-check" aria-label="제공">✓</span>'
-      : '<span class="prop-compare-dash" aria-hidden="true">—</span>';
-    const highlightIdx = items.findIndex((p) => p.id === highlight);
-    const colClass = (i) => i === highlightIdx ? ' class="is-highlight"' : '';
-
-    const theadCells = items.map((p, i) => `
-        <th scope="col"${colClass(i)}>${p.id === highlight ? '<span class="prop-compare-rec">추천</span>' : ''}${esc(p.name)}</th>`).join('');
-    const quantityTrs = quantityRows.map((row) => `
-        <tr><th scope="row">${esc(row.label)}</th>${row.values.map((v, i) => `<td${colClass(i)}>${esc(v)}</td>`).join('')}</tr>`).join('');
-    const featureTrs = featureRows.map((row) => `
-        <tr><th scope="row">${esc(row.label)}</th>${row.values.map((v, i) => `<td${colClass(i)}>${boolCell(v)}</td>`).join('')}</tr>`).join('');
-
-    /* ---- 서비스 한눈에 비교: 모바일 카드 ---- */
-    const compareCards = items.map((p, i) => {
-      const isHighlight = i === highlightIdx;
-      const quantityLine = `숏폼 ${p.shorts}편 · 카드뉴스 ${p.card_news}건 · Threads ${p.threads}건 · 블로그 ${p.blog}건`;
-      const featureLines = featureRows.map((row) => `
-          <li class="${row.values[i] ? 'is-yes' : 'is-no'}">${row.values[i] ? '✓' : '—'} ${esc(row.label)}</li>`).join('');
-      return `
-      <div class="prop-compare-card ${isHighlight ? 'is-highlight' : ''} reveal">
-        <p class="prop-compare-card-head">${esc(p.name)} · ${manwon(p.price_krw)}${isHighlight ? ' · <span class="prop-compare-rec">추천</span>' : ''}</p>
-        <p class="prop-compare-card-qty">${quantityLine}</p>
-        <ul class="prop-compare-card-list">${featureLines}</ul>
       </div>`;
     }).join('');
 
@@ -383,22 +346,9 @@
     <section id="section-10" class="prop-section prop-plans">
       <div class="section-inner container">
         <p class="eyebrow reveal">${esc(s.eyebrow)}</p>
-        <h2 class="section-title reveal">${esc(s.headline)}</h2>
-        <p class="section-lead reveal">${esc(s.body)}</p>
+        <h2 class="section-title reveal">${esc(common.plans && common.plans.compare_title)}</h2>
+        <p class="section-lead reveal">${esc(common.plans && common.plans.compare_subtitle)}</p>
         <div class="prop-plan-grid">${cards}</div>
-
-        <div class="prop-compare reveal">
-          <h3 class="prop-compare-title">${esc(common.plans && common.plans.compare_title)}</h3>
-          <p class="prop-compare-subtitle">${esc(common.plans && common.plans.compare_subtitle)}</p>
-          <div class="prop-compare-table-wrap">
-            <table class="prop-compare-table">
-              <thead><tr><th scope="col" class="prop-compare-row-label"></th>${theadCells}</tr></thead>
-              <tbody>${quantityTrs}${featureTrs}</tbody>
-            </table>
-          </div>
-          <div class="prop-compare-cards">${compareCards}</div>
-        </div>
-
         ${recBlock}
         ${common.plans && common.plans.performance_note ? `<p class="prop-disclaimer reveal">${esc(common.plans.performance_note)}</p>` : ''}
       </div>

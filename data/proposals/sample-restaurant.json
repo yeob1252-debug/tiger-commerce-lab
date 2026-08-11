@@ -95,8 +95,6 @@
       "id": "section-10",
       "type": "plans",
       "eyebrow": "CHOOSE THE GROWTH LEVEL",
-      "headline": "샘플식당에는 PERFORMANCE가 가장 현실적인 성장 속도이다.",
-      "body": "샘플 본문",
       "highlight_plan": "PERFORMANCE",
       "plan_ids": ["BASIC", "GROWTH", "PERFORMANCE", "COMMERCE"]
     },

@@ -159,8 +159,6 @@
       "id": "section-10",
       "type": "plans",
       "eyebrow": "CHOOSE THE GROWTH LEVEL",
-      "headline": "기장끝집에는 PERFORMANCE가 가장 현실적인 성장 속도이다.",
-      "body": "매장 방문과 온라인 판매를 함께 움직이려면 숏폼, 검색 콘텐츠, 관계 콘텐츠를 끊기지 않게 운영해야 한다.",
       "highlight_plan": "PERFORMANCE",
       "plan_ids": ["BASIC", "GROWTH", "PERFORMANCE", "COMMERCE"]
     },

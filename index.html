@@ -6,7 +6,7 @@
 <title>타이거커머스랩 | 음식점 온라인 판매·스마트스토어·SNS 마케팅 대행</title>
 <meta name="description" content="배달앱과 매장 손님만으로 매출 한계를 느낀 사장님을 위한 전국 온라인 판매 대행. 스마트스토어 개설부터 SNS 채널, 숏폼 콘텐츠, 라이브커머스까지 원스톱으로 세팅해드립니다.">
 <meta property="og:image" content="https://tigercommercelab.com/assets/og-image.png">
-<link rel="icon" type="image/png" href="assets/characters/logo.png">
+<link rel="icon" type="image/png" href="assets/brand/logo/TIGER_LOGO_SYMBOL_V1.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css">
@@ -22,10 +22,8 @@
 <!-- 헤더 -->
 <header class="site-header" id="siteHeader">
   <a href="#hero" class="brand">
-    <span class="brand-mark">
-      <img class="brand-mark-img" src="assets/characters/logo.png" alt="타이거커머스랩 로고">
-    </span>
-    <span class="brand-name">TIGER COMMERCE LAB</span>
+    <img class="brand-logo" src="assets/brand/logo/TIGER_LOGO_PRIMARY_HORIZONTAL_WHITE_V1.png" alt="TIGER COMMERCE LAB">
+    <img class="brand-logo-symbol" src="assets/brand/logo/TIGER_LOGO_SYMBOL_V1.png" alt="TIGER COMMERCE LAB">
   </a>
   <div class="header-actions">
     <a href="/login" class="header-login-link">사장님 로그인</a>
@@ -36,13 +34,16 @@
 <!-- 우측 섹션 내비게이션 -->
 <nav class="side-nav" id="sideNav" aria-label="섹션 이동">
   <button class="side-nav-dot" data-target="hero" aria-label="HERO로 이동"><span>HERO</span></button>
+  <button class="side-nav-dot" data-target="diagnosis-select" aria-label="무료 진단 선택으로 이동"><span>진단선택</span></button>
   <button class="side-nav-dot" data-target="national-check" aria-label="전국판매 무료점검으로 이동"><span>전국판매</span></button>
   <button class="side-nav-dot" data-target="free-check" aria-label="무료 점검으로 이동"><span>CHECK</span></button>
+  <button class="side-nav-dot" data-target="sns-diagnosis" aria-label="SNS 통합진단으로 이동"><span>SNS진단</span></button>
   <button class="side-nav-dot" data-target="main-service" aria-label="메인 서비스로 이동"><span>SERVICE</span></button>
   <button class="side-nav-dot" data-target="cases" aria-label="진행 사례로 이동"><span>CASES</span></button>
+  <button class="side-nav-dot" data-target="proof-case" aria-label="실제 성과 증명으로 이동"><span>PROOF</span></button>
   <button class="side-nav-dot" data-target="process" aria-label="프로세스로 이동"><span>PROCESS</span></button>
+  <button class="side-nav-dot" data-target="pricing" aria-label="서비스 플랜으로 이동"><span>PLAN</span></button>
   <button class="side-nav-dot" data-target="market" aria-label="시장 데이터로 이동"><span>MARKET</span></button>
-  <button class="side-nav-dot" data-target="pricing" aria-label="서비스안내로 이동"><span>PRICING</span></button>
   <button class="side-nav-dot" data-target="dashboard-preview" aria-label="대시보드로 이동"><span>DASHBOARD</span></button>
   <button class="side-nav-dot" data-target="contact" aria-label="문의로 이동"><span>TALK</span></button>
 </nav>
@@ -54,22 +55,55 @@
     <div class="scrollstory">
       <div class="scrollstory__frame">
         <div class="scrollstory__img-wrap active" data-step="0">
-          <img class="scrollstory__img" src="assets/characters/hero-01-empty-hall.png" alt="">
+          <img class="scrollstory__img" src="assets/home/hero/TIGER_HOME_HERO_01_NIGHT_SEARCH.png" alt="손님이 없는 야간 매장을 바라보는 산군" fetchpriority="high">
         </div>
         <div class="scrollstory__img-wrap" data-step="1">
-          <img class="scrollstory__img" src="assets/characters/hero-02-sns-growth.png" alt="">
+          <img class="scrollstory__img" src="assets/home/hero/TIGER_HOME_HERO_02_SANGUN_REVEAL.png" alt="모습을 드러내며 매장 앞으로 걸어오는 산군" loading="lazy">
         </div>
         <div class="scrollstory__img-wrap" data-step="2">
-          <img class="scrollstory__img" src="assets/characters/hero-03-boxes.png" alt="">
+          <img class="scrollstory__img" src="assets/home/hero/TIGER_HOME_HERO_03_CUSTOMER_DISCOVERY.png" alt="" loading="lazy">
         </div>
         <div class="scrollstory__img-wrap" data-step="3">
-          <img class="scrollstory__img" src="assets/characters/hero-04-nationwide.png" alt="">
+          <img class="scrollstory__img" src="assets/home/hero/TIGER_HOME_HERO_04_SEARCH_SAVE_INQUIRY.png" alt="" loading="lazy">
+        </div>
+        <div class="scrollstory__img-wrap" data-step="4">
+          <img class="scrollstory__img" src="assets/home/hero/TIGER_HOME_HERO_05_STORE_REOPEN_CUSTOMER_ENTRY.png" alt="다음 날 불이 켜진 매장으로 들어서는 손님들" loading="lazy">
         </div>
         <div class="scrollstory__gradient" aria-hidden="true"></div>
-        <p class="scrollstory__caption active" data-step="0">손님 없는 시간, <span class="hl">그대로 두시겠어요?</span></p>
-        <p class="scrollstory__caption" data-step="1">틱톡·유튜브 계정이 생기고, <span class="hl">영상이 쌓입니다</span></p>
-        <p class="scrollstory__caption" data-step="2">주문이 쌓이고, <span class="hl">포장이 쌓입니다</span></p>
-        <p class="scrollstory__caption" data-step="3">단골이 쌓이고, <span class="hl">전국이 내 판매권입니다</span></p>
+        <p class="scrollstory__caption active" data-step="0">손님이 없는 시간이 아니라, <span class="hl">아직 발견되지 않은 시간</span>이다</p>
+        <p class="scrollstory__caption" data-step="1">TIGER는 콘텐츠를 만드는 데서 <span class="hl">멈추지 않는다</span></p>
+        <p class="scrollstory__caption" data-step="2">고객이 <span class="hl">멈춰 보는 콘텐츠</span>를 만든다</p>
+        <p class="scrollstory__caption" data-step="3">발견을 <span class="hl">검색·저장·문의</span>로 연결한다</p>
+        <p class="scrollstory__caption" data-step="4">콘텐츠가 <span class="hl">실제 방문과 구매</span>로 이어지게 만든다</p>
+      </div>
+    </div>
+  </section>
+  <!-- ============ 1-1. 무료 진단 선택 ============ -->
+  <section id="diagnosis-select" class="section section-diagnosis-select">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">무료 진단 선택</p>
+      <h2 class="section-title reveal">지금 우리 매장에 <span class="hl">필요한 진단</span>은 무엇인가요?</h2>
+      <p class="section-lead reveal">아래 3가지 중 하나를 선택하면 맞춤 무료 점검을 바로 시작할 수 있습니다</p>
+
+      <div class="diag-grid">
+        <button type="button" class="diag-card card-notch card-bracket reveal" data-scroll-to="free-check">
+          <span class="diag-num">01</span>
+          <span class="diag-name">네이버 플레이스<br>무료점검</span>
+          <span class="diag-desc">검색에서 밀려나고 있는 매장 정보, 지금 바로 확인하세요</span>
+          <span class="diag-cta">무료 점검 시작하기 <span aria-hidden="true">→</span></span>
+        </button>
+        <button type="button" class="diag-card card-notch card-bracket reveal" data-scroll-to="national-check">
+          <span class="diag-num">02</span>
+          <span class="diag-name">전국판매<br>무료점검</span>
+          <span class="diag-desc">우리 메뉴도 전국 판매가 가능한지 서류부터 수익성까지 확인하세요</span>
+          <span class="diag-cta">무료 점검 시작하기 <span aria-hidden="true">→</span></span>
+        </button>
+        <button type="button" class="diag-card card-notch card-bracket reveal" data-scroll-to="sns-diagnosis">
+          <span class="diag-num">03</span>
+          <span class="diag-name">SNS 통합진단<br>·채널관리</span>
+          <span class="diag-desc">방치된 채널, 무엇부터 손대야 할지 진단부터 시작하세요</span>
+          <span class="diag-cta">무료 진단 시작하기 <span aria-hidden="true">→</span></span>
+        </button>
       </div>
     </div>
   </section>
@@ -283,6 +317,38 @@
     </div>
   </section>
 
+  <!-- ============ 2-1. SNS 통합진단·채널관리 ============ -->
+  <section id="sns-diagnosis" class="section section-sns-diagnosis">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">SNS 통합진단·채널관리</p>
+      <h2 class="section-title reveal">채널은 있는데, <span class="hl">운영은 멈춰 있지 않나요?</span></h2>
+      <p class="section-lead reveal">계정만 만들어두고 방치된 채널, 무엇부터 손대야 할지 진단부터 시작합니다</p>
+
+      <div class="sns-diag-grid">
+        <div class="sns-diag-pain reveal">
+          <p class="sns-diag-subtitle">이런 상황, 익숙하신가요?</p>
+          <ul class="sns-diag-pain-list">
+            <li><span class="fc-icon" aria-hidden="true">✓</span>SNS 계정은 있는데 몇 달째 방치되어 있다</li>
+            <li><span class="fc-icon" aria-hidden="true">✓</span>콘텐츠를 만들 시간도, 방법도 부족하다</li>
+            <li><span class="fc-icon" aria-hidden="true">✓</span>채널마다 올라가는 콘텐츠 양이 들쭉날쭉하다</li>
+            <li><span class="fc-icon" aria-hidden="true">✓</span>조회수는 나오는데 방문·구매로 이어지지 않는다</li>
+          </ul>
+        </div>
+        <div class="sns-diag-flow reveal">
+          <p class="sns-diag-subtitle">진단은 이렇게 진행됩니다</p>
+          <ol class="sns-diag-flow-list">
+            <li><span class="sns-diag-flow-num">01</span>채널 확인</li>
+            <li><span class="sns-diag-flow-num">02</span>문제·기회 진단</li>
+            <li><span class="sns-diag-flow-num">03</span>맞춤 콘텐츠·채널 운영안</li>
+            <li><span class="sns-diag-flow-num">04</span>업체별 Proposal 전달</li>
+          </ol>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary btn-large sns-diag-cta reveal" id="snsDiagCta">SNS 통합진단 상담하기</button>
+    </div>
+  </section>
+
   <!-- ============ 3. 메인 서비스 ============ -->
   <section id="main-service" class="section section-main-service">
     <div class="section-inner container">
@@ -377,12 +443,57 @@
     </div>
   </section>
 
-  <!-- ============ 5. 업무프로세스 + 서비스안내 (통합) ============ -->
-  <section class="section section-process-pricing">
+  <!-- ============ 4-1. 조가네 실제 성과 (Proof) ============ -->
+  <section id="proof-case" class="section section-proof-case">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">REAL RESPONSE, VERIFIED</p>
+      <h2 class="section-title reveal">조회수가 아니라 <span class="hl">고객이 말을 걸기 시작했다</span></h2>
+      <p class="section-lead reveal">장지녕간장게장(조가네) 틱톡 채널의 실제 반응입니다</p>
+
+      <div class="proof-metric-grid">
+        <div class="proof-metric-card reveal">
+          <span class="proof-metric-value">66.1K</span>
+          <span class="proof-metric-label">VIEWS</span>
+        </div>
+        <div class="proof-metric-card reveal">
+          <span class="proof-metric-value"><span class="count-up" data-count-to="278">0</span></span>
+          <span class="proof-metric-label">LIKES</span>
+        </div>
+        <div class="proof-metric-card reveal">
+          <span class="proof-metric-value"><span class="count-up" data-count-to="53">0</span></span>
+          <span class="proof-metric-label">COMMENTS</span>
+        </div>
+        <div class="proof-metric-card reveal">
+          <span class="proof-metric-value"><span class="count-up" data-count-to="26">0</span></span>
+          <span class="proof-metric-label">SAVES</span>
+        </div>
+        <div class="proof-metric-card reveal">
+          <span class="proof-metric-value">+<span class="count-up" data-count-to="69">0</span></span>
+          <span class="proof-metric-label">FOLLOWERS</span>
+        </div>
+      </div>
+
+      <div class="proof-case-shots">
+        <figure class="proof-case-shot reveal">
+          <img src="assets/proposals/_brand/CASE_JOGANE_TIKTOK_ANALYTICS.png" alt="TikTok Studio 실제 분석 화면" loading="lazy">
+          <figcaption>TikTok Studio 실제 분석 화면</figcaption>
+        </figure>
+        <figure class="proof-case-shot reveal">
+          <img src="assets/proposals/_brand/CASE_JOGANE_TIKTOK_POST.png" alt="실제 게시물 반응 화면" loading="lazy">
+          <figcaption>실제 게시물 반응 화면</figcaption>
+        </figure>
+      </div>
+
+      <p class="proof-disclaimer reveal">제공된 대표 콘텐츠 성과 캡처 기준이며 매출·구매전환 성과를 의미하지 않는다.</p>
+    </div>
+  </section>
+
+  <!-- ============ 5. 업무 프로세스 ============ -->
+  <section id="process-section" class="section section-process">
     <div class="section-inner container">
       <p class="eyebrow reveal">프로세스</p>
       <h2 class="section-title reveal">지금 시작하면, <span class="hl">이렇게 진행됩니다</span></h2>
-      <p class="section-lead reveal">계약부터 라이브판매까지 6단계, 우리 매장에 맞는 플랜까지 한번에 확인하세요</p>
+      <p class="section-lead reveal">계약부터 라이브판매까지, 실제로 진행되는 6단계입니다</p>
 
       <div id="process" class="process-scroll">
         <div class="process-scroll__track">
@@ -445,6 +556,14 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. 서비스 플랜 ============ -->
+  <section class="section section-pricing">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">서비스 플랜</p>
+      <h2 class="section-title reveal">우리 매장에 맞는 <span class="hl">플랜</span>을 선택하세요</h2>
 
       <div id="pricing" class="pricing-restored">
         <p class="pricing-value-headline reveal">브랜드 디자이너, 영상 촬영·편집자, SNS 마케터 — 이 일엔 보통 전문인력 2~3명이 필요합니다. 각각 채용하면 인건비만 매달 수백만원. 저희는 이 과정을 혼자 시스템화해서, <span class="hl">아르바이트생 한 명 채용하는 비용</span>으로 전체를 대행합니다.</p>
@@ -538,33 +657,11 @@
           </div>
         </div>
 
-        <div class="pricing-cards">
-          <div class="pricing-card card-notch card-bracket reveal">
-            <p class="pricing-card-badge">6개월형</p>
-            <h3 class="pricing-card-name">START</h3>
-            <p class="pricing-card-desc">채널을 처음 구축하는 매장을 위한 기본 플랜</p>
-            <ul class="pricing-card-list">
-              <li>브랜딩 셋업</li>
-              <li>채널 구축</li>
-              <li>콘텐츠 기획</li>
-              <li>제작(촬영·편집)</li>
-              <li>성과 모니터링(대시보드)</li>
-            </ul>
-            <button type="button" class="btn btn-outline btn-large pricing-card-cta" data-scroll-to="contact">START 상담 신청하기</button>
-          </div>
-          <div class="pricing-card pricing-card-premium card-notch card-bracket reveal">
-            <p class="pricing-card-badge pricing-card-badge-premium">12개월형</p>
-            <h3 class="pricing-card-name">EXPAND</h3>
-            <p class="pricing-card-desc">채널 확장까지 함께 가는 풀 플랜</p>
-            <ul class="pricing-card-list">
-              <li>START 플랜 전체 포함</li>
-              <li class="is-premium">멀티채널 업로드</li>
-              <li class="is-premium">성과 모니터링(대시보드)</li>
-              <li class="is-premium">라이브커머스 확장</li>
-            </ul>
-            <button type="button" class="btn btn-primary btn-large pricing-card-cta" data-scroll-to="contact">EXPAND 상담 신청하기</button>
-          </div>
+        <div class="plan-term-row reveal">
+          <div class="plan-term-toggle" id="planTermToggle" role="radiogroup" aria-label="계약기간 선택"></div>
+          <span class="plan-vat-label" id="planVatLabel"></span>
         </div>
+        <div class="plan-grid" id="planGrid"></div>
       </div>
     </div>
 
@@ -611,7 +708,7 @@
     </div>
   </section>
 
-  <!-- ============ 6. 시장 데이터 ============ -->
+  <!-- ============ 7. 시장 데이터 ============ -->
   <section id="market" class="section section-market">
     <div class="section-inner container">
       <p class="eyebrow reveal">시장데이터</p>
@@ -826,6 +923,17 @@
             </div>
           </div>
           <div class="form-row">
+            <label for="inquiryType">문의 유형 <span class="req">*</span></label>
+            <select id="inquiryType" name="inquiryType" required>
+              <option value="" disabled selected>선택해주세요</option>
+              <option value="네이버 플레이스 무료점검">네이버 플레이스 무료점검</option>
+              <option value="전국판매 무료점검">전국판매 무료점검</option>
+              <option value="SNS 통합진단·채널관리">SNS 통합진단·채널관리</option>
+              <option value="서비스 플랜 상담">서비스 플랜 상담</option>
+              <option value="기타 문의">기타 문의</option>
+            </select>
+          </div>
+          <div class="form-row">
             <label for="message">하고 싶은 말</label>
             <textarea id="message" name="message" rows="4" placeholder="궁금한 점이나 매장 상황을 편하게 남겨주세요"></textarea>
           </div>
@@ -872,10 +980,8 @@
   <footer class="site-footer">
     <div class="footer-inner container">
       <div class="footer-brand">
-        <span class="brand-mark">
-      <img class="brand-mark-img" src="assets/characters/logo.png" alt="타이거커머스랩 로고">
-    </span>
-        <span class="brand-name">TIGER COMMERCE LAB</span>
+        <img class="brand-logo" src="assets/brand/logo/TIGER_LOGO_PRIMARY_HORIZONTAL_WHITE_V1.png" alt="TIGER COMMERCE LAB">
+        <img class="brand-logo-symbol" src="assets/brand/logo/TIGER_LOGO_SYMBOL_V1.png" alt="TIGER COMMERCE LAB">
       </div>
       <p class="footer-biz">
         상호 영남상사 · 대표자 박영남 · 사업자등록번호 617-27-49619<br>

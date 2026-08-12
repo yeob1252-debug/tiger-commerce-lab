@@ -33,11 +33,18 @@
   },
 
   "plans": {
+    "default_term_months": 12,
+    "vat_included": false,
+    "vat_label": "VAT 별도",
+    "terms": [
+      { "months": 12, "label": "12개월 계약" },
+      { "months": 6, "label": "6개월 계약" }
+    ],
     "items": [
-      { "id": "BASIC", "name": "BASIC", "price_krw": 700000, "shorts": 2, "card_news": 2, "threads": 4, "blog": 2, "value": "SNS 운영의 기본 구조를 만드는 플랜" },
-      { "id": "GROWTH", "name": "GROWTH", "price_krw": 1000000, "shorts": 4, "card_news": 6, "threads": 6, "blog": 4, "value": "꾸준한 노출과 검색자산을 함께 축적하는 플랜" },
-      { "id": "PERFORMANCE", "name": "PERFORMANCE", "price_krw": 1500000, "shorts": 6, "card_news": 8, "threads": 8, "blog": 8, "value": "발견과 반응을 매장 방문과 온라인 판매로 연결하는 플랜" },
-      { "id": "COMMERCE", "name": "COMMERCE", "price_krw": 2000000, "shorts": 12, "card_news": 12, "threads": 12, "blog": 12, "value": "콘텐츠부터 판매 확장까지 통합 운영하는 플랜" }
+      { "id": "BASIC", "name": "BASIC", "price_krw": 700000, "prices": { "12": 700000, "6": 900000 }, "shorts": 2, "card_news": 2, "threads": 4, "blog": 2, "value": "SNS 운영의 기본 구조를 만드는 플랜" },
+      { "id": "GROWTH", "name": "GROWTH", "price_krw": 1000000, "prices": { "12": 1000000, "6": 1200000 }, "shorts": 4, "card_news": 6, "threads": 6, "blog": 4, "value": "꾸준한 노출과 검색자산을 함께 축적하는 플랜" },
+      { "id": "PERFORMANCE", "name": "PERFORMANCE", "price_krw": 1500000, "prices": { "12": 1500000, "6": 1700000 }, "shorts": 6, "card_news": 8, "threads": 8, "blog": 8, "value": "발견과 반응을 매장 방문과 온라인 판매로 연결하는 플랜" },
+      { "id": "COMMERCE", "name": "COMMERCE", "price_krw": 2000000, "prices": { "12": 2000000, "6": 2200000 }, "shorts": 12, "card_news": 12, "threads": 12, "blog": 12, "value": "콘텐츠부터 판매 확장까지 통합 운영하는 플랜" }
     ],
     "compare_title": "플랜별 서비스, 한눈에 비교하세요",
     "compare_subtitle": "콘텐츠 제작량뿐 아니라 운영·분석·판매 연결 범위까지 달라집니다.",

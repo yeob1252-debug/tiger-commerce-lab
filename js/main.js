@@ -129,7 +129,7 @@
     });
   });
 
-  /* ---------- 히어로 스크롤 스토리: 스크롤 위치에 따라 4단계 이미지/캡션 전환 ---------- */
+  /* ---------- 히어로 스크롤 스토리: 스크롤 위치에 따라 5단계 이미지/캡션 전환 ---------- */
   const scrollstory = document.querySelector('.scrollstory');
   const scrollstoryImgWraps = document.querySelectorAll('.scrollstory__img-wrap');
   const scrollstoryCaptions = document.querySelectorAll('.scrollstory__caption');
@@ -393,8 +393,9 @@
       const storeArea = (data.get('storeArea') || '').toString().trim();
       const phone = (data.get('phone') || '').toString().trim();
       const onlineSales = (data.get('onlineSales') || '').toString().trim();
+      const inquiryType = (data.get('inquiryType') || '').toString().trim();
 
-      if (!storeName || !storeArea || !phone || !onlineSales) {
+      if (!storeName || !storeArea || !phone || !onlineSales || !inquiryType) {
         formStatus.textContent = '필수 항목(*)을 모두 입력해주세요.';
         formStatus.className = 'form-status is-error';
         return;
@@ -405,7 +406,7 @@
       formStatus.textContent = '전송 중입니다...';
       formStatus.className = 'form-status';
 
-      submitToGoogleForm(data, 'SNS온라인판매 문의', {
+      submitToGoogleForm(data, inquiryType, {
         onFinish: () => {
           formStatus.textContent = '상담 신청이 접수되었습니다. 빠르게 연락드릴게요!';
           formStatus.className = 'form-status is-success';
@@ -544,5 +545,153 @@
           submitBtn.disabled = false;
         });
     });
+  }
+
+  /* ---------- Proposal 페이지에서 넘어온 관심 플랜 prefill ---------- */
+  (function prefillFromProposal() {
+    let stored = null;
+    try {
+      stored = sessionStorage.getItem('tiger_plan_interest');
+    } catch (e) { /* noop */ }
+    if (!stored) return;
+    try { sessionStorage.removeItem('tiger_plan_interest'); } catch (e) { /* noop */ }
+    const messageEl = document.getElementById('message');
+    if (!messageEl) return;
+    const info = JSON.parse(stored);
+    const prefix = `[관심 플랜: ${info.planId} / ${info.term}개월 계약] `;
+    if (!messageEl.value.startsWith('[관심 플랜:')) {
+      messageEl.value = prefix + messageEl.value;
+    }
+    const inquirySelect = document.getElementById('inquiryType');
+    if (inquirySelect) inquirySelect.value = '서비스 플랜 상담';
+  })();
+
+  /* ---------- SNS 통합진단 CTA: 문의유형 자동 선택 ---------- */
+  const snsDiagCta = document.getElementById('snsDiagCta');
+  if (snsDiagCta) {
+    snsDiagCta.addEventListener('click', () => {
+      const inquirySelect = document.getElementById('inquiryType');
+      if (inquirySelect) inquirySelect.value = 'SNS 통합진단·채널관리';
+      scrollToId('contact');
+    });
+  }
+
+  /* ---------- 요금제 (BASIC/GROWTH/PERFORMANCE/COMMERCE) ----------
+     data/proposals/_common.json 단일 소스를 읽어 렌더링한다. Proposal
+     페이지(js/proposal.js)와 동일한 데이터를 쓰므로 가격을 바꿀 땐
+     _common.json 한 곳만 고치면 홈페이지·Proposal에 함께 반영된다. */
+  const planGrid = document.getElementById('planGrid');
+  const planTermToggle = document.getElementById('planTermToggle');
+  const planVatLabel = document.getElementById('planVatLabel');
+
+  if (planGrid && planTermToggle) {
+    let planState = { term: 12, items: [], highlight: 'PERFORMANCE' };
+
+    function escHtml(str) {
+      return (str == null ? '' : String(str)).replace(/[&<>"']/g, (c) => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+      ));
+    }
+    function manwonLabel(n) {
+      return Math.round(n / 10000) + '만원';
+    }
+    function planPriceFor(p, term) {
+      const v = p.prices ? p.prices[String(term)] : null;
+      return (v != null ? v : p.price_krw);
+    }
+
+    function renderPlanGrid() {
+      planGrid.innerHTML = planState.items.map((p) => {
+        const isHighlight = p.id === planState.highlight;
+        return `
+        <div class="plan-card${isHighlight ? ' is-highlight' : ''}" data-plan-id="${escHtml(p.id)}">
+          ${isHighlight ? '<span class="plan-card-badge">가장 많이 선택하는 플랜</span>' : ''}
+          <h3 class="plan-card-name">${escHtml(p.name)}</h3>
+          <p class="plan-card-price">${manwonLabel(planPriceFor(p, planState.term))}<span>/월</span></p>
+          <p class="plan-card-qty">쇼츠 ${p.shorts}편 · 카드뉴스 ${p.card_news}건 · Threads ${p.threads}건 · 블로그 ${p.blog}건</p>
+          <ul class="plan-card-list">
+            ${(p.included || []).map((label) => `<li>${escHtml(label)}</li>`).join('')}
+          </ul>
+          <p class="plan-card-value">${escHtml(p.value)}</p>
+          <button type="button" class="btn btn-outline plan-card-cta" data-plan-id="${escHtml(p.id)}">상담 신청하기</button>
+        </div>`;
+      }).join('');
+
+      planGrid.querySelectorAll('.plan-card-cta').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          prefillPlanContact(btn.getAttribute('data-plan-id'), planState.term);
+        });
+      });
+    }
+
+    function setTerm(term) {
+      planState.term = term;
+      renderPlanGrid();
+      planTermToggle.querySelectorAll('button').forEach((btn) => {
+        const active = Number(btn.getAttribute('data-term')) === term;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-pressed', String(active));
+      });
+    }
+
+    function prefillPlanContact(planId, term) {
+      const messageEl = document.getElementById('message');
+      const contactForm = document.getElementById('contactForm');
+      if (messageEl && contactForm) {
+        const prefix = `[관심 플랜: ${planId} / ${term}개월 계약] `;
+        if (!messageEl.value.startsWith('[관심 플랜:')) {
+          messageEl.value = prefix + messageEl.value;
+        }
+      }
+      const inquirySelect = document.getElementById('inquiryType');
+      if (inquirySelect) inquirySelect.value = '서비스 플랜 상담';
+      scrollToId('contact');
+    }
+
+    fetch('/data/proposals/_common.json')
+      .then((res) => {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then((common) => {
+        const plans = common.plans || {};
+        const featureRows = plans.feature_rows || [];
+        const items = (plans.items || []).map((p, i) => ({
+          ...p,
+          included: featureRows.filter((row) => row.values[i]).map((row) => row.label),
+        }));
+        const terms = plans.terms || [{ months: 12, label: '12개월 계약' }, { months: 6, label: '6개월 계약' }];
+        const defaultTerm = plans.default_term_months || 12;
+
+        planState = { term: defaultTerm, items, highlight: 'PERFORMANCE' };
+
+        planTermToggle.innerHTML = terms.map((t) => `
+          <button type="button" data-term="${t.months}" class="${t.months === defaultTerm ? 'is-active' : ''}" aria-pressed="${t.months === defaultTerm}">${escHtml(t.label)}</button>`).join('');
+        planTermToggle.querySelectorAll('button').forEach((btn) => {
+          btn.addEventListener('click', () => setTerm(Number(btn.getAttribute('data-term'))));
+        });
+
+        if (planVatLabel && plans.vat_label) planVatLabel.textContent = plans.vat_label;
+
+        renderPlanGrid();
+
+        /* 새로 그려진 카드에도 스크롤 리빌 재적용 */
+        const cardEls = planGrid.querySelectorAll('.plan-card');
+        if (cardEls.length && window.IntersectionObserver) {
+          const obs = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible-plan');
+                obs.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.1 });
+          cardEls.forEach((el) => obs.observe(el));
+        }
+      })
+      .catch((err) => {
+        console.error('요금제 데이터를 불러오지 못했습니다.', err);
+        planGrid.innerHTML = '<p class="plan-grid-error">요금제 정보는 상담 시 확인해 주세요.</p>';
+      });
   }
 })();

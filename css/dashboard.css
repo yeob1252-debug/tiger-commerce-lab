@@ -84,7 +84,8 @@ body.admin-body {
   border-bottom: 1px solid var(--line);
 }
 .dash-header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
-.dash-header-brand .brand-mark { width: 30px; height: 30px; }
+.dash-header-brand .brand-logo { height: 26px; }
+.dash-header-brand .brand-logo-symbol { height: 26px; width: 26px; }
 .dash-store-name { font-size: 15px; font-weight: 800; color: var(--ink); }
 .dash-logout {
   font-size: 12.5px;

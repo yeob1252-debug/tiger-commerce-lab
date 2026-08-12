@@ -84,6 +84,7 @@
     initCountUp();
     initAccordions();
     wireCtaScrolls();
+    initPlanTermToggle(common);
   }
 
   /* ---------- SECTION 01 — HERO (업체별) ---------- */
@@ -302,9 +303,71 @@
      가격/구성 수량/포함 서비스는 TIGER 공통 서비스 데이터(common.plans)에서
      한 번만 관리한다. 업체별로 달라지는 것은 헤드라인·추천 플랜(highlight_plan)·
      추천 사유뿐이다. 가격·수량·서비스 범위를 별도 비교표로 중복 노출하지 않고
-     플랜 카드 하나에 전부 담는다. */
+     플랜 카드 하나에 전부 담는다. 6/12개월 계약기간 토글은 홈페이지와 동일 데이터를
+     쓴다(common.plans.items[].prices). */
   function manwon(n) {
     return Math.round(n / 10000) + '만원';
+  }
+  function planPrice(p, term) {
+    const v = p.prices ? p.prices[String(term)] : null;
+    return (v != null ? v : p.price_krw);
+  }
+
+  let planTermState = { term: 12, items: [], highlight: null, featureRows: [] };
+
+  function renderPlanCards(term) {
+    const { items, highlight, featureRows } = planTermState;
+    return items.map((p, i) => {
+      const isHighlight = p.id === highlight;
+      const included = featureRows.filter((row) => row.values[i]).map((row) => `<li>${esc(row.label)}</li>`).join('');
+      return `
+      <div class="prop-plan-card ${isHighlight ? 'is-highlight' : ''}">
+        ${isHighlight ? '<span class="prop-plan-badge">가장 많이 선택하는 플랜</span>' : ''}
+        <h3 class="prop-plan-name">${esc(p.name)}</h3>
+        <p class="prop-plan-price">${manwon(planPrice(p, term))}<span>/월</span></p>
+        <p class="prop-plan-qty">쇼츠 ${p.shorts}편 · 카드뉴스 ${p.card_news}건 · Threads ${p.threads}건 · 블로그 ${p.blog}건</p>
+        <ul class="prop-plan-list">${included}</ul>
+        <p class="prop-plan-value">${esc(p.value)}</p>
+        <button type="button" class="btn btn-outline prop-plan-cta" data-plan-id="${esc(p.id)}">상담 신청하기</button>
+      </div>`;
+    }).join('');
+  }
+
+  function updatePlanTerm(term, common) {
+    planTermState.term = term;
+    const grid = document.querySelector('#section-10 .prop-plan-grid');
+    if (grid) grid.innerHTML = renderPlanCards(term);
+    document.querySelectorAll('#section-10 .prop-term-toggle button').forEach((btn) => {
+      const active = Number(btn.getAttribute('data-term')) === term;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+    wirePlanCtas(common);
+  }
+
+  function wirePlanCtas(common) {
+    document.querySelectorAll('#section-10 .prop-plan-cta').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        prefillContactPlan(btn.getAttribute('data-plan-id'), planTermState.term);
+      });
+    });
+  }
+
+  /* 문의 폼(index.html)에는 필드를 새로 추가하지 않고(Apps Script 스키마 보존),
+     선택한 플랜·계약기간을 세션에 저장해두면 index.html 쪽 main.js가 이를 읽어
+     메시지란 앞에 채워 넣는다 — 사용자가 그대로 편집·삭제할 수 있다. */
+  function prefillContactPlan(planId, term) {
+    try {
+      sessionStorage.setItem('tiger_plan_interest', JSON.stringify({ planId, term }));
+    } catch (e) { /* sessionStorage 불가 시 조용히 무시 */ }
+    location.href = '/index.html#contact';
+  }
+
+  function initPlanTermToggle(common) {
+    document.querySelectorAll('#section-10 .prop-term-toggle button').forEach((btn) => {
+      btn.addEventListener('click', () => updatePlanTerm(Number(btn.getAttribute('data-term')), common));
+    });
+    wirePlanCtas(common);
   }
 
   function renderPlans(s, data, common) {
@@ -312,20 +375,15 @@
     const items = planIds.map((id) => byId(common.plans && common.plans.items, id)).filter(Boolean);
     const highlight = s.highlight_plan || (data.recommendation && data.recommendation.recommended_plan);
     const featureRows = (common.plans && common.plans.feature_rows) || [];
+    const terms = (common.plans && common.plans.terms) || [{ months: 12, label: '12개월 계약' }, { months: 6, label: '6개월 계약' }];
+    const defaultTerm = (common.plans && common.plans.default_term_months) || 12;
 
-    const cards = items.map((p, i) => {
-      const isHighlight = p.id === highlight;
-      const included = featureRows.filter((row) => row.values[i]).map((row) => `<li>${esc(row.label)}</li>`).join('');
-      return `
-      <div class="prop-plan-card ${isHighlight ? 'is-highlight' : ''} reveal">
-        ${isHighlight ? '<span class="prop-plan-badge">추천</span>' : ''}
-        <h3 class="prop-plan-name">${esc(p.name)}</h3>
-        <p class="prop-plan-price">${manwon(p.price_krw)}<span>/월</span></p>
-        <p class="prop-plan-qty">쇼츠 ${p.shorts}편 · 카드뉴스 ${p.card_news}건 · Threads ${p.threads}건 · 블로그 ${p.blog}건</p>
-        <ul class="prop-plan-list">${included}</ul>
-        <p class="prop-plan-value">${esc(p.value)}</p>
-      </div>`;
-    }).join('');
+    planTermState = { term: defaultTerm, items, highlight, featureRows };
+
+    const toggleBtns = terms.map((t) => `
+      <button type="button" data-term="${t.months}" class="${t.months === defaultTerm ? 'is-active' : ''}" aria-pressed="${t.months === defaultTerm}">${esc(t.label)}</button>`).join('');
+
+    const cards = renderPlanCards(defaultTerm);
 
     /* ---- PERFORMANCE 추천 이유 (짧은 구조) ---- */
     const rec = data.recommendation || {};
@@ -342,12 +400,18 @@
       recBlock = `<p class="prop-highlight reveal">${esc(rec.reason)}</p>`;
     }
 
+    const vatLabel = common.plans && common.plans.vat_label;
+
     return `
     <section id="section-10" class="prop-section prop-plans">
       <div class="section-inner container">
         <p class="eyebrow reveal">${esc(s.eyebrow)}</p>
         <h2 class="section-title reveal">${esc(common.plans && common.plans.compare_title)}</h2>
         <p class="section-lead reveal">${esc(common.plans && common.plans.compare_subtitle)}</p>
+        <div class="prop-term-row reveal">
+          <div class="prop-term-toggle" role="radiogroup" aria-label="계약기간 선택">${toggleBtns}</div>
+          ${vatLabel ? `<span class="prop-vat-label">${esc(vatLabel)}</span>` : ''}
+        </div>
         <div class="prop-plan-grid">${cards}</div>
         ${recBlock}
         ${common.plans && common.plans.performance_note ? `<p class="prop-disclaimer reveal">${esc(common.plans.performance_note)}</p>` : ''}

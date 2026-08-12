@@ -95,7 +95,15 @@
       "Bash(mv assets/proposals/gijang-endhouse/CASE_JOGANE_TIKTOK_ANALYTICS.png assets/proposals/_brand/)",
       "Bash(mv assets/proposals/gijang-endhouse/CASE_JOGANE_TIKTOK_POST.png assets/proposals/_brand/)",
       "Bash(rmdir assets/proposals/gijang-endhouse)",
-      "PowerShell($job = Start-Job -ScriptBlock { powershell -File \"C:\\\\Users\\\\USER\\\\Pictures\\\\Desktop\\\\tiger-commerce-lab\\\\.claude\\\\static-server.ps1\" }; Start-Sleep -Seconds 2; Test-NetConnection -ComputerName localhost -Port 8934 | Select-Object TcpTestSucceeded)"
+      "PowerShell($job = Start-Job -ScriptBlock { powershell -File \"C:\\\\Users\\\\USER\\\\Pictures\\\\Desktop\\\\tiger-commerce-lab\\\\.claude\\\\static-server.ps1\" }; Start-Sleep -Seconds 2; Test-NetConnection -ComputerName localhost -Port 8934 | Select-Object TcpTestSucceeded)",
+      "Bash(python -c \"import json; json.load\\(open\\('data/proposals/_common.json', encoding='utf-8'\\)\\); print\\('OK'\\)\")",
+      "PowerShell($job = Start-Job -ScriptBlock { powershell -File \"C:\\\\Users\\\\USER\\\\Pictures\\\\Desktop\\\\tiger-commerce-lab\\\\.claude\\\\static-server.ps1\" }; Start-Sleep -Seconds 2; try { $r = Invoke-WebRequest -Uri \"http://localhost:8934/index.html\" -UseBasicParsing -TimeoutSec 5; $r.StatusCode } catch { \"FAILED: $_\" })",
+      "PowerShell(Start-Job -ScriptBlock { powershell -File \"C:\\\\Users\\\\USER\\\\Pictures\\\\Desktop\\\\tiger-commerce-lab\\\\.claude\\\\static-server.ps1\" } | Out-Null; Start-Sleep -Seconds 2; try { $r = Invoke-WebRequest -Uri \"http://localhost:8934/index.html\" -UseBasicParsing -TimeoutSec 5; $r.StatusCode } catch { \"FAILED: $_\" })",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8934/index.html)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8934/index.html)",
+      "PowerShell(Get-NetTCPConnection -LocalPort 8934 -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Job)",
+      "PowerShell(powershell -File \"C:\\\\Users\\\\USER\\\\Pictures\\\\Desktop\\\\tiger-commerce-lab\\\\.claude\\\\static-server.ps1\")"
     ]
   }
 }

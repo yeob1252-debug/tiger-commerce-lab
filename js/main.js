@@ -59,9 +59,15 @@
   if (hero && window.matchMedia('(min-width: 810px)').matches && !reducedMotion) {
     hero.addEventListener('pointermove', (event) => {
       const rect = hero.getBoundingClientRect();
-      hero.style.setProperty('--pointer-x', `${((event.clientX - rect.left) / rect.width) * 100}%`);
-      hero.style.setProperty('--pointer-y', `${((event.clientY - rect.top) / rect.height) * 100}%`);
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      const distance = Math.hypot(x - 79, (y - 41) * 1.45);
+      const intensity = Math.max(0, Math.min(1, 1 - distance / 24));
+      hero.style.setProperty('--pointer-x', `${x}%`);
+      hero.style.setProperty('--pointer-y', `${y}%`);
+      hero.style.setProperty('--eye-intensity', intensity.toFixed(3));
     });
+    hero.addEventListener('pointerleave', () => hero.style.setProperty('--eye-intensity', '0'));
   }
 
   /* Progressive enhancement reveals. Critical content remains visible without JS. */
@@ -82,11 +88,12 @@
   const story = $('#story');
   const storySteps = $$('[data-story-step]');
   const storyScreen = $('#storyScreen');
+  const storyImage = $('#storyImage');
   const storyContent = [
-    { label: '01 / DISCOVERY', title: '오늘 처음 본 고객이<br>화면을 멈춥니다.', meta: 'SHORTS · REELS · TIKTOK' },
-    { label: '02 / CONNECTION', title: '저장하고 댓글을 남긴<br>고객이 팬이 됩니다.', meta: 'SAVE · COMMENT · SHARE' },
-    { label: '03 / CONVERSION', title: '검색하고 비교한 고객이<br>방문과 구매를 선택합니다.', meta: 'SEARCH · PLACE · PURCHASE' },
-    { label: '04 / COMMERCE', title: '쌓인 팬과 인기 메뉴가<br>자체 LIVE로 연결됩니다.', meta: 'ONLINE SALES · OWN LIVE' },
+    { label: '01 / DISCOVERY', title: '오늘 처음 본 고객이<br>화면을 멈춥니다.', meta: 'SHORTS · REELS · TIKTOK', image: 'assets/home/hero/TIGER_HOME_HERO_03_CUSTOMER_DISCOVERY.png', alt: 'SNS에서 매장 콘텐츠를 발견하는 고객 장면' },
+    { label: '02 / CONNECTION', title: '저장하고 댓글을 남긴<br>고객이 팬이 됩니다.', meta: 'SAVE · COMMENT · SHARE', image: 'assets/home/hero/TIGER_HOME_HERO_04_SEARCH_SAVE_INQUIRY.png', alt: 'SNS 콘텐츠를 저장하고 반응하는 고객 장면' },
+    { label: '03 / CONVERSION', title: '검색하고 비교한 고객이<br>방문과 구매를 선택합니다.', meta: 'SEARCH · PLACE · PURCHASE', image: 'assets/home/hero/TIGER_HOME_HERO_05_STORE_REOPEN_CUSTOMER_ENTRY.png', alt: '콘텐츠를 본 고객이 매장을 방문하는 장면' },
+    { label: '04 / COMMERCE', title: '쌓인 팬과 인기 메뉴가<br>자체 LIVE로 연결됩니다.', meta: 'ONLINE SALES · OWN LIVE', image: 'assets/home/v6/menu-to-commerce.webp', alt: '인기 메뉴가 온라인판매와 라이브로 확장되는 장면' },
   ];
 
   function setStoryStep(index) {
@@ -98,6 +105,7 @@
     $('.device-label', storyScreen).textContent = content.label;
     $('strong', storyScreen).innerHTML = content.title;
     $('p', storyScreen).textContent = content.meta;
+    if (storyImage) { storyImage.src = content.image; storyImage.alt = content.alt; }
   }
   storySteps.forEach((step) => step.addEventListener('click', () => setStoryStep(Number(step.dataset.storyStep))));
 
@@ -322,8 +330,8 @@
 
   /* Operation showcase */
   const operationData = {
-    dashboard: { eyebrow: 'VISIBLE WORKFLOW', title: '진행 상황을 숨기지 않는다.', description: '기획·제작·게시·성과 확인 과정을 전용 화면에서 함께 확인한다.', image: 'assets/dashboard-preview/dashboard-2-monthly-performance.JPEG', alt: '월간 성과 Dashboard 화면', caption: '실제 서비스 Dashboard 화면' },
-    live: { eyebrow: 'OWN CHANNEL LIVE', title: '팔아본 경험으로 직접 LIVE까지 준비한다.', description: '상품선정, 방송기획, 대본과 큐시트, 환경 세팅, 사장님·직원 교육, 사전 홍보, 방송 지원, 재구매 콘텐츠까지 연결한다.', image: 'assets/home/v6/menu-to-commerce.webp', alt: '대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면', caption: '메뉴 → 상품 → 배송 → 자체 LIVE' },
+    dashboard: { eyebrow: 'VISIBLE WORKFLOW', title: '진행 상황을 숨기지 않는다.', description: '기획·제작·검수·게시·성과 확인 과정을 전용 화면에서 함께 확인한다.', image: 'assets/home/v6/tiger-dashboard-example.webp', alt: 'TIGER 음식점 SNS 운영 전용 Dashboard 예시 화면', caption: '전용 Dashboard 업무 화면 예시입니다.' },
+    live: { eyebrow: 'AWARD-WINNING LIVE COMMERCE', title: 'GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트.', description: '직접 팔아본 경험을 바탕으로 상품선정, 방송기획, 대본·큐시트, 환경 세팅, 사장님·직원 교육, 사전 홍보, 방송 지원, 재구매 콘텐츠까지 연결한다.', image: 'assets/home/v6/menu-to-commerce.webp', alt: '대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면', caption: '메뉴 → 상품 → 배송 → 자체 LIVE' },
     community: { eyebrow: 'OPTIONAL EXPANSION', title: '맘커뮤니티 후기·핫딜 확산은 선택형으로.', description: '실제 체험과 실제 혜택을 기반으로 후기형·핫딜형을 구분해 운영한다. 월 30건 기준 범위와 비용은 별도 상담하며 허위후기와 가짜 성과를 만들지 않는다.', image: 'assets/dashboard-preview/dashboard-4-menu-board.JPEG', alt: '메뉴 정보와 운영 소통 Dashboard 화면', caption: '운영 구조 예시 · 성과값 아님' },
   };
   const operationTabs = $$('.operation-tab');

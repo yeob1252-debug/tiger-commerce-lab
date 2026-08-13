@@ -89,7 +89,7 @@ const click = (selector) => {
   assert.match(document.querySelector('#selectedMonthlyPriceField').value, /170만원/);
 
   click('[data-operation="live"]');
-  assert.match(document.querySelector('#operationTitle').textContent, /직접 LIVE/);
+  assert.match(document.querySelector('#operationTitle').textContent, /신인판매왕/);
   assert.match(document.querySelector('#operationImage').src, /menu-to-commerce\.webp$/);
   click('.faq-question');
   assert.equal(document.querySelector('.faq-question').getAttribute('aria-expanded'), 'true');

@@ -109,6 +109,9 @@ async function verifyPlanHandoff() {
 
   assert.equal(document.querySelectorAll('[data-flow-step]').length, 5, 'five journey steps');
   assert.equal(document.querySelectorAll('[data-engine-step]').length, 4, 'four engine steps');
+  assert.match(document.querySelector('.prop-engine-image').src, /hook-discovery-v1\.webp$/);
+  click('[data-engine-step="1"]');
+  assert.match(document.querySelector('.prop-engine-image').src, /retention-craft-v1\.webp$/);
   assert.equal(document.querySelectorAll('[data-week-step]').length, 4, 'four week steps');
   assert.equal(document.querySelectorAll('.prop-plan-card').length, 4, 'four plans');
   assert.deepEqual([...document.querySelectorAll('.prop-plan-price')].map((item) => item.firstChild.textContent.trim()), ['700,000', '1,000,000', '1,500,000', '2,000,000']);
@@ -138,6 +141,7 @@ async function verifyPlanHandoff() {
   assert.equal(document.querySelector('[data-flow-step="3"]').classList.contains('is-active'), true, 'flow changes on scroll');
   await move(engine, .6);
   assert.equal(document.querySelector('.prop-engine-card h3').textContent, 'VALUE', 'engine changes on scroll');
+  assert.match(document.querySelector('.prop-engine-image').src, /value-save-v1\.webp$/, 'engine image changes on scroll');
   await move(week, .9);
   assert.equal(document.querySelector('[data-week-step="3"]').classList.contains('is-active'), true, 'week changes on scroll');
   await move(operation, .9);
@@ -150,6 +154,9 @@ async function verifyPlanHandoff() {
   ].map((element) => element.getAttribute('src') || element.getAttribute('srcset') || element.getAttribute('href'))
     .filter((source) => source && !/^(https?:|data:|#)/.test(source));
   localAssets.forEach((source) => assert.ok(fs.existsSync(path.join(repo, source.replace(/^\//, ''))), `missing local asset: ${source}`));
+  ['hook-discovery-v1.webp', 'retention-craft-v1.webp', 'value-save-v1.webp', 'cta-convert-v1.webp'].forEach((filename) => {
+    assert.ok(fs.existsSync(path.join(repo, 'assets/proposals/gijang-endhouse', filename)), `missing HOOK asset: ${filename}`);
+  });
 
   assert.match(css, /\.prop-hero\s*\{[^}]*min-height:\s*128svh/s);
   assert.match(css, /\.prop-flow\s*\{\s*min-height:\s*220svh/);

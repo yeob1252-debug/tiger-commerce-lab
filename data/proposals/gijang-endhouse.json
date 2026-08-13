@@ -62,10 +62,10 @@
     "customer_flow": ["SNS", "검색", "매장방문", "온라인구매", "재구매"],
     "flow_caption": "발견된 고객을 흘려보내지 않고 다음 행동으로 연결한다.",
     "framework": [
-      { "stage": "HOOK", "role": "전복의 크기, 조리 장면, 줄 서는 이유로 첫 1초를 멈춘다." },
-      { "stage": "RETENTION", "role": "왜 다른지, 어떻게 만들어지는지, 다음 장면에서 확인할 이유를 준다." },
-      { "stage": "VALUE", "role": "재료, 먹는 법, 보관법, 기장 여행 동선처럼 저장할 정보를 제공한다." },
-      { "stage": "CTA", "role": "댓글, 저장, 브랜드 검색, 네이버 플레이스, 온라인 구매 중 하나의 행동으로 연결한다." }
+      { "stage": "HOOK", "role": "전복의 크기, 조리 장면, 줄 서는 이유로 첫 1초를 멈춘다.", "image": "assets/proposals/gijang-endhouse/hook-discovery-v1.webp", "image_alt": "전복이 선명하게 보이는 따뜻한 전복죽 한 그릇의 제안용 이미지" },
+      { "stage": "RETENTION", "role": "왜 다른지, 어떻게 만들어지는지, 다음 장면에서 확인할 이유를 준다.", "image": "assets/proposals/gijang-endhouse/retention-craft-v1.webp", "image_alt": "조리자가 전복과 전복죽을 준비하는 과정의 제안용 이미지" },
+      { "stage": "VALUE", "role": "재료, 먹는 법, 보관법, 기장 여행 동선처럼 저장할 정보를 제공한다.", "image": "assets/proposals/gijang-endhouse/value-save-v1.webp", "image_alt": "고객 두 명이 식사하며 스마트폰의 정보를 함께 저장하는 제안용 이미지" },
+      { "stage": "CTA", "role": "댓글, 저장, 브랜드 검색, 네이버 플레이스, 온라인 구매 중 하나의 행동으로 연결한다.", "image": "assets/proposals/gijang-endhouse/cta-convert-v1.webp", "image_alt": "스마트폰 검색에서 음식 포장과 구매 행동으로 이어지는 제안용 이미지" }
     ],
     "platform_roles": [
       { "platform": "Instagram", "role": "릴스·카드뉴스 허브", "customer_action": "저장·공유·프로필 이동" },

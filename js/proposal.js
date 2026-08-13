@@ -202,7 +202,7 @@
     const first = framework[0] || { stage: 'HOOK', role: '' };
     const pillars = (data.strategy?.content_pillars || []).map((item) => `<span>${esc(item)}</span>`).join('');
     return `
-      <section id="section-06" class="prop-section prop-engine" data-scroll-story="engine">
+      <section id="section-06" class="prop-section prop-engine" data-scroll-story="engine" data-engine-json="${esc(JSON.stringify(framework))}">
         <div class="prop-engine-stage">
           <div class="prop-engine-copy">
             <p class="prop-kicker">${esc(section.eyebrow)}</p>
@@ -212,9 +212,12 @@
             <div class="prop-pillar-row">${pillars}</div>
           </div>
           <article class="prop-engine-card prop-cut" data-step="01">
-            <span class="prop-engine-label">01 / ${esc(first.stage)}</span>
-            <h3>${esc(first.stage)}</h3>
-            <p>${esc(first.role)}</p>
+            <img class="prop-engine-image" src="${esc(first.image || '')}" alt="${esc(first.image_alt || '')}">
+            <div class="prop-engine-card-copy">
+              <span class="prop-engine-label">01 / ${esc(first.stage)}</span>
+              <h3>${esc(first.stage)}</h3>
+              <p>${esc(first.role)}</p>
+            </div>
           </article>
         </div>
       </section>`;
@@ -423,12 +426,8 @@
     const engine = document.querySelector('[data-scroll-story="engine"]');
     const engineTabs = [...document.querySelectorAll('[data-engine-step]')];
     const engineCard = document.querySelector('.prop-engine-card');
-    const framework = [
-      ['HOOK', '전복의 크기, 조리 장면, 줄 서는 이유로 첫 1초를 멈춘다.'],
-      ['RETENTION', '왜 다른지, 어떻게 만들어지는지, 다음 장면을 확인할 이유를 준다.'],
-      ['VALUE', '재료, 먹는 법, 보관법, 기장 여행 동선처럼 저장할 정보를 제공한다.'],
-      ['CTA', '댓글, 저장, 브랜드 검색, 네이버 플레이스, 온라인 구매 중 하나의 행동으로 연결한다.'],
-    ];
+    let framework = [];
+    try { framework = JSON.parse(engine?.dataset.engineJson || '[]'); } catch (_) { framework = []; }
     const week = document.querySelector('[data-scroll-story="week"]');
     const weekCards = [...document.querySelectorAll('[data-week-step]')];
     const operation = document.querySelector('[data-scroll-story="operation"]');
@@ -449,9 +448,14 @@
       const label = engineCard.querySelector('.prop-engine-label');
       const title = engineCard.querySelector('h3');
       const body = engineCard.querySelector('p');
-      if (label) label.textContent = `0${index + 1} / ${item[0]}`;
-      if (title) title.textContent = item[0];
-      if (body) body.textContent = item[1];
+      const image = engineCard.querySelector('.prop-engine-image');
+      if (label) label.textContent = `0${index + 1} / ${item.stage}`;
+      if (title) title.textContent = item.stage;
+      if (body) body.textContent = item.role;
+      if (image && item.image) {
+        image.src = item.image;
+        image.alt = item.image_alt || '';
+      }
     };
     const setWeek = (index) => setIndexedState(weekCards, index);
     const setOperation = (index) => {
@@ -491,6 +495,7 @@
     };
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate);
+    framework.slice(1).forEach((item) => { if (item.image) { const preload = new Image(); preload.src = item.image; } });
     setFlow(0); setEngine(0); setWeek(0); setOperation(0); update();
   }
 

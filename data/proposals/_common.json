@@ -16,7 +16,45 @@
       "라이브커머스·판매 현장 경험",
       "확인 가능한 반응을 다음 콘텐츠에 반영"
     ],
-    "profile_asset_id": "TIGER_YB_PROFILE"
+    "profile_asset_id": "TIGER_YB_PROFILE",
+    "career_highlight": "GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트."
+  },
+
+  "contact": {
+    "kakao_url": "https://open.kakao.com/o/sgxBgDIi"
+  },
+
+  "operation_support": {
+    "dashboard": {
+      "id": "dashboard",
+      "tab": "전용 Dashboard",
+      "eyebrow": "VISIBLE WORKFLOW",
+      "title": "진행 상황을 숨기지 않는다.",
+      "description": "기획·제작·검수·게시·성과 확인 과정을 전용 화면에서 함께 확인한다.",
+      "image": "assets/home/v6/tiger-dashboard-example.webp",
+      "alt": "TIGER 음식점 SNS 운영 전용 Dashboard 예시 화면",
+      "caption": "전용 Dashboard 업무 화면 예시입니다."
+    },
+    "live": {
+      "id": "live",
+      "tab": "자체 LIVE 지원",
+      "eyebrow": "AWARD-WINNING LIVE COMMERCE",
+      "title": "GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트.",
+      "description": "직접 팔아본 경험으로 상품선정부터 방송기획, 사장님·직원 교육, 방송 지원과 재구매 콘텐츠까지 연결한다.",
+      "image": "assets/home/v6/menu-to-commerce.webp",
+      "alt": "대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면",
+      "caption": "매장 사장님·직원이 직접 방송할 때의 자체 LIVE 지원"
+    },
+    "community": {
+      "id": "community",
+      "tab": "맘커뮤니티 옵션",
+      "eyebrow": "OPTIONAL EXPANSION",
+      "title": "지역 맘커뮤니티에 자연스럽게 발견되는 선택형 확장.",
+      "description": "실제 체험과 실제 혜택을 기반으로 후기형·핫딜형을 구분해 운영한다. 허위후기와 가짜 성과를 만들지 않는다.",
+      "image": "assets/home/v6/mom-community-spread.webp",
+      "alt": "지역 맘커뮤니티 확산 운영 장면 예시",
+      "caption": "맘커뮤니티 확산 운영 장면 예시 · 실제 후기·성과값 아님"
+    }
   },
 
   "case_studies": {

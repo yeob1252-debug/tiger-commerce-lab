@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>타이거커머스랩 | 음식점 온라인 판매·스마트스토어·SNS 마케팅 대행</title>
-<meta name="description" content="장사하느라 놓쳤던 고객, 콘텐츠가 데려옵니다. 네이버 플레이스부터 숏폼·SNS 운영, 전국판매 연결까지 무료 진단으로 시작하세요.">
+<meta name="description" content="장사는 사장님이, 고객이 오는 채널은 타이거가 운영합니다. SNS 운영부터 네이버 플레이스, 음식점 메뉴 전국판매까지 무료 진단으로 시작하세요.">
 <meta property="og:image" content="https://tigercommercelab.com/assets/og-image.png">
 <link rel="icon" type="image/png" href="assets/brand/logo/TIGER_LOGO_SYMBOL_V1.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -25,24 +25,26 @@
     <img class="brand-logo-symbol" src="assets/brand/logo/TIGER_LOGO_SYMBOL_V1.png" alt="TIGER COMMERCE LAB">
   </a>
   <nav class="site-nav" aria-label="주요 메뉴">
-    <a href="#system" data-scroll-to="system">서비스</a>
-    <a href="#proof" data-scroll-to="proof">실제 성과</a>
-    <a href="#cases" data-scroll-to="cases">진행 사례</a>
-    <a href="#pricing" data-scroll-to="pricing">플랜</a>
+    <a href="#nationwide-sales" data-scroll-to="nationwide-sales">온라인판매</a>
+    <a href="#why-sns" data-scroll-to="why-sns">SNS 운영</a>
+    <a href="#tiger-system" data-scroll-to="tiger-system">TIGER 시스템</a>
+    <a href="#proof-cases" data-scroll-to="proof-cases">실제 성과</a>
+    <a href="#service-plan" data-scroll-to="service-plan">플랜</a>
     <a href="#diagnosis" data-scroll-to="diagnosis">무료진단</a>
   </nav>
   <div class="header-actions">
     <a href="/login" class="header-login-link">사장님 로그인</a>
-    <button type="button" class="btn btn-primary btn-small header-cta" data-scroll-to="contact">무료 진단 받기</button>
+    <button type="button" class="btn btn-primary btn-small header-cta" data-diagnosis-open data-source-cta="header-primary">무료 진단 받기</button>
     <button type="button" class="header-menu-btn" id="headerMenuBtn" aria-expanded="false" aria-controls="headerMobileNav" aria-label="메뉴 열기">
       <span></span><span></span><span></span>
     </button>
   </div>
   <nav class="header-mobile-nav" id="headerMobileNav" aria-label="모바일 메뉴" hidden>
-    <a href="#system" data-scroll-to="system">서비스</a>
-    <a href="#proof" data-scroll-to="proof">실제 성과</a>
-    <a href="#cases" data-scroll-to="cases">진행 사례</a>
-    <a href="#pricing" data-scroll-to="pricing">플랜</a>
+    <a href="#nationwide-sales" data-scroll-to="nationwide-sales">온라인판매</a>
+    <a href="#why-sns" data-scroll-to="why-sns">SNS 운영</a>
+    <a href="#tiger-system" data-scroll-to="tiger-system">TIGER 시스템</a>
+    <a href="#proof-cases" data-scroll-to="proof-cases">실제 성과</a>
+    <a href="#service-plan" data-scroll-to="service-plan">플랜</a>
     <a href="#diagnosis" data-scroll-to="diagnosis">무료진단</a>
     <a href="/login">사장님 로그인</a>
   </nav>
@@ -51,185 +53,229 @@
 <main>
 
   <!-- ============ 01. HERO ============ -->
-  <section id="hero" class="hero-section">
-    <div class="hero-slides" id="heroSlides">
-      <div class="hero-slide is-active" data-step="0">
+  <section id="hero" class="hero-section" aria-roledescription="carousel" aria-label="TIGER COMMERCE LAB 소개 슬라이드">
+    <div class="hero-bg-slides" id="heroBgSlides">
+      <div class="hero-bg-slide is-active" data-slide="0">
         <img src="assets/home/hero/TIGER_HOME_HERO_01_NIGHT_SEARCH.png" alt="손님이 없는 야간 매장을 바라보는 산군" fetchpriority="high">
       </div>
-      <div class="hero-slide" data-step="1">
+      <div class="hero-bg-slide" data-slide="1">
         <img src="assets/home/hero/TIGER_HOME_HERO_02_SANGUN_REVEAL.png" alt="모습을 드러내며 매장 앞으로 걸어오는 산군" loading="lazy">
       </div>
-      <div class="hero-slide" data-step="2">
-        <img src="assets/home/hero/TIGER_HOME_HERO_03_CUSTOMER_DISCOVERY.png" alt="" loading="lazy">
+      <div class="hero-bg-slide" data-slide="2">
+        <img src="assets/home/hero/TIGER_HOME_HERO_03_CUSTOMER_DISCOVERY.png" alt="숏폼 콘텐츠를 보며 매장을 발견하는 고객과 산군" loading="lazy">
       </div>
-      <div class="hero-slide" data-step="3">
-        <img src="assets/home/hero/TIGER_HOME_HERO_04_SEARCH_SAVE_INQUIRY.png" alt="" loading="lazy">
+      <div class="hero-bg-slide" data-slide="3">
+        <img src="assets/home/hero/TIGER_HOME_HERO_04_SEARCH_SAVE_INQUIRY.png" alt="검색·저장·문의 아이콘과 함께 매장을 확인하는 고객" loading="lazy">
       </div>
-      <div class="hero-slide" data-step="4">
+      <div class="hero-bg-slide" data-slide="4">
         <img src="assets/home/hero/TIGER_HOME_HERO_05_STORE_REOPEN_CUSTOMER_ENTRY.png" alt="다음 날 불이 켜진 매장으로 들어서는 손님들" loading="lazy">
       </div>
     </div>
     <div class="hero-gradient" aria-hidden="true"></div>
     <div class="hero-content container">
-      <p class="hero-eyebrow">TIGER COMMERCE LAB</p>
-      <h1 class="hero-title">장사하느라 놓쳤던 고객,<br>콘텐츠가 데려옵니다.</h1>
-      <p class="hero-sub">네이버 플레이스부터 숏폼·SNS 운영, 전국판매 연결까지.<br>매장이 발견되고, 검색되고, 방문과 구매로 이어지는 흐름을 함께 만듭니다.</p>
+      <p class="hero-eyebrow" id="heroEyebrow">TIGER COMMERCE LAB</p>
+      <h1 class="hero-title" id="heroTitle">장사는 <span class="hl">사장님</span>이,<br>고객이 오는 <span class="hl">채널</span>은 타이거가 운영합니다.</h1>
+      <p class="hero-desc" id="heroDesc">SNS에서 발견되고, 검색에서 선택받고, 매장방문과 온라인구매로 이어지는 고객 흐름을 만듭니다.</p>
       <div class="hero-ctas">
-        <button type="button" class="btn btn-primary btn-large" data-scroll-to="contact">무료 진단 받기</button>
-        <button type="button" class="btn btn-outline btn-large" data-scroll-to="proof">실제 성과 보기</button>
+        <button type="button" class="btn btn-primary btn-large" id="heroPrimaryCta">우리 매장의 성장기회 확인하기</button>
+        <button type="button" class="btn btn-outline btn-large" id="heroSecondaryCta">놓치고 있는 고객 보기</button>
       </div>
     </div>
-    <div class="hero-controls" role="group" aria-label="배경 이미지 전환">
-      <button type="button" class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="이전 이미지">‹</button>
+    <div class="hero-controls" role="group" aria-label="슬라이드 전환">
+      <button type="button" class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="이전 슬라이드">‹</button>
       <div class="hero-dots" id="heroDots">
-        <button type="button" class="hero-dot is-active" data-step="0" aria-label="1번째 이미지"></button>
-        <button type="button" class="hero-dot" data-step="1" aria-label="2번째 이미지"></button>
-        <button type="button" class="hero-dot" data-step="2" aria-label="3번째 이미지"></button>
-        <button type="button" class="hero-dot" data-step="3" aria-label="4번째 이미지"></button>
-        <button type="button" class="hero-dot" data-step="4" aria-label="5번째 이미지"></button>
+        <button type="button" class="hero-dot is-active" data-slide="0" aria-selected="true" aria-label="1번째: 브랜드 소개"></button>
+        <button type="button" class="hero-dot" data-slide="1" aria-selected="false" aria-label="2번째: 전국판매"></button>
+        <button type="button" class="hero-dot" data-slide="2" aria-selected="false" aria-label="3번째: SNS 운영"></button>
+        <button type="button" class="hero-dot" data-slide="3" aria-selected="false" aria-label="4번째: 플레이스"></button>
+        <button type="button" class="hero-dot" data-slide="4" aria-selected="false" aria-label="5번째: 통합 운영"></button>
       </div>
-      <button type="button" class="hero-arrow hero-arrow-next" id="heroNext" aria-label="다음 이미지">›</button>
+      <button type="button" class="hero-arrow hero-arrow-next" id="heroNext" aria-label="다음 슬라이드">›</button>
+    </div>
+    <p class="sr-only" id="heroLiveRegion" aria-live="polite"></p>
+  </section>
+
+  <!-- ============ 02. 놓치는 고객·매출기회 ============ -->
+  <section id="opportunity-loss" class="section section-loss">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">OPPORTUNITY LOSS</p>
+      <h2 class="section-title reveal">바빠서 미룬 하루,<br>고객은 경쟁 매장을 먼저 발견했습니다.</h2>
+      <p class="section-lead reveal">게시물이 멈추고 플레이스 정보가 오래될수록, 좋은 메뉴를 가진 매장보다 자주 보이는 매장이 먼저 선택받습니다.</p>
+
+      <div class="loss-daytrack reveal" aria-hidden="true">
+        <span class="loss-daytrack-point">영업 준비</span>
+        <span class="loss-daytrack-point">점심 피크</span>
+        <span class="loss-daytrack-point">재료 준비</span>
+        <span class="loss-daytrack-point">마감</span>
+      </div>
+
+      <ul class="loss-list">
+        <li class="reveal">한 달째 멈춘 SNS</li>
+        <li class="reveal">검색 후 경쟁 매장을 선택한 고객</li>
+        <li class="reveal">오래된 플레이스 정보</li>
+        <li class="reveal">매장 안에서만 알려진 인기 메뉴</li>
+        <li class="reveal">방문 고객에게만 끝나는 매출</li>
+        <li class="reveal">시작하지 못한 온라인판매</li>
+        <li class="reveal">다시 연락할 방법이 없는 기존 고객</li>
+      </ul>
+
+      <div class="section-ctas reveal">
+        <button type="button" class="btn btn-primary" data-scroll-to="nationwide-sales">인기 메뉴를 전국으로 팔아보기</button>
+        <button type="button" class="btn btn-outline" data-scroll-to="why-sns">SNS에서 더 많은 고객 만나기</button>
+      </div>
     </div>
   </section>
 
-  <!-- ============ 02. 고객 손실·욕구 ============ -->
-  <section id="owner-loss" class="section section-owner-loss">
-    <div class="section-inner container owner-loss-layout">
-      <div class="owner-loss-head">
-        <p class="eyebrow reveal">OWNER'S DAY</p>
-        <h2 class="section-title reveal">바쁜 하루 사이,<br>고객 접점은 조용히 사라집니다.</h2>
+  <!-- ============ 03. 음식점 메뉴 온라인판매 ============ -->
+  <section id="nationwide-sales" class="section section-nationwide">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">RESTAURANT MENU TO NATIONWIDE SALES</p>
+      <h2 class="section-title reveal">배달 반경은 짧아도,<br>메뉴가 팔릴 <span class="hl">범위</span>까지 짧을 필요는 없습니다.</h2>
+      <p class="section-lead reveal">매장에서 이미 잘 팔리는 메뉴라면, 방문하지 못하는 고객도 다시 주문할 수 있는 상품으로 확장할 기회가 있습니다.</p>
+
+      <ol class="flow-chain reveal">
+        <li><span class="flow-num">01</span>온라인판매 가능성 점검</li>
+        <li><span class="flow-num">02</span>인허가·제조 준비상태 확인</li>
+        <li><span class="flow-num">03</span>대표메뉴·상품구성·가격 설계</li>
+        <li><span class="flow-num">04</span>포장·배송 구조</li>
+        <li><span class="flow-num">05</span>판매채널 연결</li>
+        <li><span class="flow-num">06</span>SNS·검색 콘텐츠 유입</li>
+        <li><span class="flow-num">07</span>구매 고객 재접촉·재구매</li>
+      </ol>
+
+      <p class="section-note reveal">모든 메뉴가 바로 온라인판매에 적합한 것은 아닙니다. 현재 조건을 먼저 확인한 뒤 가능한 실행 순서를 안내합니다.</p>
+
+      <div class="section-ctas reveal">
+        <button type="button" class="btn btn-primary" id="nationwideDiagCta">우리 메뉴 온라인판매 가능성 점검</button>
+        <button type="button" class="btn btn-outline" data-scroll-to="why-sns">SNS가 판매를 만드는 과정 보기</button>
       </div>
-      <div class="owner-loss-body">
-        <ul class="owner-loss-list">
-          <li class="reveal">
-            <p class="owner-loss-fact">게시물은 한 달째 멈췄습니다.</p>
-            <p class="owner-loss-detail">오늘도 영업이 먼저였습니다.</p>
-          </li>
-          <li class="reveal">
-            <p class="owner-loss-fact">검색한 고객은 다른 매장을 골랐습니다.</p>
-            <p class="owner-loss-detail">플레이스와 콘텐츠가 선택의 근거를 만들지 못했습니다.</p>
-          </li>
-          <li class="reveal">
-            <p class="owner-loss-fact">좋은 메뉴가 매장 반경 안에만 머물렀습니다.</p>
-            <p class="owner-loss-detail">온라인 판매와 재구매 연결은 시작조차 막막했습니다.</p>
-          </li>
+    </div>
+  </section>
+
+  <!-- ============ 04. SNS 운영 필요성 ============ -->
+  <section id="why-sns" class="section section-why-sns">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">SNS CHANNEL MANAGEMENT</p>
+      <h2 class="section-title reveal">손님은 매장에 오기 전,<br><span class="hl">SNS</span>에서 이미 어디로 갈지 정합니다.</h2>
+      <p class="section-lead reveal">SNS는 홍보용 게시판이 아니라 고객이 매장을 발견하고, 믿고, 검색하고, 방문하는 첫 번째 영업공간입니다.</p>
+
+      <div class="behavior-grid reveal">
+        <div class="behavior-step">
+          <span class="behavior-num">01</span>
+          <p class="behavior-title">발견</p>
+          <p class="behavior-desc">숏폼·Reels·TikTok·Shorts</p>
+        </div>
+        <div class="behavior-step">
+          <span class="behavior-num">02</span>
+          <p class="behavior-title">이해</p>
+          <p class="behavior-desc">카드뉴스·Threads</p>
+        </div>
+        <div class="behavior-step">
+          <span class="behavior-num">03</span>
+          <p class="behavior-title">검색·검증</p>
+          <p class="behavior-desc">네이버 플레이스·블로그·리뷰</p>
+        </div>
+        <div class="behavior-step">
+          <span class="behavior-num">04</span>
+          <p class="behavior-title">방문·문의·구매</p>
+          <p class="behavior-desc">예약·상담·매장·판매채널 CTA</p>
+        </div>
+        <div class="behavior-step">
+          <span class="behavior-num">05</span>
+          <p class="behavior-title">재접촉</p>
+          <p class="behavior-desc">후기·새 메뉴·이벤트·고객반응 콘텐츠</p>
+        </div>
+      </div>
+
+      <p class="chain-label reveal">TIGER 운영범위</p>
+      <ol class="chain-chips reveal">
+        <li>전략</li><li>기획</li><li>촬영</li><li>제작</li><li>플랫폼별 편집</li><li>업로드</li><li>댓글·반응 확인</li><li>플레이스·판매 연결</li><li>성과분석</li><li>개선</li>
+      </ol>
+
+      <div class="section-ctas reveal">
+        <button type="button" class="btn btn-primary" id="snsDiagCta">우리 채널이 멈춘 지점 진단하기</button>
+        <button type="button" class="btn btn-outline" data-scroll-to="tiger-system">TIGER가 고객을 연결하는 방식 보기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05. TIGER 통합 성장 시스템 ============ -->
+  <section id="tiger-system" class="section section-system">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">FROM CONTENT TO COMMERCE</p>
+      <h2 class="section-title reveal">게시물 몇 개가 아니라,<br>고객이 찾아오고 <span class="hl">다시 사는 구조</span>를 만듭니다.</h2>
+
+      <p class="chain-label reveal light">FUNNEL</p>
+      <ol class="chain-chips reveal light">
+        <li>분석</li><li>콘텐츠</li><li>SNS 발견</li><li>검색</li><li>플레이스 확인</li><li>방문·문의</li><li>온라인구매</li><li>재구매</li><li>성과분석</li>
+      </ol>
+
+      <div class="engine-grid reveal">
+        <div class="engine-card">
+          <p class="engine-name">SNS GROWTH</p>
+          <p class="engine-desc">더 많은 고객에게 발견</p>
+        </div>
+        <div class="engine-card">
+          <p class="engine-name">PLACE CONVERSION</p>
+          <p class="engine-desc">검색한 고객의 방문 선택</p>
+        </div>
+        <div class="engine-card">
+          <p class="engine-name">NATIONWIDE SALES</p>
+          <p class="engine-desc">매장 밖 구매와 재구매</p>
+        </div>
+      </div>
+
+      <div class="why-tiger reveal">
+        <p class="why-tiger-hook">콘텐츠만 만드는 회사가 아닙니다.<br>실제 판매와 고객 전환을 이해하는 팀입니다.</p>
+        <ul class="why-tiger-list">
+          <li>음식점·F&amp;B 콘텐츠 운영 경험</li>
+          <li>SNS·플레이스·온라인판매 통합설계</li>
+          <li>라이브커머스·실제 판매 운영 경험</li>
+          <li>기획·제작·게시·성과를 확인하는 전용 Dashboard</li>
+          <li>업체별 진단을 바탕으로 한 맞춤 Proposal</li>
         </ul>
-        <p class="owner-loss-desire reveal">사장님이 영업에 집중하는 동안에도 콘텐츠와 검색 접점은 멈추지 않아야 합니다.<br>매장이 발견되고, 검색되고, 방문과 구매 기회를 넓히는 운영이 필요합니다.</p>
+      </div>
+
+      <div class="section-ctas reveal">
+        <button type="button" class="btn btn-primary" data-scroll-to="proof-cases">실제로 고객이 반응한 결과 보기</button>
       </div>
     </div>
   </section>
 
-  <!-- ============ 03. 실제 Proof ============ -->
-  <section id="proof" class="section section-proof">
-    <div class="section-inner container proof-layout">
-      <div class="proof-copy">
-        <p class="eyebrow reveal">REAL RESPONSE, VERIFIED</p>
-        <h2 class="section-title reveal">조회수가 아니라 <span class="hl">고객이 말을 걸기 시작했습니다.</span></h2>
-        <p class="section-lead reveal">조가네맛곳간 SNS 채널 생성 후 올린 첫 게시물에서 확인된 실제 반응입니다.</p>
-        <ul class="proof-context reveal">
-          <li>SNS 채널 생성 후 첫 게시물</li>
-          <li>광고비 0원</li>
-          <li>66.1K 조회</li>
-        </ul>
-        <p class="proof-headline-number reveal">66.1K<span>VIEWS</span></p>
-        <div class="proof-metric-grid reveal">
-          <div class="proof-metric-card">
-            <span class="proof-metric-value">278</span>
-            <span class="proof-metric-label">LIKES</span>
-          </div>
-          <div class="proof-metric-card">
-            <span class="proof-metric-value">53</span>
-            <span class="proof-metric-label">COMMENTS</span>
-          </div>
-          <div class="proof-metric-card">
-            <span class="proof-metric-value">26</span>
-            <span class="proof-metric-label">SAVES</span>
-          </div>
-          <div class="proof-metric-card">
-            <span class="proof-metric-value">+69</span>
-            <span class="proof-metric-label">FOLLOWERS</span>
-          </div>
-        </div>
-        <p class="proof-disclaimer reveal">제공된 첫 게시물 성과 캡처 기준이며 매출·구매전환 성과를 의미하지 않습니다.</p>
-        <button type="button" class="btn btn-primary btn-large proof-cta reveal" data-scroll-to="diagnosis">우리 매장도 진단받기</button>
-      </div>
-      <div class="proof-shots reveal">
-        <figure class="proof-case-shot">
-          <img src="assets/proposals/_brand/CASE_JOGANE_TIKTOK_ANALYTICS.png" alt="TikTok Studio 실제 분석 화면" loading="lazy">
-          <figcaption>TikTok Studio 실제 분석 화면</figcaption>
-        </figure>
-        <figure class="proof-case-shot">
-          <img src="assets/proposals/_brand/CASE_JOGANE_TIKTOK_POST.png" alt="실제 게시물 반응 화면" loading="lazy">
-          <figcaption>실제 게시물 반응 화면</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 04. 무료진단 3종 통합 ============ -->
-  <section id="diagnosis" class="section section-diagnosis">
+  <!-- ============ 06. 실제 성과·사례 ============ -->
+  <section id="proof-cases" class="section section-proof">
     <div class="section-inner container">
-      <p class="eyebrow reveal">FREE DIAGNOSIS</p>
-      <h2 class="section-title reveal">지금 필요한 진단 하나만 선택하세요.</h2>
-      <p class="section-lead reveal">확인되지 않은 수익이나 성과를 약속하지 않습니다.<br>현재 상태를 먼저 점검하고 다음 실행 순서를 정리해드립니다.</p>
+      <p class="eyebrow reveal">REAL RESPONSE, VERIFIED</p>
+      <h2 class="section-title reveal">광고비 0원, 첫 게시물에서<br>고객이 먼저 말을 걸기 시작했습니다.</h2>
 
-      <div class="diag-grid">
-        <button type="button" class="diag-card reveal" data-inquiry="네이버 플레이스 무료점검">
-          <span class="diag-name">네이버 플레이스<br>무료점검</span>
-          <span class="diag-desc">검색 노출, 사진·메뉴 정보, 고객이 선택하기 어려운 지점을 살펴봅니다.</span>
-          <span class="diag-cta">플레이스 점검 선택 <span aria-hidden="true">→</span></span>
-        </button>
-        <button type="button" class="diag-card reveal" data-inquiry="SNS 통합진단">
-          <span class="diag-name">SNS 통합진단</span>
-          <span class="diag-desc">방치된 채널과 콘텐츠 흐름을 확인해 무엇부터 운영해야 하는지 정리합니다.</span>
-          <span class="diag-cta">SNS 진단 선택 <span aria-hidden="true">→</span></span>
-        </button>
-        <button type="button" class="diag-card reveal" data-inquiry="전국판매 가능성 점검">
-          <span class="diag-name">전국판매<br>가능성 점검</span>
-          <span class="diag-desc">메뉴 적합성과 준비 절차, 판매채널 연결 가능성을 확인합니다.</span>
-          <span class="diag-cta">전국판매 점검 선택 <span aria-hidden="true">→</span></span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 05. TIGER 고객 Funnel ============ -->
-  <section id="system" class="section section-system">
-    <div class="section-inner container">
-      <p class="eyebrow reveal">FROM CONTENT TO CUSTOMER</p>
-      <h2 class="section-title reveal">콘텐츠 한 편이 아니라,<br>고객이 오는 길을 만듭니다.</h2>
-      <p class="section-lead reveal">채널마다 같은 게시물을 복사하는 방식이 아닙니다. 고객이 발견하고 검색한 뒤 방문·문의·구매로 이동하도록 플랫폼의 역할을 나눠 운영합니다.</p>
-
-      <div class="funnel-grid">
-        <div class="funnel-step reveal">
-          <span class="funnel-num">01</span>
-          <p class="funnel-title">발견</p>
-          <p class="funnel-desc">숏폼·카드뉴스·Threads</p>
+      <div class="proof-layout">
+        <div class="proof-copy">
+          <ul class="proof-context reveal">
+            <li>SNS 채널 생성 후 첫 게시물</li>
+            <li>광고비 0원</li>
+          </ul>
+          <p class="proof-headline-number reveal">66.1K<span>VIEWS</span></p>
+          <div class="proof-metric-grid reveal">
+            <div class="proof-metric-card"><span class="proof-metric-value">278</span><span class="proof-metric-label">LIKES</span></div>
+            <div class="proof-metric-card"><span class="proof-metric-value">53</span><span class="proof-metric-label">COMMENTS</span></div>
+            <div class="proof-metric-card"><span class="proof-metric-value">26</span><span class="proof-metric-label">SAVES</span></div>
+            <div class="proof-metric-card"><span class="proof-metric-value">+69</span><span class="proof-metric-label">FOLLOWERS</span></div>
+          </div>
+          <p class="proof-disclaimer reveal">제공된 첫 게시물 성과 캡처 기준이며 매출·구매전환 성과를 의미하지 않습니다. 동일한 성과를 보장하지 않습니다.</p>
         </div>
-        <div class="funnel-step reveal">
-          <span class="funnel-num">02</span>
-          <p class="funnel-title">검색</p>
-          <p class="funnel-desc">네이버 플레이스·블로그</p>
-        </div>
-        <div class="funnel-step reveal">
-          <span class="funnel-num">03</span>
-          <p class="funnel-title">방문·문의</p>
-          <p class="funnel-desc">예약·상담·매장 유입</p>
-        </div>
-        <div class="funnel-step reveal">
-          <span class="funnel-num">04</span>
-          <p class="funnel-title">구매·재구매</p>
-          <p class="funnel-desc">온라인 판매·고객 DB</p>
+        <div class="proof-shots reveal">
+          <figure class="proof-case-shot">
+            <img src="assets/proposals/_brand/CASE_JOGANE_TIKTOK_ANALYTICS.png" alt="TikTok Studio 실제 분석 화면" loading="lazy">
+            <figcaption>TikTok Studio 실제 분석 화면</figcaption>
+          </figure>
+          <figure class="proof-case-shot">
+            <img src="assets/proposals/_brand/CASE_JOGANE_TIKTOK_POST.png" alt="실제 게시물 반응 화면" loading="lazy">
+            <figcaption>실제 게시물 반응 화면</figcaption>
+          </figure>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ============ 06. 진행 사례 ============ -->
-  <section id="cases" class="section section-cases">
-    <div class="section-inner container">
-      <p class="eyebrow reveal">SELECTED WORK</p>
-      <h2 class="section-title reveal">말보다 실제 운영 화면으로 보여드립니다.</h2>
+      <p class="case-hook reveal">매장마다 문제는 달랐고,<br>고객이 오는 방법도 다르게 설계했습니다.</p>
 
       <div class="case-grid">
         <article class="case-card reveal">
@@ -243,11 +289,10 @@
                 <img src="https://cdn.simpleicons.org/youtube/FF0000" alt="유튜브"><span>유튜브</span>
               </a>
             </div>
-            <p class="case-card-result">장지녕간장게장 — 콘텐츠·온라인 판매 운영 사례</p>
+            <p class="case-card-result">콘텐츠·온라인 판매 운영 사례</p>
             <a class="case-card-cta" href="https://youtu.be/UrxGC9U0HA8" target="_blank" rel="noopener">성과 보기 <span aria-hidden="true">→</span></a>
           </div>
         </article>
-
         <article class="case-card reveal">
           <div class="case-card-photo">
             <img src="assets/cases/6.JPEG" alt="김치를찜하다 구미본점 매장 내부" loading="lazy" width="640" height="480">
@@ -262,11 +307,10 @@
                 <img src="https://cdn.simpleicons.org/tiktok/FFFFFF" alt="틱톡"><span>틱톡</span>
               </a>
             </div>
-            <p class="case-card-result">김치를찜하다 구미본점 — 로컬 매장의 채널 확장 사례</p>
+            <p class="case-card-result">로컬 매장의 채널 확장 사례</p>
             <a class="case-card-cta" href="https://www.tiktok.com/@joganemgg" target="_blank" rel="noopener">성과 보기 <span aria-hidden="true">→</span></a>
           </div>
         </article>
-
         <article class="case-card reveal">
           <div class="case-card-photo">
             <img src="assets/cases/8.JPEG" alt="손찬 반찬가게 진열대" loading="lazy" width="640" height="480">
@@ -281,67 +325,304 @@
                 <img src="https://cdn.simpleicons.org/tiktok/FFFFFF" alt="틱톡"><span>틱톡</span>
               </a>
             </div>
-            <p class="case-card-result">손찬 구미인동점 — 반찬 브랜드의 콘텐츠 운영 사례</p>
+            <p class="case-card-result">반찬 브랜드의 콘텐츠 운영 사례</p>
             <a class="case-card-cta" href="https://www.tiktok.com/@joganemgg" target="_blank" rel="noopener">성과 보기 <span aria-hidden="true">→</span></a>
           </div>
         </article>
       </div>
-    </div>
-  </section>
 
-  <!-- ============ 07. 4단계 프로세스 ============ -->
-  <section id="process" class="section section-process">
-    <div class="section-inner container">
-      <p class="eyebrow reveal">HOW WE WORK</p>
-      <h2 class="section-title reveal">진단부터 운영까지,<br>네 단계로 진행합니다.</h2>
-
-      <div class="process-grid">
-        <div class="process-step reveal">
-          <span class="process-num">01</span>
-          <h3 class="process-title">현재 진단</h3>
-          <p class="process-desc">채널·플레이스·판매 가능성을 확인합니다.</p>
-        </div>
-        <div class="process-step reveal">
-          <span class="process-num">02</span>
-          <h3 class="process-title">전략 설계</h3>
-          <p class="process-desc">고객 흐름과 플랫폼별 역할을 정합니다.</p>
-        </div>
-        <div class="process-step reveal">
-          <span class="process-num">03</span>
-          <h3 class="process-title">제작·운영</h3>
-          <p class="process-desc">콘텐츠를 제작하고 각 채널에 맞게 운영합니다.</p>
-        </div>
-        <div class="process-step reveal">
-          <span class="process-num">04</span>
-          <h3 class="process-title">성과 점검·개선</h3>
-          <p class="process-desc">확인된 반응을 다음 콘텐츠와 운영에 반영합니다.</p>
-        </div>
+      <div class="section-ctas reveal">
+        <button type="button" class="btn btn-primary" data-diagnosis-open data-source-cta="proof-cases-cta">우리 매장의 막힌 지점 확인하기</button>
       </div>
     </div>
   </section>
 
-  <!-- ============ 08. 서비스 플랜 ============ -->
-  <section id="pricing" class="section section-pricing">
+  <!-- ============ 07. 맞춤 무료진단·단일 폼 ============ -->
+  <section id="diagnosis" class="section section-diagnosis">
     <div class="section-inner container">
-      <p class="eyebrow reveal">SERVICE PLAN</p>
-      <h2 class="section-title reveal">필요한 범위만 선택할 수 있도록 구성했습니다.</h2>
-      <p class="section-lead reveal">추천 이유를 먼저 확인한 뒤 계약기간과 플랜을 비교하세요.</p>
+      <p class="eyebrow reveal">FREE DIAGNOSIS</p>
+      <h2 class="section-title reveal">홍보비를 더 쓰기 전에,<br>어디서 고객을 놓치는지부터 확인하세요.</h2>
+      <p class="section-lead reveal">같은 음식점이라도 플레이스, SNS, 온라인판매 중 먼저 해결해야 할 지점은 다릅니다.</p>
 
+      <div class="diag-selector reveal" id="diagSelector">
+        <button type="button" class="diag-card" id="diagCardPlace" data-diag-type="place" aria-expanded="false" aria-controls="diagnosisPanel">
+          <span class="diag-hook">검색은 되는데 방문이 늘지 않는다면</span>
+          <span class="diag-cta">플레이스 무료점검</span>
+        </button>
+        <button type="button" class="diag-card" id="diagCardSns" data-diag-type="sns" aria-expanded="false" aria-controls="diagnosisPanel">
+          <span class="diag-hook">게시물은 올리는데 고객반응이 없다면</span>
+          <span class="diag-cta">SNS 통합진단</span>
+        </button>
+        <button type="button" class="diag-card" id="diagCardNationwide" data-diag-type="nationwide" aria-expanded="false" aria-controls="diagnosisPanel">
+          <span class="diag-hook">인기 메뉴를 매장 밖에서도 팔고 싶다면</span>
+          <span class="diag-cta">온라인판매 가능성 점검</span>
+        </button>
+      </div>
+
+      <div class="diag-panel" id="diagnosisPanel" role="region" aria-labelledby="diagPanelTitle" hidden>
+        <p class="diag-panel-title" id="diagPanelTitle"></p>
+        <p class="diag-panel-result" id="diagPanelResult"></p>
+
+        <form id="diagnosisForm" novalidate>
+          <input type="hidden" name="inquiryType" id="inquiryType">
+          <input type="hidden" name="plan" id="planField">
+          <input type="hidden" name="term" id="termField">
+          <input type="hidden" name="sourceSection" id="sourceSectionField">
+          <input type="hidden" name="sourceCTA" id="sourceCTAField">
+          <input type="hidden" name="heroSlide" id="heroSlideField">
+          <input type="hidden" name="selectedDiagnosis" id="selectedDiagnosisField">
+          <input type="hidden" name="selectedPlan" id="selectedPlanField">
+          <input type="hidden" name="selectedTerm" id="selectedTermField">
+
+          <div class="form-row">
+            <label for="storeName">매장명 <span class="req">*</span></label>
+            <input type="text" id="storeName" name="storeName" placeholder="예) 장지녕간장게장 한남동본점" required>
+          </div>
+          <div class="form-row">
+            <label for="storeArea">매장 지역 <span class="req">*</span></label>
+            <input type="text" id="storeArea" name="storeArea" placeholder="예) 서울 용산구" required>
+          </div>
+          <div class="form-row">
+            <label for="phone">연락처 <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="예) 010-1234-5678" required>
+          </div>
+
+          <!-- PLACE 맞춤 필드 -->
+          <fieldset class="diag-fieldset" id="fieldsetPlace" hidden>
+            <legend class="form-section-title">플레이스 진단 정보</legend>
+            <div class="form-row">
+              <label for="placeUrl">네이버 플레이스 URL</label>
+              <input type="text" id="placeUrl" name="placeUrl" placeholder="네이버 플레이스 링크(선택)">
+            </div>
+            <div class="form-row">
+              <span class="form-legend">현재 운영 여부</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="placeOperating" value="운영중"> 운영중</label>
+                <label class="radio-pill"><input type="radio" name="placeOperating" value="미등록"> 미등록</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <span class="form-legend">고민항목</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="placeConcern" value="검색노출"> 검색노출</label>
+                <label class="radio-pill"><input type="radio" name="placeConcern" value="대표사진"> 대표사진</label>
+                <label class="radio-pill"><input type="radio" name="placeConcern" value="메뉴정보"> 메뉴정보</label>
+                <label class="radio-pill"><input type="radio" name="placeConcern" value="리뷰"> 리뷰</label>
+                <label class="radio-pill"><input type="radio" name="placeConcern" value="예약·문의"> 예약·문의</label>
+                <label class="radio-pill"><input type="radio" name="placeConcern" value="무엇이 문제인지 모르겠음"> 잘 모르겠음</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="placeExtra">추가로 확인받고 싶은 내용</label>
+              <textarea id="placeExtra" name="placeExtra" rows="3" placeholder="편하게 남겨주세요"></textarea>
+            </div>
+          </fieldset>
+
+          <!-- SNS 맞춤 필드 -->
+          <fieldset class="diag-fieldset" id="fieldsetSns" hidden>
+            <legend class="form-section-title">SNS 진단 정보</legend>
+            <div class="form-row">
+              <span class="form-legend">운영 중인 채널</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="snsChannel" value="Instagram"> Instagram</label>
+                <label class="radio-pill"><input type="radio" name="snsChannel" value="TikTok"> TikTok</label>
+                <label class="radio-pill"><input type="radio" name="snsChannel" value="YouTube"> YouTube</label>
+                <label class="radio-pill"><input type="radio" name="snsChannel" value="Threads"> Threads</label>
+                <label class="radio-pill"><input type="radio" name="snsChannel" value="Naver Blog"> Naver Blog</label>
+                <label class="radio-pill"><input type="radio" name="snsChannel" value="없음"> 없음</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="snsHandle">대표 채널 URL 또는 ID</label>
+              <input type="text" id="snsHandle" name="snsHandle" placeholder="예) @storename">
+            </div>
+            <div class="form-row">
+              <label for="snsRecent">최근 게시상태</label>
+              <input type="text" id="snsRecent" name="snsRecent" placeholder="예) 3개월째 방치">
+            </div>
+            <div class="form-row">
+              <span class="form-legend">가장 어려운 업무</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="snsDifficulty" value="기획"> 기획</label>
+                <label class="radio-pill"><input type="radio" name="snsDifficulty" value="촬영"> 촬영</label>
+                <label class="radio-pill"><input type="radio" name="snsDifficulty" value="제작"> 제작</label>
+                <label class="radio-pill"><input type="radio" name="snsDifficulty" value="업로드"> 업로드</label>
+                <label class="radio-pill"><input type="radio" name="snsDifficulty" value="반응관리"> 반응관리</label>
+                <label class="radio-pill"><input type="radio" name="snsDifficulty" value="성과분석"> 성과분석</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <span class="form-legend">원하는 행동</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="snsGoal" value="방문"> 방문</label>
+                <label class="radio-pill"><input type="radio" name="snsGoal" value="예약·문의"> 예약·문의</label>
+                <label class="radio-pill"><input type="radio" name="snsGoal" value="브랜드 인지도"> 브랜드 인지도</label>
+                <label class="radio-pill"><input type="radio" name="snsGoal" value="온라인구매"> 온라인구매</label>
+                <label class="radio-pill"><input type="radio" name="snsGoal" value="재구매"> 재구매</label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- 전국판매 맞춤 필드 (기존 필드명 전부 유지) -->
+          <fieldset class="diag-fieldset" id="fieldsetNationwide" hidden>
+            <legend class="form-section-title">1. 기본 매장정보</legend>
+            <div class="form-row">
+              <label for="ncOperatingPeriod">운영기간</label>
+              <input type="text" id="ncOperatingPeriod" name="operatingPeriod" placeholder="예) 3년">
+            </div>
+
+            <p class="form-section-title">2. 서류·행정 준비상태</p>
+            <div class="form-row">
+              <label for="ncBizNum">사업자등록번호</label>
+              <input type="text" id="ncBizNum" name="bizNum" placeholder="예) 123-45-67890">
+            </div>
+            <div class="form-row">
+              <span class="form-legend">즉석판매제조가공업 신고 여부</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="foodMfgReport" value="있음"> 있음</label>
+                <label class="radio-pill"><input type="radio" name="foodMfgReport" value="없음"> 없음</label>
+                <label class="radio-pill"><input type="radio" name="foodMfgReport" value="모름"> 모름</label>
+              </div>
+            </div>
+            <div class="form-row" id="ncBusinessTypeRow" hidden>
+              <span class="form-legend">현재 영업형태</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="businessType" value="일반음식점"> 일반음식점</label>
+                <label class="radio-pill"><input type="radio" name="businessType" value="휴게음식점"> 휴게음식점</label>
+                <label class="radio-pill"><input type="radio" name="businessType" value="제과점"> 제과점</label>
+                <label class="radio-pill"><input type="radio" name="businessType" value="기타"> 기타</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <span class="form-legend">통신판매업 신고 여부</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="onlineSalesReport" value="있음"> 있음</label>
+                <label class="radio-pill"><input type="radio" name="onlineSalesReport" value="없음"> 없음</label>
+                <label class="radio-pill"><input type="radio" name="onlineSalesReport" value="모름"> 모름</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <span class="form-legend">조리공간 분리·구획 가능 여부</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="spaceSeparation" value="예"> 예</label>
+                <label class="radio-pill"><input type="radio" name="spaceSeparation" value="아니오"> 아니오</label>
+                <label class="radio-pill"><input type="radio" name="spaceSeparation" value="모름"> 모름</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <span class="form-legend">보건증(건강진단결과서) 보유 여부</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="healthCert" value="있음"> 있음</label>
+                <label class="radio-pill"><input type="radio" name="healthCert" value="없음"> 없음</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <span class="form-legend">위생교육 이수증 보유 여부</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="hygieneEdu" value="있음"> 있음</label>
+                <label class="radio-pill"><input type="radio" name="hygieneEdu" value="없음"> 없음</label>
+              </div>
+            </div>
+
+            <p class="form-section-title">3. 대표메뉴·가격·포장·배송·스토리</p>
+            <div class="nc-menu-row">
+              <input type="text" name="menu1" placeholder="대표메뉴 1">
+              <input type="text" name="menu1Price" placeholder="가격 (원)">
+            </div>
+            <div class="nc-menu-row">
+              <input type="text" name="menu2" placeholder="대표메뉴 2">
+              <input type="text" name="menu2Price" placeholder="가격 (원)">
+            </div>
+            <div class="nc-menu-row">
+              <input type="text" name="menu3" placeholder="대표메뉴 3">
+              <input type="text" name="menu3Price" placeholder="가격 (원)">
+            </div>
+            <div class="form-row">
+              <label for="ncPackagingCost">예상 포장비 (원)</label>
+              <input type="text" id="ncPackagingCost" name="packagingCost" placeholder="예) 1,500">
+            </div>
+            <div class="form-row">
+              <span class="form-legend">배송비 부담주체</span>
+              <div class="radio-group" role="radiogroup">
+                <label class="radio-pill"><input type="radio" name="deliveryCostBy" value="고객"> 고객</label>
+                <label class="radio-pill"><input type="radio" name="deliveryCostBy" value="매장"> 매장</label>
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="ncStory">강점·스토리</label>
+              <textarea id="ncStory" name="storyStrength" rows="3" placeholder="우리 매장만의 강점, 창업 스토리 등을 편하게 적어주세요"></textarea>
+            </div>
+          </fieldset>
+
+          <div class="form-row">
+            <label for="message">하고 싶은 말</label>
+            <textarea id="message" name="message" rows="3" placeholder="궁금한 점이나 매장 상황을 편하게 남겨주세요"></textarea>
+          </div>
+
+          <label class="consent-row">
+            <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
+            <span>입력하신 정보는 상담 목적으로만 사용되며, 상담 완료 후 안전하게 관리됩니다. 개인정보 수집·이용에 동의합니다. <span class="req">*</span></span>
+          </label>
+
+          <button type="submit" class="btn btn-primary btn-large form-submit">
+            <span class="btn-label">진단 신청하기</span>
+          </button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 08. 운영방식·가격·대시보드 ============ -->
+  <section id="service-plan" class="section section-service-plan">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">SERVICE &amp; PLAN</p>
+      <h2 class="section-title reveal">콘텐츠 때문에 장사를 놓치지 마세요.<br>필요한 만큼 타이거가 맡습니다.</h2>
+      <p class="section-lead reveal">채널을 다시 움직이는 기본 운영부터 온라인판매와 라이브커머스까지, 현재 매장에 필요한 범위만 선택할 수 있습니다.</p>
+
+      <!-- 14.1 운영방식 -->
+      <p class="subsection-hook reveal">무엇을 하는지만큼,<br>어떻게 진행되는지도 투명해야 합니다.</p>
+      <div class="process-grid reveal">
+        <div class="process-step">
+          <span class="process-num">01</span>
+          <h3 class="process-title">현재 진단</h3>
+        </div>
+        <div class="process-step">
+          <span class="process-num">02</span>
+          <h3 class="process-title">전략·Funnel 설계</h3>
+        </div>
+        <div class="process-step">
+          <span class="process-num">03</span>
+          <h3 class="process-title">콘텐츠 제작·채널 운영</h3>
+        </div>
+        <div class="process-step">
+          <span class="process-num">04</span>
+          <h3 class="process-title">성과 확인·개선</h3>
+        </div>
+      </div>
+      <ol class="chain-chips reveal">
+        <li>전략</li><li>기획</li><li>촬영</li><li>제작</li><li>플랫폼별 편집</li><li>업로드</li><li>댓글·반응</li><li>플레이스·판매 연결</li><li>성과분석</li><li>개선</li>
+      </ol>
+
+      <!-- 14.2 가격 -->
       <div class="plan-term-row reveal">
         <div class="plan-term-toggle" id="planTermToggle" role="radiogroup" aria-label="계약기간 선택"></div>
         <span class="plan-vat-label" id="planVatLabel"></span>
       </div>
-      <div class="plan-grid" id="planGrid"></div>
-    </div>
-  </section>
+      <div class="plan-summary-grid reveal" id="planSummaryGrid"></div>
+      <div class="plan-detail" id="planDetail"></div>
+      <div class="plan-common reveal">
+        <p class="plan-common-title">모든 플랜 공통 제공</p>
+        <ul class="plan-common-list">
+          <li>콘텐츠 기획</li>
+          <li>SNS 채널 운영</li>
+          <li>플랫폼별 업로드</li>
+        </ul>
+      </div>
 
-  <!-- ============ 09. 실제 업무 대시보드 ============ -->
-  <section id="dashboard-preview" class="section section-dashboard-preview">
-    <div class="section-inner container">
-      <p class="eyebrow reveal">VISIBLE WORKFLOW</p>
-      <h2 class="section-title reveal">진행 상황을 숨기지 않습니다.</h2>
+      <!-- 14.3 Dashboard -->
+      <p class="subsection-hook reveal">진행 상황을 숨기지 않습니다.</p>
       <p class="section-lead reveal">기획·제작·게시·성과 확인 과정을 전용 화면에서 함께 확인할 수 있습니다.</p>
-
       <div class="dash-tabs reveal" id="dashTabs" role="tablist" aria-label="대시보드 화면 선택">
         <button type="button" class="dash-tab is-active" role="tab" aria-selected="true" data-target="dash-roadmap">로드맵</button>
         <button type="button" class="dash-tab" role="tab" aria-selected="false" data-target="dash-monthly">월간성과</button>
@@ -352,219 +633,74 @@
       <div class="dash-shot-frame reveal">
         <img id="dashShotImg" src="assets/dashboard-preview/dashboard-1-score-roadmap.JPEG" alt="로드맵 화면" loading="lazy">
       </div>
-      <p class="dash-shot-caption">화면은 서비스 개선에 따라 달라질 수 있습니다.</p>
     </div>
   </section>
 
-  <!-- ============ 10. 최종 욕구 환기 + FAQ + 단일 진단 폼 ============ -->
-  <section id="contact" class="section section-contact">
+  <!-- ============ 09. 최종 전환·FAQ ============ -->
+  <section id="final-cta" class="section section-final-cta">
     <div class="section-inner container">
       <p class="eyebrow reveal light">READY TO MOVE?</p>
-      <h2 class="section-title reveal light">좋은 매장이<br>더 많은 고객을 만날 차례입니다.</h2>
+      <h2 class="section-title reveal light">좋은 메뉴가<br>매장 안에만 머물지 않도록.</h2>
+      <p class="section-lead reveal light">더 많은 고객에게 발견되고, 방문과 온라인구매로 이어질 수 있도록 지금 막힌 지점부터 확인합니다.</p>
 
-      <div class="contact-layout">
-        <div class="contact-form-col reveal">
-          <p class="contact-form-heading">지금 필요한 진단부터 시작하세요.</p>
-          <p class="contact-form-sub">업체 상황을 확인한 뒤 필요한 실행 범위와 다음 단계를 안내해드립니다.</p>
+      <div class="final-cta-row reveal">
+        <button type="button" class="btn btn-primary" id="finalPlaceCta">플레이스 무료점검</button>
+        <button type="button" class="btn btn-primary" id="finalSnsCta">SNS 통합진단</button>
+        <button type="button" class="btn btn-primary" id="finalNationwideCta">온라인판매 가능성 점검</button>
+      </div>
 
-          <form id="contactForm" novalidate>
-            <div class="form-row">
-              <label for="inquiryType">문의 유형 <span class="req">*</span></label>
-              <select id="inquiryType" name="inquiryType" required>
-                <option value="" disabled selected>선택해주세요</option>
-                <option value="네이버 플레이스 무료점검">네이버 플레이스 무료점검</option>
-                <option value="SNS 통합진단">SNS 통합진단</option>
-                <option value="전국판매 가능성 점검">전국판매 가능성 점검</option>
-                <option value="서비스 플랜 상담">서비스 플랜 상담</option>
-                <option value="기타 문의">기타 문의</option>
-              </select>
-            </div>
-            <div class="form-row">
-              <label for="storeName">매장명 <span class="req">*</span></label>
-              <input type="text" id="storeName" name="storeName" placeholder="예) 장지녕간장게장 한남동본점" required>
-            </div>
-            <div class="form-row">
-              <label for="storeArea">매장 지역 <span class="req">*</span></label>
-              <input type="text" id="storeArea" name="storeArea" placeholder="예) 서울 용산구" required>
-            </div>
-            <div class="form-row">
-              <label for="phone">연락처 <span class="req">*</span></label>
-              <input type="tel" id="phone" name="phone" placeholder="예) 010-1234-5678" required>
-            </div>
-            <input type="hidden" name="plan" id="planField">
-            <input type="hidden" name="term" id="termField">
-
-            <div class="form-conditional" id="standardPanel">
-              <div class="form-row">
-                <span class="form-legend">현재 온라인 판매를 하고 계신가요? <span class="req">*</span></span>
-                <div class="radio-group" role="radiogroup" aria-required="true">
-                  <label class="radio-pill"><input type="radio" name="onlineSales" value="예"> 예</label>
-                  <label class="radio-pill"><input type="radio" name="onlineSales" value="아니오"> 아니오</label>
-                </div>
-              </div>
-              <div class="form-row">
-                <label for="message">하고 싶은 말</label>
-                <textarea id="message" name="message" rows="4" placeholder="궁금한 점이나 매장 상황을 편하게 남겨주세요"></textarea>
-              </div>
-            </div>
-
-            <div class="form-conditional" id="nationalPanel" hidden>
-              <p class="form-section-title">서류·행정 요건</p>
-              <div class="form-row">
-                <label for="ncBizNum">사업자등록번호 <span class="req">*</span></label>
-                <input type="text" id="ncBizNum" name="bizNum" placeholder="예) 123-45-67890">
-              </div>
-              <div class="form-row">
-                <span class="form-legend">즉석판매제조가공업 신고 여부 <span class="req">*</span></span>
-                <div class="radio-group" role="radiogroup">
-                  <label class="radio-pill"><input type="radio" name="foodMfgReport" value="있음"> 있음</label>
-                  <label class="radio-pill"><input type="radio" name="foodMfgReport" value="없음"> 없음</label>
-                  <label class="radio-pill"><input type="radio" name="foodMfgReport" value="모름"> 모름</label>
-                </div>
-              </div>
-              <div class="form-row" id="ncBusinessTypeRow" hidden>
-                <span class="form-legend">현재 영업형태</span>
-                <div class="radio-group" role="radiogroup">
-                  <label class="radio-pill"><input type="radio" name="businessType" value="일반음식점"> 일반음식점</label>
-                  <label class="radio-pill"><input type="radio" name="businessType" value="휴게음식점"> 휴게음식점</label>
-                  <label class="radio-pill"><input type="radio" name="businessType" value="제과점"> 제과점</label>
-                  <label class="radio-pill"><input type="radio" name="businessType" value="기타"> 기타</label>
-                </div>
-              </div>
-              <div class="form-row">
-                <span class="form-legend">통신판매업 신고 여부 <span class="req">*</span></span>
-                <div class="radio-group" role="radiogroup">
-                  <label class="radio-pill"><input type="radio" name="onlineSalesReport" value="있음"> 있음</label>
-                  <label class="radio-pill"><input type="radio" name="onlineSalesReport" value="없음"> 없음</label>
-                  <label class="radio-pill"><input type="radio" name="onlineSalesReport" value="모름"> 모름</label>
-                </div>
-              </div>
-              <div class="form-row">
-                <span class="form-legend">조리공간 분리·구획 가능 여부 <span class="req">*</span></span>
-                <div class="radio-group" role="radiogroup">
-                  <label class="radio-pill"><input type="radio" name="spaceSeparation" value="예"> 예</label>
-                  <label class="radio-pill"><input type="radio" name="spaceSeparation" value="아니오"> 아니오</label>
-                  <label class="radio-pill"><input type="radio" name="spaceSeparation" value="모름"> 모름</label>
-                </div>
-              </div>
-              <div class="form-row">
-                <span class="form-legend">보건증(건강진단결과서) 보유 여부 <span class="req">*</span></span>
-                <div class="radio-group" role="radiogroup">
-                  <label class="radio-pill"><input type="radio" name="healthCert" value="있음"> 있음</label>
-                  <label class="radio-pill"><input type="radio" name="healthCert" value="없음"> 없음</label>
-                </div>
-              </div>
-              <div class="form-row">
-                <span class="form-legend">위생교육 이수증 보유 여부 <span class="req">*</span></span>
-                <div class="radio-group" role="radiogroup">
-                  <label class="radio-pill"><input type="radio" name="hygieneEdu" value="있음"> 있음</label>
-                  <label class="radio-pill"><input type="radio" name="hygieneEdu" value="없음"> 없음</label>
-                </div>
-              </div>
-              <div class="form-row">
-                <label for="ncOperatingPeriod">운영기간 <span class="req">*</span></label>
-                <input type="text" id="ncOperatingPeriod" name="operatingPeriod" placeholder="예) 3년">
-              </div>
-              <p class="form-section-title">대표메뉴 3가지 + 가격</p>
-              <div class="nc-menu-row">
-                <input type="text" name="menu1" placeholder="대표메뉴 1">
-                <input type="text" name="menu1Price" placeholder="가격 (원)">
-              </div>
-              <div class="nc-menu-row">
-                <input type="text" name="menu2" placeholder="대표메뉴 2">
-                <input type="text" name="menu2Price" placeholder="가격 (원)">
-              </div>
-              <div class="nc-menu-row">
-                <input type="text" name="menu3" placeholder="대표메뉴 3">
-                <input type="text" name="menu3Price" placeholder="가격 (원)">
-              </div>
-              <p class="form-section-title">배송·포장</p>
-              <div class="form-row">
-                <label for="ncPackagingCost">예상 포장비 (원)</label>
-                <input type="text" id="ncPackagingCost" name="packagingCost" placeholder="예) 1,500">
-              </div>
-              <div class="form-row">
-                <span class="form-legend">배송비 부담주체</span>
-                <div class="radio-group" role="radiogroup">
-                  <label class="radio-pill"><input type="radio" name="deliveryCostBy" value="고객"> 고객</label>
-                  <label class="radio-pill"><input type="radio" name="deliveryCostBy" value="매장"> 매장</label>
-                </div>
-              </div>
-              <div class="form-row">
-                <label for="ncStory">강점·스토리</label>
-                <textarea id="ncStory" name="storyStrength" rows="3" placeholder="우리 매장만의 강점, 창업 스토리 등을 편하게 적어주세요"></textarea>
-              </div>
-            </div>
-
-            <label class="consent-row">
-              <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
-              <span>입력하신 정보는 상담 목적으로만 사용되며, 상담 완료 후 안전하게 관리됩니다. 개인정보 수집·이용에 동의합니다. <span class="req">*</span></span>
-            </label>
-
-            <button type="submit" class="btn btn-primary btn-large form-submit">
-              <span class="btn-label">진단 신청하기</span>
-            </button>
-            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-          </form>
+      <div class="faq-accordion reveal">
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">무료진단은 정말 비용이 없나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>네, 무료 진단은 추가 비용 없이 진행됩니다. 진단 이후 실제 대행이 필요하다고 판단되실 때만 상담을 통해 플랜을 결정하시면 됩니다.</p></div>
         </div>
-
-        <div class="contact-faq-col reveal">
-          <div class="faq-accordion">
-            <div class="faq-item">
-              <button type="button" class="faq-q" aria-expanded="false">무료진단은 정말 비용이 없나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
-              <div class="faq-a" hidden><p>네, 무료 진단은 추가 비용 없이 진행됩니다. 진단 이후 실제 대행이 필요하다고 판단되실 때만 상담을 통해 플랜을 결정하시면 됩니다.</p></div>
-            </div>
-            <div class="faq-item">
-              <button type="button" class="faq-q" aria-expanded="false">계약기간은 어떻게 선택하나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
-              <div class="faq-a" hidden><p>매장 상황에 맞춰 6개월형·12개월형 중 선택하실 수 있습니다. 채널이 의미 있게 성장하기까지는 보통 6개월~1년의 꾸준한 시간이 필요합니다.</p></div>
-            </div>
-            <div class="faq-item">
-              <button type="button" class="faq-q" aria-expanded="false">촬영과 콘텐츠 제작은 어떻게 진행하나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
-              <div class="faq-a" hidden><p>타이거커머스랩이 직접 매장을 방문해 촬영부터 편집까지 진행합니다. 사장님은 메뉴 준비에만 집중하시면 됩니다.</p></div>
-            </div>
-            <div class="faq-item">
-              <button type="button" class="faq-q" aria-expanded="false">이미 운영 중인 채널이나 스마트스토어가 있어도 가능한가요?<span class="faq-toggle" aria-hidden="true">+</span></button>
-              <div class="faq-a" hidden><p>네, 기존 채널과 스토어를 그대로 활용하면서 콘텐츠·유입·구매전환 흐름을 새로 설계해 드립니다.</p></div>
-            </div>
-            <div class="faq-item">
-              <button type="button" class="faq-q" aria-expanded="false">성과는 어떻게 확인하나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
-              <div class="faq-a" hidden><p>계약 대표님 전용 대시보드에서 콘텐츠 진행 상황과 월간 성과를 실시간으로 확인하실 수 있습니다.</p></div>
-            </div>
-          </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">계약기간은 어떻게 선택하나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>매장 상황에 맞춰 6개월형·12개월형 중 선택하실 수 있습니다. 채널이 의미 있게 성장하기까지는 보통 6개월~1년의 꾸준한 시간이 필요합니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">촬영과 콘텐츠 제작은 어떻게 진행하나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>타이거커머스랩이 직접 매장을 방문해 촬영부터 편집까지 진행합니다. 사장님은 메뉴 준비에만 집중하시면 됩니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">이미 운영 중인 채널이나 스마트스토어가 있어도 가능한가요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>네, 기존 채널과 스토어를 그대로 활용하면서 콘텐츠·유입·구매전환 흐름을 새로 설계해 드립니다.</p></div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-q" aria-expanded="false">성과는 어떻게 확인하나요?<span class="faq-toggle" aria-hidden="true">+</span></button>
+          <div class="faq-a" hidden><p>계약 대표님 전용 대시보드에서 콘텐츠 진행 상황과 월간 성과를 실시간으로 확인하실 수 있습니다.</p></div>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="site-footer">
-    <div class="footer-inner container">
-      <div class="footer-brand">
-        <span class="logo-crop logo-crop-footer">
-          <img class="brand-logo" src="assets/brand/logo/TIGER_LOGO_PRIMARY_HORIZONTAL_WHITE_V1.png" alt="TIGER COMMERCE LAB">
-        </span>
-      </div>
-      <p class="footer-biz">
-        상호 영남상사 · 대표자 박영남 · 사업자등록번호 617-27-49619<br>
-        사업장 소재지 부산광역시 남구 진남로36번길 6(대연동)<br>
-        상담 문의 <a href="#contact" data-scroll-to="contact">바로가기</a>
-      </p>
-
-      <div class="footer-links">
-        <a href="https://whybe.co.kr" target="_blank" rel="noopener">와이비 — 이 브랜드를 만든 사람</a>
-        <a href="https://www.matgamsa.com/" target="_blank" rel="noopener">맛집감별사 — SNS 광고 문의</a>
-      </div>
-
-      <p class="footer-copyright">&copy; <span id="year"></span> Tiger Commerce Lab. All rights reserved.</p>
-    </div>
-  </footer>
 
 </main>
 
 <!-- 모바일 고정 CTA -->
-<div class="mobile-fixed-cta">
-  <button type="button" class="btn btn-primary" data-scroll-to="contact">무료 진단 받기</button>
+<div class="mobile-fixed-cta" id="mobileFixedCta">
+  <button type="button" class="btn btn-primary" data-diagnosis-open data-source-cta="mobile-fixed-cta">무료 진단 받기</button>
 </div>
+
+<!-- 푸터 -->
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <div class="footer-brand">
+      <span class="logo-crop logo-crop-footer">
+        <img class="brand-logo" src="assets/brand/logo/TIGER_LOGO_PRIMARY_HORIZONTAL_WHITE_V1.png" alt="TIGER COMMERCE LAB">
+      </span>
+    </div>
+    <p class="footer-biz">
+      상호 영남상사 · 대표자 박영남 · 사업자등록번호 617-27-49619<br>
+      사업장 소재지 부산광역시 남구 진남로36번길 6(대연동)<br>
+      상담 문의 <a href="#diagnosis" data-scroll-to="diagnosis">바로가기</a>
+    </p>
+    <div class="footer-links">
+      <a href="https://whybe.co.kr" target="_blank" rel="noopener">와이비 — 이 브랜드를 만든 사람</a>
+      <a href="https://www.matgamsa.com/" target="_blank" rel="noopener">맛집감별사 — SNS 광고 문의</a>
+    </div>
+    <p class="footer-copyright">&copy; <span id="year"></span> Tiger Commerce Lab. All rights reserved.</p>
+  </div>
+</footer>
 
 <!-- 구글폼 히든 제출용 iframe -->
 <iframe name="hiddenFormTarget" id="hiddenFormTarget" style="display:none" title="hidden form target"></iframe>

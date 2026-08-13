@@ -103,7 +103,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8934/index.html)",
       "PowerShell(Get-NetTCPConnection -LocalPort 8934 -ErrorAction SilentlyContinue)",
       "PowerShell(Get-Job)",
-      "PowerShell(powershell -File \"C:\\\\Users\\\\USER\\\\Pictures\\\\Desktop\\\\tiger-commerce-lab\\\\.claude\\\\static-server.ps1\")"
+      "PowerShell(powershell -File \"C:\\\\Users\\\\USER\\\\Pictures\\\\Desktop\\\\tiger-commerce-lab\\\\.claude\\\\static-server.ps1\")",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:8934/index.html\" -UseBasicParsing -TimeoutSec 3; $r.StatusCode } catch { \"DOWN\" })"
     ]
   }
 }

@@ -20,20 +20,20 @@
     "official_website": null,
     "naver_place": "https://naver.me/xFLuM9JH",
     "smartstore": null,
-    "online_store": { "status": "ACTIVE", "url": null, "note": "온라인 판매채널 보유 사실은 확인됐으며 정확한 URL은 계약 후 연결한다." }
+    "online_store": { "status": "ACTIVE", "url": null, "note": "온라인 판매채널 보유 사실은 확인했으며 정확한 URL은 계약 후 연결해 드립니다." }
   },
   "channels": {
-    "naver_place": { "status": "ACTIVE", "url": "https://naver.me/xFLuM9JH", "analysis": "매장 검색과 방문 판단을 담당하는 핵심 접점이다." },
-    "naver_blog": { "status": "NOT_VERIFIED", "url": null, "analysis": "전복죽·기장 맛집·포장·밀키트 관련 검색 질문에 답하는 장기 검색자산으로 설계한다." },
-    "instagram": { "status": "ACTIVE", "url": null, "analysis": "공식 운영을 확인했다. 릴스와 카드뉴스를 묶어 브랜드 인상, 저장, 재방문을 만드는 허브로 확장한다." },
-    "tiktok": { "status": "NOT_VERIFIED", "url": null, "analysis": "조리 현장과 전복 비주얼을 활용해 신규 발견을 만드는 채널로 설계한다." },
-    "youtube": { "status": "NOT_VERIFIED", "url": null, "analysis": "Shorts 재가공과 영상 검색자산 축적에 활용한다." },
-    "threads": { "status": "NOT_VERIFIED", "url": null, "analysis": "기장끝집의 목소리와 고객 질문을 대화로 전환하는 관계 채널로 설계한다." }
+    "naver_place": { "status": "ACTIVE", "url": "https://naver.me/xFLuM9JH", "analysis": "매장 검색과 방문 판단을 담당하는 핵심 접점입니다." },
+    "naver_blog": { "status": "NOT_VERIFIED", "url": null, "analysis": "전복죽·기장 맛집·포장·밀키트 관련 검색 질문에 답하는 장기 검색 자산으로 설계합니다." },
+    "instagram": { "status": "ACTIVE", "url": null, "analysis": "공식 운영을 확인했습니다. 릴스와 카드뉴스를 묶어 브랜드 인상, 저장, 재방문을 만드는 허브로 확장합니다." },
+    "tiktok": { "status": "NOT_VERIFIED", "url": null, "analysis": "조리 현장과 전복 비주얼을 활용해 신규 발견을 만드는 채널로 설계합니다." },
+    "youtube": { "status": "NOT_VERIFIED", "url": null, "analysis": "Shorts 재가공과 영상 검색 자산 축적에 활용합니다." },
+    "threads": { "status": "NOT_VERIFIED", "url": null, "analysis": "기장끝집의 목소리와 고객 질문을 대화로 전환하는 관계 채널로 설계합니다." }
   },
   "hero": {
     "eyebrow": "TIGER COMMERCE LAB × 기장끝집",
-    "headline": "이미 줄 서서 먹는 전복죽이다. 이제 전국에서 다시 찾게 만들 차례이다.",
-    "subheadline": "매장에서 확인된 상품력을 콘텐츠로 확장해 SNS 발견부터 검색, 방문, 온라인 구매, 재구매까지 하나의 고객 동선으로 연결한다.",
+    "headline": "이미 줄 서서 먹는 전복죽입니다. 이제 전국에서 다시 찾게 만들 차례입니다.",
+    "subheadline": "매장에서 확인된 상품력을 콘텐츠로 확장해 SNS 발견부터 검색, 방문, 온라인 구매, 재구매까지 하나의 고객 동선으로 연결합니다.",
     "primary_cta": "PERFORMANCE 운영안 시작하기",
     "secondary_cta": "월 운영 구조 보기",
     "trust_note": "기장끝집 맞춤 SNS 통합 운영 제안"
@@ -53,19 +53,19 @@
       "플랫폼별 역할을 나눈 반복 노출과 재구매 콘텐츠",
       "댓글과 고객 질문을 다음 콘텐츠 소재로 순환시키는 운영 구조"
     ],
-    "core_problem": "상품력과 방문 수요는 이미 존재하지만, 매장에서 끝난 경험을 온라인 관계와 재구매로 축적하는 콘텐츠 동선이 충분히 연결되지 않았다.",
-    "core_opportunity": "전복죽의 현장감, 기장이라는 지역성, 밀키트 구매 가능성을 하나의 콘텐츠 엔진으로 묶으면 방문형 맛집에서 전국 고객이 반복 구매하는 브랜드로 확장할 수 있다.",
-    "why_now": "지금 필요한 것은 계정을 더 만드는 일이 아니라, 이미 생긴 관심이 검색과 구매에서 끊기지 않도록 채널마다 고객 행동을 배치하는 일이다."
+    "core_problem": "상품력과 방문 수요는 이미 존재하지만, 매장에서 끝난 경험을 온라인 관계와 재구매로 축적하는 콘텐츠 동선이 충분히 연결되지 않았습니다.",
+    "core_opportunity": "전복죽의 현장감, 기장이라는 지역성, 밀키트 구매 가능성을 하나의 콘텐츠 엔진으로 묶으면 방문형 맛집에서 전국 고객이 반복 구매하는 브랜드로 확장할 수 있습니다.",
+    "why_now": "지금 필요한 것은 계정을 더 만드는 일이 아니라, 이미 생긴 관심이 검색과 구매에서 끊기지 않도록 채널마다 고객 행동을 배치하는 일입니다."
   },
   "strategy": {
     "primary_goal": "기장끝집의 오프라인 인기를 자체 콘텐츠 자산으로 전환하고 매장 방문과 온라인 구매를 동시에 성장시키는 것",
     "customer_flow": ["SNS", "검색", "매장방문", "온라인구매", "재구매"],
-    "flow_caption": "발견된 고객을 흘려보내지 않고 다음 행동으로 연결한다.",
+    "flow_caption": "발견된 고객을 흘려보내지 않고 다음 행동으로 연결합니다.",
     "framework": [
-      { "stage": "HOOK", "role": "전복의 크기, 조리 장면, 줄 서는 이유로 첫 1초를 멈춘다." },
-      { "stage": "RETENTION", "role": "왜 다른지, 어떻게 만들어지는지, 다음 장면에서 확인할 이유를 준다." },
-      { "stage": "VALUE", "role": "재료, 먹는 법, 보관법, 기장 여행 동선처럼 저장할 정보를 제공한다." },
-      { "stage": "CTA", "role": "댓글, 저장, 브랜드 검색, 네이버 플레이스, 온라인 구매 중 하나의 행동으로 연결한다." }
+      { "stage": "HOOK", "role": "전복의 크기, 조리 장면, 줄 서는 이유로 첫 1초를 멈추게 합니다.", "image": "assets/proposals/gijang-endhouse/hook-discovery-v1.webp", "image_alt": "전복이 선명하게 보이는 따뜻한 전복죽 한 그릇의 제안용 이미지" },
+      { "stage": "RETENTION", "role": "왜 다른지, 어떻게 만들어지는지, 다음 장면에서 확인할 이유를 드립니다.", "image": "assets/proposals/gijang-endhouse/retention-craft-v1.webp", "image_alt": "조리자가 전복과 전복죽을 준비하는 과정의 제안용 이미지" },
+      { "stage": "VALUE", "role": "재료, 먹는 법, 보관법, 기장 여행 동선처럼 저장할 정보를 제공합니다.", "image": "assets/proposals/gijang-endhouse/value-save-v1.webp", "image_alt": "고객 두 명이 식사하며 스마트폰의 정보를 함께 저장하는 제안용 이미지" },
+      { "stage": "CTA", "role": "댓글, 저장, 브랜드 검색, 네이버 플레이스, 온라인 구매 중 하나의 행동으로 연결합니다.", "image": "assets/proposals/gijang-endhouse/cta-convert-v1.webp", "image_alt": "스마트폰 검색에서 음식 포장과 구매 행동으로 이어지는 제안용 이미지" }
     ],
     "platform_roles": [
       { "platform": "Instagram", "role": "릴스·카드뉴스 허브", "customer_action": "저장·공유·프로필 이동" },
@@ -82,60 +82,60 @@
       "id": "section-01",
       "type": "hero",
       "nav_label": "제안 개요",
-      "headline": "이미 줄 서서 먹는 전복죽이다. 이제 전국에서 다시 찾게 만들 차례이다.",
-      "body": "매장 앞의 줄을 온라인의 검색과 구매로 이어 붙인다.",
+      "headline": "이미 줄 서서 먹는 전복죽입니다. 이제 전국에서 다시 찾게 만들 차례입니다.",
+      "body": "매장 앞의 줄을 온라인 검색과 구매로 이어 드립니다.",
       "asset_slots": ["hero.client_store_or_product", "brand.tiger_logo"]
     },
     {
       "id": "section-02",
       "type": "current-position",
       "eyebrow": "ALREADY STRONG",
-      "headline": "기장끝집은 이미 시작점이 다르다.",
-      "body": "대표 메뉴, 오프라인 신뢰, 공식 Instagram, 판매채널이 이미 있다. 새로 만들어야 할 것은 상품이 아니라 고객이 다시 찾아오는 연결 구조이다.",
+      "headline": "기장끝집은 이미 시작점이 다릅니다.",
+      "body": "대표 메뉴, 오프라인 신뢰, 공식 Instagram, 판매채널을 이미 갖추고 있습니다. 이제 필요한 것은 새 상품이 아니라 고객이 다시 찾아오는 연결 구조입니다.",
       "cards": ["줄 서는 매장", "명확한 대표 메뉴", "공식 Instagram", "온라인 판매 가능"]
     },
     {
       "id": "section-03",
       "type": "opportunity",
       "eyebrow": "THE GAP",
-      "headline": "고객의 관심은 생기지만 다음 행동이 끊기고 있다.",
-      "body": "숏폼에서 발견하고, 네이버에서 확인하고, 매장을 찾거나 밀키트를 주문하는 길을 하나로 설계해야 한다.",
+      "headline": "고객의 관심은 생기지만 다음 행동이 끊기고 있습니다.",
+      "body": "숏폼에서 발견하고, 네이버에서 확인하고, 매장을 찾거나 밀키트를 주문하는 길을 하나로 설계해야 합니다.",
       "comparison": [
-        { "before": "맛집 콘텐츠를 본다", "after": "기장끝집을 검색한다" },
-        { "before": "매장에서 먹고 끝난다", "after": "팔로우하고 온라인으로 다시 산다" },
-        { "before": "게시물이 흩어진다", "after": "콘텐츠가 검색·저장 자산으로 쌓인다" }
+        { "before": "맛집 콘텐츠만 보고 끝납니다", "after": "기장끝집을 검색합니다" },
+        { "before": "매장에서 먹고 끝납니다", "after": "팔로우하고 온라인에서 다시 구매합니다" },
+        { "before": "게시물이 흩어집니다", "after": "콘텐츠가 검색·저장 자산으로 쌓입니다" }
       ]
     },
     {
       "id": "section-04",
       "type": "why-now",
       "eyebrow": "WHY NOW",
-      "headline": "계정을 늘릴 때가 아니라 고객 동선을 완성할 때이다.",
-      "body": "기장끝집은 방문 수요와 판매 기반을 모두 갖췄다. 지금 콘텐츠를 축적하면 지역 맛집 검색과 전국 단위 구매 수요를 동시에 받을 수 있다.",
-      "highlight": "매장 인기를 브랜드 자산으로 바꾸는 가장 좋은 시점은 고객이 이미 찾아오고 있는 지금이다."
+      "headline": "계정을 늘릴 때가 아니라 고객 동선을 완성할 때입니다.",
+      "body": "기장끝집은 방문 수요와 판매 기반을 모두 갖췄습니다. 지금 콘텐츠를 축적하면 지역 맛집 검색과 전국 단위 구매 수요를 동시에 받을 수 있습니다.",
+      "highlight": "매장 인기를 브랜드 자산으로 바꾸는 가장 좋은 시점은 고객이 이미 찾아오고 있는 지금입니다."
     },
     {
       "id": "section-05",
       "type": "customer-flow",
       "eyebrow": "ONE CONNECTED JOURNEY",
       "headline": "SNS → 검색 → 매장방문 → 온라인구매 → 재구매",
-      "body": "각 플랫폼이 따로 일하지 않게 한다. 고객이 어느 채널에서 시작해도 다음 행동을 찾을 수 있게 만든다.",
+      "body": "각 플랫폼이 따로 움직이지 않도록 연결합니다. 고객이 어느 채널에서 시작해도 다음 행동을 찾을 수 있게 만듭니다.",
       "steps": ["SNS 발견", "브랜드·메뉴 검색", "기장 매장 방문", "밀키트 온라인 구매", "후기·재구매"]
     },
     {
       "id": "section-06",
       "type": "content-engine",
       "eyebrow": "CONTENT ENGINE",
-      "headline": "한 가지 전복죽 소재를 플랫폼마다 다른 고객 행동으로 바꾼다.",
-      "body": "복사 게시가 아니라 각 채널의 소비 방식에 맞춰 HOOK, 정보량, 말투, CTA를 다시 설계한다.",
+      "headline": "한 가지 전복죽 소재를 플랫폼마다 다른 고객 행동으로 바꿉니다.",
+      "body": "같은 게시물을 복사하지 않고 각 채널의 소비 방식에 맞춰 HOOK, 정보량, 말투, CTA를 다시 설계합니다.",
       "framework": ["HOOK", "RETENTION", "VALUE", "CTA"]
     },
     {
       "id": "section-07",
       "type": "content-examples",
       "eyebrow": "MADE FOR GIJANG ENDHOUSE",
-      "headline": "기장끝집이라서 만들 수 있는 콘텐츠이다.",
-      "body": "추상적인 맛집 홍보가 아니라 실제 메뉴, 현장, 고객 질문, 밀키트 사용 장면에서 시작한다.",
+      "headline": "기장끝집이기에 만들 수 있는 콘텐츠입니다.",
+      "body": "추상적인 맛집 홍보가 아니라 실제 메뉴, 현장, 고객 질문, 밀키트 사용 장면에서 시작합니다.",
       "content_example_ids": ["shorts-01", "card-01", "threads-01", "blog-01"]
     },
     {
@@ -147,7 +147,7 @@
       "id": "section-09",
       "type": "monthly-execution",
       "eyebrow": "FIRST 30 DAYS",
-      "headline": "첫 달부터 발견, 신뢰, 검색, 구매를 함께 쌓는다.",
+      "headline": "첫 달부터 발견, 신뢰, 검색, 구매를 함께 쌓습니다.",
       "weeks": [
         { "week": "WEEK 1", "focus": "브랜드 기준 정리", "actions": ["채널·링크 연결", "대표 메뉴 후킹 촬영", "콘텐츠 캘린더 확정"] },
         { "week": "WEEK 2", "focus": "신규 발견", "actions": ["전복죽 숏폼 공개", "재료·조리 카드뉴스", "Threads 대화 시작"] },
@@ -171,8 +171,8 @@
       "id": "section-12",
       "type": "final-cta",
       "eyebrow": "READY TO SCALE",
-      "headline": "좋은 전복죽은 이미 완성됐다. 이제 다시 찾는 고객을 쌓을 차례이다.",
-      "body": "PERFORMANCE 운영으로 SNS 발견부터 매장 방문, 온라인 구매, 재구매까지 기장끝집의 고객 동선을 시작한다.",
+      "headline": "좋은 전복죽은 이미 완성됐습니다. 이제 다시 찾는 고객을 쌓을 차례입니다.",
+      "body": "PERFORMANCE 운영으로 SNS 발견부터 매장 방문, 온라인 구매, 재구매까지 기장끝집의 고객 동선을 시작합니다.",
       "primary_cta": "PERFORMANCE 운영안 시작하기",
       "contact_method": "기존 TIGER 홈페이지의 상담 채널을 재사용한다.",
       "asset_slots": ["brand.business_card"]
@@ -181,38 +181,38 @@
   "content_examples": [
     {
       "id": "shorts-01",
-      "title": "줄까지 서는데 전복죽 한 그릇을 위해서라고?",
+      "title": "줄까지 서는 이유가 전복죽 한 그릇 때문이라고요?",
       "format": "SHORTS / REELS / TIKTOK",
-      "hook": "기장까지 와서 줄 서는 이유, 첫 숟갈 전에 보인다.",
-      "retention": "전복 비주얼 → 조리 장면 → 완성된 한 그릇 → 고객 반응 순서로 이유를 공개한다.",
-      "value": "전복죽의 차별점과 매장에서 즐기는 포인트를 짧게 전달한다.",
+      "hook": "기장까지 와서 줄을 서는 이유가 첫 숟갈 전에 보입니다.",
+      "retention": "전복 비주얼 → 조리 장면 → 완성된 한 그릇 → 고객 반응 순서로 이유를 보여 드립니다.",
+      "value": "전복죽의 차별점과 매장에서 즐기는 포인트를 짧게 전달합니다.",
       "cta": "기장 가기 전에 저장하고 ‘기장끝집’을 검색해 보세요."
     },
     {
       "id": "card-01",
-      "title": "전복죽, 다 같은 전복죽이 아니었다",
+      "title": "전복죽, 다 같은 전복죽이 아니었습니다",
       "format": "CARD NEWS / 6~8 PAGES",
-      "hook": "비슷해 보여도 한 숟갈에서 차이가 나는 이유가 있다.",
-      "retention": "재료 → 식감 → 조리 포인트 → 더 맛있게 먹는 순서로 다음 장을 넘기게 한다.",
-      "value": "전복죽을 고를 때 확인할 기준과 맛있게 먹는 방법을 제공한다.",
+      "hook": "비슷해 보여도 한 숟갈에서 차이가 나는 이유가 있습니다.",
+      "retention": "재료 → 식감 → 조리 포인트 → 더 맛있게 먹는 순서로 다음 장을 넘기게 합니다.",
+      "value": "전복죽을 고를 때 확인할 기준과 맛있게 먹는 방법을 제공합니다.",
       "cta": "기장 여행 전에 저장하고 함께 갈 사람에게 공유해 보세요."
     },
     {
       "id": "threads-01",
       "title": "전복죽을 먹으러 기장까지 가는 마음",
       "format": "THREADS",
-      "hook": "전복죽 한 그릇 때문에 멀리서 왔다는 말을 들을 때마다 생각한다.",
-      "retention": "손님이 찾아오는 실제 상황과 매장이 지키는 기준을 짧은 문장으로 이어간다.",
-      "value": "사장님의 목소리와 음식에 대한 태도를 전달해 브랜드 관계를 만든다.",
+      "hook": "전복죽 한 그릇 때문에 멀리서 오셨다는 말을 들을 때마다 생각합니다.",
+      "retention": "손님이 찾아오는 실제 상황과 매장이 지키는 기준을 짧은 문장으로 이어갑니다.",
+      "value": "사장님의 목소리와 음식에 대한 태도를 전달해 브랜드 관계를 만듭니다.",
       "cta": "전복죽이 가장 생각나는 순간은 언제인가요?"
     },
     {
       "id": "blog-01",
       "title": "부산 기장 전복죽 맛집을 찾을 때 확인할 5가지",
       "format": "NAVER BLOG",
-      "hook": "기장 전복죽 검색 결과가 많아도 선택 기준은 의외로 단순하다.",
-      "retention": "재료, 식감, 메뉴 선택, 방문 동선, 포장·온라인 구매 정보를 목차형으로 제공한다.",
-      "value": "기장 방문 전 필요한 실제 정보와 전복죽 선택 기준을 한 번에 정리한다.",
+      "hook": "기장 전복죽 검색 결과가 많아도 선택 기준은 의외로 단순합니다.",
+      "retention": "재료, 식감, 메뉴 선택, 방문 동선, 포장·온라인 구매 정보를 목차형으로 제공합니다.",
+      "value": "기장 방문 전 필요한 실제 정보와 전복죽 선택 기준을 한 번에 정리합니다.",
       "cta": "매장 위치는 네이버 플레이스에서, 집에서 즐길 방법은 온라인 판매채널에서 확인해 보세요."
     }
   ],
@@ -222,12 +222,12 @@
     "threads": "월 8건",
     "blog": "월 8건",
     "platforms": ["Instagram", "TikTok", "YouTube Shorts", "Threads", "Naver Blog", "Naver Place", "Online Store"],
-    "execution_notes": "동일 원본을 복사하지 않고 플랫폼별 제목·본문·CTA를 재설계한다. 댓글·저장·조회 등 확인 가능한 반응을 다음 기획에 반영한다."
+    "execution_notes": "같은 원본을 복사하지 않고 플랫폼별 제목·본문·CTA를 재설계합니다. 댓글·저장·조회 등 확인 가능한 반응을 다음 기획에 반영합니다."
   },
   "case_study": {
     "enabled": true,
     "case_id": "JOGANE",
-    "connection_to_client": "조가네맛곳간에서 확인한 댓글·저장·팔로우 반응 구조를 기장끝집에서는 네이버 검색, 매장 방문, 밀키트 판매채널까지 연결한다."
+    "connection_to_client": "조가네맛곳간에서 확인한 댓글·저장·팔로우 반응 구조를 기장끝집에서는 네이버 검색, 매장 방문, 밀키트 판매채널까지 연결합니다."
   },
   "recommendation": {
     "recommended_plan": "PERFORMANCE",
@@ -236,7 +236,7 @@
     "flow": ["쇼츠 발견", "검색", "플레이스", "매장 방문", "온라인 구매", "재구매"],
     "conclusion": "그래서 PERFORMANCE를 추천합니다.",
     "expected_role": "도달 → 반응 → 반복노출 → 검색 → 방문·구매 연결",
-    "commerce_extension": "판매형 콘텐츠와 라이브커머스 비중을 적극 확대할 시 COMMERCE로 전환한다."
+    "commerce_extension": "판매형 콘텐츠와 라이브커머스 비중을 적극 확대할 때는 COMMERCE로 전환합니다."
   },
   "assets": {
     "base_path": "/assets/proposals/gijang-endhouse/",
@@ -256,8 +256,8 @@
     "motion": ["기존 홈페이지 모션 컴포넌트만 재사용", "숫자 카운트업은 1회 실행", "prefers-reduced-motion 존중", "과도한 parallax와 PPT식 전환 금지"]
   },
   "final_cta": {
-    "headline": "좋은 전복죽은 이미 완성됐다. 이제 다시 찾는 고객을 쌓을 차례이다.",
-    "body": "PERFORMANCE 운영으로 기장끝집의 매장 인기와 온라인 판매를 하나의 고객 흐름으로 연결한다.",
+    "headline": "좋은 전복죽은 이미 완성됐습니다. 이제 다시 찾는 고객을 쌓을 차례입니다.",
+    "body": "PERFORMANCE 운영으로 기장끝집의 매장 인기와 온라인 판매를 하나의 고객 흐름으로 연결합니다.",
     "button_label": "PERFORMANCE 운영안 시작하기",
     "contact_method": "기존 TIGER COMMERCE LAB 홈페이지의 상담 버튼·연락 경로를 그대로 재사용한다."
   },
@@ -270,7 +270,7 @@
     "password_protection": false,
     "password": null,
     "page_title": "기장끝집 SNS 통합 운영 제안 | TIGER COMMERCE LAB",
-    "meta_description": "기장끝집의 SNS 발견을 검색, 매장 방문, 온라인 구매, 재구매로 연결하는 TIGER PERFORMANCE 운영 제안이다.",
+    "meta_description": "기장끝집의 SNS 발견을 검색, 매장 방문, 온라인 구매, 재구매로 연결하는 TIGER PERFORMANCE 운영 제안입니다.",
     "canonical": null
   },
   "onboarding_checks": [

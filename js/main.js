@@ -400,6 +400,28 @@
     }));
   }
 
+  let proposalPlanRestored = false;
+  function restoreProposalPlanInterest() {
+    if (proposalPlanRestored || !planState.items.length) return;
+    let saved = null;
+    try { saved = JSON.parse(sessionStorage.getItem('tiger_plan_interest') || 'null'); } catch (_) { saved = null; }
+    if (!saved?.planId) return;
+    const plan = planState.items.find((item) => item.id === saved.planId);
+    if (!plan) return;
+    proposalPlanRestored = true;
+    try { sessionStorage.removeItem('tiger_plan_interest'); } catch (_) { /* storage can be unavailable */ }
+    const savedTerm = Number(saved.term);
+    if ([6, 12].includes(savedTerm)) planState.term = savedTerm;
+    openForm('general', {
+      sourceSection: 'proposal',
+      sourceCTA: `proposal-plan-${plan.id}`,
+      plan: plan.id,
+      term: planState.term,
+      monthlyPrice: `${toManwon(saved.monthlyPrice || priceFor(plan))}/월 · ${planState.vat}`,
+      planCta: saved.planCta || plan.cta_label,
+    });
+  }
+
   if (planGrid && planTermToggle) {
     fetch('/data/proposals/_common.json')
       .then((response) => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); })
@@ -414,6 +436,7 @@
         }));
         if (planVatLabel) planVatLabel.textContent = `월 이용료 · ${planState.vat}`;
         renderPlans();
+        restoreProposalPlanInterest();
       })
       .catch((error) => { console.error('요금제 데이터를 불러오지 못했습니다.', error); planGrid.innerHTML = '<p>요금제 정보를 불러오지 못했습니다. 상담 시 확인해 주세요.</p>'; });
   }

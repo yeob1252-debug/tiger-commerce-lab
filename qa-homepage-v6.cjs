@@ -55,6 +55,15 @@ const click = (selector) => {
     .filter((source) => source && !/^(https?:|data:|#)/.test(source));
   localAssets.forEach((source) => assert.ok(fs.existsSync(path.join(repo, source)), `missing local asset: ${source}`));
   assert.match(document.querySelector('h1').textContent, /24시간 365일/);
+  assert.match(document.querySelector('#outcomesTitle').textContent, /우리 매장만 안 보일 뿐입니다/);
+  assert.equal(document.querySelector('[data-time-minutes="152"]').textContent, '2시간 32분');
+  assert.equal(document.querySelector('[data-time-minutes="34"]').textContent, '34분');
+  assert.equal(document.querySelector('[data-percentage="94.7"]').textContent, '94.7%');
+  assert.equal(document.querySelectorAll('.hero-tiger').length, 2, 'base and illuminated tiger images');
+  assert.equal(document.querySelectorAll('.hero-eyes,.hero-eye-glow').length, 0, 'no synthetic eye-light elements');
+  assert.equal(document.querySelector('.proof-hero').classList.contains('reveal'), false, 'proof frame does not translate');
+  assert.equal(document.querySelector('.metric-row').classList.contains('reveal'), false, 'metric frame does not translate');
+  assert.equal(document.querySelector('.proof-big em').textContent, 'K', 'K suffix is visually separated');
   assert.equal(document.querySelectorAll('[data-free-check]').length, 2, 'two free services only');
   assert.equal(document.querySelector('#sharedFormShell').hidden, true, 'form closed by default');
   assert.equal(document.querySelectorAll('a[href="https://open.kakao.com/o/sgxBgDIi"]').length, 2, 'Kakao links');
@@ -91,6 +100,9 @@ const click = (selector) => {
   click('[data-operation="live"]');
   assert.match(document.querySelector('#operationTitle').textContent, /신인판매왕/);
   assert.match(document.querySelector('#operationImage').src, /menu-to-commerce\.webp$/);
+  click('[data-operation="community"]');
+  assert.match(document.querySelector('#operationImage').src, /mom-community-spread\.webp$/);
+  assert.match(document.querySelector('#operationCaption').textContent, /실제 후기·성과값 아님/);
   click('.faq-question');
   assert.equal(document.querySelector('.faq-question').getAttribute('aria-expanded'), 'true');
   assert.equal(document.querySelector('.faq-answer').hidden, false);
@@ -103,6 +115,9 @@ const click = (selector) => {
   assert.match(css, /@media \(max-width: 390px\)/);
   assert.match(css, /prefers-reduced-motion/);
   assert.doesNotMatch(css, /100vw/);
+  assert.doesNotMatch(css, /\.hero-eyes|\.hero-eye-glow/);
+  assert.ok(fs.existsSync(path.join(repo, 'assets/home/v6/tiger-hero-illuminated.webp')));
+  assert.ok(fs.existsSync(path.join(repo, 'assets/home/v6/mom-community-spread.webp')));
   assert.equal(runtimeErrors.length, 0, `runtime errors: ${runtimeErrors.join(' | ')}`);
 
   console.log(JSON.stringify({ status: 'PASS', sections: 9, forms: 1, freeServices: 2, plans: 4, kakaoLinks: 2, localAssets: localAssets.length, duplicateIds: 0, runtimeErrors: 0 }, null, 2));

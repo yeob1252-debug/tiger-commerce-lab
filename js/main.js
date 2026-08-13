@@ -61,7 +61,7 @@
       const rect = hero.getBoundingClientRect();
       const x = ((event.clientX - rect.left) / rect.width) * 100;
       const y = ((event.clientY - rect.top) / rect.height) * 100;
-      const distance = Math.hypot(x - 79, (y - 41) * 1.45);
+      const distance = Math.hypot(x - 79, (y - 35) * 1.45);
       const intensity = Math.max(0, Math.min(1, 1 - distance / 24));
       hero.style.setProperty('--pointer-x', `${x}%`);
       hero.style.setProperty('--pointer-y', `${y}%`);
@@ -145,6 +145,49 @@
   window.addEventListener('resize', updateScrollStories);
   updateScrollStories();
 
+  /* Attention data: animate only the values and their bars when they enter view. */
+  const attentionPanel = $('#attentionPanel');
+  const attentionValues = attentionPanel ? $$('[data-time-minutes],[data-percentage]', attentionPanel) : [];
+  function animateAttentionValue(element) {
+    if (element.dataset.animated === 'true') return;
+    element.dataset.animated = 'true';
+    const minutes = Number(element.dataset.timeMinutes);
+    const percentage = Number(element.dataset.percentage);
+    const target = Number.isFinite(minutes) ? minutes : percentage;
+    const format = (value) => {
+      if (Number.isFinite(minutes)) {
+        const rounded = Math.round(value);
+        const hours = Math.floor(rounded / 60);
+        const remaining = rounded % 60;
+        return hours ? `${hours}시간 ${remaining}분` : `${remaining}분`;
+      }
+      return `${value.toFixed(1)}%`;
+    };
+    const start = performance.now();
+    function frame(now) {
+      const progress = Math.min(1, (now - start) / 1100);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      element.textContent = format(target * eased);
+      if (progress < 1) window.requestAnimationFrame(frame);
+      else { element.textContent = format(target); element.classList.add('is-counted'); }
+    }
+    window.requestAnimationFrame(frame);
+  }
+  if (attentionPanel) {
+    if ('IntersectionObserver' in window && !reducedMotion) {
+      attentionPanel.classList.add('attention-ready');
+      const attentionObserver = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        attentionPanel.classList.add('is-animated');
+        attentionValues.forEach(animateAttentionValue);
+        attentionObserver.disconnect();
+      }, { threshold: .28 });
+      attentionObserver.observe(attentionPanel);
+    } else {
+      attentionPanel.classList.add('is-animated');
+    }
+  }
+
   /* Proof count-up */
   const proof = $('#proof');
   const countItems = $$('[data-count-final]');
@@ -162,7 +205,7 @@
       const value = target * (1 - Math.pow(1 - progress, 3));
       element.textContent = `${hasPlus ? '+' : ''}${decimal ? value.toFixed(1) : Math.round(value)}${hasK ? 'K' : ''}`;
       if (progress < 1) window.requestAnimationFrame(frame);
-      else element.textContent = finalText;
+      else { element.textContent = finalText; element.classList.add('is-counted'); }
     }
     window.requestAnimationFrame(frame);
   }
@@ -332,7 +375,7 @@
   const operationData = {
     dashboard: { eyebrow: 'VISIBLE WORKFLOW', title: '진행 상황을 숨기지 않는다.', description: '기획·제작·검수·게시·성과 확인 과정을 전용 화면에서 함께 확인한다.', image: 'assets/home/v6/tiger-dashboard-example.webp', alt: 'TIGER 음식점 SNS 운영 전용 Dashboard 예시 화면', caption: '전용 Dashboard 업무 화면 예시입니다.' },
     live: { eyebrow: 'AWARD-WINNING LIVE COMMERCE', title: 'GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트.', description: '직접 팔아본 경험을 바탕으로 상품선정, 방송기획, 대본·큐시트, 환경 세팅, 사장님·직원 교육, 사전 홍보, 방송 지원, 재구매 콘텐츠까지 연결한다.', image: 'assets/home/v6/menu-to-commerce.webp', alt: '대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면', caption: '메뉴 → 상품 → 배송 → 자체 LIVE' },
-    community: { eyebrow: 'OPTIONAL EXPANSION', title: '맘커뮤니티 후기·핫딜 확산은 선택형으로.', description: '실제 체험과 실제 혜택을 기반으로 후기형·핫딜형을 구분해 운영한다. 월 30건 기준 범위와 비용은 별도 상담하며 허위후기와 가짜 성과를 만들지 않는다.', image: 'assets/dashboard-preview/dashboard-4-menu-board.JPEG', alt: '메뉴 정보와 운영 소통 Dashboard 화면', caption: '운영 구조 예시 · 성과값 아님' },
+    community: { eyebrow: 'OPTIONAL EXPANSION', title: '지역 맘커뮤니티에 자연스럽게 발견되는 선택형 확장.', description: '실제 체험과 실제 혜택을 기반으로 후기형·핫딜형을 구분해 운영한다. 월 30건 기준 범위와 비용은 별도 상담하며 허위후기와 가짜 성과를 만들지 않는다.', image: 'assets/home/v6/mom-community-spread.webp', alt: '지역 맘커뮤니티에서 음식점 콘텐츠가 공유되고 확산되는 운영 장면 예시', caption: '맘커뮤니티 확산 운영 장면 예시 · 실제 후기·성과값 아님' },
   };
   const operationTabs = $$('.operation-tab');
   operationTabs.forEach((tab) => tab.addEventListener('click', () => {

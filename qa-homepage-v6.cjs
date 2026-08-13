@@ -48,6 +48,11 @@ const click = (selector) => {
   assert.equal(document.querySelectorAll('main > section').length, 9, 'exactly nine homepage sections');
   assert.equal(document.querySelectorAll('form').length, 1, 'single shared form');
   assert.equal(document.querySelectorAll('h1').length, 1, 'single h1');
+  const homepageOgImage = document.querySelector('meta[property="og:image"]')?.content || '';
+  assert.equal(homepageOgImage, 'https://www.tigercommercelab.com/assets/og/tiger-commerce-lab-share-v2.png', 'official share image');
+  assert.equal(document.querySelector('meta[property="og:image:width"]')?.content, '1200');
+  assert.equal(document.querySelector('meta[property="og:image:height"]')?.content, '630');
+  assert.ok(fs.existsSync(path.join(repo, 'assets/og/tiger-commerce-lab-share-v2.png')), 'share image asset exists');
   const ids = [...document.querySelectorAll('[id]')].map((element) => element.id);
   assert.equal(new Set(ids).size, ids.length, 'no duplicate ids');
   const localAssets = [...document.querySelectorAll('img[src],link[href],script[src]')]
@@ -141,7 +146,7 @@ const click = (selector) => {
   ['story-discovery.webp','story-connection.webp','story-conversion.webp'].forEach((filename) => assert.ok(fs.existsSync(path.join(repo, 'assets/home/v6', filename)), `missing story asset: ${filename}`));
   assert.equal(runtimeErrors.length, 0, `runtime errors: ${runtimeErrors.join(' | ')}`);
 
-  console.log(JSON.stringify({ status: 'PASS', sections: 9, forms: 1, freeServices: 2, plans: 4, kakaoLinks: 2, localAssets: localAssets.length, duplicateIds: 0, runtimeErrors: 0 }, null, 2));
+  console.log(JSON.stringify({ status: 'PASS', sections: 9, forms: 1, freeServices: 2, plans: 4, kakaoLinks: 2, shareImage: '1200x630-official-logo', localAssets: localAssets.length, duplicateIds: 0, runtimeErrors: 0 }, null, 2));
   dom.window.close();
 })().catch((error) => {
   console.error(error.stack || error);

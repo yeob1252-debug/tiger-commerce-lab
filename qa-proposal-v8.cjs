@@ -99,6 +99,10 @@ async function verifyPlanHandoff() {
   await wait(80);
   assert.equal(document.querySelectorAll('#proposalRoot > section').length, 12, '12 proposal sections');
   assert.equal(document.querySelectorAll('h1').length, 1, 'single h1');
+  assert.equal(document.querySelector('meta[property="og:image"]')?.content, 'https://www.tigercommercelab.com/assets/og/tiger-commerce-lab-share-v2.png', 'proposal official share image');
+  assert.equal(document.querySelector('meta[property="og:image:width"]')?.content, '1200');
+  assert.equal(document.querySelector('meta[property="og:image:height"]')?.content, '630');
+  assert.ok(fs.existsSync(path.join(repo, 'assets/og/tiger-commerce-lab-share-v2.png')), 'proposal share image asset exists');
   const ids = [...document.querySelectorAll('[id]')].map((item) => item.id);
   assert.equal(new Set(ids).size, ids.length, 'no duplicate ids');
 
@@ -173,7 +177,7 @@ async function verifyPlanHandoff() {
   await verifyPlanHandoff();
   assert.equal(runtimeErrors.length, 0, `runtime errors: ${runtimeErrors.join(' | ')}`);
 
-  console.log(JSON.stringify({ status: 'PASS', viewport: '390x844', sections: 12, plans: 4, prices: 'homepage-shared', planHandoff: 'PASS', scrollStories: 5, kakaoLinks: 2, localAssets: localAssets.length, runtimeErrors: 0 }, null, 2));
+  console.log(JSON.stringify({ status: 'PASS', viewport: '390x844', sections: 12, plans: 4, prices: 'homepage-shared', planHandoff: 'PASS', scrollStories: 5, kakaoLinks: 2, shareImage: '1200x630-official-logo', localAssets: localAssets.length, runtimeErrors: 0 }, null, 2));
   dom.window.close();
 })().catch((error) => {
   console.error(error.stack || error);

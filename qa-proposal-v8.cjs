@@ -106,6 +106,8 @@ async function verifyPlanHandoff() {
   assert.match(document.querySelector('.prop-hero-tiger-lit').src, /tiger-hero-illuminated\.webp$/);
   const mobileSources = [...document.querySelectorAll('.prop-hero source')].map((item) => item.srcset);
   assert.deepEqual(mobileSources, ['assets/home/v7/tiger-hero-mobile-cinematic.webp', 'assets/home/v7/tiger-hero-mobile-illuminated.webp']);
+  assert.match(document.querySelector('.prop-hero h1').textContent, /전복죽입니다/);
+  assert.doesNotMatch(document.body.textContent, /(?:다르다|연결한다|만든다|확인한다|이동한다|쌓는다|바꾼다|시작한다|확정한다)\./);
 
   assert.equal(document.querySelectorAll('[data-flow-step]').length, 5, 'five journey steps');
   assert.equal(document.querySelectorAll('[data-engine-step]').length, 4, 'four engine steps');
@@ -158,7 +160,9 @@ async function verifyPlanHandoff() {
     assert.ok(fs.existsSync(path.join(repo, 'assets/proposals/gijang-endhouse', filename)), `missing HOOK asset: ${filename}`);
   });
 
-  assert.match(css, /\.prop-hero\s*\{[^}]*min-height:\s*128svh/s);
+  assert.match(css, /@media \(max-width: 809px\)[\s\S]*?\.prop-hero\s*\{[^}]*min-height:\s*0/s);
+  assert.match(css, /@media \(max-width: 809px\)[\s\S]*?\.prop-hero-media\s*\{[^}]*position:\s*relative/s);
+  assert.match(css, /@media \(max-width: 809px\)[\s\S]*?\.prop-hero-copy\s*\{[^}]*position:\s*relative/s);
   assert.match(css, /\.prop-flow\s*\{\s*min-height:\s*220svh/);
   assert.match(css, /\.prop-engine\s*\{\s*min-height:\s*215svh/);
   assert.match(css, /\.prop-week\s*\{\s*min-height:\s*190svh/);

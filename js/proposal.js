@@ -171,11 +171,11 @@
 
   function renderFlow(section, data) {
     const flowDetails = [
-      '숏폼·릴스가 첫 발견을 만든다.',
-      '브랜드·메뉴 정보로 신뢰를 확인한다.',
-      '플레이스와 방문 정보로 이동한다.',
-      '밀키트 판매채널로 구매를 연결한다.',
-      '후기와 콘텐츠가 다음 구매를 만든다.',
+      '숏폼·릴스가 첫 발견을 만듭니다.',
+      '브랜드·메뉴 정보로 신뢰를 확인합니다.',
+      '플레이스와 방문 정보로 이동합니다.',
+      '밀키트 판매채널로 구매를 연결합니다.',
+      '후기와 콘텐츠가 다음 구매를 만듭니다.',
     ];
     const cards = (section.steps || []).map((step, index) => `
       <button class="prop-flow-card ${index === 0 ? 'is-active' : ''}" type="button" data-flow-step="${index}">
@@ -296,7 +296,7 @@
       <section id="section-10" class="prop-section prop-plans">
         <div class="prop-section-inner">
           <div class="prop-plan-top">
-            <div><p class="prop-kicker prop-reveal">${esc(section.eyebrow)}</p><h2 class="prop-title prop-reveal">홈페이지와 동일한 운영 플랜이다.</h2><p class="prop-lead prop-reveal">콘텐츠 양보다 고객이 움직이는 연결 범위에 맞춰 선택한다.</p></div>
+            <div><p class="prop-kicker prop-reveal">${esc(section.eyebrow)}</p><h2 class="prop-title prop-reveal">홈페이지와 동일한 운영 플랜입니다.</h2><p class="prop-lead prop-reveal">콘텐츠 양보다 고객이 움직이는 연결 범위에 맞춰 선택하실 수 있습니다.</p></div>
             <div class="prop-term-wrap"><div class="prop-term-toggle" role="group" aria-label="계약 기간">${(plans.terms || []).map((term) => `<button type="button" data-prop-term="${term.months}" class="${term.months === plans.default_term_months ? 'is-active' : ''}" aria-pressed="${term.months === plans.default_term_months}">${esc(term.label)}</button>`).join('')}</div><p class="prop-plan-vat">월 이용료 · ${esc(plans.vat_label || 'VAT 별도')}</p></div>
           </div>
           <div class="prop-plan-grid" data-plan-grid>${cards}</div>
@@ -324,9 +324,9 @@
   function renderOperation(common) {
     const source = common.operation_support || {};
     const items = [
-      source.dashboard || { id: 'dashboard', tab: '전용 Dashboard', eyebrow: 'VISIBLE WORKFLOW', title: '진행 상황을 숨기지 않는다.', description: '기획·제작·검수·게시·성과 확인 과정을 전용 화면에서 함께 확인한다.', image: 'assets/home/v6/tiger-dashboard-example.webp', alt: 'TIGER 음식점 SNS 운영 전용 Dashboard 예시 화면', caption: '전용 Dashboard 업무 화면 예시입니다.' },
-      source.live || { id: 'live', tab: '자체 LIVE 지원', eyebrow: 'AWARD-WINNING LIVE COMMERCE', title: 'GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트.', description: '직접 팔아본 경험으로 상품선정부터 방송기획, 사장님·직원 교육, 방송 지원과 재구매 콘텐츠까지 연결한다.', image: 'assets/home/v6/menu-to-commerce.webp', alt: '대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면', caption: '매장 사장님·직원이 직접 방송할 때의 자체 LIVE 지원' },
-      source.community || { id: 'community', tab: '맘커뮤니티 옵션', eyebrow: 'OPTIONAL EXPANSION', title: '지역 맘커뮤니티에 자연스럽게 발견되는 선택형 확장.', description: '실제 체험과 실제 혜택을 기반으로 후기형·핫딜형을 구분해 운영한다. 허위후기와 가짜 성과를 만들지 않는다.', image: 'assets/home/v6/mom-community-spread.webp', alt: '지역 맘커뮤니티 확산 운영 장면 예시', caption: '맘커뮤니티 확산 운영 장면 예시 · 실제 후기·성과값 아님' },
+      source.dashboard || { id: 'dashboard', tab: '전용 Dashboard', eyebrow: 'VISIBLE WORKFLOW', title: '진행 상황을 투명하게 공유합니다.', description: '기획·제작·검수·게시·성과 확인 과정을 전용 화면에서 함께 확인하실 수 있습니다.', image: 'assets/home/v6/tiger-dashboard-example.webp', alt: 'TIGER 음식점 SNS 운영 전용 Dashboard 예시 화면', caption: '전용 Dashboard 업무 화면 예시입니다.' },
+      source.live || { id: 'live', tab: '자체 LIVE 지원', eyebrow: 'AWARD-WINNING LIVE COMMERCE', title: 'GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트.', description: '직접 팔아본 경험을 바탕으로 상품 선정부터 방송 기획, 사장님·직원 교육, 방송 지원과 재구매 콘텐츠까지 연결해 드립니다.', image: 'assets/home/v6/menu-to-commerce.webp', alt: '대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면', caption: '매장 사장님·직원이 직접 방송할 때의 자체 LIVE 지원' },
+      source.community || { id: 'community', tab: '맘커뮤니티 옵션', eyebrow: 'OPTIONAL EXPANSION', title: '지역 맘커뮤니티까지 자연스럽게 확장할 수 있습니다.', description: '실제 체험과 실제 혜택을 바탕으로 후기형·핫딜형을 구분해 운영합니다. 허위 후기와 가짜 성과는 만들지 않습니다.', image: 'assets/home/v6/mom-community-spread.webp', alt: '지역 맘커뮤니티 확산 운영 장면 예시', caption: '맘커뮤니티 확산 운영 장면 예시 · 실제 후기·성과값 아님' },
     ];
     const tabs = items.map((item, index) => `<button class="${index === 0 ? 'is-active' : ''}" type="button" role="tab" aria-selected="${index === 0}" data-operation-step="${index}">${esc(item.tab)}</button>`).join('');
     const first = items[0];
@@ -363,7 +363,7 @@
           <h2 class="prop-title prop-reveal">${esc(section.headline)}</h2>
           <p class="prop-lead prop-reveal">${esc(section.body || data.final_cta?.body)}</p>
           <div class="prop-final-actions prop-reveal"><a class="prop-button prop-button-primary" href="/index.html?proposal=1#contact">${esc(section.primary_cta)}</a><a class="prop-button prop-button-kakao" href="${esc(kakao)}" target="_blank" rel="noopener noreferrer">대표자 1:1 카카오톡</a></div>
-          <p class="prop-final-note">상담 신청 후 제안 범위와 촬영·운영 일정을 확정한다.</p>
+          <p class="prop-final-note">상담 신청 후 제안 범위와 촬영·운영 일정을 확정해 드립니다.</p>
         </div>
       </section>`;
   }

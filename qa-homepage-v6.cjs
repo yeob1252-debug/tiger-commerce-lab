@@ -64,6 +64,11 @@ const click = (selector) => {
   assert.equal(document.querySelector('.proof-hero').classList.contains('reveal'), false, 'proof frame does not translate');
   assert.equal(document.querySelector('.metric-row').classList.contains('reveal'), false, 'metric frame does not translate');
   assert.equal(document.querySelector('.proof-big em').textContent, 'K', 'K suffix is visually separated');
+  assert.match(document.querySelector('#storyImage').src, /story-discovery\.webp$/);
+  click('[data-story-step="1"]');
+  assert.match(document.querySelector('#storyImage').src, /story-connection\.webp$/);
+  click('[data-story-step="2"]');
+  assert.match(document.querySelector('#storyImage').src, /story-conversion\.webp$/);
   assert.equal(document.querySelectorAll('[data-free-check]').length, 2, 'two free services only');
   assert.equal(document.querySelector('#sharedFormShell').hidden, true, 'form closed by default');
   assert.equal(document.querySelectorAll('a[href="https://open.kakao.com/o/sgxBgDIi"]').length, 2, 'Kakao links');
@@ -116,8 +121,10 @@ const click = (selector) => {
   assert.match(css, /prefers-reduced-motion/);
   assert.doesNotMatch(css, /100vw/);
   assert.doesNotMatch(css, /\.hero-eyes|\.hero-eye-glow/);
+  assert.match(css, /grid-template-rows:\s*18px 58px 64px 42px 5px/);
   assert.ok(fs.existsSync(path.join(repo, 'assets/home/v6/tiger-hero-illuminated.webp')));
   assert.ok(fs.existsSync(path.join(repo, 'assets/home/v6/mom-community-spread.webp')));
+  ['story-discovery.webp','story-connection.webp','story-conversion.webp'].forEach((filename) => assert.ok(fs.existsSync(path.join(repo, 'assets/home/v6', filename)), `missing story asset: ${filename}`));
   assert.equal(runtimeErrors.length, 0, `runtime errors: ${runtimeErrors.join(' | ')}`);
 
   console.log(JSON.stringify({ status: 'PASS', sections: 9, forms: 1, freeServices: 2, plans: 4, kakaoLinks: 2, localAssets: localAssets.length, duplicateIds: 0, runtimeErrors: 0 }, null, 2));

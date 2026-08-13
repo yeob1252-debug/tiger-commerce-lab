@@ -90,9 +90,9 @@
   const storyScreen = $('#storyScreen');
   const storyImage = $('#storyImage');
   const storyContent = [
-    { label: '01 / DISCOVERY', title: '오늘 처음 본 고객이<br>화면을 멈춥니다.', meta: 'SHORTS · REELS · TIKTOK', image: 'assets/home/hero/TIGER_HOME_HERO_03_CUSTOMER_DISCOVERY.png', alt: 'SNS에서 매장 콘텐츠를 발견하는 고객 장면' },
-    { label: '02 / CONNECTION', title: '저장하고 댓글을 남긴<br>고객이 팬이 됩니다.', meta: 'SAVE · COMMENT · SHARE', image: 'assets/home/hero/TIGER_HOME_HERO_04_SEARCH_SAVE_INQUIRY.png', alt: 'SNS 콘텐츠를 저장하고 반응하는 고객 장면' },
-    { label: '03 / CONVERSION', title: '검색하고 비교한 고객이<br>방문과 구매를 선택합니다.', meta: 'SEARCH · PLACE · PURCHASE', image: 'assets/home/hero/TIGER_HOME_HERO_05_STORE_REOPEN_CUSTOMER_ENTRY.png', alt: '콘텐츠를 본 고객이 매장을 방문하는 장면' },
+    { label: '01 / DISCOVERY', title: '오늘 처음 본 고객이<br>화면을 멈춥니다.', meta: 'SHORTS · REELS · TIKTOK', image: 'assets/home/v6/story-discovery.webp', alt: '음식점에서 휴대폰으로 새로운 매장 콘텐츠를 발견한 고객' },
+    { label: '02 / CONNECTION', title: '저장하고 댓글을 남긴<br>고객이 팬이 됩니다.', meta: 'SAVE · COMMENT · SHARE', image: 'assets/home/v6/story-connection.webp', alt: '매장 콘텐츠를 함께 보며 저장하고 공유하는 고객들' },
+    { label: '03 / CONVERSION', title: '검색하고 비교한 고객이<br>방문과 구매를 선택합니다.', meta: 'SEARCH · PLACE · PURCHASE', image: 'assets/home/v6/story-conversion.webp', alt: '온라인에서 발견한 음식점에 실제 방문하는 고객들' },
     { label: '04 / COMMERCE', title: '쌓인 팬과 인기 메뉴가<br>자체 LIVE로 연결됩니다.', meta: 'ONLINE SALES · OWN LIVE', image: 'assets/home/v6/menu-to-commerce.webp', alt: '인기 메뉴가 온라인판매와 라이브로 확장되는 장면' },
   ];
 
@@ -108,6 +108,7 @@
     if (storyImage) { storyImage.src = content.image; storyImage.alt = content.alt; }
   }
   storySteps.forEach((step) => step.addEventListener('click', () => setStoryStep(Number(step.dataset.storyStep))));
+  setStoryStep(0);
 
   /* Omnira-style scroll progress */
   const process = $('#content-commerce');

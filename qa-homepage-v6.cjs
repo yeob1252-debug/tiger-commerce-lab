@@ -60,16 +60,20 @@ const click = (selector) => {
   assert.equal(document.querySelector('[data-time-minutes="34"]').textContent, '34분');
   assert.equal(document.querySelector('[data-percentage="94.7"]').textContent, '94.7%');
   assert.equal(document.querySelectorAll('.hero-tiger').length, 2, 'base and illuminated tiger images');
+  assert.ok(document.querySelector('.hero-media-stage'), 'mobile tiger sticky stage');
   assert.equal(document.querySelectorAll('.hero-eyes,.hero-eye-glow').length, 0, 'no synthetic eye-light elements');
   assert.equal(document.querySelector('.proof-hero').classList.contains('reveal'), false, 'proof frame does not translate');
   assert.equal(document.querySelector('.metric-row').classList.contains('reveal'), false, 'metric frame does not translate');
   assert.equal(document.querySelector('.proof-big em').textContent, 'K', 'K suffix is visually separated');
   assert.match(document.querySelector('#storyImage').src, /story-discovery\.webp$/);
+  assert.equal(document.querySelectorAll('[data-story-step]').length, 4, 'four scroll story steps');
   click('[data-story-step="1"]');
   assert.match(document.querySelector('#storyImage').src, /story-connection\.webp$/);
   click('[data-story-step="2"]');
   assert.match(document.querySelector('#storyImage').src, /story-conversion\.webp$/);
   assert.equal(document.querySelectorAll('[data-free-check]').length, 2, 'two free services only');
+  assert.equal(document.querySelectorAll('[data-process-step]').length, 4, 'four scroll commerce steps');
+  assert.ok(document.querySelector('#operationShowcase .operation-sticky'), 'operation scroll stage');
   assert.equal(document.querySelector('#sharedFormShell').hidden, true, 'form closed by default');
   assert.equal(document.querySelectorAll('a[href="https://open.kakao.com/o/sgxBgDIi"]').length, 2, 'Kakao links');
 
@@ -119,6 +123,12 @@ const click = (selector) => {
   assert.match(css, /@media \(max-width: 809px\)/);
   assert.match(css, /@media \(max-width: 390px\)/);
   assert.match(css, /prefers-reduced-motion/);
+  assert.match(css, /\.hero-media-stage\s*\{\s*position:\s*sticky/);
+  assert.match(css, /\.story\s*\{\s*min-height:\s*430svh/);
+  assert.match(css, /\.process\s*\{\s*min-height:\s*430svh/);
+  assert.match(css, /\.operation-showcase\s*\{\s*min-height:\s*330svh/);
+  assert.match(mainJs, /mobileTigerProgress/);
+  assert.match(mainJs, /updateOperationScroll/);
   assert.doesNotMatch(css, /100vw/);
   assert.doesNotMatch(css, /\.hero-eyes|\.hero-eye-glow/);
   assert.match(css, /grid-template-rows:\s*18px 58px 64px 42px 5px/);

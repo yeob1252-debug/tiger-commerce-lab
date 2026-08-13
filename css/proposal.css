@@ -198,6 +198,8 @@
 .prop-final { min-height: 90svh; display: grid; align-items: center; text-align: center; background: radial-gradient(circle at 50% 45%,rgba(255,152,0,.2),transparent 34%),#020202; }
 .prop-final .prop-title,.prop-final .prop-lead { margin-inline: auto; }
 .prop-final-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
+.prop-naver-link { min-height: 48px; display: inline-flex; align-items: center; margin-top: 24px; color: #d2d2cc; border-bottom: 1px solid rgba(255,255,255,.32); font-weight: 800; font-size: 14px; transition: color .2s,border-color .2s; }
+.prop-naver-link:hover { color: var(--orange); border-color: var(--orange); }
 .prop-final-note { margin-top: 24px; color: var(--dim); font: 700 10px var(--tech); letter-spacing: .09em; }
 
 .prop-footer { padding: 48px var(--gutter); border-top: 1px solid var(--line); color: var(--dim); background: #020202; font-size: 11px; line-height: 1.8; }

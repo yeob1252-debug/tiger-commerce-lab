@@ -55,6 +55,7 @@
     document.title = data.web?.page_title || document.title;
     const meta = document.querySelector('meta[name="description"]');
     if (meta && data.web?.meta_description) meta.content = data.web.meta_description;
+    applyDocumentMeta(data);
 
     const renderers = {
       hero: () => renderHero(data),
@@ -71,8 +72,17 @@
       'final-cta': (section) => renderFinal(section, data, common),
     };
 
+    try {
+      sessionStorage.setItem('tiger_proposal_context', JSON.stringify({
+        businessName: data.client?.business_name || '',
+        proposalSlug: data.meta?.client_slug || '',
+        selectedPlan: data.recommendation?.recommended_plan || 'PERFORMANCE',
+        contractTerm: data.recommendation?.recommended_term_months || 12,
+      }));
+    } catch (_) { /* storage can be unavailable */ }
     root.innerHTML = (data.sections || []).map((section) => renderers[section.type]?.(section) || '').join('');
-    document.body.insertAdjacentHTML('beforeend', renderMobileCta(common));
+    document.querySelector('.prop-mobile-cta')?.remove();
+    document.body.insertAdjacentHTML('beforeend', renderMobileCta(common, data));
 
     document.body.classList.add('proposal-ready');
     initReveal();
@@ -84,25 +94,51 @@
     initScrollButtons();
   }
 
+  function applyDocumentMeta(data) {
+    const web = data.web || {};
+    const og = web.og || {};
+    const pageTitle = web.page_title || og.title;
+    const description = web.meta_description || og.description;
+    const imagePath = og.image || '/assets/og/tiger-commerce-lab-share-v2.png';
+    const imageUrl = new URL(imagePath, location.origin).href;
+    const setMeta = (selector, value) => {
+      const node = document.querySelector(selector);
+      if (node && value) node.content = value;
+    };
+    setMeta('meta[name="robots"]', web.robots || (web.noindex ? 'noindex,nofollow,noarchive' : 'index,follow'));
+    setMeta('meta[property="og:title"]', pageTitle);
+    setMeta('meta[property="og:description"]', description);
+    setMeta('meta[property="og:image"]', imageUrl);
+    setMeta('meta[property="og:image:secure_url"]', imageUrl);
+    setMeta('meta[property="og:image:alt"]', `${data.client?.business_name || '맞춤'} SNS 운영 제안`);
+    setMeta('meta[name="twitter:image"]', imageUrl);
+  }
+
   function renderHero(data) {
     const hero = data.hero || {};
-    const headline = esc(hero.headline).replace('이제 전국에서', '<em>이제 전국에서');
+    const clientHero = data.assets?.hero?.filename;
+    const headline = esc(hero.headline)
+      .replace('이제 전국에서', '<em>이제 전국에서')
+      .replace('먼저 떠오르게 만들 차례입니다.', '<em>먼저 떠오르게 만들 차례입니다.');
     const formattedHeadline = headline.includes('<em>') ? `${headline}</em>` : headline;
-    return `
-      <section id="section-01" class="prop-section prop-hero" aria-label="${esc(data.client?.business_name)} 맞춤 제안">
-        <div class="prop-hero-media" aria-hidden="true">
-          <div class="prop-hero-media-stage">
-            <picture>
+    const heroMedia = clientHero
+      ? `<img class="prop-hero-tiger" src="${esc(clientHero)}" alt="${esc(hero.image_alt || '불향 석쇠불고기 제안용 생성 이미지')}">`
+      : `<picture>
               <source media="(max-width:809px)" srcset="assets/home/v7/tiger-hero-mobile-cinematic.webp">
               <img class="prop-hero-tiger" src="assets/home/v6/tiger-hero-cinematic.webp" alt="">
             </picture>
             <picture>
               <source media="(max-width:809px)" srcset="assets/home/v7/tiger-hero-mobile-illuminated.webp">
               <img class="prop-hero-tiger prop-hero-tiger-lit" src="assets/home/v6/tiger-hero-illuminated.webp" alt="">
-            </picture>
+            </picture>`;
+    return `
+      <section id="section-01" class="prop-section prop-hero" aria-label="${esc(data.client?.business_name)} 맞춤 제안">
+        <div class="prop-hero-media" aria-hidden="true">
+          <div class="prop-hero-media-stage">
+            ${heroMedia}
           </div>
           <div class="prop-hero-frame"></div>
-          <p class="prop-hero-guide">스크롤해 호랑이의 눈빛을 깨워보세요</p>
+          <p class="prop-hero-guide">${clientHero ? '제안용 생성 이미지 · 실제 매장 촬영본이 아닙니다' : '스크롤해 호랑이의 눈빛을 깨워보세요'}</p>
         </div>
         <div class="prop-hero-copy">
           <div class="prop-hero-copy-inner">
@@ -113,7 +149,7 @@
               <button class="prop-button prop-button-primary" type="button" data-prop-scroll="section-10">${esc(hero.primary_cta)}</button>
               <button class="prop-button" type="button" data-prop-scroll="section-09">${esc(hero.secondary_cta)}</button>
             </div>
-            <p class="prop-hero-trust">${esc(hero.trust_note)} · PRIVATE DOCUMENT</p>
+            <p class="prop-hero-trust">${esc(hero.trust_note || data.client?.business_name + ' 맞춤 제안')} · PRIVATE DOCUMENT</p>
           </div>
         </div>
       </section>`;
@@ -170,18 +206,13 @@
   }
 
   function renderFlow(section, data) {
-    const flowDetails = [
-      '숏폼·릴스가 첫 발견을 만듭니다.',
-      '브랜드·메뉴 정보로 신뢰를 확인합니다.',
-      '플레이스와 방문 정보로 이동합니다.',
-      '밀키트 판매채널로 구매를 연결합니다.',
-      '후기와 콘텐츠가 다음 구매를 만듭니다.',
-    ];
+    const journey = data.strategy?.customer_flow || [];
+    const flowDetails = journey.map((item) => typeof item === 'object' ? item.action : '');
     const cards = (section.steps || []).map((step, index) => `
       <button class="prop-flow-card ${index === 0 ? 'is-active' : ''}" type="button" data-flow-step="${index}">
         <span>0${index + 1}</span><strong>${esc(step)}</strong><small>${esc(flowDetails[index] || '')}</small>
       </button>`).join('');
-    const roleText = (data.strategy?.platform_roles || []).map((role) => `${role.platform}: ${role.customer_action}`).join(' · ');
+    const roleText = (data.strategy?.platform_roles || []).map((role) => `${role.platform}: ${role.customer_action || role.role}`).join(' · ');
     return `
       <section id="section-05" class="prop-section prop-flow" data-scroll-story="flow">
         <div class="prop-flow-stage">
@@ -363,14 +394,15 @@
           <h2 class="prop-title prop-reveal">${esc(section.headline)}</h2>
           <p class="prop-lead prop-reveal">${esc(section.body || data.final_cta?.body)}</p>
           <div class="prop-final-actions prop-reveal"><a class="prop-button prop-button-primary" href="/index.html?proposal=1#contact">${esc(section.primary_cta)}</a><a class="prop-button prop-button-kakao" href="${esc(kakao)}" target="_blank" rel="noopener noreferrer">대표자 1:1 카카오톡</a></div>
+          ${data.client?.naver_place ? `<a class="prop-naver-link" href="${esc(data.client.naver_place)}" target="_blank" rel="noopener noreferrer">네이버 플레이스에서 남천불고기 확인하기 →</a>` : ''}
           <p class="prop-final-note">상담 신청 후 제안 범위와 촬영·운영 일정을 확정해 드립니다.</p>
         </div>
       </section>`;
   }
 
-  function renderMobileCta(common) {
+  function renderMobileCta(common, data) {
     const kakao = common.contact?.kakao_url || KAKAO_URL;
-    return `<nav class="prop-mobile-cta" aria-label="빠른 상담"><a href="/index.html?proposal=1#contact">상담 신청</a><a href="${esc(kakao)}" target="_blank" rel="noopener noreferrer">1:1 카톡</a></nav>`;
+    return `<nav class="prop-mobile-cta" aria-label="빠른 상담"><a href="/index.html?proposal=1&business=${encodeURIComponent(data.client?.business_name || '')}&slug=${encodeURIComponent(data.meta?.client_slug || '')}#contact">상담 신청</a><a href="${esc(kakao)}" target="_blank" rel="noopener noreferrer">1:1 카톡</a></nav>`;
   }
 
   function initReveal() {
@@ -391,7 +423,7 @@
 
   function initHero() {
     const hero = document.querySelector('.prop-hero');
-    if (!hero || reducedMotion) return;
+    if (!hero || reducedMotion || !document.querySelector('.prop-hero-tiger-lit')) return;
     hero.addEventListener('pointermove', (event) => {
       if (window.innerWidth <= 809) return;
       const box = hero.getBoundingClientRect();
@@ -502,7 +534,7 @@
   function initPlanToggle(common) {
     const plans = common.plans || {};
     const grid = document.querySelector('[data-plan-grid]');
-    const highlight = 'PERFORMANCE';
+    const highlight = document.querySelector('.prop-plan-card.is-recommended')?.dataset.planId || 'PERFORMANCE';
     document.querySelectorAll('[data-prop-term]').forEach((button) => button.addEventListener('click', () => {
       const term = Number(button.dataset.propTerm);
       document.querySelectorAll('[data-prop-term]').forEach((item) => {

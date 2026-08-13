@@ -1,0 +1,673 @@
+{
+  "meta": {
+    "proposal_id": "TIGER-PROPOSAL-NAMCHEON-BULGOGI-20260813",
+    "client_name": "남천불고기 남천본점",
+    "client_slug": "namcheon-bulgogi",
+    "created_date": "2026-08-13",
+    "updated_date": "2026-08-13",
+    "status": "FINAL",
+    "approval_status": "USER_APPROVED",
+    "version": "1.0",
+    "template": "TIGER_PROPOSAL_V2",
+    "classification": {
+      "primary": "LOCAL_VISIT",
+      "secondary": "BRAND_GROWTH"
+    }
+  },
+  "client": {
+    "business_name": "남천불고기 남천본점",
+    "display_name": "남천불고기",
+    "category": "불고기·쌈밥 중심 한식당",
+    "address": "부산광역시 수영구 수영로388번길 25-12 1층",
+    "region": "부산 수영구 남천동",
+    "business_type_primary": "LOCAL_VISIT",
+    "business_type_secondary": "BRAND_GROWTH",
+    "official_website": null,
+    "naver_place": "https://naver.me/58qytMTJ",
+    "smartstore": null,
+    "online_store": null,
+    "verified_menu": [
+      {
+        "name": "간장 돼지불고기",
+        "description": "석쇠 불향과 단짠 양념, 톳밥·우렁강된장·쌈채소를 함께 즐기는 한 상",
+        "price_krw": 13000,
+        "verification": "PUBLIC_SOURCE_CROSS_CHECKED"
+      },
+      {
+        "name": "고추장 돼지불고기",
+        "description": "석쇠 불향과 매콤한 양념, 톳밥·우렁강된장·쌈채소를 함께 즐기는 한 상",
+        "price_krw": 14000,
+        "verification": "PUBLIC_SOURCE_CROSS_CHECKED"
+      },
+      {
+        "name": "산더미 소불고기",
+        "description": "푸짐한 비주얼이 강점인 소불고기 메뉴",
+        "price_krw": 17000,
+        "verification": "PUBLIC_SOURCE_CROSS_CHECKED"
+      }
+    ]
+  },
+  "channels": {
+    "naver_place": {
+      "status": "ACTIVE",
+      "url": "https://naver.me/58qytMTJ",
+      "analysis": "메뉴·위치·영업정보·방문 후기의 중심이며 SNS 발견 이후 실제 방문을 결정하는 핵심 전환 채널입니다."
+    },
+    "naver_blog": {
+      "status": "NOT_VERIFIED",
+      "url": null,
+      "analysis": "방문자 후기는 생성되고 있으나 공식 운영 블로그는 공개 검색에서 확인되지 않았습니다."
+    },
+    "instagram": {
+      "status": "NOT_VERIFIED",
+      "url": null,
+      "analysis": "방문자 게시물은 확인되지만 매장 공식 계정은 공개 검색에서 확인되지 않았습니다."
+    },
+    "tiktok": {
+      "status": "NOT_VERIFIED",
+      "url": null,
+      "analysis": "공식 계정과 지속 운영 콘텐츠를 확인하지 못했습니다."
+    },
+    "youtube": {
+      "status": "NOT_VERIFIED",
+      "url": null,
+      "analysis": "공식 채널을 확인하지 못했습니다."
+    },
+    "threads": {
+      "status": "NOT_VERIFIED",
+      "url": null,
+      "analysis": "외부 계정의 언급은 있으나 공식 운영 계정은 확인되지 않았습니다."
+    },
+    "naver_clip": {
+      "status": "NOT_VERIFIED",
+      "url": null,
+      "analysis": "방문 후기의 클립형 콘텐츠는 보이지만 공식 발행 여부는 확인되지 않았습니다."
+    }
+  },
+  "hero": {
+    "eyebrow": "남천불고기 남천본점 맞춤 SNS 운영 제안",
+    "headline": "불향·톳밥·우렁강된장까지 한 상은 이미 완성됐습니다. 이제 남천동에서 불고기를 찾는 순간, 먼저 떠오르게 만들 차례입니다.",
+    "headline_lines": [
+      "불향·톳밥·우렁강된장까지",
+      "한 상은 이미 완성됐습니다.",
+      "이제 남천동에서 불고기를 찾는 순간,",
+      "먼저 떠오르게 만들 차례입니다."
+    ],
+    "subheadline": "손님이 남긴 좋은 후기를 매장 자체 콘텐츠로 바꾸고, SNS 발견부터 네이버 검색과 매장 방문, 재방문까지 이어지는 흐름을 설계합니다.",
+    "primary_cta": "남천불고기 운영안 상담하기",
+    "secondary_cta": "제안서 핵심 보기",
+    "trust_note": "남천불고기 남천본점 맞춤 SNS 운영 제안",
+    "image_alt": "불향 석쇠 돼지불고기를 담은 남천불고기 제안용 생성 이미지",
+    "visual_direction": "PC는 카피 왼쪽·석쇠불고기 실사 오른쪽의 분리 구조, 모바일은 음식 실사를 먼저 보여주고 카피를 아래 독립 영역에 배치합니다."
+  },
+  "diagnosis": {
+    "section_headline": "남천불고기에는 억지로 만들어야 할 이야기가 없습니다.",
+    "section_body": "불향이 올라오는 순간, 상이 가득 차는 순간, 손님이 쌈을 싸는 순간이 모두 콘텐츠입니다.",
+    "current_strengths": [
+      "석쇠에서 구워 나오는 간장·고추장 돼지불고기는 영상에서 맛을 직관적으로 전달할 수 있습니다.",
+      "산더미 소불고기는 메뉴명이 곧 후킹이 되는 비주얼 상품입니다.",
+      "톳밥·미역국·우렁강된장·반찬·쌈채소가 한 끼의 완성도를 높입니다.",
+      "남천역과 남천동 유명 팥빙수 상권을 방문 동선 콘텐츠로 활용할 수 있습니다.",
+      "최근 방문 후기와 외부 콘텐츠가 생성되기 시작했습니다."
+    ],
+    "missing_opportunities": [
+      "외부 게시물에서 관심을 얻은 고객이 공식 SNS에서 메뉴 차이와 추천 조합을 이어서 확인하기 어렵습니다.",
+      "손님의 좋은 설명이 매장 자체 채널에 축적되는 구조가 확인되지 않습니다.",
+      "방문 후 공식 계정을 팔로우하거나 다른 메뉴를 저장할 이유가 충분히 쌓이지 않았습니다.",
+      "불향·톳밥·우렁강된장·쌈채소라는 차별점이 하나의 브랜드 기억으로 정리되지 않았습니다."
+    ],
+    "core_problem": "손님은 남천불고기를 이야기하기 시작했지만, 그 이야기가 남천불고기의 고객자산으로 쌓이는 구조는 아직 확인되지 않았습니다.",
+    "core_opportunity": "남천동 불고기집이라는 일반 명칭을 넘어 불향 석쇠불고기와 건강한 쌈밥 한 상이라는 기억을 선점하는 것입니다.",
+    "why_now": "최근 후기와 외부 게시물이 늘어나는 초기 인지도 형성 구간에 대표 메뉴와 브랜드 이미지를 매장이 먼저 정의해야 신상 맛집을 넘어 다시 찾는 남천동 불고기집으로 성장할 수 있습니다."
+  },
+  "research": {
+    "search_demand_summary": "공개 검색 결과에서 남천동 맛집·한식·점심·쌈밥과 함께 남천불고기 방문 후기가 생성되고 있습니다. 절대 검색량은 확인하지 않았으며 임의 수치를 사용하지 않습니다.",
+    "platform_opportunity": [
+      "숏폼에서 석쇠 불향과 산더미 비주얼로 신규 발견을 만듭니다.",
+      "카드뉴스에서 간장·고추장·산더미 메뉴 선택을 돕고 저장을 만듭니다.",
+      "Threads에서 사장님의 한 상 철학과 손님 반응을 대화형으로 축적합니다.",
+      "네이버 블로그와 플레이스에서 메뉴·가격·주차·위치 검색 의도를 해결합니다."
+    ],
+    "external_hook_insights": [
+      {
+        "hook": "불향 가득 석쇠불고기",
+        "customer_reason": "냄새와 소리를 영상으로 상상하게 합니다.",
+        "tiger_application": "불판 소리·연기·윤기를 첫 1초에 보여줍니다."
+      },
+      {
+        "hook": "우렁강된장과 쌈채소",
+        "customer_reason": "가격보다 한 상의 만족감을 구체적으로 전달합니다.",
+        "tiger_application": "메뉴와 전체 상차림을 한 프레임에서 보여줍니다."
+      },
+      {
+        "hook": "산더미 소불고기",
+        "customer_reason": "메뉴명만으로 양과 비주얼을 전달합니다.",
+        "tiger_application": "실제 높이와 양을 과장 없이 촬영해 증명합니다."
+      },
+      {
+        "hook": "공깃밥 대신 톳밥",
+        "customer_reason": "다른 불고기집과 구분되는 디테일입니다.",
+        "tiger_application": "톳밥이 한 상에 더하는 차이를 정보형 콘텐츠로 만듭니다."
+      }
+    ],
+    "competitor_insights": [
+      "남천동에는 쌈밥·집밥·한식 선택지가 많아 단순히 푸짐하다는 설명만으로는 구분이 어렵습니다.",
+      "남천불고기는 석쇠 불향·톳밥·우렁강된장·산더미 비주얼의 조합으로 기억을 만들어야 합니다."
+    ],
+    "seasonal_opportunities": [
+      "여름에는 불 앞에서 굽지 않고 완성된 석쇠불고기를 편하게 즐기는 점심 한 상을 강조합니다.",
+      "가을·겨울에는 따뜻한 산더미 소불고기와 가족 외식 장면을 강조합니다.",
+      "주말에는 남천동 식사 후 팥빙수까지 이어지는 지역 코스를 활용합니다."
+    ],
+    "sources": [
+      {
+        "title": "남천불고기 남천본점 네이버 플레이스",
+        "publisher": "NAVER",
+        "url": "https://naver.me/58qytMTJ",
+        "accessed_date": "2026-08-13",
+        "used_for": "공식 대상 매장 식별"
+      },
+      {
+        "title": "남천불고기",
+        "publisher": "다이닝코드",
+        "url": "https://www.diningcode.com/profile.php?rid=0g6xq5wDCoUB",
+        "accessed_date": "2026-08-13",
+        "used_for": "주소·영업정보·메뉴·최근 공개 후기 교차 확인"
+      },
+      {
+        "title": "남천불고기",
+        "publisher": "블루리본",
+        "url": "https://www.bluer.co.kr/restaurants/56226",
+        "accessed_date": "2026-08-13",
+        "used_for": "메뉴 구성과 업종 설명 교차 확인"
+      },
+      {
+        "title": "남천불고기 방문자 게시물",
+        "publisher": "Instagram",
+        "url": "https://www.instagram.com/p/DaKduqmgYPJ/",
+        "accessed_date": "2026-08-13",
+        "used_for": "불향·상차림·쌈채소 관련 외부 후킹 확인"
+      },
+      {
+        "title": "네이버, 지도앱에 발견 탭 신규 도입",
+        "publisher": "NAVER Corp.",
+        "url": "https://www.navercorp.com/media/pressReleasesDetail?seq=32594",
+        "accessed_date": "2026-08-13",
+        "used_for": "장소 발견·저장·관심사 기반 추천 환경 확인"
+      }
+    ]
+  },
+  "strategy": {
+    "primary_goal": "불향 석쇠불고기와 한 상의 차별점을 반복 노출해 SNS 발견을 네이버 검색과 매장 방문, 다른 메뉴 재방문으로 연결합니다.",
+    "customer_flow_label": "발견에서 재방문까지",
+    "customer_flow": [
+      {
+        "step": "DISCOVERY",
+        "label": "SNS 발견",
+        "channel": "Instagram Reels·TikTok·YouTube Shorts·Naver Clip",
+        "action": "불향과 한 상을 보고 멈춥니다."
+      },
+      {
+        "step": "SEARCH",
+        "label": "매장 검색",
+        "channel": "Naver Search·Naver Place",
+        "action": "남천불고기를 검색합니다."
+      },
+      {
+        "step": "DECISION",
+        "label": "메뉴 확인",
+        "channel": "Card News·Naver Blog·Naver Place",
+        "action": "메뉴·가격·위치·주차를 확인합니다."
+      },
+      {
+        "step": "VISIT",
+        "label": "매장 방문",
+        "channel": "Naver Place 길찾기·전화",
+        "action": "실제 식사 행동으로 이동합니다."
+      },
+      {
+        "step": "RETURN",
+        "label": "재방문",
+        "channel": "저장 콘텐츠·후기·시즌 콘텐츠",
+        "action": "다음에는 다른 메뉴를 먹을 이유가 생깁니다."
+      }
+    ],
+    "platform_roles": [
+      {
+        "platform": "SHORTS",
+        "role": "불향·지글거림·산더미 비주얼로 신규 발견을 만듭니다."
+      },
+      {
+        "platform": "CARD_NEWS",
+        "role": "메뉴 비교와 추천 조합을 저장 가능한 정보로 만듭니다."
+      },
+      {
+        "platform": "THREADS",
+        "role": "사장님의 한 상 철학과 손님 반응을 대화로 축적합니다."
+      },
+      {
+        "platform": "NAVER_BLOG",
+        "role": "남천동 점심·한식·가족 외식 검색 의도를 해결합니다."
+      },
+      {
+        "platform": "NAVER_PLACE",
+        "role": "콘텐츠 관심을 위치·전화·길찾기와 실제 방문으로 전환합니다."
+      }
+    ],
+    "content_engine": [
+      {
+        "stage": "HOOK",
+        "copy": "불향과 지글거리는 석쇠로 첫 1초에 멈춥니다.",
+        "visual_key": "client_engine_hook"
+      },
+      {
+        "stage": "RETENTION",
+        "copy": "이 가격에 어디까지 나올까라는 궁금증으로 전체 한 상을 기다리게 합니다.",
+        "visual_key": "client_engine_retention"
+      },
+      {
+        "stage": "VALUE",
+        "copy": "간장·고추장 선택, 톳밥, 우렁강된장과 쌈 조합을 알려드립니다.",
+        "visual_key": "client_engine_value"
+      },
+      {
+        "stage": "CTA",
+        "copy": "메뉴를 저장하고 네이버에서 남천불고기를 검색하게 합니다.",
+        "visual_key": "client_engine_cta"
+      }
+    ],
+    "framework": [
+      {
+        "stage": "HOOK",
+        "role": "불향과 지글거리는 석쇠로 첫 1초에 멈추게 합니다.",
+        "image": "assets/proposals/namcheon-bulgogi/hook-v1.webp",
+        "image_alt": "숯불 위에서 구워지는 돼지불고기의 제안용 생성 이미지"
+      },
+      {
+        "stage": "RETENTION",
+        "role": "이 가격에 어디까지 나올까라는 궁금증으로 전체 한 상을 기다리게 합니다.",
+        "image": "assets/proposals/namcheon-bulgogi/retention-v1.webp",
+        "image_alt": "불고기와 톳밥, 강된장, 쌈채소가 놓인 한 상 제안용 생성 이미지"
+      },
+      {
+        "stage": "VALUE",
+        "role": "간장·고추장 선택, 톳밥, 우렁강된장과 쌈 조합을 알려드립니다.",
+        "image": "assets/proposals/namcheon-bulgogi/value-v1.webp",
+        "image_alt": "톳밥과 강된장, 쌈채소 구성을 보여주는 제안용 생성 이미지"
+      },
+      {
+        "stage": "CTA",
+        "role": "메뉴를 저장하고 네이버에서 남천불고기를 검색하게 합니다.",
+        "image": "assets/proposals/namcheon-bulgogi/cta-v1.webp",
+        "image_alt": "따뜻한 조명의 한식당 입구를 표현한 제안용 생성 이미지"
+      }
+    ],
+    "content_pillars": [
+      "석쇠 불향과 조리 현장",
+      "간장·고추장·산더미 메뉴 선택",
+      "톳밥·우렁강된장·쌈채소 한 상",
+      "가족 외식·남천동 점심 상황",
+      "남천역·팥빙수 상권 방문 코스",
+      "손님 반응과 재방문 이야기"
+    ]
+  },
+  "content_examples": [
+    {
+      "id": "SHORTS_01",
+      "title": "불고기 하나 시켰는데 상이 끝까지 차는 남천동 한식집",
+      "format": "SHORTS",
+      "hook": "불고기보다 먼저 놀라는 건 이 한 상입니다.",
+      "retention": "석쇠불고기 다음에 톳밥·미역국·반찬·쌈채소가 순서대로 들어옵니다.",
+      "value": "간장 돼지불고기 한 상의 실제 구성을 가격과 함께 보여드립니다.",
+      "cta": "저장해 두고 네이버에서 남천불고기를 검색해 보세요."
+    },
+    {
+      "id": "SHORTS_02",
+      "title": "이름만 산더미인 줄 알았는데 진짜였습니다",
+      "format": "SHORTS",
+      "hook": "17,000원 소불고기가 이렇게 쌓여 나옵니다.",
+      "retention": "높이, 끓는 장면, 당면과 채소, 쌈 조합 순서로 보여드립니다.",
+      "value": "1인분 중량과 실제 제공 구성을 과장 없이 확인시킵니다.",
+      "cta": "간장파인지 산더미파인지 댓글로 남겨주세요."
+    },
+    {
+      "id": "CARD_NEWS_01",
+      "title": "간장·고추장·산더미, 오늘 내 입맛에는 무엇이 맞을까요?",
+      "format": "CARD_NEWS",
+      "hook": "남천불고기 첫 방문, 메뉴 고민은 여기서 끝내세요.",
+      "retention": "단짠·매콤·푸짐함 세 가지 욕구로 메뉴를 비교합니다.",
+      "value": "맵기, 조리 방식, 추천 조합, 함께 먹을 사이드를 정리합니다.",
+      "cta": "같이 갈 사람에게 보내고 먹을 메뉴를 미리 골라보세요."
+    },
+    {
+      "id": "THREADS_01",
+      "title": "다음에 한번 더 와야겠다",
+      "format": "THREADS",
+      "hook": "손님이 나가면서 다음에 한번 더 와야겠다고 혼잣말을 했습니다.",
+      "retention": "매장이 중요하게 생각하는 불향과 따뜻한 한 상의 이유를 사장님 목소리로 풀어냅니다.",
+      "value": "정갈한 반찬과 메뉴 조합에 담긴 매장의 기준을 전합니다.",
+      "cta": "첫 방문에는 간장·고추장·산더미 중 어떤 메뉴를 고르시겠어요?"
+    },
+    {
+      "id": "NAVER_BLOG_01",
+      "title": "남천역 점심 맛집 남천불고기｜메뉴 가격·주차·간장 불고기 한 상",
+      "format": "NAVER_BLOG",
+      "hook": "남천역 근처에서 정갈하고 든든한 한식을 찾는 분을 위한 방문 안내입니다.",
+      "retention": "위치·영업시간·메뉴 차이·가격·주차 정보를 순서대로 해결합니다.",
+      "value": "남천동 점심, 남천역 한식, 가족 외식, 쌈밥 검색 의도를 한 글에서 충족합니다.",
+      "cta": "네이버 플레이스에서 길찾기와 전화 연결을 확인해 보세요."
+    }
+  ],
+  "case_study": {
+    "enabled": true,
+    "case_id": "JOGANE",
+    "eyebrow": "TIGER VERIFIED CASE",
+    "headline": "조회수가 아니라 고객이 말을 걸기 시작했습니다.",
+    "connection_to_client": "조가네맛곳간에서 확인한 댓글·저장·팔로우 반응 구조를 남천불고기에서는 지역 검색과 실제 매장 방문으로 연결합니다.",
+    "verified_metrics": {
+      "views": "66.1K",
+      "likes": 278,
+      "comments": 53,
+      "saves": 26,
+      "new_followers": 69
+    },
+    "disclaimer": "제공된 조가네맛곳간 대표 콘텐츠 성과이며 남천불고기의 동일 성과를 보장하지 않습니다.",
+    "asset_ids": [
+      "case_jogane_performance"
+    ]
+  },
+  "first_30_days": [
+    {
+      "week": 1,
+      "label": "진단과 설계",
+      "actions": "플레이스·메뉴·리뷰·채널 점검, 대표 메뉴 포지셔닝, 촬영 동선 확정",
+      "deliverables": "브랜드 키워드, 촬영 리스트, 월간 캘린더"
+    },
+    {
+      "week": 2,
+      "label": "집중 촬영",
+      "actions": "석쇠불고기·산더미 소불고기·한 상 집중 촬영, 채널 기본 세팅",
+      "deliverables": "대표 SHORTS, HERO 사진, 채널 프로필"
+    },
+    {
+      "week": 3,
+      "label": "검색과 발행",
+      "actions": "메뉴 선택형 카드뉴스, 사장님 이야기 Threads, 검색형 블로그 발행",
+      "deliverables": "비교 콘텐츠, 검색 콘텐츠, 방문 CTA"
+    },
+    {
+      "week": 4,
+      "label": "반응과 개선",
+      "actions": "조회·저장·댓글·검색 반응 분석, 다음 달 소재 조정",
+      "deliverables": "월간 리포트, 다음 주제·후킹 개선안"
+    }
+  ],
+  "monthly_execution": {
+    "plan_id": "PERFORMANCE",
+    "quantity_source": "data/proposals/_common.json",
+    "shorts": "공통 PERFORMANCE 제공 범위를 적용합니다.",
+    "card_news": "공통 PERFORMANCE 제공 범위를 적용합니다.",
+    "threads": "공통 PERFORMANCE 제공 범위를 적용합니다.",
+    "blog": "공통 PERFORMANCE 제공 범위를 적용합니다.",
+    "platforms": [
+      "Instagram Reels",
+      "TikTok",
+      "YouTube Shorts",
+      "Naver Clip",
+      "Instagram Card News",
+      "Threads",
+      "Naver Blog",
+      "Naver Place"
+    ],
+    "execution_notes": "발견·비교·검색·방문 역할을 나눠 운영하며 초기 30일에는 대표 메뉴 기억과 검색·방문 동선 구축을 우선합니다."
+  },
+  "recommendation": {
+    "recommended_plan": "PERFORMANCE",
+    "recommended_term_months": 12,
+    "monthly_price_krw": null,
+    "price_source": "data/proposals/_common.json",
+    "price_display_note": "렌더러가 _common.json의 PERFORMANCE 12개월 월 이용료와 VAT 별도 문구를 표시합니다.",
+    "reason": "새 매장의 초기 관심이 형성되는 시기에 불향·산더미·톳밥·우렁강된장·반찬·위치 등 반복 가능한 소재를 빠르게 축적하고, 숏폼 발견과 네이버 검색 콘텐츠를 동시에 운영해야 지역 방문 Funnel이 완성되기 때문입니다.",
+    "reason_points": [
+      "초기 인지도 형성 시기에 대표 메뉴와 브랜드 기억을 빠르게 축적해야 합니다.",
+      "반복 가능한 음식·한 상·지역 소재가 충분합니다.",
+      "숏폼 발견과 네이버 검색을 함께 운영해야 실제 방문까지 이어집니다.",
+      "촬영·제작·게시·분석이 끊기지 않는 성과형 운영이 적합합니다."
+    ],
+    "expected_role": "SNS 발견과 네이버 검색을 연결해 남천불고기의 대표 메뉴 기억과 매장 방문, 다른 메뉴 재방문을 만드는 운영",
+    "commerce_extension": "포장·배달·온라인 판매 가능 여부가 확인된 뒤 COMMERCE 확장을 검토합니다."
+  },
+  "plans": {
+    "show_all_plans": true,
+    "highlight_plan": "PERFORMANCE",
+    "default_term_months": 12,
+    "source": "data/proposals/_common.json",
+    "client_fit_notes": {
+      "BASIC": "최소 운영은 가능하지만 신규 매장의 빠른 자산 축적에는 부족할 수 있습니다.",
+      "GROWTH": "예산을 우선할 경우 가능한 대안입니다.",
+      "PERFORMANCE": "추천. 발견·검색·방문 콘텐츠를 함께 운영합니다.",
+      "COMMERCE": "포장·배달·온라인 판매 구조가 확인된 뒤 검토합니다."
+    }
+  },
+  "tiger": {
+    "why_tiger_headline": "팔아본 사람이 콘텐츠를 만들면 보는 지점이 다릅니다.",
+    "why_tiger_body": "TIGER는 음식 사진이 아니라 손님이 방문을 결정하는 이유를 만듭니다.",
+    "why_tiger_points": [
+      "고객이 멈추고 검색하고 방문하도록 콘텐츠를 설계합니다.",
+      "숏폼·카드뉴스·Threads·블로그를 하나의 고객 동선으로 연결합니다.",
+      "실제 판매 현장을 경험한 운영자가 메뉴의 구매 포인트와 고객의 망설임을 반영합니다.",
+      "조회수뿐 아니라 저장·댓글·팔로우·검색·방문 반응을 보고 다음 콘텐츠를 개선합니다.",
+      "브랜드별 HOOK·RETENTION·VALUE·CTA와 승인 기준을 시스템으로 관리합니다."
+    ],
+    "profile_source": "TIGER_YB_PROFILE.md"
+  },
+  "assets": {
+    "asset_status": "GENERATED_VISUALS_APPROVED_FOR_PROPOSAL",
+    "client_logo": null,
+    "client_hero_images": [],
+    "product_images": [],
+    "store_images": [],
+    "social_screenshots": [],
+    "tiger_logo": {
+      "dark_background": "/assets/brand/logo/TIGER_LOGO_PRIMARY_HORIZONTAL_WHITE_V1.png",
+      "light_background": "/assets/brand/logo/TIGER_LOGO_PRIMARY_HORIZONTAL_V1.png",
+      "symbol": "/assets/brand/logo/TIGER_LOGO_SYMBOL_V1.png",
+      "profile": "/assets/brand/logo/TIGER_LOGO_PROFILE_V2.png"
+    },
+    "hero": {
+      "key": "client_hero_primary",
+      "filename": "assets/proposals/namcheon-bulgogi/hero-v1.webp",
+      "required_filename": "CLIENT_namcheon-bulgogi_HERO_01.jpg",
+      "brief": "석쇠에서 불향이 올라오는 간장 또는 고추장 돼지불고기 실사",
+      "fallback": "template_food_placeholder",
+      "usage_rights_required": false,
+      "disclosure": "제안용 생성 이미지이며 실제 매장 촬영본이 아닙니다."
+    },
+    "content_engine": {
+      "client_engine_hook": {
+        "filename": "assets/proposals/namcheon-bulgogi/hook-v1.webp",
+        "required_filename": "CLIENT_namcheon-bulgogi_ENGINE_HOOK_01.jpg",
+        "brief": "불고기 클로즈업·불꽃·연기"
+      },
+      "client_engine_retention": {
+        "filename": "assets/proposals/namcheon-bulgogi/retention-v1.webp",
+        "required_filename": "CLIENT_namcheon-bulgogi_ENGINE_RETENTION_01.jpg",
+        "brief": "반찬이 차례로 놓이며 한 상이 완성되는 장면"
+      },
+      "client_engine_value": {
+        "filename": "assets/proposals/namcheon-bulgogi/value-v1.webp",
+        "required_filename": "CLIENT_namcheon-bulgogi_ENGINE_VALUE_01.jpg",
+        "brief": "톳밥·우렁강된장·쌈채소 디테일"
+      },
+      "client_engine_cta": {
+        "filename": "assets/proposals/namcheon-bulgogi/cta-v1.webp",
+        "required_filename": "CLIENT_namcheon-bulgogi_ENGINE_CTA_01.jpg",
+        "brief": "매장 간판·입구·네이버 지도 확인 장면"
+      }
+    },
+    "case_images": [
+      {
+        "key": "case_jogane_performance",
+        "source": "_common.json",
+        "filename": null
+      }
+    ],
+    "generation_disclosure": "음식 및 매장 이미지는 제안 방향을 시각화한 생성 이미지이며 실제 남천불고기 촬영본이 아닙니다.",
+    "forbidden_assets": [
+      "TIGER_LOGO_PRIMARY.png",
+      "02_TIGER_YB_BUSINESS_CARD_ORIGINAL.jpg 내부 구형 로고",
+      "AI로 재생성한 호랑이 심벌",
+      "외부 블로그에서 무단 복사한 음식 사진"
+    ]
+  },
+  "final_cta": {
+    "headline": "남천불고기의 한 상은 이미 다시 찾을 이유가 있습니다. 이제 처음 보는 고객에게 발견될 이유를 만들겠습니다.",
+    "body": "대표 메뉴 촬영부터 네이버 검색, SNS 운영, 성과 확인까지 남천불고기 남천본점에 맞춘 첫 30일 운영안을 협의합니다.",
+    "button_label": "PERFORMANCE 운영 협의 시작하기",
+    "secondary_button_label": "1:1 카카오톡 상담",
+    "contact_method": "homepage_consultation_form_and_kakao",
+    "form_prefill": {
+      "business_name": "남천불고기 남천본점",
+      "proposal_slug": "namcheon-bulgogi",
+      "selected_plan": "PERFORMANCE",
+      "contract_term_months": 12
+    }
+  },
+  "fact_check": {
+    "status": "ONBOARDING_REQUIRED_NOT_BLOCKING",
+    "items": [
+      "네이버 플레이스의 현재 정확한 공식 상호 표기와 카테고리",
+      "플레이스 방문자 리뷰·블로그 리뷰 수, 저장 수, 대표 키워드",
+      "공식 Instagram·TikTok·YouTube·Threads·Blog 계정 존재 여부",
+      "네이버 예약·전화예약·단체예약 지원 여부",
+      "배달·포장 가능 여부와 주문 채널",
+      "주차 위치, 지원 금액·시간·조건",
+      "실제 쌈채소 리필 범위와 운영 조건",
+      "대표 메뉴 1인 주문 조건, 중량, 가격 최종 확인",
+      "정확한 개업일과 남천본점 명칭의 브랜드 확장 계획",
+      "사장님·브랜드 스토리와 메뉴 개발 배경",
+      "업체가 제공할 수 있는 원본 사진·영상과 촬영 가능 시간"
+    ],
+    "rendering_rule": "미확인 정보는 노출 카피에서 단정하지 않으며 제안서 구현과 Preview 생성을 막지 않습니다."
+  },
+  "web": {
+    "proposal_path": "/proposal/namcheon-bulgogi",
+    "data_path": "/data/proposals/namcheon-bulgogi.json",
+    "public_navigation": false,
+    "noindex": true,
+    "nofollow": true,
+    "noarchive": true,
+    "password_protection": false,
+    "password": null,
+    "include_in_sitemap": false,
+    "robots": "noindex,nofollow,noarchive",
+    "page_title": "남천불고기 남천본점 맞춤 SNS 운영 제안 | TIGER COMMERCE LAB",
+    "meta_description": "불향 석쇠불고기의 발견을 네이버 검색과 매장 방문, 재방문으로 연결하는 남천불고기 남천본점 맞춤 운영 제안입니다.",
+    "og": {
+      "title": "남천불고기 남천본점 맞춤 SNS 운영 제안 | TIGER COMMERCE LAB",
+      "description": "불향 석쇠불고기의 발견을 네이버 검색과 매장 방문, 재방문으로 연결하는 맞춤 운영 제안입니다.",
+      "image": "/assets/proposals/namcheon-bulgogi/og-namcheon-bulgogi-1200x630.jpg",
+      "image_status": "GENERATE_FROM_APPROVED_TEMPLATE"
+    },
+    "responsive": {
+      "desktop": "1440px에서 HERO 카피 왼쪽·음식 이미지 오른쪽을 분리하고 PC 고정 상담 CTA를 유지합니다.",
+      "tablet": "768px에서 카드와 가격표의 정보 위계를 유지하며 가로 잘림 없이 1~2열로 전환합니다.",
+      "mobile": "390px에서 음식 이미지를 먼저 보여주고 카피를 아래 독립 영역에 배치하며 하단 상담 신청·1:1 카카오톡 고정 CTA를 유지합니다."
+    }
+  },
+  "sections": [
+    {
+      "id": "section-01",
+      "type": "hero",
+      "nav_label": "제안 개요",
+      "headline": "불향·톳밥·우렁강된장까지 한 상은 이미 완성됐습니다.",
+      "body": "남천동에서 불고기를 찾는 순간 먼저 떠오르게 만듭니다."
+    },
+    {
+      "id": "section-02",
+      "type": "current-position",
+      "eyebrow": "ALREADY STRONG",
+      "headline": "남천불고기에는 억지로 만들어야 할 이야기가 없습니다.",
+      "body": "불향이 올라오는 순간, 상이 가득 차는 순간, 손님이 쌈을 싸는 순간이 모두 콘텐츠입니다.",
+      "cards": ["석쇠 불향", "산더미 비주얼", "톳밥 한 상", "남천동 방문 동선"]
+    },
+    {
+      "id": "section-03",
+      "type": "opportunity",
+      "eyebrow": "THE GAP",
+      "headline": "손님은 이야기하기 시작했지만, 그 이야기가 매장 자산으로 쌓이지 않고 있습니다.",
+      "body": "외부 후기에서 생긴 관심을 공식 콘텐츠와 네이버 검색, 실제 방문으로 이어주는 구조가 필요합니다.",
+      "comparison": [
+        {"before": "방문자 게시물만 보고 끝납니다", "after": "남천불고기를 검색합니다"},
+        {"before": "메뉴가 많아 선택을 망설입니다", "after": "간장·고추장·산더미를 비교합니다"},
+        {"before": "한 번 먹고 관계가 끝납니다", "after": "다른 메뉴를 저장하고 다시 찾습니다"}
+      ]
+    },
+    {
+      "id": "section-04",
+      "type": "why-now",
+      "eyebrow": "WHY NOW",
+      "headline": "신상 맛집의 관심이 생기는 지금, 대표 기억을 먼저 정해야 합니다.",
+      "body": "최근 후기와 외부 게시물이 늘어나는 초기 인지도 구간입니다. 이때 불향·톳밥·우렁강된장·쌈채소를 하나의 브랜드 기억으로 묶어야 합니다.",
+      "highlight": "남천동 불고기집을 넘어 불향 석쇠불고기와 건강한 쌈밥 한 상의 기억을 선점하겠습니다."
+    },
+    {
+      "id": "section-05",
+      "type": "customer-flow",
+      "eyebrow": "ONE CONNECTED JOURNEY",
+      "headline": "SNS 발견 → 매장 검색 → 메뉴 확인 → 매장 방문 → 재방문",
+      "body": "각 채널이 따로 움직이지 않도록 고객이 다음 행동을 바로 찾게 만듭니다.",
+      "steps": ["SNS 발견", "매장 검색", "메뉴 확인", "매장 방문", "재방문"]
+    },
+    {
+      "id": "section-06",
+      "type": "content-engine",
+      "eyebrow": "CONTENT ENGINE",
+      "headline": "불향으로 멈추고, 한 상으로 설득하고, 검색과 방문으로 연결합니다.",
+      "body": "한 번의 촬영 소재도 HOOK·RETENTION·VALUE·CTA 역할에 맞춰 다시 설계합니다."
+    },
+    {
+      "id": "section-07",
+      "type": "content-examples",
+      "eyebrow": "MADE FOR NAMCHEON BULGOGI",
+      "headline": "남천불고기이기에 만들 수 있는 콘텐츠입니다.",
+      "body": "추상적인 맛집 홍보가 아니라 실제 메뉴, 한 상의 구성, 고객 질문과 지역 검색에서 시작합니다.",
+      "content_example_ids": ["SHORTS_01", "SHORTS_02", "CARD_NEWS_01", "THREADS_01", "NAVER_BLOG_01"]
+    },
+    {
+      "id": "section-08",
+      "type": "proof-case"
+    },
+    {
+      "id": "section-09",
+      "type": "monthly-execution",
+      "eyebrow": "FIRST 30 DAYS",
+      "headline": "첫 달부터 발견, 검색, 방문, 재방문을 함께 쌓습니다.",
+      "weeks": [
+        {"week": "WEEK 1", "focus": "진단과 설계", "actions": ["플레이스·메뉴·리뷰 점검", "대표 메뉴 포지셔닝", "촬영 동선·월간 캘린더 확정"]},
+        {"week": "WEEK 2", "focus": "집중 촬영", "actions": ["석쇠불고기 후킹 촬영", "산더미·한 상 촬영", "채널 기본 세팅"]},
+        {"week": "WEEK 3", "focus": "검색과 발행", "actions": ["메뉴 비교 카드뉴스", "사장님 이야기 Threads", "남천동 검색형 블로그"]},
+        {"week": "WEEK 4", "focus": "반응과 개선", "actions": ["조회·저장·댓글 분석", "검색·방문 반응 확인", "다음 달 후킹 개선"]}
+      ]
+    },
+    {
+      "id": "section-10",
+      "type": "plans",
+      "eyebrow": "CHOOSE THE GROWTH LEVEL",
+      "highlight_plan": "PERFORMANCE",
+      "plan_ids": ["BASIC", "GROWTH", "PERFORMANCE", "COMMERCE"]
+    },
+    {
+      "id": "section-11",
+      "type": "why-tiger"
+    },
+    {
+      "id": "section-12",
+      "type": "final-cta",
+      "eyebrow": "READY TO GROW",
+      "headline": "남천불고기의 한 상은 이미 다시 찾을 이유가 있습니다. 이제 처음 보는 고객에게 발견될 이유를 만들겠습니다.",
+      "body": "대표 메뉴 촬영부터 네이버 검색, SNS 운영, 성과 확인까지 남천불고기 남천본점에 맞춘 첫 30일 운영안을 협의합니다.",
+      "primary_cta": "PERFORMANCE 운영 협의 시작하기"
+    }
+  ]
+}

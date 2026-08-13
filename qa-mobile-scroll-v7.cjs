@@ -19,7 +19,7 @@ const dom = new JSDOM(html, {
     Object.defineProperty(window, 'innerWidth', { configurable: true, value: 390 });
     Object.defineProperty(window, 'innerHeight', { configurable: true, value: 844 });
     Object.defineProperty(window, 'scrollY', { configurable: true, get: () => scrollY });
-    window.matchMedia = () => ({ matches: false, addEventListener() {}, removeEventListener() {} });
+    window.matchMedia = (query) => ({ matches: query.includes('max-width: 809px'), addEventListener() {}, removeEventListener() {} });
     window.HTMLElement.prototype.scrollIntoView = () => {};
     window.IntersectionObserver = class {
       constructor(callback) { this.callback = callback; }
@@ -39,10 +39,10 @@ const dom = new JSDOM(html, {
 
 const { document, Event } = dom.window;
 const stages = {
-  hero: { selector: '.hero-media', start: 0, height: 1561 },
-  story: { selector: '#story', start: 4000, height: 3629 },
-  process: { selector: '#content-commerce', start: 8000, height: 3629 },
-  operation: { selector: '.operation-showcase', start: 13000, height: 2785 },
+  hero: { selector: '.hero-media', start: 0, height: 1165 },
+  story: { selector: '#story', start: 4000, height: 2110 },
+  process: { selector: '#content-commerce', start: 7000, height: 2110 },
+  operation: { selector: '.operation-showcase', start: 10500, height: 1730 },
 };
 
 Object.values(stages).forEach(({ selector, start, height }) => {
@@ -64,6 +64,9 @@ const moveToProgress = async (stage, progress, topOffset = 0) => {
 
 (async () => {
   await wait(60);
+
+  assert.match(document.querySelector('.hero-tiger-base').src, /tiger-hero-mobile-cinematic\.webp$/);
+  assert.match(document.querySelector('.hero-tiger-illuminated').src, /tiger-hero-mobile-illuminated\.webp$/);
 
   await moveToProgress(stages.hero, 0.5);
   const tigerProgress = Number(document.querySelector('#hero').dataset.mobileTigerProgress);

@@ -54,6 +54,26 @@
   /* Hero rotating outcome & responsive eye glow */
   const hero = $('#hero');
   const heroMedia = $('.hero-media', hero);
+  const heroTigerBase = $('.hero-tiger-base', hero);
+  const heroTigerIlluminated = $('.hero-tiger-illuminated', hero);
+  const mobileTigerMedia = window.matchMedia('(max-width: 809px)');
+  const tigerSources = {
+    desktop: {
+      base: 'assets/home/v6/tiger-hero-cinematic.webp',
+      illuminated: 'assets/home/v6/tiger-hero-illuminated.webp',
+    },
+    mobile: {
+      base: 'assets/home/v7/tiger-hero-mobile-cinematic.webp',
+      illuminated: 'assets/home/v7/tiger-hero-mobile-illuminated.webp',
+    },
+  };
+  function syncTigerSources() {
+    const source = mobileTigerMedia.matches ? tigerSources.mobile : tigerSources.desktop;
+    if (heroTigerBase?.getAttribute('src') !== source.base) heroTigerBase?.setAttribute('src', source.base);
+    if (heroTigerIlluminated?.getAttribute('src') !== source.illuminated) heroTigerIlluminated?.setAttribute('src', source.illuminated);
+  }
+  syncTigerSources();
+  mobileTigerMedia.addEventListener?.('change', syncTigerSources);
   if (hero && heroMedia && !$('.hero-media-stage', heroMedia)) {
     const heroStage = document.createElement('div');
     heroStage.className = 'hero-media-stage';

@@ -5,6 +5,14 @@
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const scrollToElement = (element) => element && element.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+  const clamp01 = (value) => Math.max(0, Math.min(1, value));
+  const scrollProgress = (section, topOffset = 0) => {
+    if (!section) return 0;
+    const rect = section.getBoundingClientRect();
+    const visibleHeight = Math.max(1, window.innerHeight - topOffset);
+    const range = Math.max(1, section.offsetHeight - visibleHeight);
+    return clamp01((topOffset - rect.top) / range);
+  };
 
   /* Header & navigation */
   const header = $('#siteHeader');
@@ -45,6 +53,37 @@
 
   /* Hero rotating outcome & responsive eye glow */
   const hero = $('#hero');
+  const heroMedia = $('.hero-media', hero);
+  const heroTigerBase = $('.hero-tiger-base', hero);
+  const heroTigerIlluminated = $('.hero-tiger-illuminated', hero);
+  const mobileTigerMedia = window.matchMedia('(max-width: 809px)');
+  const tigerSources = {
+    desktop: {
+      base: 'assets/home/v6/tiger-hero-cinematic.webp',
+      illuminated: 'assets/home/v6/tiger-hero-illuminated.webp',
+    },
+    mobile: {
+      base: 'assets/home/v7/tiger-hero-mobile-cinematic.webp',
+      illuminated: 'assets/home/v7/tiger-hero-mobile-illuminated.webp',
+    },
+  };
+  function syncTigerSources() {
+    const source = mobileTigerMedia.matches ? tigerSources.mobile : tigerSources.desktop;
+    if (heroTigerBase?.getAttribute('src') !== source.base) heroTigerBase?.setAttribute('src', source.base);
+    if (heroTigerIlluminated?.getAttribute('src') !== source.illuminated) heroTigerIlluminated?.setAttribute('src', source.illuminated);
+  }
+  syncTigerSources();
+  mobileTigerMedia.addEventListener?.('change', syncTigerSources);
+  if (hero && heroMedia && !$('.hero-media-stage', heroMedia)) {
+    const heroStage = document.createElement('div');
+    heroStage.className = 'hero-media-stage';
+    while (heroMedia.firstChild) heroStage.appendChild(heroMedia.firstChild);
+    const eyeGuide = $('.hero-eye-guide', heroStage);
+    if (eyeGuide) eyeGuide.innerHTML = '<span class="guide-desktop">호랑이의 눈을 향해 움직여보세요</span><span class="guide-mobile">스크롤해 호랑이의 눈빛을 깨워보세요</span>';
+    const heroFrame = $('.hero-frame', hero);
+    if (heroFrame) heroStage.appendChild(heroFrame);
+    heroMedia.appendChild(heroStage);
+  }
   const rotatingOutcome = $('#rotatingOutcome');
   const outcomes = ['신규 고객을 만납니다', '팬을 만듭니다', '방문을 만듭니다', '판매로 연결합니다', '라이브로 수익화합니다'];
   let outcomeIndex = 0;
@@ -116,27 +155,34 @@
   const processCards = $$('[data-process-step]');
   const processDots = processTrack ? $$('i', processTrack) : [];
   let scrollTicking = false;
+  let updateOperationScroll = () => {};
 
   function updateScrollStories() {
     scrollTicking = false;
-    if (story && window.innerWidth >= 810) {
-      const storyRect = story.getBoundingClientRect();
-      const storyRange = Math.max(1, story.offsetHeight - window.innerHeight);
-      const storyProgress = Math.max(0, Math.min(1, -storyRect.top / storyRange));
+    const mobile = window.innerWidth <= 809;
+    if (hero && heroMedia && mobile && !reducedMotion) {
+      const tigerProgress = scrollProgress(heroMedia);
+      const easedTigerProgress = 1 - Math.pow(1 - tigerProgress, 2);
+      hero.style.setProperty('--eye-intensity', easedTigerProgress.toFixed(3));
+      hero.dataset.mobileTigerProgress = String(Math.round(tigerProgress * 100));
+    }
+    if (story && !reducedMotion) {
+      const storyProgress = scrollProgress(story, mobile ? 62 : 0);
       setStoryStep(Math.min(3, Math.floor(storyProgress * 4)));
     }
-    if (process && window.innerWidth >= 1200) {
-      const processRect = process.getBoundingClientRect();
-      const range = Math.max(1, process.offsetHeight - window.innerHeight);
-      const progress = Math.max(0, Math.min(1, -processRect.top / range));
+    if (process && (mobile || window.innerWidth >= 1200) && !reducedMotion) {
+      const progress = scrollProgress(process, mobile ? 62 : 0);
       const activeIndex = Math.min(3, Math.floor(progress * 4));
-      processTrack?.style.setProperty('--progress', `${Math.max(0, Math.min(100, progress * 100))}%`);
+      processTrack?.style.setProperty('--progress', `${progress * 100}%`);
+      process.style.setProperty('--mobile-progress', `${progress * 100}%`);
+      process.dataset.activeStep = String(activeIndex);
       processCards.forEach((card, index) => {
         card.classList.toggle('is-active', index === activeIndex);
         card.classList.toggle('is-complete', index < activeIndex);
       });
       processDots.forEach((dot, index) => dot.classList.toggle('is-on', index <= activeIndex));
     }
+    updateOperationScroll();
   }
   window.addEventListener('scroll', () => {
     if (scrollTicking) return;
@@ -378,18 +424,41 @@
     live: { eyebrow: 'AWARD-WINNING LIVE COMMERCE', title: 'GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트.', description: '직접 팔아본 경험을 바탕으로 상품선정, 방송기획, 대본·큐시트, 환경 세팅, 사장님·직원 교육, 사전 홍보, 방송 지원, 재구매 콘텐츠까지 연결한다.', image: 'assets/home/v6/menu-to-commerce.webp', alt: '대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면', caption: '메뉴 → 상품 → 배송 → 자체 LIVE' },
     community: { eyebrow: 'OPTIONAL EXPANSION', title: '지역 맘커뮤니티에 자연스럽게 발견되는 선택형 확장.', description: '실제 체험과 실제 혜택을 기반으로 후기형·핫딜형을 구분해 운영한다. 월 30건 기준 범위와 비용은 별도 상담하며 허위후기와 가짜 성과를 만들지 않는다.', image: 'assets/home/v6/mom-community-spread.webp', alt: '지역 맘커뮤니티에서 음식점 콘텐츠가 공유되고 확산되는 운영 장면 예시', caption: '맘커뮤니티 확산 운영 장면 예시 · 실제 후기·성과값 아님' },
   };
+  const operationShowcase = $('.operation-showcase');
+  if (operationShowcase) {
+    operationShowcase.id = 'operationShowcase';
+    operationShowcase.classList.remove('reveal');
+    if (!$('.operation-sticky', operationShowcase)) {
+      const operationSticky = document.createElement('div');
+      operationSticky.className = 'operation-sticky';
+      while (operationShowcase.firstChild) operationSticky.appendChild(operationShowcase.firstChild);
+      operationShowcase.appendChild(operationSticky);
+    }
+    $('.operation-panel', operationShowcase)?.setAttribute('aria-live', 'polite');
+  }
   const operationTabs = $$('.operation-tab');
-  operationTabs.forEach((tab) => tab.addEventListener('click', () => {
-    operationTabs.forEach((item) => { const active = item === tab; item.classList.toggle('is-active', active); item.setAttribute('aria-selected', String(active)); });
-    const data = operationData[tab.dataset.operation];
+  const operationKeys = ['dashboard', 'live', 'community'];
+  function setOperation(key) {
+    const data = operationData[key];
     if (!data) return;
+    operationTabs.forEach((item) => { const active = item.dataset.operation === key; item.classList.toggle('is-active', active); item.setAttribute('aria-selected', String(active)); });
+    operationShowcase?.setAttribute('data-active-operation', key);
     $('#operationEyebrow').textContent = data.eyebrow;
     $('#operationTitle').textContent = data.title;
     $('#operationDescription').textContent = data.description;
     $('#operationImage').src = data.image;
     $('#operationImage').alt = data.alt;
     $('#operationCaption').textContent = data.caption;
-  }));
+  }
+  operationTabs.forEach((tab) => tab.addEventListener('click', () => setOperation(tab.dataset.operation)));
+  updateOperationScroll = () => {
+    if (!operationShowcase || window.innerWidth > 809 || reducedMotion) return;
+    const progress = scrollProgress(operationShowcase, 62);
+    const activeIndex = Math.min(operationKeys.length - 1, Math.floor(progress * operationKeys.length));
+    setOperation(operationKeys[activeIndex]);
+  };
+  setOperation('dashboard');
+  updateOperationScroll();
 
   /* FAQ */
   $$('.faq-question').forEach((question) => question.addEventListener('click', () => {

@@ -496,31 +496,100 @@
   const businessTypeRow = $('#ncBusinessTypeRow');
   $$('input[name="foodMfgReport"]').forEach((radio) => radio.addEventListener('change', () => { if (businessTypeRow) businessTypeRow.hidden = radio.value !== '없음'; }));
 
-  /* Existing submission endpoints and field names preserved. */
-  const GOOGLE_FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLScP5FnNGQbpHRVy5_fFzDju0I0FiSq36ajaP3aOo3s8UUx_hA/formResponse';
-  const GOOGLE_FORM_FIELDS = { storeName: 'entry.113098425', storeArea: 'entry.1254021817', phone: 'entry.601816022', onlineSales: 'entry.1558172882', message: 'entry.1781088824' };
-  const NATIONAL_CHECK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwiFxOMP-nPOJK_KIOEOaB6SfaktJz8b9EPmlSRKtyx85pnrlhMdtXqTt1wpVurmaxf/exec';
+  /* All CTA modes use one Apps Script intake database and return an iframe acknowledgement. */
+  const CTA_INTAKE_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwiFxOMP-nPOJK_KIOEOaB6SfaktJz8b9EPmlSRKtyx85pnrlhMdtXqTt1wpVurmaxf/exec';
+  const CTA_MESSAGE_SOURCE = 'TIGER_CTA_SYNC';
   const hiddenIframe = $('#hiddenFormTarget');
 
-  function submitToGoogleForm(data, onFinish) {
-    const googleForm = document.createElement('form');
-    googleForm.action = GOOGLE_FORM_ACTION;
-    googleForm.method = 'POST';
-    googleForm.target = 'hiddenFormTarget';
-    googleForm.style.display = 'none';
-    Object.entries(GOOGLE_FORM_FIELDS).forEach(([key, entry]) => {
-      const input = document.createElement('input');
-      input.type = 'hidden'; input.name = entry; input.value = String(data.get(key) || ''); googleForm.appendChild(input);
-    });
-    let finished = false;
-    const finish = () => { if (finished) return; finished = true; hiddenIframe?.removeEventListener('load', finish); onFinish?.(); };
-    hiddenIframe?.addEventListener('load', finish, { once: true });
-    document.body.appendChild(googleForm); googleForm.submit(); googleForm.remove(); window.setTimeout(finish, 3000);
+  function createLeadId() {
+    if (window.crypto?.randomUUID) return `TIGER-${window.crypto.randomUUID()}`;
+    return `TIGER-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 
-  function submissionContext(data) {
-    const fields = [['문의유형','inquiryType'],['유입섹션','sourceSection'],['유입CTA','sourceCTA'],['선택진단','selectedDiagnosis'],['선택플랜','selectedPlan'],['선택기간','selectedTerm'],['월이용료','selectedMonthlyPrice'],['플랜CTA','selectedPlanCta'],['선택서비스','selectedOption']];
-    return fields.map(([label,key]) => { const value = String(data.get(key) || '').trim(); return value ? `${label}: ${value}` : ''; }).filter(Boolean).join('\n');
+  function buildCtaPayload(data) {
+    const get = (key) => String(data.get(key) || '').trim();
+    return {
+      제출ID: createLeadId(),
+      문의유형: get('inquiryType'),
+      매장명: get('storeName'),
+      매장지역: get('storeArea'),
+      연락처: get('phone'),
+      현재온라인판매: get('onlineSales'),
+      유입섹션: get('sourceSection'),
+      유입CTA: get('sourceCTA'),
+      선택진단: get('selectedDiagnosis'),
+      선택플랜: get('selectedPlan'),
+      선택기간: get('selectedTerm'),
+      월이용료: get('selectedMonthlyPrice'),
+      플랜CTA: get('selectedPlanCta'),
+      선택서비스: get('selectedOption'),
+      히어로슬라이드: get('heroSlide'),
+      SNS목표: get('snsGoal'),
+      SNS주소: get('snsHandle'),
+      플레이스URL: get('placeUrl'),
+      플레이스운영여부: get('placeOperating'),
+      플레이스고민항목: get('placeConcern'),
+      플레이스추가내용: get('placeExtra'),
+      운영기간: get('operatingPeriod'),
+      사업자등록여부: get('bizNum'),
+      즉석판매제조가공업여부: get('foodMfgReport'),
+      현재영업형태: get('businessType'),
+      통신판매업여부: get('onlineSalesReport'),
+      공간분리가능여부: get('spaceSeparation'),
+      보건증: get('healthCert'),
+      위생교육: get('hygieneEdu'),
+      대표메뉴1: get('menu1'),
+      대표메뉴1가격: get('menu1Price'),
+      대표메뉴2: get('menu2'),
+      대표메뉴2가격: get('menu2Price'),
+      대표메뉴3: get('menu3'),
+      대표메뉴3가격: get('menu3Price'),
+      포장비: get('packagingCost'),
+      배송비부담주체: get('deliveryCostBy'),
+      강점스토리: get('storyStrength'),
+      추가메시지: get('message'),
+      개인정보동의: $('#privacyConsent')?.checked ? '동의' : '',
+      처리상태: '신규',
+    };
+  }
+
+  function submitToCtaDatabase(payload) {
+    return new Promise((resolve, reject) => {
+      if (!hiddenIframe) { reject(new Error('제출 프레임이 없습니다.')); return; }
+      const form = document.createElement('form');
+      const input = document.createElement('input');
+      form.action = CTA_INTAKE_ENDPOINT;
+      form.method = 'POST';
+      form.target = hiddenIframe.name || 'hiddenFormTarget';
+      form.style.display = 'none';
+      input.type = 'hidden';
+      input.name = 'payload';
+      input.value = JSON.stringify(payload);
+      form.appendChild(input);
+
+      let settled = false;
+      const cleanup = () => {
+        window.removeEventListener('message', onMessage);
+        window.clearTimeout(timeoutId);
+        form.remove();
+      };
+      const settle = (callback) => {
+        if (settled) return;
+        settled = true;
+        cleanup();
+        callback();
+      };
+      const onMessage = (event) => {
+        const message = event.data;
+        if (!message || message.source !== CTA_MESSAGE_SOURCE || message.leadId !== payload.제출ID) return;
+        if (message.ok) settle(() => resolve(message));
+        else settle(() => reject(new Error(message.message || '접수 저장에 실패했습니다.')));
+      };
+      const timeoutId = window.setTimeout(() => settle(() => reject(new Error('접수 확인 시간이 초과되었습니다.'))), 15000);
+      window.addEventListener('message', onMessage);
+      document.body.appendChild(form);
+      form.submit();
+    });
   }
 
   diagnosisForm?.addEventListener('submit', (event) => {
@@ -532,9 +601,6 @@
       formStatus.className = 'form-status is-error';
       return;
     }
-    const originalMessage = get('message');
-    const context = submissionContext(data);
-    data.set('message', [originalMessage, context ? `[유입·선택정보]\n${context}` : ''].filter(Boolean).join('\n\n'));
     const submitButton = $('.form-submit', diagnosisForm);
 
     if (activeFormMode === 'nationwide') {
@@ -544,27 +610,28 @@
         formStatus.className = 'form-status is-error';
         return;
       }
-      const payload = {
-        매장명:get('storeName'),지역:get('storeArea'),연락처:get('phone'),사업자등록여부:get('bizNum'),즉석판매제조가공업여부:get('foodMfgReport'),통신판매업여부:get('onlineSalesReport'),현재영업형태:get('businessType'),공간분리가능여부:get('spaceSeparation'),보건증:get('healthCert'),위생교육:get('hygieneEdu'),대표메뉴1:get('menu1'),대표메뉴1가격:get('menu1Price'),대표메뉴2:get('menu2'),대표메뉴2가격:get('menu2Price'),대표메뉴3:get('menu3'),대표메뉴3가격:get('menu3Price'),포장비:get('packagingCost'),배송비부담주체:get('deliveryCostBy'),운영기간:get('operatingPeriod'),강점스토리:get('storyStrength'),문의유형:get('inquiryType'),유입섹션:get('sourceSection'),유입CTA:get('sourceCTA'),선택진단:get('selectedDiagnosis'),선택플랜:get('selectedPlan'),선택기간:get('selectedTerm'),월이용료:get('selectedMonthlyPrice'),플랜CTA:get('selectedPlanCta'),추가메시지:originalMessage,
-      };
+      const payload = buildCtaPayload(data);
       submitButton.disabled = true; formStatus.textContent = '전송 중입니다...'; formStatus.className = 'form-status';
-      fetch(NATIONAL_CHECK_ENDPOINT, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) })
-        .then((response) => { if (!response.ok) throw new Error(`HTTP ${response.status}`); formStatus.textContent = '온라인판매 가능성 점검 신청이 접수되었습니다. 빠르게 연락드릴게요!'; formStatus.className = 'form-status is-success'; diagnosisForm.reset(); configureFields(activeFormMode); })
+      submitToCtaDatabase(payload)
+        .then(() => { formStatus.textContent = '온라인판매 가능성 점검 신청이 접수되었습니다. 빠르게 연락드릴게요!'; formStatus.className = 'form-status is-success'; diagnosisForm.reset(); configureFields(activeFormMode); })
         .catch(() => { formStatus.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해주세요.'; formStatus.className = 'form-status is-error'; })
         .finally(() => { submitButton.disabled = false; });
       return;
     }
 
+    const payload = buildCtaPayload(data);
     submitButton.disabled = true; formStatus.textContent = '전송 중입니다...'; formStatus.className = 'form-status';
-    submitToGoogleForm(data, () => {
-      formStatus.textContent = `${get('inquiryType')} 신청이 접수되었습니다. 빠르게 연락드릴게요!`;
-      formStatus.className = 'form-status is-success';
-      submitButton.disabled = false;
-      diagnosisForm.reset();
-      configureFields(activeFormMode || 'general');
-      const config = FORM_MODES[activeFormMode || 'general'];
-      setHiddenField('inquiryType', config.inquiry);
-    });
+    submitToCtaDatabase(payload)
+      .then(() => {
+        formStatus.textContent = `${get('inquiryType')} 신청이 접수되었습니다. 빠르게 연락드릴게요!`;
+        formStatus.className = 'form-status is-success';
+        diagnosisForm.reset();
+        configureFields(activeFormMode || 'general');
+        const config = FORM_MODES[activeFormMode || 'general'];
+        setHiddenField('inquiryType', config.inquiry);
+      })
+      .catch(() => { formStatus.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해주세요.'; formStatus.className = 'form-status is-error'; })
+      .finally(() => { submitButton.disabled = false; });
   });
 
   /* Mobile CTA avoids hero, footer and open form/input. */

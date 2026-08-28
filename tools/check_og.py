@@ -10,9 +10,9 @@ CONFIG = {
     "canonical": "https://www.tigercommercelab.com/",
     "title": "타이거커머스랩 | 매장 메뉴를 전국으로.",
     "description": "서류부터 채널 구축, 콘텐츠, 라이브커머스까지",
-    "image": "https://www.tigercommercelab.com/assets/og/tiger-commerce-lab-share-20260828-v1.png",
-    "alt": "TIGER COMMERCE LAB — 매장 메뉴를 전국으로.",
-    "asset": "assets/og/tiger-commerce-lab-share-20260828-v1.png",
+    "image": "https://www.tigercommercelab.com/assets/og/tiger-commerce-lab-share-20260828-v2.png",
+    "alt": "TIGER COMMERCE LAB — 매장 메뉴를 전국으로. 서류부터 채널 구축, 콘텐츠, 라이브커머스까지",
+    "asset": "assets/og/tiger-commerce-lab-share-20260828-v2.png",
 }
 
 

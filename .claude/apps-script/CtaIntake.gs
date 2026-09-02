@@ -13,6 +13,7 @@
 
 const CTA_SHEET_NAME = '통합문의';
 const CTA_MESSAGE_SOURCE = 'TIGER_CTA_SYNC';
+const CTA_NOTIFICATION_RECIPIENT_PROPERTY = 'TIGER_INTAKE_NOTIFICATION_RECIPIENT';
 const CTA_HEADERS = [
   '타임스탬프',
   '제출ID',
@@ -74,6 +75,7 @@ function doPost(e) {
 
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
+    let created = false;
     try {
       const sheet = getOrCreateCtaSheet_();
       if (!hasLeadId_(sheet, leadId)) {
@@ -84,10 +86,13 @@ function doPost(e) {
         });
         sheet.appendRow(row);
         SpreadsheetApp.flush();
+        created = true;
       }
     } finally {
       lock.releaseLock();
     }
+
+    if (created) sendCtaNotification_(data, leadId);
 
     return iframeResponse_({ source: CTA_MESSAGE_SOURCE, ok: true, leadId: leadId });
   } catch (error) {
@@ -99,6 +104,42 @@ function doPost(e) {
       message: '접수 저장에 실패했습니다.',
     });
   }
+}
+
+function sendCtaNotification_(data, leadId) {
+  const recipient = clean_(
+    PropertiesService.getScriptProperties().getProperty(CTA_NOTIFICATION_RECIPIENT_PROPERTY)
+  );
+  if (!recipient) {
+    throw new Error('접수 알림 수신 주소가 설정되지 않았습니다.');
+  }
+
+  const inquiryType = clean_(data['문의유형']) || '통합 문의';
+  const storeName = clean_(data['매장명']) || '(매장명 없음)';
+  const fields = CTA_HEADERS
+    .filter((header) => header !== '타임스탬프' && header !== '처리상태')
+    .map((header) => [header, header === '제출ID' ? leadId : clean_(data[header])])
+    .filter((entry) => entry[1]);
+  const body = [
+    '타이거커머스랩 홈페이지에 새 접수가 저장되었습니다.',
+    '',
+    ...fields.map((entry) => `${entry[0]}: ${entry[1]}`),
+    '',
+    `확인 시트: ${SpreadsheetApp.getActiveSpreadsheet().getUrl()}`,
+  ].join('\n');
+
+  MailApp.sendEmail({
+    to: recipient,
+    subject: `[타이거커머스랩] ${inquiryType} · ${storeName}`,
+    body: body,
+    name: '타이거커머스랩 접수 알림',
+  });
+  console.log(JSON.stringify({
+    event: 'TIGER_CTA_NOTIFICATION_SENT',
+    leadId: leadId,
+    inquiryType: inquiryType,
+    recipient: recipient,
+  }));
 }
 
 function getOrCreateCtaSheet_() {

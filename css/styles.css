@@ -398,7 +398,8 @@ textarea { resize: vertical; }
 /* Mobile / portrait tablet */
 @media (max-width: 809px) {
   body { padding-bottom: calc(66px + env(safe-area-inset-bottom)); }
-  .home-mobile-cta { position: fixed; z-index: 98; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: .88fr 1.12fr; gap: 8px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); background: rgba(2,2,2,.94); border-top: 1px solid rgba(255,152,0,.34); backdrop-filter: blur(16px); }
+  .home-mobile-cta { position: fixed; z-index: 98; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: .88fr 1.12fr; gap: 8px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); background: rgba(2,2,2,.94); border-top: 1px solid rgba(255,152,0,.34); backdrop-filter: blur(16px); transition: transform .3s; }
+  .home-mobile-cta.is-hidden { transform: translateY(120%); pointer-events: none; }
   .home-mobile-cta a,.home-mobile-cta button { min-width: 0; min-height: 50px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 0; background: #111; color: var(--white); font-weight: 800; font-size: 14px; }
   .home-mobile-cta button { border-color: var(--orange); background: var(--orange); color: #080808; }
   :root { --gutter: 18px; }

@@ -423,22 +423,37 @@
   function restoreProposalPlanInterest() {
     if (proposalPlanRestored || !planState.items.length) return;
     let saved = null;
+    let proposalContext = null;
     try { saved = JSON.parse(sessionStorage.getItem('tiger_plan_interest') || 'null'); } catch (_) { saved = null; }
-    if (!saved?.planId) return;
-    const plan = planState.items.find((item) => item.id === saved.planId);
-    if (!plan) return;
+    try { proposalContext = JSON.parse(sessionStorage.getItem('tiger_proposal_context') || 'null'); } catch (_) { proposalContext = null; }
+    const params = new URLSearchParams(window.location.search);
+    const fromProposal = params.get('proposal') === '1' || params.get('proposalPlan') === '1';
+    if (!fromProposal && !saved?.planId) return;
+
+    const cleanSlug = (value) => /^[a-z0-9-]{1,80}$/.test(String(value || '')) ? String(value) : '';
+    const planId = String(saved?.planId || params.get('plan') || proposalContext?.selectedPlan || '');
+    const plan = planState.items.find((item) => item.id === planId) || null;
+    const businessName = String(params.get('business') || proposalContext?.businessName || '').trim().slice(0, 80);
+    const proposalSlug = cleanSlug(params.get('slug') || proposalContext?.proposalSlug);
+    const requestedTerm = Number(saved?.term || params.get('term') || proposalContext?.contractTerm);
+
     proposalPlanRestored = true;
-    try { sessionStorage.removeItem('tiger_plan_interest'); } catch (_) { /* storage can be unavailable */ }
-    const savedTerm = Number(saved.term);
-    if ([6, 12].includes(savedTerm)) planState.term = savedTerm;
+    try {
+      sessionStorage.removeItem('tiger_plan_interest');
+      sessionStorage.removeItem('tiger_proposal_context');
+    } catch (_) { /* storage can be unavailable */ }
+    if ([6, 12].includes(requestedTerm)) planState.term = requestedTerm;
     openForm('general', {
       sourceSection: 'proposal',
-      sourceCTA: `proposal-plan-${plan.id}`,
-      plan: plan.id,
-      term: planState.term,
-      monthlyPrice: `${toManwon(saved.monthlyPrice || priceFor(plan))}/월 · ${planState.vat}`,
-      planCta: saved.planCta || plan.cta_label,
+      sourceCTA: plan ? `proposal-plan-${plan.id}` : 'proposal-contact',
+      plan: plan?.id || '',
+      term: plan ? planState.term : '',
+      monthlyPrice: plan ? `${toManwon(saved?.monthlyPrice || priceFor(plan))}/월 · ${planState.vat}` : '',
+      planCta: saved?.planCta || plan?.cta_label || '',
+      option: proposalSlug ? `proposal:${proposalSlug}` : 'proposal',
     });
+    const storeName = $('#storeName');
+    if (storeName && businessName && !storeName.value) storeName.value = businessName;
   }
 
   if (planGrid && planTermToggle) {

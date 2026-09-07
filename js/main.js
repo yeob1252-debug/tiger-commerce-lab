@@ -95,6 +95,13 @@
       window.setTimeout(() => { outcomeIndex = (outcomeIndex + 1) % outcomes.length; rotatingOutcome.textContent = outcomes[outcomeIndex]; }, 315);
     }, 2800);
   }
+  function setHeroSpotlight(x, y, strength) {
+    if (!hero) return;
+    hero.style.setProperty('--pointer-x', `${x}%`);
+    hero.style.setProperty('--pointer-y', `${y}%`);
+    hero.style.setProperty('--spot-strength', Math.max(.16, Math.min(1, strength)).toFixed(3));
+  }
+  setHeroSpotlight(79, 35, .3);
   if (hero && window.matchMedia('(min-width: 810px)').matches && !reducedMotion) {
     hero.addEventListener('pointermove', (event) => {
       const rect = hero.getBoundingClientRect();
@@ -102,11 +109,13 @@
       const y = ((event.clientY - rect.top) / rect.height) * 100;
       const distance = Math.hypot(x - 79, (y - 35) * 1.45);
       const intensity = Math.max(0, Math.min(1, 1 - distance / 24));
-      hero.style.setProperty('--pointer-x', `${x}%`);
-      hero.style.setProperty('--pointer-y', `${y}%`);
       hero.style.setProperty('--eye-intensity', intensity.toFixed(3));
+      setHeroSpotlight(x, y, .2 + intensity * .8);
     });
-    hero.addEventListener('pointerleave', () => hero.style.setProperty('--eye-intensity', '0'));
+    hero.addEventListener('pointerleave', () => {
+      hero.style.setProperty('--eye-intensity', '.18');
+      setHeroSpotlight(79, 35, .3);
+    });
   }
 
   /* Progressive enhancement reveals. Critical content remains visible without JS. */
@@ -122,6 +131,14 @@
     }, { threshold: .12, rootMargin: '0px 0px -7% 0px' });
     revealItems.forEach((item, index) => { item.style.transitionDelay = `${(index % 3) * 70}ms`; revealObserver.observe(item); });
   }
+  window.TigerSurfaceEffects?.init({
+    root: '#mainContent',
+    hero: '#hero',
+    header: '.site-header',
+    sections: ':scope > section',
+    clawAnchors: ['#what-we-do', '#plans', '#contact'],
+    lightSections: ['proof'],
+  });
 
   /* Storytelling reaction */
   const story = $('#story');
@@ -164,6 +181,7 @@
       const tigerProgress = scrollProgress(heroMedia);
       const easedTigerProgress = 1 - Math.pow(1 - tigerProgress, 2);
       hero.style.setProperty('--eye-intensity', easedTigerProgress.toFixed(3));
+      setHeroSpotlight(76, 65 - easedTigerProgress * 30, .22 + easedTigerProgress * .72);
       hero.dataset.mobileTigerProgress = String(Math.round(tigerProgress * 100));
     }
     if (story && !reducedMotion) {
@@ -315,6 +333,7 @@
     const config = FORM_MODES[mode] || FORM_MODES.general;
     const targetSlot = mode === 'general' ? consultSlot : $(`[data-form-slot="${mode}"]`);
     if (!targetSlot) return;
+    if (activeFormMode && activeFormMode !== mode) delete diagnosisForm.dataset.pendingLeadId;
     activeFormMode = mode;
     activeFormContext = context;
     collapseFreeCards();
@@ -461,6 +480,15 @@
   }
   const operationTabs = $$('.operation-tab');
   const operationKeys = ['dashboard', 'live', 'community'];
+  if (operationShowcase && reducedMotion) {
+    const staticList = document.createElement('div');
+    staticList.className = 'operation-static-list';
+    staticList.innerHTML = operationKeys.map((key) => {
+      const item = operationData[key];
+      return `<article><span>${escapeHtml(item.eyebrow)}</span><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt)}" loading="lazy"></article>`;
+    }).join('');
+    $('.operation-sticky', operationShowcase)?.appendChild(staticList);
+  }
   function setOperation(key) {
     const data = operationData[key];
     if (!data) return;
@@ -475,8 +503,8 @@
   }
   operationTabs.forEach((tab) => tab.addEventListener('click', () => setOperation(tab.dataset.operation)));
   updateOperationScroll = () => {
-    if (!operationShowcase || window.innerWidth > 809 || reducedMotion) return;
-    const progress = scrollProgress(operationShowcase, 62);
+    if (!operationShowcase || reducedMotion) return;
+    const progress = scrollProgress(operationShowcase, window.innerWidth <= 809 ? 62 : 68);
     const activeIndex = Math.min(operationKeys.length - 1, Math.floor(progress * operationKeys.length));
     setOperation(operationKeys[activeIndex]);
   };
@@ -508,8 +536,10 @@
 
   function buildCtaPayload(data) {
     const get = (key) => String(data.get(key) || '').trim();
+    const pendingLeadId = diagnosisForm?.dataset.pendingLeadId || createLeadId();
+    if (diagnosisForm) diagnosisForm.dataset.pendingLeadId = pendingLeadId;
     return {
-      제출ID: createLeadId(),
+      제출ID: pendingLeadId,
       문의유형: get('inquiryType'),
       매장명: get('storeName'),
       매장지역: get('storeArea'),
@@ -613,7 +643,7 @@
       const payload = buildCtaPayload(data);
       submitButton.disabled = true; formStatus.textContent = '전송 중입니다...'; formStatus.className = 'form-status';
       submitToCtaDatabase(payload)
-        .then(() => { formStatus.textContent = '온라인판매 가능성 점검 신청이 접수되었습니다. 빠르게 연락드릴게요!'; formStatus.className = 'form-status is-success'; diagnosisForm.reset(); configureFields(activeFormMode); })
+        .then(() => { formStatus.textContent = '온라인판매 가능성 점검 신청이 접수되었습니다. 빠르게 연락드릴게요!'; formStatus.className = 'form-status is-success'; delete diagnosisForm.dataset.pendingLeadId; diagnosisForm.reset(); configureFields(activeFormMode); })
         .catch(() => { formStatus.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해주세요.'; formStatus.className = 'form-status is-error'; })
         .finally(() => { submitButton.disabled = false; });
       return;
@@ -625,6 +655,7 @@
       .then(() => {
         formStatus.textContent = `${get('inquiryType')} 신청이 접수되었습니다. 빠르게 연락드릴게요!`;
         formStatus.className = 'form-status is-success';
+        delete diagnosisForm.dataset.pendingLeadId;
         diagnosisForm.reset();
         configureFields(activeFormMode || 'general');
         const config = FORM_MODES[activeFormMode || 'general'];

@@ -36,17 +36,6 @@
     return (list || []).find((item) => item.id === id);
   }
 
-  function brandAsset(common, id) {
-    const asset = byId(common.brand_assets, id);
-    return asset ? `/assets/proposals/_brand/${asset.filename}` : '';
-  }
-
-  function caseAsset(common, placement) {
-    const study = common.case_studies?.JOGANE;
-    const asset = study?.assets?.find((item) => item.placement?.includes(placement));
-    return asset ? { src: `/assets/proposals/_brand/${asset.filename}`, caption: asset.caption || '' } : null;
-  }
-
   function krw(value) {
     return Number(value || 0).toLocaleString('ko-KR');
   }
@@ -57,30 +46,25 @@
     if (meta && data.web?.meta_description) meta.content = data.web.meta_description;
     applyDocumentMeta(data);
 
-    const renderers = {
-      hero: () => renderHero(data),
-      'current-position': (section) => renderStrength(section, data),
-      opportunity: (section) => renderGap(section),
-      'why-now': (section) => renderWhyNow(section),
-      'customer-flow': (section) => renderFlow(section, data),
-      'content-engine': (section) => renderEngine(section, data),
-      'content-examples': (section) => renderExamples(section, data),
-      'proof-case': () => renderProof(data, common),
-      'monthly-execution': (section) => renderWeeks(section),
-      plans: (section) => renderPlans(section, common),
-      'why-tiger': () => renderWhyTiger(common),
-      'final-cta': (section) => renderFinal(section, data, common),
-    };
+    const sections = Object.fromEntries((data.sections || []).map((section) => [section.type, section]));
 
+    const contextPlan = data.recommendation?.recommended_plan || sections.plans?.highlight_plan || '';
     try {
       sessionStorage.setItem('tiger_proposal_context', JSON.stringify({
         businessName: data.client?.business_name || '',
         proposalSlug: data.meta?.client_slug || '',
-        selectedPlan: data.recommendation?.recommended_plan || 'PERFORMANCE',
-        contractTerm: data.recommendation?.recommended_term_months || 12,
+        selectedPlan: contextPlan,
+        contractTerm: data.recommendation?.recommended_term_months || (contextPlan ? (common.plans?.default_term_months || 12) : ''),
       }));
     } catch (_) { /* storage can be unavailable */ }
-    root.innerHTML = (data.sections || []).map((section) => renderers[section.type]?.(section) || '').join('');
+    root.innerHTML = [
+      renderHero(data),
+      renderAnalysisZone(data, sections),
+      renderPrioritiesZone(data, sections),
+      renderTailoredZone(data, sections),
+      renderPricingZone(data, sections, common),
+      renderContactZone(data, sections, common),
+    ].join('');
     document.querySelector('.prop-mobile-cta')?.remove();
     document.body.insertAdjacentHTML('beforeend', renderMobileCta(common, data));
 
@@ -92,6 +76,130 @@
     initPlanLinks();
     initCountUp();
     initScrollButtons();
+    window.TigerSurfaceEffects?.init({
+      root: '#proposalRoot',
+      hero: '#section-01',
+      header: '.prop-header',
+      sections: ':scope > .prop-zone',
+      clawAnchors: ['#proposal-tailored', '#proposal-pricing', '#proposal-contact'],
+      lightSections: ['proposal-priorities'],
+    });
+  }
+
+  function renderAnalysisZone(data, sections) {
+    const section = sections['current-position'] || {};
+    const statusName = { ACTIVE: '운영 중', NOT_VERIFIED: '미확인' };
+    const names = { naver_place: '네이버 플레이스', naver_blog: '네이버 블로그', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', threads: 'Threads' };
+    const strengths = (section.cards || []).slice(0, 4).map((item, index) => `
+      <li><span>0${index + 1}</span><strong>${esc(item)}</strong></li>`).join('');
+    const channels = Object.entries(data.channels || {}).map(([key, channel]) => `
+      <article class="prop-analysis-channel">
+        <div><strong>${esc(names[key] || key)}</strong><span class="${channel.status === 'ACTIVE' ? 'is-active' : ''}">${esc(statusName[channel.status] || channel.status)}</span></div>
+        <p>${esc(channel.analysis)}</p>
+      </article>`).join('');
+    return `
+      <section id="proposal-analysis" class="prop-section prop-zone prop-zone-analysis">
+        <div class="prop-section-inner">
+          <p class="prop-kicker prop-reveal">01 · STORE ANALYSIS</p>
+          <h2 class="prop-title prop-reveal">${esc(section.headline || `${data.client?.business_name || '이 매장'}의 현재 위치`)}</h2>
+          <p class="prop-lead prop-reveal">${esc(section.body || '현재 공개 채널과 매장 정보를 기준으로 유지할 강점과 보강할 지점을 구분했습니다.')}</p>
+          <div class="prop-evidence-head"><span>확인된 강점</span><small>공개 정보와 제공 자료 기준</small></div>
+          <ul class="prop-analysis-strengths">${strengths}</ul>
+          <div class="prop-evidence-head"><span>채널 상태</span><small>미확인 항목은 사실로 단정하지 않습니다</small></div>
+          <div class="prop-analysis-channels">${channels}</div>
+        </div>
+      </section>`;
+  }
+
+  function renderPrioritiesZone(data, sections) {
+    const gap = sections.opportunity || {};
+    const why = sections['why-now'] || {};
+    const priorities = (gap.comparison || []).slice(0, 3).map((item, index) => `
+      <article class="prop-priority prop-reveal">
+        <span>PRIORITY 0${index + 1}</span>
+        <p class="prop-priority-now">${esc(item.before)}</p>
+        <i aria-hidden="true">→</i>
+        <h3>${esc(item.after)}</h3>
+      </article>`).join('');
+    return `
+      <section id="proposal-priorities" class="prop-section prop-zone prop-zone-priorities">
+        <div class="prop-section-inner">
+          <div class="prop-zone-head prop-reveal"><div><p class="prop-kicker">02 · TOP THREE</p><h2 class="prop-title">먼저 보강할 세 가지</h2></div><p>${esc(gap.body || why.body || '강점은 살리고 고객의 다음 행동이 끊기는 지점부터 보강합니다.')}</p></div>
+          <p class="prop-inference-note"><strong>제안 기준</strong> 아래 방향은 확인된 현황을 바탕으로 한 운영 제안이며 성과를 보장하는 예측이 아닙니다.</p>
+          <div class="prop-priority-grid">${priorities}</div>
+          ${why.highlight ? `<p class="prop-priority-highlight prop-reveal">${esc(why.highlight)}</p>` : ''}
+        </div>
+      </section>`;
+  }
+
+  function renderTailoredZone(data, sections) {
+    const section = sections['content-examples'] || {};
+    const weeks = sections['monthly-execution']?.weeks || [];
+    const examples = (section.content_example_ids || []).map((id) => byId(data.content_examples, id)).filter(Boolean).slice(0, 3);
+    const exampleCards = examples.map((item, index) => `
+      <article class="prop-tailored-card prop-cut prop-reveal">
+        <span>EXAMPLE 0${index + 1} · ${esc(item.format)}</span>
+        <h3>${esc(item.title)}</h3>
+        <p>${esc(item.hook)}</p>
+        <dl><div><dt>역할</dt><dd>${esc(item.value)}</dd></div><div><dt>다음 행동</dt><dd>${esc(item.cta)}</dd></div></dl>
+      </article>`).join('');
+    const weekCards = weeks.slice(0, 4).map((item) => `
+      <li><span>${esc(item.week)}</span><div><strong>${esc(item.focus)}</strong><small>${esc((item.actions || []).join(' · '))}</small></div></li>`).join('');
+    const roles = (data.strategy?.platform_roles || []).slice(0, 4).map((item) => `<li><strong>${esc(item.platform)}</strong><span>${esc(item.customer_action || item.role)}</span></li>`).join('');
+    return `
+      <section id="proposal-tailored" class="prop-section prop-zone prop-zone-tailored">
+        <div class="prop-section-inner">
+          <p class="prop-kicker prop-reveal">03 · FOR THIS STORE</p>
+          <h2 class="prop-title prop-reveal">${esc(section.headline || `${data.client?.business_name || '이 매장'}에 맞춘 실행안`)}</h2>
+          <p class="prop-lead prop-reveal">${esc(section.body || '매장 이야기와 대표 메뉴를 채널별 고객 행동에 맞춰 나눕니다.')}</p>
+          <div class="prop-tailored-layout">
+            <div class="prop-tailored-examples">${exampleCards}</div>
+            <aside><h3>채널 역할</h3><ul class="prop-role-list">${roles}</ul><h3>첫 달 실행</h3><ol class="prop-month-list">${weekCards}</ol></aside>
+          </div>
+        </div>
+      </section>`;
+  }
+
+  function renderPricingZone(data, sections, common) {
+    const section = sections.plans || {};
+    const plans = common.plans || {};
+    const term = Number(data.recommendation?.recommended_term_months || plans.default_term_months || 12);
+    const recommendedId = data.recommendation?.recommended_plan || section.highlight_plan || '';
+    const recommended = (plans.items || []).find((plan) => plan.id === recommendedId) || null;
+    const recommendationTitle = recommended
+      ? `이 매장에는<br>${esc(recommended.name || recommendedId)} 운영안을 제안합니다.`
+      : '추천 운영안은<br>확인 후 함께 정합니다.';
+    const recommendationReason = recommended
+      ? (recommended.reason || recommended.value || '현재 목표와 필요한 운영 범위를 기준으로 제안합니다.')
+      : '목표·예산·운영 가능 범위를 확인한 뒤 근거와 함께 추천안을 제시합니다.';
+    const cards = (plans.items || []).map((plan) => planMarkup(plan, term, recommendedId)).join('');
+    return `
+      <section id="proposal-pricing" class="prop-section prop-zone prop-zone-pricing">
+        <div class="prop-section-inner">
+          <div class="prop-plan-top"><div><p class="prop-kicker prop-reveal">04 · 추천 운영안</p><h2 class="prop-title prop-reveal">${recommendationTitle}</h2><p class="prop-lead prop-reveal">${esc(recommendationReason)}</p></div><div class="prop-term-wrap"><div class="prop-term-toggle" role="group" aria-label="계약 기간">${(plans.terms || []).map((item) => `<button type="button" data-prop-term="${item.months}" class="${item.months === term ? 'is-active' : ''}" aria-pressed="${item.months === term}">${esc(item.label)}</button>`).join('')}</div><p class="prop-plan-vat">월 운영비 · ${esc(plans.vat_label || 'VAT 별도')}</p></div></div>
+          <div class="prop-plan-grid" data-plan-grid>${cards}</div>
+          <p class="prop-plan-note">${esc(plans.performance_note)}</p>
+          <a class="prop-home-detail" href="/index.html#what-we-do">촬영·제작·운영 범위 자세히 보기 →</a>
+        </div>
+      </section>`;
+  }
+
+  function renderContactZone(data, sections, common) {
+    const section = sections['final-cta'] || {};
+    const tiger = common.tiger || {};
+    const kakao = common.contact?.kakao_url || KAKAO_URL;
+    const plan = data.recommendation?.recommended_plan || sections.plans?.highlight_plan || '';
+    const term = data.recommendation?.recommended_term_months || (plan ? (common.plans?.default_term_months || 12) : '');
+    const consultUrl = `/index.html?proposal=1&business=${encodeURIComponent(data.client?.business_name || '')}&slug=${encodeURIComponent(data.meta?.client_slug || '')}&plan=${encodeURIComponent(plan)}&term=${encodeURIComponent(term)}#contact`;
+    return `
+      <section id="proposal-contact" class="prop-section prop-zone prop-zone-contact">
+        <div class="prop-section-inner">
+          <div class="prop-contact-grid">
+            <div><p class="prop-kicker prop-reveal">05 · NEXT STEP</p><h2 class="prop-title prop-reveal">${esc(section.headline || '매장에 맞는 첫 실행 범위를 정합니다.')}</h2><p class="prop-lead prop-reveal">${esc(section.body || data.final_cta?.body || '상담에서 매장 상황과 우선순위를 확인한 뒤 범위와 일정을 확정합니다.')}</p><div class="prop-final-actions prop-reveal"><a class="prop-button prop-button-primary" href="${consultUrl}">${esc(section.primary_cta || '맞춤 상담 신청')}</a><a class="prop-button prop-button-kakao" href="${esc(kakao)}" target="_blank" rel="noopener noreferrer">대표자 1:1 카카오톡</a></div><p class="prop-final-note">상담 신청은 계약이나 결제를 의미하지 않습니다.</p></div>
+            <aside class="prop-contact-tiger"><span>TIGER COMMERCE LAB</span><h3>${esc(tiger.headline)}</h3><p>${esc(tiger.body)}</p><ul>${(tiger.points || []).slice(0, 3).map((point) => `<li>${esc(point)}</li>`).join('')}</ul></aside>
+          </div>
+        </div>
+      </section>`;
   }
 
   function applyDocumentMeta(data) {
@@ -99,7 +207,7 @@
     const og = web.og || {};
     const pageTitle = web.page_title || og.title;
     const description = web.meta_description || og.description;
-    const imagePath = og.image || '/assets/og/tiger-commerce-lab-share-v2.png';
+    const imagePath = '/assets/og/tiger-commerce-lab-share-v3.png?v=20260907';
     const imageUrl = new URL(imagePath, location.origin).href;
     const setMeta = (selector, value) => {
       const node = document.querySelector(selector);
@@ -110,7 +218,7 @@
     setMeta('meta[property="og:description"]', description);
     setMeta('meta[property="og:image"]', imageUrl);
     setMeta('meta[property="og:image:secure_url"]', imageUrl);
-    setMeta('meta[property="og:image:alt"]', `${data.client?.business_name || '맞춤'} SNS 운영 제안`);
+    setMeta('meta[property="og:image:alt"]', 'TIGER COMMERCE LAB 음식점 SNS 통합운영');
     setMeta('meta[name="twitter:image"]', imageUrl);
   }
 
@@ -125,11 +233,11 @@
       ? `<img class="prop-hero-tiger" src="${esc(clientHero)}" alt="${esc(hero.image_alt || '불향 석쇠불고기 제안용 생성 이미지')}">`
       : `<picture>
               <source media="(max-width:809px)" srcset="assets/home/v7/tiger-hero-mobile-cinematic.webp">
-              <img class="prop-hero-tiger" src="assets/home/v6/tiger-hero-cinematic.webp" alt="">
+              <img class="prop-hero-tiger prop-hero-tiger-base" src="assets/home/v7/tiger-hero-mobile-cinematic.webp" alt="">
             </picture>
             <picture>
               <source media="(max-width:809px)" srcset="assets/home/v7/tiger-hero-mobile-illuminated.webp">
-              <img class="prop-hero-tiger prop-hero-tiger-lit" src="assets/home/v6/tiger-hero-illuminated.webp" alt="">
+              <img class="prop-hero-tiger prop-hero-tiger-lit" src="assets/home/v7/tiger-hero-mobile-illuminated.webp" alt="">
             </picture>`;
     return `
       <section id="section-01" class="prop-section prop-hero" aria-label="${esc(data.client?.business_name)} 맞춤 제안">
@@ -146,193 +254,11 @@
             <h1 class="prop-reveal">${formattedHeadline}</h1>
             <p class="prop-hero-sub prop-reveal">${esc(hero.subheadline)}</p>
             <div class="prop-hero-actions prop-reveal">
-              <button class="prop-button prop-button-primary" type="button" data-prop-scroll="section-10">${esc(hero.primary_cta)}</button>
-              <button class="prop-button" type="button" data-prop-scroll="section-09">${esc(hero.secondary_cta)}</button>
+              <button class="prop-button prop-button-primary" type="button" data-prop-scroll="proposal-pricing">${esc(hero.primary_cta)}</button>
+              <button class="prop-button" type="button" data-prop-scroll="proposal-tailored">${esc(hero.secondary_cta)}</button>
             </div>
             <p class="prop-hero-trust">${esc(hero.trust_note || data.client?.business_name + ' 맞춤 제안')} · PRIVATE DOCUMENT</p>
           </div>
-        </div>
-      </section>`;
-  }
-
-  function renderStrength(section, data) {
-    const statusName = { ACTIVE: '운영 중', NOT_VERIFIED: '미확인' };
-    const names = { naver_place: '네이버 플레이스', naver_blog: '네이버 블로그', instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', threads: 'Threads' };
-    const cards = (section.cards || []).map((label, index) => `
-      <article class="prop-strength-card prop-reveal"><span>0${index + 1}</span><strong>${esc(label)}</strong></article>`).join('');
-    const channels = Object.entries(data.channels || {}).map(([key, channel]) => `
-      <article class="prop-channel-card prop-cut prop-reveal">
-        <div class="prop-channel-head"><strong class="prop-channel-name">${esc(names[key] || key)}</strong><span class="prop-channel-status ${channel.status === 'ACTIVE' ? 'is-active' : ''}">${esc(statusName[channel.status] || channel.status)}</span></div>
-        <p>${esc(channel.analysis)}</p>
-      </article>`).join('');
-    return `
-      <section id="section-02" class="prop-section prop-strength">
-        <div class="prop-section-inner">
-          <p class="prop-kicker prop-reveal">${esc(section.eyebrow)}</p>
-          <h2 class="prop-title prop-reveal">${esc(section.headline)}</h2>
-          <p class="prop-lead prop-reveal">${esc(section.body)}</p>
-          <div class="prop-strength-grid">${cards}</div>
-          <div class="prop-channel-grid">${channels}</div>
-        </div>
-      </section>`;
-  }
-
-  function renderGap(section) {
-    const rows = (section.comparison || []).map((item) => `
-      <div class="prop-compare-row prop-reveal">
-        <span class="prop-before">${esc(item.before)}</span><span class="prop-arrow" aria-hidden="true">→</span><span>${esc(item.after)}</span>
-      </div>`).join('');
-    return `
-      <section id="section-03" class="prop-section prop-gap">
-        <div class="prop-section-inner">
-          <p class="prop-kicker prop-reveal">${esc(section.eyebrow)}</p>
-          <h2 class="prop-title prop-reveal">${esc(section.headline)}</h2>
-          <p class="prop-lead prop-reveal">${esc(section.body)}</p>
-          <div class="prop-compare">${rows}</div>
-        </div>
-      </section>`;
-  }
-
-  function renderWhyNow(section) {
-    return `
-      <section id="section-04" class="prop-section prop-why-now">
-        <div class="prop-section-inner">
-          <p class="prop-kicker prop-reveal">${esc(section.eyebrow)}</p>
-          <h2 class="prop-title prop-reveal">${esc(section.headline)}</h2>
-          <p class="prop-lead prop-reveal">${esc(section.body)}</p>
-          <p class="prop-highlight prop-reveal">${esc(section.highlight)}</p>
-        </div>
-      </section>`;
-  }
-
-  function renderFlow(section, data) {
-    const journey = data.strategy?.customer_flow || [];
-    const flowDetails = journey.map((item) => typeof item === 'object' ? item.action : '');
-    const cards = (section.steps || []).map((step, index) => `
-      <button class="prop-flow-card ${index === 0 ? 'is-active' : ''}" type="button" data-flow-step="${index}">
-        <span>0${index + 1}</span><strong>${esc(step)}</strong><small>${esc(flowDetails[index] || '')}</small>
-      </button>`).join('');
-    const roleText = (data.strategy?.platform_roles || []).map((role) => `${role.platform}: ${role.customer_action || role.role}`).join(' · ');
-    return `
-      <section id="section-05" class="prop-section prop-flow" data-scroll-story="flow">
-        <div class="prop-flow-stage">
-          <div class="prop-flow-head">
-            <p class="prop-kicker">${esc(section.eyebrow)}</p>
-            <h2 class="prop-title">${esc(section.headline)}</h2>
-            <p class="prop-lead">${esc(section.body)}</p>
-          </div>
-          <div class="prop-flow-track"><span class="prop-flow-progress" aria-hidden="true"></span>${cards}</div>
-          <p class="prop-role-strip">${esc(roleText)}</p>
-        </div>
-      </section>`;
-  }
-
-  function renderEngine(section, data) {
-    const framework = data.strategy?.framework || [];
-    const tabs = framework.map((item, index) => `<button class="${index === 0 ? 'is-active' : ''}" type="button" data-engine-step="${index}">${esc(item.stage)}</button>`).join('');
-    const first = framework[0] || { stage: 'HOOK', role: '' };
-    const pillars = (data.strategy?.content_pillars || []).map((item) => `<span>${esc(item)}</span>`).join('');
-    return `
-      <section id="section-06" class="prop-section prop-engine" data-scroll-story="engine" data-engine-json="${esc(JSON.stringify(framework))}">
-        <div class="prop-engine-stage">
-          <div class="prop-engine-copy">
-            <p class="prop-kicker">${esc(section.eyebrow)}</p>
-            <h2 class="prop-title">${esc(section.headline)}</h2>
-            <p class="prop-lead">${esc(section.body)}</p>
-            <div class="prop-engine-tabs" role="tablist">${tabs}</div>
-            <div class="prop-pillar-row">${pillars}</div>
-          </div>
-          <article class="prop-engine-card prop-cut" data-step="01">
-            <img class="prop-engine-image" src="${esc(first.image || '')}" alt="${esc(first.image_alt || '')}">
-            <div class="prop-engine-card-copy">
-              <span class="prop-engine-label">01 / ${esc(first.stage)}</span>
-              <h3>${esc(first.stage)}</h3>
-              <p>${esc(first.role)}</p>
-            </div>
-          </article>
-        </div>
-      </section>`;
-  }
-
-  function renderExamples(section, data) {
-    const examples = (section.content_example_ids || []).map((id) => byId(data.content_examples, id)).filter(Boolean);
-    const cards = examples.map((item, index) => `
-      <article class="prop-example-card prop-cut prop-reveal" data-index="0${index + 1}">
-        <span class="prop-example-format">${esc(item.format)}</span>
-        <h3>${esc(item.title)}</h3>
-        <p class="prop-example-hook">${esc(item.hook)}</p>
-        <details><summary>콘텐츠 구조 보기</summary><p><strong>RETENTION</strong>${esc(item.retention)}</p><p><strong>VALUE</strong>${esc(item.value)}</p><p><strong>CTA</strong>${esc(item.cta)}</p></details>
-      </article>`).join('');
-    return `
-      <section id="section-07" class="prop-section prop-examples">
-        <div class="prop-section-inner">
-          <p class="prop-kicker prop-reveal">${esc(section.eyebrow)}</p>
-          <h2 class="prop-title prop-reveal">${esc(section.headline)}</h2>
-          <p class="prop-lead prop-reveal">${esc(section.body)}</p>
-          <div class="prop-example-grid">${cards}</div>
-        </div>
-      </section>`;
-  }
-
-  function renderProof(data, common) {
-    const study = common.case_studies?.JOGANE || {};
-    const metrics = study.verified_metrics || {};
-    const primary = caseAsset(common, 'section-08-primary-proof');
-    const secondary = caseAsset(common, 'section-08-secondary-proof');
-    const metricCards = [
-      ['좋아요', metrics.likes], ['댓글', metrics.comments], ['저장', metrics.saves], ['신규 팔로워', metrics.new_followers, '+'],
-    ].map(([label, value, prefix]) => `
-      <div class="prop-metric"><strong>${prefix || ''}<span data-count="${Number(value) || 0}">0</span></strong><span>${esc(label)}</span></div>`).join('');
-    return `
-      <section id="section-08" class="prop-section prop-proof">
-        <div class="prop-section-inner">
-          <div class="prop-proof-main">
-            <div>
-              <p class="prop-kicker prop-reveal">${esc(study.eyebrow)}</p>
-              <div class="prop-proof-number prop-reveal"><span data-count-decimal="66.1">0.0</span><em>K</em></div>
-              <p class="prop-proof-note">VERIFIED CONTENT VIEWS</p>
-              <h2 class="prop-title prop-reveal">${esc(study.headline)}</h2>
-            </div>
-            <div class="prop-proof-shots prop-reveal">
-              ${primary ? `<figure><img src="${esc(primary.src)}" alt="${esc(primary.caption)}"><figcaption>${esc(primary.caption)}</figcaption></figure>` : ''}
-              ${secondary ? `<figure><img src="${esc(secondary.src)}" alt="${esc(secondary.caption)}"><figcaption>${esc(secondary.caption)}</figcaption></figure>` : ''}
-            </div>
-          </div>
-          <div class="prop-metrics">${metricCards}</div>
-          <p class="prop-proof-disclaimer">${esc(study.disclaimer)}</p>
-          <p class="prop-proof-connection prop-reveal">${esc(data.case_study?.connection_to_client)}</p>
-        </div>
-      </section>`;
-  }
-
-  function renderWeeks(section) {
-    const cards = (section.weeks || []).map((item, index) => `
-      <article class="prop-week-card ${index === 0 ? 'is-active' : ''}" data-week-step="${index}">
-        <span>${esc(item.week)}</span><h3>${esc(item.focus)}</h3><ul>${(item.actions || []).map((action) => `<li>${esc(action)}</li>`).join('')}</ul>
-      </article>`).join('');
-    return `
-      <section id="section-09" class="prop-section prop-week" data-scroll-story="week">
-        <div class="prop-week-stage">
-          <div class="prop-week-head"><p class="prop-kicker">${esc(section.eyebrow)}</p><h2 class="prop-title">${esc(section.headline)}</h2></div>
-          <div class="prop-week-grid">${cards}</div>
-        </div>
-      </section>`;
-  }
-
-  function renderPlans(section, common) {
-    const plans = common.plans || {};
-    const items = plans.items || [];
-    const cards = items.map((plan) => planMarkup(plan, plans.default_term_months || 12, section.highlight_plan)).join('');
-    return `
-      <section id="section-10" class="prop-section prop-plans">
-        <div class="prop-section-inner">
-          <div class="prop-plan-top">
-            <div><p class="prop-kicker prop-reveal">${esc(section.eyebrow)}</p><h2 class="prop-title prop-reveal">홈페이지와 동일한 운영 플랜입니다.</h2><p class="prop-lead prop-reveal">콘텐츠 양보다 고객이 움직이는 연결 범위에 맞춰 선택하실 수 있습니다.</p></div>
-            <div class="prop-term-wrap"><div class="prop-term-toggle" role="group" aria-label="계약 기간">${(plans.terms || []).map((term) => `<button type="button" data-prop-term="${term.months}" class="${term.months === plans.default_term_months ? 'is-active' : ''}" aria-pressed="${term.months === plans.default_term_months}">${esc(term.label)}</button>`).join('')}</div><p class="prop-plan-vat">월 이용료 · ${esc(plans.vat_label || 'VAT 별도')}</p></div>
-          </div>
-          <div class="prop-plan-grid" data-plan-grid>${cards}</div>
-          <p class="prop-plan-note">${esc(plans.performance_note)}</p>
-          ${renderOperation(common)}
         </div>
       </section>`;
   }
@@ -350,54 +276,6 @@
         <ul class="prop-plan-qty"><li><span>쇼츠</span><strong>월 ${plan.shorts}편</strong></li><li><span>카드뉴스</span><strong>월 ${plan.card_news}건</strong></li><li><span>Threads</span><strong>월 ${plan.threads}건</strong></li><li><span>블로그</span><strong>월 ${plan.blog}건</strong></li></ul>
         <button class="prop-button ${recommended ? 'prop-button-primary' : ''}" type="button" data-prop-plan="${esc(plan.id)}" data-prop-term-value="${term}" data-prop-price="${price}" data-prop-cta="${esc(plan.cta_label)}">${esc(plan.cta_label)}</button>
       </article>`;
-  }
-
-  function renderOperation(common) {
-    const source = common.operation_support || {};
-    const items = [
-      source.dashboard || { id: 'dashboard', tab: '전용 Dashboard', eyebrow: 'VISIBLE WORKFLOW', title: '진행 상황을 투명하게 공유합니다.', description: '기획·제작·검수·게시·성과 확인 과정을 전용 화면에서 함께 확인하실 수 있습니다.', image: 'assets/home/v6/tiger-dashboard-example.webp', alt: 'TIGER 음식점 SNS 운영 전용 Dashboard 예시 화면', caption: '전용 Dashboard 업무 화면 예시입니다.' },
-      source.live || { id: 'live', tab: '자체 LIVE 지원', eyebrow: 'AWARD-WINNING LIVE COMMERCE', title: 'GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트.', description: '직접 팔아본 경험을 바탕으로 상품 선정부터 방송 기획, 사장님·직원 교육, 방송 지원과 재구매 콘텐츠까지 연결해 드립니다.', image: 'assets/home/v6/menu-to-commerce.webp', alt: '대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면', caption: '매장 사장님·직원이 직접 방송할 때의 자체 LIVE 지원' },
-      source.community || { id: 'community', tab: '맘커뮤니티 옵션', eyebrow: 'OPTIONAL EXPANSION', title: '지역 맘커뮤니티까지 자연스럽게 확장할 수 있습니다.', description: '실제 체험과 실제 혜택을 바탕으로 후기형·핫딜형을 구분해 운영합니다. 허위 후기와 가짜 성과는 만들지 않습니다.', image: 'assets/home/v6/mom-community-spread.webp', alt: '지역 맘커뮤니티 확산 운영 장면 예시', caption: '맘커뮤니티 확산 운영 장면 예시 · 실제 후기·성과값 아님' },
-    ];
-    const tabs = items.map((item, index) => `<button class="${index === 0 ? 'is-active' : ''}" type="button" role="tab" aria-selected="${index === 0}" data-operation-step="${index}">${esc(item.tab)}</button>`).join('');
-    const first = items[0];
-    return `
-      <div class="prop-operation" data-scroll-story="operation" data-operation-json="${esc(JSON.stringify(items))}">
-        <div class="prop-operation-stage">
-          <div class="prop-operation-tabs" role="tablist">${tabs}</div>
-          <div class="prop-operation-panel" aria-live="polite">
-            <div class="prop-operation-copy"><p class="prop-kicker" data-operation-eyebrow>${esc(first.eyebrow)}</p><h3 data-operation-title>${esc(first.title)}</h3><p data-operation-description>${esc(first.description)}</p></div>
-            <figure class="prop-operation-media"><img data-operation-image src="${esc(first.image)}" alt="${esc(first.alt)}"><figcaption data-operation-caption>${esc(first.caption)}</figcaption></figure>
-          </div>
-        </div>
-      </div>`;
-  }
-
-  function renderWhyTiger(common) {
-    const tiger = common.tiger || {};
-    const profile = brandAsset(common, tiger.profile_asset_id);
-    return `
-      <section id="section-11" class="prop-section prop-why-tiger">
-        <div class="prop-section-inner prop-why-grid">
-          <figure class="prop-profile prop-cut prop-reveal"><img src="${esc(profile)}" alt="TIGER COMMERCE LAB 박영남 대표"><figcaption>TIGER COMMERCE LAB · 박영남 대표</figcaption></figure>
-          <div><p class="prop-kicker prop-reveal">${esc(tiger.eyebrow)}</p><h2 class="prop-title prop-reveal">${esc(tiger.headline)}</h2><p class="prop-lead prop-reveal">${esc(tiger.body)}</p><ul class="prop-tiger-points">${(tiger.points || []).map((point) => `<li>${esc(point)}</li>`).join('')}</ul><p class="prop-career prop-reveal">${esc(tiger.career_highlight || 'GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트.')}</p></div>
-        </div>
-      </section>`;
-  }
-
-  function renderFinal(section, data, common) {
-    const kakao = common.contact?.kakao_url || KAKAO_URL;
-    return `
-      <section id="section-12" class="prop-section prop-final">
-        <div class="prop-section-inner">
-          <p class="prop-kicker prop-reveal">${esc(section.eyebrow)}</p>
-          <h2 class="prop-title prop-reveal">${esc(section.headline)}</h2>
-          <p class="prop-lead prop-reveal">${esc(section.body || data.final_cta?.body)}</p>
-          <div class="prop-final-actions prop-reveal"><a class="prop-button prop-button-primary" href="/index.html?proposal=1#contact">${esc(section.primary_cta)}</a><a class="prop-button prop-button-kakao" href="${esc(kakao)}" target="_blank" rel="noopener noreferrer">대표자 1:1 카카오톡</a></div>
-          ${data.client?.naver_place ? `<a class="prop-naver-link" href="${esc(data.client.naver_place)}" target="_blank" rel="noopener noreferrer">네이버 플레이스에서 남천불고기 확인하기 →</a>` : ''}
-          <p class="prop-final-note">상담 신청 후 제안 범위와 촬영·운영 일정을 확정해 드립니다.</p>
-        </div>
-      </section>`;
   }
 
   function renderMobileCta(common, data) {
@@ -430,10 +308,17 @@
       const x = (event.clientX - box.left) / box.width;
       const y = (event.clientY - box.top) / box.height;
       const distance = Math.hypot(x - .78, y - .42);
-      hero.style.setProperty('--eye', String(Math.max(0, Math.min(1, 1 - distance * 3.4))));
+      const eye = Math.max(0, Math.min(1, 1 - distance * 3.4));
+      hero.style.setProperty('--mx', `${x * 100}%`);
+      hero.style.setProperty('--my', `${y * 100}%`);
+      hero.style.setProperty('--eye', String(.18 + eye * .82));
     });
     hero.addEventListener('pointerleave', () => {
-      if (window.innerWidth > 809) hero.style.setProperty('--eye', '0');
+      if (window.innerWidth > 809) {
+        hero.style.setProperty('--mx', '78%');
+        hero.style.setProperty('--my', '42%');
+        hero.style.setProperty('--eye', '.3');
+      }
     });
   }
 
@@ -512,7 +397,12 @@
     let ticking = false;
     const update = () => {
       ticking = false;
-      if (hero && window.innerWidth <= 809 && !reducedMotion) hero.style.setProperty('--eye', String(Math.min(1, scrollProgress(hero) * 1.65)));
+      if (hero && window.innerWidth <= 809 && !reducedMotion) {
+        const progress = Math.min(1, scrollProgress(hero) * 1.4);
+        hero.style.setProperty('--mx', '76%');
+        hero.style.setProperty('--my', `${66 - progress * 28}%`);
+        hero.style.setProperty('--eye', String(.22 + progress * .72));
+      }
       if (window.innerWidth <= 809 || window.innerWidth >= 1200) {
         if (flow) setFlow(Math.min(flowCards.length - 1, Math.floor(scrollProgress(flow) * flowCards.length)));
         if (engine) setEngine(Math.min(engineTabs.length - 1, Math.floor(scrollProgress(engine) * engineTabs.length)));
@@ -534,7 +424,7 @@
   function initPlanToggle(common) {
     const plans = common.plans || {};
     const grid = document.querySelector('[data-plan-grid]');
-    const highlight = document.querySelector('.prop-plan-card.is-recommended')?.dataset.planId || 'PERFORMANCE';
+    const highlight = document.querySelector('.prop-plan-card.is-recommended')?.dataset.planId || '';
     document.querySelectorAll('[data-prop-term]').forEach((button) => button.addEventListener('click', () => {
       const term = Number(button.dataset.propTerm);
       document.querySelectorAll('[data-prop-term]').forEach((item) => {

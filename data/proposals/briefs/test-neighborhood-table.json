@@ -1,0 +1,55 @@
+{
+  "slug": "test-neighborhood-table-20260907",
+  "test_only": true,
+  "business": {
+    "name": "[TEST] 동네식탁",
+    "category": "주거지역 한식 식당",
+    "region": "부산 남구"
+  },
+  "goal": "평일 저녁 고객이 메뉴를 이해하고 매장 정보를 확인하도록 돕기",
+  "verified": {
+    "strengths": [
+      { "fact": "매일 바뀌는 한식 메뉴를 운영함", "source": "가상 테스트 입력" },
+      { "fact": "주거지역 생활 동선에 위치함", "source": "가상 테스트 입력" }
+    ],
+    "channels": [
+      { "id": "instagram", "status": "NOT_VERIFIED", "analysis": "공식 계정 주소와 최근 게시물은 확인이 필요함" }
+    ]
+  },
+  "priorities": [
+    { "current": "오늘 메뉴가 현장 안내에 머뭅니다.", "proposed": "저녁 방문 전 확인할 오늘 메뉴 콘텐츠로 정리합니다.", "basis": "매일 바뀌는 메뉴 운영이라는 가상 입력" },
+    { "current": "온라인 채널 상태가 확인되지 않았습니다.", "proposed": "공식 채널과 매장 정보 연결부터 확인합니다.", "basis": "공식 계정 URL 미제공" },
+    { "current": "고객이 확인할 다음 행동이 정리되지 않았습니다.", "proposed": "메뉴 확인 뒤 위치 확인으로 이어지는 CTA를 둡니다.", "basis": "평일 저녁 방문 전 정보 확인 목표" }
+  ],
+  "content_examples": [
+    { "format": "Shorts", "title": "오늘 저녁 한 상 15초", "hook": "퇴근길, 오늘 반찬부터 확인하세요.", "value": "당일 제공 메뉴를 짧고 정확하게 보여줍니다.", "cta": "매장 위치와 운영시간 확인", "basis": "매일 바뀌는 메뉴와 저녁 방문 목표" },
+    { "format": "Card News", "title": "이번 주 한식 메뉴 안내", "hook": "이번 주 식사 고민을 한 장씩 줄입니다.", "value": "요일별 메뉴와 확인이 필요한 품절 가능성을 구분합니다.", "cta": "방문 전 당일 메뉴 확인", "basis": "주간 메뉴 운영을 가정한 테스트 제안" }
+  ],
+  "platform_roles": [
+    { "platform": "Instagram", "customer_action": "오늘 메뉴 저장과 매장 정보 확인", "basis": "메뉴 이미지를 순서대로 보여주는 테스트 제안" },
+    { "platform": "Naver Blog", "customer_action": "지역·메뉴 검색 후 위치 확인", "basis": "주거지역 식사 검색 목표" }
+  ],
+  "first_month": [
+    { "week": "WEEK 1", "focus": "확인과 연결", "actions": ["공식 계정 확인", "매장 정보와 메뉴 사실 확인"], "basis": "미확인 채널을 먼저 정리" },
+    { "week": "WEEK 2", "focus": "첫 메뉴 콘텐츠", "actions": ["오늘 메뉴 촬영", "방문 정보 CTA 적용"], "basis": "저녁 방문 전 메뉴 확인 목표" },
+    { "week": "WEEK 3", "focus": "검색 정보 정리", "actions": ["지역·메뉴 검색 문장 정리", "운영시간 재확인"], "basis": "생활권 검색 연결" },
+    { "week": "WEEK 4", "focus": "반응 확인", "actions": ["저장·문의 반응 확인", "다음 달 메뉴 주제 조정"], "basis": "확인 가능한 반응만 다음 계획에 반영" }
+  ],
+  "recommendation": {
+    "plan": "",
+    "term_months": null,
+    "basis": "예산과 운영 가능 범위 미확인"
+  },
+  "needs_confirmation": ["실제 상호와 주소", "공식 채널 URL", "실제 메뉴와 운영시간", "예산과 운영 가능 범위"],
+  "hero": {
+    "headline": "[TEST] 오늘 메뉴를 매장 앞이 아니라 고객의 화면에서 먼저 보여줍니다.",
+    "subheadline": "가상의 테스트 입력을 바탕으로, 평일 저녁 고객이 메뉴와 위치를 확인하는 흐름을 제안합니다.",
+    "primary_cta": "추천 운영안 보기",
+    "secondary_cta": "매장 맞춤 제안 보기"
+  },
+  "contact": {
+    "headline": "확인되지 않은 정보부터 함께 정리합니다.",
+    "body": "실제 매장 정보와 목표·예산·운영 가능 범위를 확인한 뒤 플랜과 일정을 확정합니다.",
+    "primary_cta": "맞춤 상담 신청"
+  }
+}

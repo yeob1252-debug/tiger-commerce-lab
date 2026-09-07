@@ -1,0 +1,55 @@
+{
+  "_role": "Codex·담당자가 대표의 자유문장 매장정보를 사실·확인필요·제안으로 분리한 뒤 작성하는 내부 정규화 입력입니다.",
+  "_workflow": "대표 자유문장 → 담당자 맞춤 원고·근거 정리 → create-proposal.mjs 검증·조립 → 로컬 대표 검수",
+  "_source_note": "대표가 모르는 항목은 미확인으로 두고, 확인된 사실 안에서 초안을 작성합니다. 가격·성과·방문경험을 만들지 않습니다.",
+  "slug": "store-name-region",
+  "test_only": false,
+  "business": {
+    "name": "매장명",
+    "category": "대표 메뉴와 업종",
+    "region": "활동 지역",
+    "address": "",
+    "official_website": "",
+    "naver_place": ""
+  },
+  "goal": "매장이 원하는 고객 행동과 운영 목표",
+  "verified": {
+    "strengths": [
+      { "fact": "제공 자료로 확인된 강점", "source": "대표 제공 자료 또는 공개 페이지" }
+    ],
+    "channels": [
+      { "id": "instagram", "status": "NOT_VERIFIED", "analysis": "현재 상태와 확인할 점", "url": "" }
+    ]
+  },
+  "priorities": [
+    { "current": "현재 확인된 상태", "proposed": "우선 보강할 방향", "basis": "이 방향을 제안하는 근거" },
+    { "current": "현재 확인된 상태", "proposed": "우선 보강할 방향", "basis": "이 방향을 제안하는 근거" },
+    { "current": "현재 확인된 상태", "proposed": "우선 보강할 방향", "basis": "이 방향을 제안하는 근거" }
+  ],
+  "content_examples": [
+    { "format": "Shorts", "title": "콘텐츠 제목", "hook": "첫 화면 문장", "value": "고객에게 줄 정보", "cta": "다음 행동", "basis": "매장 특성과 연결되는 근거" }
+  ],
+  "platform_roles": [
+    { "platform": "Instagram", "customer_action": "고객에게 기대하는 다음 행동", "basis": "이 채널을 쓰는 근거" }
+  ],
+  "first_month": [
+    { "week": "WEEK 1", "focus": "첫 주 목표", "actions": ["실행 항목 1", "실행 항목 2"], "basis": "순서를 정한 근거" }
+  ],
+  "recommendation": {
+    "plan": "",
+    "term_months": null,
+    "basis": ""
+  },
+  "needs_confirmation": ["상담 전 확인할 정보"],
+  "hero": {
+    "headline": "매장 특성이 드러나는 핵심 제안 문장",
+    "subheadline": "확인된 강점과 목표를 연결한 설명",
+    "primary_cta": "추천 운영안 보기",
+    "secondary_cta": "매장 맞춤 제안 보기"
+  },
+  "contact": {
+    "headline": "상담에서 함께 정할 다음 단계",
+    "body": "목표와 운영 가능 범위를 확인한 뒤 플랜과 일정을 확정합니다.",
+    "primary_cta": "맞춤 상담 신청"
+  }
+}

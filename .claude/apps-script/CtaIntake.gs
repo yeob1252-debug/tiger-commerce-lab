@@ -65,6 +65,7 @@ function doGet() {
 
 function doPost(e) {
   let leadId = '';
+  let alertSent = false;
   try {
     const raw = e && e.parameter && e.parameter.payload
       ? e.parameter.payload
@@ -75,7 +76,6 @@ function doPost(e) {
 
     const lock = LockService.getScriptLock();
     lock.waitLock(10000);
-    let created = false;
     try {
       const sheet = getOrCreateCtaSheet_();
       if (!hasLeadId_(sheet, leadId)) {
@@ -86,15 +86,13 @@ function doPost(e) {
         });
         sheet.appendRow(row);
         SpreadsheetApp.flush();
-        created = true;
       }
+      alertSent = sendOperatorAlertOnce_(data, leadId);
     } finally {
       lock.releaseLock();
     }
 
-    if (created) sendCtaNotification_(data, leadId);
-
-    return iframeResponse_({ source: CTA_MESSAGE_SOURCE, ok: true, leadId: leadId });
+    return iframeResponse_({ source: CTA_MESSAGE_SOURCE, ok: true, leadId: leadId, alertSent: alertSent });
   } catch (error) {
     console.error(error);
     return iframeResponse_({
@@ -106,40 +104,44 @@ function doPost(e) {
   }
 }
 
-function sendCtaNotification_(data, leadId) {
-  const recipient = clean_(
-    PropertiesService.getScriptProperties().getProperty(CTA_NOTIFICATION_RECIPIENT_PROPERTY)
+function sendOperatorAlertOnce_(data, leadId) {
+  const properties = PropertiesService.getScriptProperties();
+  const alertKey = 'CTA_ALERT_SENT_' + Utilities.base64EncodeWebSafe(
+    Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, leadId)
   );
+  if (properties.getProperty(alertKey) === 'SENT') return false;
+
+  const recipient = clean_(properties.getProperty(CTA_NOTIFICATION_RECIPIENT_PROPERTY));
   if (!recipient) {
     throw new Error('접수 알림 수신 주소가 설정되지 않았습니다.');
   }
 
-  const inquiryType = clean_(data['문의유형']) || '통합 문의';
-  const storeName = clean_(data['매장명']) || '(매장명 없음)';
-  const fields = CTA_HEADERS
-    .filter((header) => header !== '타임스탬프' && header !== '처리상태')
-    .map((header) => [header, header === '제출ID' ? leadId : clean_(data[header])])
-    .filter((entry) => entry[1]);
+  const inquiryType = clean_(data['문의유형']) || '일반상담';
+  const testPrefix = /^TEST[-_\s]|\[TEST\]/i.test(leadId) || /\[TEST\]/i.test(clean_(data['매장명'])) ? '[TEST] ' : '';
+  const subject = testPrefix + '[TIGER 접수][' + inquiryType + '] ' + (clean_(data['매장명']) || '매장명 미입력') + ' · ' + leadId;
   const body = [
-    '타이거커머스랩 홈페이지에 새 접수가 저장되었습니다.',
+    'TIGER COMMERCE LAB 홈페이지에 새 접수가 저장되었습니다.',
     '',
-    ...fields.map((entry) => `${entry[0]}: ${entry[1]}`),
+    '제출 ID: ' + leadId,
+    '문의 유형: ' + inquiryType,
+    '매장명: ' + clean_(data['매장명']),
+    '매장 지역: ' + clean_(data['매장지역']),
+    '연락처: ' + clean_(data['연락처']),
+    'SNS 목표: ' + clean_(data['SNS목표']),
+    '선택 진단: ' + clean_(data['선택진단']),
+    '선택 플랜: ' + clean_(data['선택플랜']),
+    '선택 기간: ' + clean_(data['선택기간']),
+    '월 이용료: ' + clean_(data['월이용료']),
+    '유입 섹션: ' + clean_(data['유입섹션']),
+    '유입 CTA: ' + clean_(data['유입CTA']),
+    '추가 메시지: ' + clean_(data['추가메시지']),
     '',
-    `확인 시트: ${SpreadsheetApp.getActiveSpreadsheet().getUrl()}`,
+    '처리 상태: 신규',
   ].join('\n');
 
-  MailApp.sendEmail({
-    to: recipient,
-    subject: `[타이거커머스랩] ${inquiryType} · ${storeName}`,
-    body: body,
-    name: '타이거커머스랩 접수 알림',
-  });
-  console.log(JSON.stringify({
-    event: 'TIGER_CTA_NOTIFICATION_SENT',
-    leadId: leadId,
-    inquiryType: inquiryType,
-    recipient: recipient,
-  }));
+  MailApp.sendEmail({ to: recipient, subject: subject, body: body });
+  properties.setProperty(alertKey, 'SENT');
+  return true;
 }
 
 function getOrCreateCtaSheet_() {

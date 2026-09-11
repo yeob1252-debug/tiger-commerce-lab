@@ -162,11 +162,11 @@
     storyScreen.dataset.state = String(safeIndex);
     storyScreen.dataset.activeStep = String(safeIndex);
     if (storyScreen.hasAttribute('data-story-film')) {
-      $$('[data-phone-stage]', storyScreen).forEach((panel, panelIndex) => {
-        const active = panelIndex === safeIndex;
+      $$('[data-phone-stage],[data-phone-scene]', storyScreen).forEach((panel) => {
+        const active = Number(panel.dataset.phoneStage ?? panel.dataset.phoneScene) === safeIndex;
         panel.classList.toggle('is-active', active);
-        panel.setAttribute('aria-hidden', String(!active));
-        panel.inert = !active;
+        panel.setAttribute('aria-hidden', String(!active && !reducedMotion));
+        panel.inert = !active && !reducedMotion;
       });
       $('#phoneStageNumber').textContent = `0${safeIndex + 1} / 04`;
       window.dispatchEvent(new CustomEvent('tiger:story-step', { detail: { index: safeIndex } }));

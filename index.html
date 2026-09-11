@@ -115,7 +115,27 @@
       <div class="channel-device reveal" role="group" aria-label="메뉴 콘텐츠의 채널 활용 흐름 예시">
         <div class="device-top"><span>TIGER CHANNEL</span><i></i></div>
         <div class="device-screen story-film-screen" id="storyScreen" data-story-film data-state="0">
-          <div class="motion-slot phone-film" data-motion-clip="food" data-motion-ready="true"><img id="storyImage" src="assets/home/video-upgrade/tiger-food-detail-poster-v1.webp" alt="촬영한 메뉴 콘텐츠를 채널에 활용하는 흐름" loading="lazy"></div>
+          <div class="phone-visual-stack">
+            <section class="phone-scene is-active" data-phone-scene="0" aria-label="발견 피드 예시">
+              <div class="phone-app-bar"><span>추천 콘텐츠</span><small>메뉴 이야기</small></div>
+              <div class="motion-slot phone-film" data-motion-clip="food" data-motion-ready="true"><img id="storyImage" src="assets/home/video-upgrade/tiger-food-detail-poster-v1.webp" alt="한 접시의 메뉴와 김이 오르는 음식 영상" loading="lazy"></div>
+            </section>
+            <section class="phone-scene" data-phone-scene="1" aria-label="저장과 메뉴 질문 예시" aria-hidden="true" inert>
+              <div class="phone-app-bar"><span>저장한 메뉴</span><small>소통 예시</small></div>
+              <div class="saved-menu"><img src="assets/home/video-upgrade/tiger-food-detail-poster-v1.webp" alt="저장한 음식 콘텐츠 썸네일" loading="lazy"><div><b>다시 보고 싶은 한 접시</b><span data-motion-icon="bookmark">내 메뉴 모음</span></div></div>
+              <div class="menu-conversation"><p class="menu-question">메뉴 구성은 어디서 볼 수 있나요?</p><p class="menu-reply">메뉴·방문 안내에서 확인해 주세요.</p></div>
+            </section>
+            <section class="phone-scene" data-phone-scene="2" aria-label="메뉴와 방문 정보 예시" aria-hidden="true" inert>
+              <div class="phone-app-bar"><span>방문 전 확인</span><small>정보 연결 예시</small></div>
+              <img class="visit-photo" src="assets/home/v6/story-conversion.webp" alt="음식점 방문을 표현한 장면 예시" loading="lazy">
+              <dl class="visit-information"><div><dt>메뉴</dt><dd>대표 메뉴 · 구성 확인</dd></div><div><dt>위치</dt><dd>매장 위치 · 방문 경로</dd></div><div><dt>방문</dt><dd>영업시간 · 예약 안내</dd></div></dl>
+            </section>
+            <section class="phone-scene" data-phone-scene="3" aria-label="상품 소개와 포장 예시" aria-hidden="true" inert>
+              <div class="phone-app-bar"><span>메뉴에서 상품으로</span><small>LIVE 운영 예시</small></div>
+              <div class="motion-slot phone-film" data-motion-clip="live" data-motion-ready="true"><img src="assets/home/video-upgrade/tiger-live-commerce-poster-v1.webp" alt="상품 파우치를 소개하고 포장하는 장면" loading="lazy"></div>
+              <div class="phone-product-path"><span>상품 소개</span><span>포장 확인</span><span>판매 동선</span></div>
+            </section>
+          </div>
           <div class="phone-stage-stack">
             <div class="phone-stage is-active" data-phone-stage="0"><span class="device-label">01 / DISCOVERY</span><strong>메뉴 하나,<br>멈춰 보게 만드는 한 편.</strong><p>촬영한 장면을 세로 콘텐츠로.</p><div class="phone-actions" aria-label="콘텐츠 형식"><span>숏폼</span><span>릴스</span></div></div>
             <div class="phone-stage" data-phone-stage="1" aria-hidden="true" inert><span class="device-label">02 / CONNECTION</span><strong>보고 끝내지 않고,<br>저장하고 질문하도록.</strong><p>다시 찾을 메뉴 정보와 고객 소통.</p><div class="phone-actions"><span data-motion-icon="bookmark">저장</span><span data-motion-icon="message-circle">댓글</span></div></div>

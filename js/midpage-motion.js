@@ -20,7 +20,7 @@
   if (story) story.dataset.filmEnhanced = 'true';
   const staticPhone = () => {
     if (!motion.matches) return;
-    document.querySelectorAll('[data-phone-stage]').forEach(panel => { panel.inert = false; panel.setAttribute('aria-hidden', 'false'); });
+    document.querySelectorAll('[data-phone-stage],[data-phone-scene]').forEach(panel => { panel.inert = false; panel.setAttribute('aria-hidden', 'false'); });
   };
   staticPhone();
 
@@ -61,6 +61,9 @@
     return player;
   }
   function visible(record) {
+    const scene = record.slot.closest('[data-phone-scene]');
+    if (scene && (!scene.classList.contains('is-active') || scene.inert || scene.getAttribute('aria-hidden') === 'true')) return 0;
+    if (!record.slot.getClientRects().length || getComputedStyle(record.slot).visibility !== 'visible') return 0;
     const box = record.slot.getBoundingClientRect();
     const height = Math.max(0, Math.min(box.bottom, innerHeight - 76) - Math.max(box.top, 62));
     return height / Math.max(1, Math.min(box.height, innerHeight - 138));
@@ -133,6 +136,12 @@
   slots.forEach(slot => observer.observe(slot));
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule);
+  window.addEventListener('tiger:story-step', () => {
+    for (const player of players.values()) {
+      if (player.owner && visible(player.owner) === 0) pause(player, 'paused-hidden-stage');
+    }
+    schedule();
+  });
   document.addEventListener('visibilitychange', schedule);
   window.addEventListener('tiger:video-claim', event => {
     for (const player of players.values()) if (player.video !== event.detail.video) pause(player, 'paused-other-video');
@@ -150,9 +159,16 @@
       ['검수', '게시 전에 함께 확인.', '메뉴 정보와 표현, 수정할 부분을 확인합니다.'],
       ['게시', '어느 채널에, 언제 나갈지.', '게시 일정과 채널별 진행 상태를 확인합니다.'],
     ];
+    const foodPoster = 'assets/home/video-upgrade/tiger-food-detail-poster-v1.webp';
+    const scenes = [
+      `<div class="brief-sheet"><header><span>CONTENT BRIEF</span><b>대표 메뉴 소개</b></header><dl><div><dt>대상</dt><dd>매장을 처음 만나는 고객</dd></div><div><dt>전달</dt><dd>메뉴 특징과 방문 전 필요한 정보</dd></div><div><dt>촬영</dt><dd>전체 상차림 → 메뉴 디테일</dd></div></dl><ol class="brief-schedule"><li><span>준비</span><b>메뉴 확인</b></li><li><span>촬영</span><b>장면 구성</b></li><li><span>초안</span><b>함께 검토</b></li></ol></div>`,
+      `<div class="production-desk"><div class="shot-strip">${['전체 메뉴','디테일','마무리 컷'].map((label, i) => `<figure><img src="${foodPoster}" alt="${label} 편집 소재 예시" loading="lazy" class="shot-crop-${i}"><figcaption>${label}</figcaption></figure>`).join('')}</div><div class="edit-timeline"><div><span>영상</span><ol><li>메뉴 전체</li><li>특징 컷</li><li>마무리</li></ol></div><div><span>자막</span><ol><li>메뉴 소개</li><li>정보 확인</li></ol></div></div><p class="workflow-note">촬영 목록 → 컷 선택 → 채널별 편집</p></div>`,
+      `<div class="review-desk"><ul class="review-checks"><li><span>확인 항목</span><b>메뉴명 · 실제 구성</b></li><li><span>확인 항목</span><b>가격 · 운영 정보</b></li><li><span>확인 항목</span><b>사진 · 표현 · 사용 권리</b></li></ul><div class="review-feedback"><span>피드백 예시</span><p>메뉴 구성 설명을 먼저 보여 주세요.</p><b>초안 수정 → 재확인 → 게시 승인</b></div></div>`,
+      `<div class="publish-board"><div class="publish-row publish-head"><span>채널</span><span>콘텐츠</span><span>일정 · 상태</span></div>${[['YouTube','Shorts','일정 협의'],['Instagram','릴스','검수 후 예약'],['TikTok','세로 영상','일정 협의'],['네이버 클립','메뉴 소개','게시 전 확인']].map(row => `<div class="publish-row"><b>${row[0]}</b><span>${row[1]}</span><em>${row[2]}</em></div>`).join('')}<p class="workflow-note">승인된 콘텐츠를 채널별 일정에 맞춰 게시</p></div>`,
+    ];
     const surface = document.createElement('div');
     surface.className = 'workflow-surface';
-    surface.innerHTML = `<p class="workflow-heading">함께 확인하는 진행 단계</p><div class="workflow-steps" role="tablist" aria-label="운영 업무 단계">${workflow.map((step, i) => `<button type="button" class="workflow-step" role="tab" id="workflowTab${i}" aria-controls="workflowPanel${i}" data-workflow-step="${i}">${step[0]}</button>`).join('')}</div><div class="workflow-details">${workflow.map((step, i) => `<div class="workflow-detail" role="tabpanel" id="workflowPanel${i}" aria-labelledby="workflowTab${i}"><strong>${step[1]}</strong><p>${step[2]}</p></div>`).join('')}</div>`;
+    surface.innerHTML = `<p class="workflow-heading">함께 확인하는 진행 단계 · 업무 흐름 예시</p><div class="workflow-steps" role="tablist" aria-label="운영 업무 단계">${workflow.map((step, i) => `<button type="button" class="workflow-step" role="tab" id="workflowTab${i}" aria-controls="workflowPanel${i}" data-workflow-step="${i}">${step[0]}</button>`).join('')}</div><div class="workflow-details">${workflow.map((step, i) => `<section class="workflow-detail" role="tabpanel" id="workflowPanel${i}" data-workflow-scene="${i}" aria-labelledby="workflowTab${i}"><h4>${step[1]}</h4><div class="workflow-canvas">${scenes[i]}</div><p class="workflow-summary">${step[2]}</p></section>`).join('')}</div>`;
     figure.prepend(surface);
     let active = -1;
     const setWorkflow = index => {
@@ -162,7 +178,7 @@
         button.classList.toggle('is-active', i === index); button.setAttribute('aria-selected', String(i === index));
         button.tabIndex = i === index ? 0 : -1;
       });
-      surface.querySelectorAll('.workflow-detail').forEach((panel, i) => { panel.classList.toggle('is-active', i === index); panel.setAttribute('aria-hidden', String(i !== index)); });
+      surface.querySelectorAll('.workflow-detail').forEach((panel, i) => { panel.classList.toggle('is-active', i === index); panel.setAttribute('aria-hidden', String(i !== index && !motion.matches)); panel.inert = i !== index && !motion.matches; });
     };
     surface.querySelectorAll('.workflow-step').forEach((button, i) => {
       button.addEventListener('click', () => setWorkflow(i));
@@ -174,6 +190,7 @@
       });
     });
     window.addEventListener('tiger:workflow-step', event => setWorkflow(event.detail.index));
+    motion.addEventListener('change', () => { const index = active; active = -1; setWorkflow(index); });
     setWorkflow(0);
   }
 })();

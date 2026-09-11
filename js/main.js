@@ -89,6 +89,7 @@
   let outcomeIndex = 0;
   if (rotatingOutcome && !reducedMotion) {
     window.setInterval(() => {
+      if (hero?.dataset.videoVisible === 'true') return;
       rotatingOutcome.classList.remove('is-flipping');
       void rotatingOutcome.offsetWidth;
       rotatingOutcome.classList.add('is-flipping');
@@ -154,10 +155,23 @@
 
   function setStoryStep(index) {
     const safeIndex = Math.max(0, Math.min(storyContent.length - 1, index));
+    if (storyScreen?.dataset.activeStep === String(safeIndex)) return;
     storySteps.forEach((step, stepIndex) => step.classList.toggle('is-active', stepIndex === safeIndex));
     if (!storyScreen) return;
     const content = storyContent[safeIndex];
     storyScreen.dataset.state = String(safeIndex);
+    storyScreen.dataset.activeStep = String(safeIndex);
+    if (storyScreen.hasAttribute('data-story-film')) {
+      $$('[data-phone-stage]', storyScreen).forEach((panel, panelIndex) => {
+        const active = panelIndex === safeIndex;
+        panel.classList.toggle('is-active', active);
+        panel.setAttribute('aria-hidden', String(!active));
+        panel.inert = !active;
+      });
+      $('#phoneStageNumber').textContent = `0${safeIndex + 1} / 04`;
+      window.dispatchEvent(new CustomEvent('tiger:story-step', { detail: { index: safeIndex } }));
+      return;
+    }
     $('.device-label', storyScreen).textContent = content.label;
     $('strong', storyScreen).innerHTML = content.title;
     $('p', storyScreen).textContent = content.meta;
@@ -388,6 +402,7 @@
     else openForm(mode, { sourceSection: 'free-checks', sourceCTA: `free-${mode}` });
   }));
   $$('[data-consult-open]').forEach((button) => button.addEventListener('click', () => openForm('general', { sourceSection: 'contact', sourceCTA: button.dataset.sourceCta || 'consult-open' })));
+  $$('[data-intake-open="nationwide"]').forEach((button) => button.addEventListener('click', () => openForm('nationwide', { sourceSection: 'live-commerce', sourceCTA: 'live-commerce-nationwide' })));
 
   /* Plans */
   const planGrid = $('#planGrid');
@@ -507,6 +522,7 @@
   function setOperation(key) {
     const data = operationData[key];
     if (!data) return;
+    if (operationShowcase?.dataset.activeOperation === key) return;
     operationTabs.forEach((item) => { const active = item.dataset.operation === key; item.classList.toggle('is-active', active); item.setAttribute('aria-selected', String(active)); });
     operationShowcase?.setAttribute('data-active-operation', key);
     $('#operationEyebrow').textContent = data.eyebrow;
@@ -515,13 +531,16 @@
     $('#operationImage').src = data.image;
     $('#operationImage').alt = data.alt;
     $('#operationCaption').textContent = data.caption;
+    window.dispatchEvent(new CustomEvent('tiger:operation', { detail: { key } }));
   }
   operationTabs.forEach((tab) => tab.addEventListener('click', () => setOperation(tab.dataset.operation)));
   updateOperationScroll = () => {
     if (!operationShowcase || reducedMotion) return;
     const progress = scrollProgress(operationShowcase, window.innerWidth <= 809 ? 62 : 68);
-    const activeIndex = Math.min(operationKeys.length - 1, Math.floor(progress * operationKeys.length));
+    const activeIndex = progress < .6 ? 0 : progress < .8 ? 1 : 2;
     setOperation(operationKeys[activeIndex]);
+    const workflowStep = Math.min(3, Math.floor(progress / .6 * 4));
+    window.dispatchEvent(new CustomEvent('tiger:workflow-step', { detail: { index: workflowStep } }));
   };
   setOperation('dashboard');
   updateOperationScroll();

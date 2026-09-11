@@ -31,6 +31,8 @@
 <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/hero-video-pilot.css?v=20260911-1">
+<link rel="stylesheet" href="css/midpage-motion.css?v=20260911-1">
 <meta name="google-site-verification" content="D_nknhxPdTUllNEdwfu13hCmwJPx0tzdXM2vDn9mHgM">
 <meta name="naver-site-verification" content="c19c40aabff5f3d7694179467705e2c27bdafa1a">
 </head>
@@ -54,7 +56,7 @@
 
 <main id="mainContent">
   <div class="global-claw-sweep" aria-hidden="true"></div>
-  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <section class="hero" id="hero" aria-labelledby="heroTitle" data-video-ready="true" data-video-mobile="true" data-video-src="assets/home/video-pilot/tiger-approach-web-v2.mp4">
     <div class="hero-media" aria-hidden="true"><img class="hero-tiger hero-tiger-base" src="assets/home/v6/tiger-hero-cinematic.webp" alt="" fetchpriority="high"><img class="hero-tiger hero-tiger-illuminated" src="assets/home/v6/tiger-hero-illuminated.webp" alt=""><div class="scanlines"></div><span class="hero-eye-guide">호랑이의 눈을 향해 움직여보세요</span></div>
     <div class="hero-frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
     <div class="hero-grid container">
@@ -74,7 +76,7 @@
     <div class="container">
       <div class="section-heading editorial-short heading-display reveal"><h2 id="outcomesTitle">한 번 보고<br><span class="accent">끝나지 않도록.</span></h2><p>고객이 머무는 화면에 매장이 꾸준히 나타나야 검색과 방문의 다음 행동이 시작됩니다.</p></div>
       <div class="outcome-stage reveal">
-        <figure class="outcome-visual cut-panel"><img src="assets/home/v6/restaurant-content-production.webp" alt="매장에서 대표 메뉴를 촬영해 SNS 콘텐츠를 만드는 장면" loading="lazy"><figcaption><span>ALWAYS IN THEIR FEED</span>매장이 바쁠 때도 콘텐츠는 고객의 화면에 남는다.</figcaption></figure>
+        <figure class="outcome-visual cut-panel"><div class="motion-slot outcome-film" data-motion-clip="food" data-motion-ready="true"><img src="assets/home/video-upgrade/tiger-food-detail-poster-v1.webp" alt="김이 오르는 대표 메뉴를 담은 콘텐츠 장면" loading="lazy"></div><figcaption><span>ALWAYS IN THEIR FEED</span>매장이 바쁠 때도 콘텐츠는 고객의 화면에 남는다.<small>촬영·운영 흐름 예시</small></figcaption></figure>
         <div class="attention-panel" id="attentionPanel">
           <div class="attention-clock" role="img" aria-label="하루 24시간 중 모바일과 SNS 이용시간 비교"><span>00:00</span><div class="clock-track"><i></i></div><strong>24H</strong></div>
           <article class="attention-stat mobile-time"><span class="attention-eyebrow">KOREA · DAILY AVERAGE</span><h3>하루 평균 모바일 이용시간</h3><strong data-time-minutes="152">2시간 32분</strong><p>2025 한국미디어패널 · 무선전화 기준</p><div class="attention-bar"><i></i></div></article>
@@ -110,7 +112,19 @@
           <li><button type="button" class="story-step" data-story-step="3"><span>04</span><strong>확장</strong><small>온라인판매와 자체 LIVE로 수익화한다.</small></button></li>
         </ul>
       </div>
-      <div class="channel-device reveal" role="group" aria-label="고객채널 성장 시뮬레이션"><div class="device-top"><span>TIGER CHANNEL</span><i></i></div><div class="device-screen" id="storyScreen"><img id="storyImage" src="assets/home/hero/TIGER_HOME_HERO_03_CUSTOMER_DISCOVERY.png" alt="SNS 콘텐츠를 발견하는 고객 장면"><div class="device-overlay"></div><span class="device-label">01 / DISCOVERY</span><strong>오늘 처음 본 고객이<br>화면을 멈춥니다.</strong><div class="device-signal"><i></i><i></i><i></i><i></i><i></i></div><p>SHORTS · REELS · TIKTOK</p></div><div class="device-bottom"><span>SAVE 026</span><span>COMMENT 053</span></div></div>
+      <div class="channel-device reveal" role="group" aria-label="메뉴 콘텐츠의 채널 활용 흐름 예시">
+        <div class="device-top"><span>TIGER CHANNEL</span><i></i></div>
+        <div class="device-screen story-film-screen" id="storyScreen" data-story-film data-state="0">
+          <div class="motion-slot phone-film" data-motion-clip="food" data-motion-ready="true"><img id="storyImage" src="assets/home/video-upgrade/tiger-food-detail-poster-v1.webp" alt="촬영한 메뉴 콘텐츠를 채널에 활용하는 흐름" loading="lazy"></div>
+          <div class="phone-stage-stack">
+            <div class="phone-stage is-active" data-phone-stage="0"><span class="device-label">01 / DISCOVERY</span><strong>메뉴 하나,<br>멈춰 보게 만드는 한 편.</strong><p>촬영한 장면을 세로 콘텐츠로.</p><div class="phone-actions" aria-label="콘텐츠 형식"><span>숏폼</span><span>릴스</span></div></div>
+            <div class="phone-stage" data-phone-stage="1" aria-hidden="true" inert><span class="device-label">02 / CONNECTION</span><strong>보고 끝내지 않고,<br>저장하고 질문하도록.</strong><p>다시 찾을 메뉴 정보와 고객 소통.</p><div class="phone-actions"><span data-motion-icon="bookmark">저장</span><span data-motion-icon="message-circle">댓글</span></div></div>
+            <div class="phone-stage" data-phone-stage="2" aria-hidden="true" inert><span class="device-label">03 / CONVERSION</span><strong>관심이 생겼을 때,<br>매장까지 이어지게.</strong><p>메뉴·위치·예약 정보를 연결.</p><a href="#free-checks" class="phone-next">플레이스 점검 보기 <span aria-hidden="true">↗</span></a></div>
+            <div class="phone-stage" data-phone-stage="3" aria-hidden="true" inert><span class="device-label">04 / COMMERCE</span><strong>인기 메뉴를,<br>매장 밖 고객에게도.</strong><p>상품·포장·자체 LIVE까지 검토.</p><a href="#live-commerce" class="phone-next">메뉴 판매 흐름 보기 <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </div>
+        <div class="device-bottom"><span>촬영·운영 흐름 예시</span><span id="phoneStageNumber">01 / 04</span></div>
+      </div>
     </div>
   </section>
 
@@ -125,6 +139,13 @@
         <article class="process-card" data-process-step="3"><span>04</span><p>LIVE</p><h3>직접 수익화</h3><small>사장님 또는 직원이 본인 채널에서 직접 판매방송을 운영한다.</small></article>
       </div>
       <p class="process-note">사장님·직원이 본인 채널에서 직접 방송할 경우 별도 중개·대행 판매수수료 없이 운영할 수 있다. 단, 플랫폼 결제·PG·배송비 등은 발생할 수 있다. TIGER 또는 외부 진행자가 방송을 맡는 경우 범위와 비용은 별도 상담한다.</p>
+    </div>
+  </section>
+
+  <section class="section live-commerce" id="live-commerce" aria-labelledby="liveCommerceTitle">
+    <div class="container live-commerce-grid">
+      <figure class="live-commerce-visual"><div class="motion-slot live-film" data-motion-clip="live" data-motion-ready="true"><img src="assets/home/video-upgrade/tiger-live-commerce-poster-v1.webp" alt="대표 메뉴를 소개하고 포장하는 자체 LIVE 운영 장면" loading="lazy"></div><figcaption>메뉴 판매 흐름 예시</figcaption></figure>
+      <div class="live-commerce-copy"><p class="kicker">CONTENT → COMMERCE</p><h2 id="liveCommerceTitle">잘 보이는 메뉴에서,<br><span class="accent">판매할 수 있는 상품으로.</span></h2><p>메뉴 소개, 상품 구성, 포장·배송, 자체 LIVE. 우리 매장에 가능한 범위부터 연결합니다.</p><ol class="commerce-path"><li>메뉴·상품 확인</li><li>방송 기획·소개</li><li>포장·배송 검토</li></ol><div class="live-commerce-actions"><button type="button" class="button button-primary" data-intake-open="nationwide">판매 가능성 무료점검 <span aria-hidden="true">↗</span></button><button class="button button-ghost" type="button" data-consult-open data-source-cta="live-commerce-consult">운영 범위 상담</button></div></div>
     </div>
   </section>
 
@@ -236,5 +257,7 @@
 <iframe name="hiddenFormTarget" id="hiddenFormTarget" title="폼 제출용" hidden></iframe>
 <script src="js/tiger-effects.js"></script>
 <script src="js/main.js"></script>
+<script src="js/hero-video-pilot.js?v=20260911-1"></script>
+<script src="js/midpage-motion.js?v=20260911-1"></script>
 </body>
 </html>

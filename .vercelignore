@@ -2,6 +2,11 @@
 docs/
 logs/
 outputs/
+assets/home/video-upgrade/tiger-food-shoot-v1.mp4
+assets/home/video-upgrade/tiger-food-shoot-poster-v1.webp
+assets/home/video-upgrade/tiger-live-commerce-v1.mp4
+assets/home/video-pilot/tiger-approach-v1.mp4
+assets/home/video-pilot/tiger-approach-v2.mp4
 tools/
 build-tiger-og.py
 data/proposals/briefs/

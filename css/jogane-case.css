@@ -1,0 +1,93 @@
+#proof.jogane-case { background: #f4f5f3; color: #161916; }
+.jogane-case * { letter-spacing: 0; }
+.jogane-heading { display: grid; grid-template-columns: 1.12fr 1fr; gap: 64px; align-items: end; }
+.jogane-heading h2 { font: 800 62px/1.15 var(--display); word-break: keep-all; margin: 0; }
+.jogane-intro { max-width: 440px; }
+.jogane-intro > p:first-child { font-size: 26px; font-weight: 750; line-height: 1.45; margin: 0 0 20px; }
+.jogane-intro > span { display: block; color: #59605a; font-size: 16px; line-height: 1.8; word-break: keep-all; }
+.jogane-case .jogane-asof { color: #59605a; font-size: 13px; margin: 24px 0 0; }
+.jogane-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin-top: 56px; border-top: 2px solid #1b211c; border-bottom: 1px solid #cfd4cc; }
+.jogane-metric { min-width: 0; padding: 28px 24px 28px 0; }
+.jogane-metric + .jogane-metric { border-left: 1px solid #cfd4cc; padding-left: 24px; }
+.jogane-channel { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; }
+.jogane-channel > span { font-family: var(--tech); font-weight: 700; }
+.jogane-channel a { color: #59605a; white-space: nowrap; text-decoration: underline; text-underline-offset: 4px; }
+.jogane-number { display: flex; gap: 8px; align-items: baseline; min-height: 78px; margin: 34px 0 16px; white-space: nowrap; }
+.jogane-number strong { font: 700 58px/1.1 var(--tech); display: inline-block; min-width: 3.6ch; font-variant-numeric: tabular-nums; text-align: right; }
+.jogane-number > span { font-size: 18px; font-weight: 750; }
+.jogane-number .jogane-approx { font-size: 13px; color: #636a62; font-weight: 500; }
+.jogane-number-exact strong { min-width: 6.2ch; font-size: 46px; }
+.jogane-metric h3 { font-size: 19px; font-weight: 800; margin: 0 0 12px; line-height: 1.4; }
+.jogane-metric > p:not(.jogane-number) { color: #4c554d; font-size: 14px; line-height: 1.8; margin: 0; }
+.jogane-metric small { display: block; color: #687066; font-size: 12px; line-height: 1.7; margin-top: 20px; }
+.jogane-measure-note { font-size: 13px; line-height: 1.8; color: #626b61; max-width: 980px; margin: 16px 0 48px; word-break: keep-all; }
+.jogane-commerce { display: grid; grid-template-columns: 1.08fr 1fr; gap: 64px; background: #17221b; color: #fff; padding: 48px; }
+.jogane-commerce-label { color: #aec9ae; font-size: 12px; font-weight: 750; }
+.jogane-commerce h3 { font: 800 34px/1.3 var(--display); margin: 18px 0; word-break: keep-all; }
+.jogane-commerce > div > p { max-width: 410px; color: #c5d0c7; font-size: 15px; line-height: 1.8; word-break: keep-all; }
+.jogane-commerce .button { margin-top: 24px; gap: 20px; }
+.jogane-store-path ol { padding: 0; margin: 0; list-style: none; }
+.jogane-store-path li { display: flex; gap: 18px; align-items: baseline; border-bottom: 1px solid #435348; padding: 16px 0; }
+.jogane-store-path li:first-child { padding-top: 0; }
+.jogane-store-path li > span { color: #e7a642; font: 700 14px var(--tech); }
+.jogane-store-path strong { font-size: 17px; }
+.jogane-store-path li p { color: #aabbb0; font-size: 13px; line-height: 1.6; margin: 6px 0 0; }
+.jogane-store-path .jogane-store-note { color: #aabbb0; font-size: 12px; line-height: 1.8; margin: 20px 0 0; }
+.jogane-evidence { border-top: 1px solid #c6cdc3; border-bottom: 1px solid #c6cdc3; margin-top: 32px; }
+.jogane-evidence summary { padding: 23px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; list-style: none; font-size: 15px; font-weight: 750; }
+.jogane-evidence summary::-webkit-details-marker { display: none; }
+.jogane-evidence summary > span { font-size: 24px; font-weight: 400; transition: transform .15s; }
+.jogane-evidence[open] summary > span { transform: rotate(45deg); }
+.jogane-evidence-body { padding-bottom: 30px; font-size: 14px; line-height: 1.8; color: #4c554d; }
+.jogane-evidence-body h3 { font-size: 17px; color: #1a211b; margin: 0 0 20px; }
+.jogane-dates { margin: 0 0 24px; }
+.jogane-dates > div { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 15px 0; border-bottom: 1px solid #d6dcd2; }
+.jogane-dates dt { font-family: var(--tech); font-weight: 700; color: #29372d; }
+.jogane-dates dd { margin: 0; }
+.jogane-dates a { text-decoration: underline; text-underline-offset: 4px; }
+.jogane-dates dd span { display: block; font-size: 12px; margin-top: 4px; }
+.jogane-history { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 40px; margin-top: 36px; padding-top: 30px; border-top: 1px solid #c6cdc3; }
+.jogane-history p { font-size: 13px; margin: 12px 0; }
+.jogane-history-images { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.jogane-history-images img { width: 100%; aspect-ratio: 9/16; object-fit: contain; background: #e8ebe5; }
+.jogane-history-images span { display: block; margin-top: 8px; font-size: 12px; }
+.jogane-case a:focus-visible, .jogane-case summary:focus-visible { outline: 2px solid #c87200; outline-offset: 5px; }
+@media (max-width: 1100px) and (min-width: 810px) {
+  .jogane-heading { gap: 36px; }
+  .jogane-heading h2 { font-size: 46px; }
+  .jogane-intro > p:first-child { font-size: 22px; }
+  .jogane-number strong { font-size: 46px; }
+  .jogane-number-exact strong { font-size: 34px; }
+  .jogane-metric { padding-right: 14px; }
+  .jogane-metric + .jogane-metric { padding-left: 14px; }
+  .jogane-channel { flex-wrap: wrap; }
+  .jogane-commerce { gap: 36px; padding: 36px; }
+}
+@media (max-width: 809px) {
+  .jogane-heading { grid-template-columns: 1fr; gap: 26px; }
+  .jogane-heading h2 { font-size: 38px; }
+  .jogane-intro { max-width: 100%; }
+  .jogane-intro > p:first-child { font-size: 22px; margin-bottom: 12px; }
+  .jogane-intro > span { font-size: 14px; }
+  .jogane-case .jogane-asof { margin-top: 18px; }
+  .jogane-metrics { grid-template-columns: 1fr; margin-top: 30px; }
+  .jogane-metric, .jogane-metric + .jogane-metric { padding: 26px 0; border-left: 0; }
+  .jogane-metric + .jogane-metric { border-top: 1px solid #cfd4cc; }
+  .jogane-channel { font-size: 13px; }
+  .jogane-number { min-height: 68px; margin: 22px 0 12px; }
+  .jogane-number strong { font-size: 56px; }
+  .jogane-number-exact strong { font-size: 49px; }
+  .jogane-metric h3 { font-size: 20px; }
+  .jogane-metric small { margin-top: 12px; }
+  .jogane-measure-note { margin-bottom: 30px; }
+  .jogane-commerce { grid-template-columns: 1fr; gap: 32px; padding: 28px 22px; }
+  .jogane-commerce h3 { font-size: 28px; }
+  .jogane-commerce .button { width: 100%; min-width: 0; white-space: normal; text-align: center; }
+  .jogane-dates > div { grid-template-columns: 1fr; gap: 4px; }
+  .jogane-history { grid-template-columns: 1fr; gap: 24px; }
+}
+@media (max-width: 359px) {
+  .jogane-heading h2 { font-size: 33px; }
+  .jogane-number strong { font-size: 49px; }
+  .jogane-number-exact strong { font-size: 42px; }
+}

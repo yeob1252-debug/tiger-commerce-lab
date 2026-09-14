@@ -278,23 +278,27 @@
     const hasK = finalText.endsWith('K');
     const target = Number(finalText.replace(/[+K]/g, ''));
     const decimal = finalText.includes('.');
+    const locale = element.dataset.countLocale;
+    const format = value => locale ? Math.round(value).toLocaleString(locale) : decimal ? value.toFixed(1) : Math.round(value);
     const start = performance.now();
     function frame(now) {
       const progress = Math.min(1, (now - start) / 900);
       const value = target * (1 - Math.pow(1 - progress, 3));
-      element.textContent = `${hasPlus ? '+' : ''}${decimal ? value.toFixed(1) : Math.round(value)}${hasK ? 'K' : ''}`;
+      element.textContent = `${hasPlus ? '+' : ''}${format(value)}${hasK ? 'K' : ''}`;
       if (progress < 1) window.requestAnimationFrame(frame);
-      else { element.textContent = finalText; element.classList.add('is-counted'); }
+      else { element.textContent = locale ? target.toLocaleString(locale) : finalText; element.classList.add('is-counted'); }
     }
     window.requestAnimationFrame(frame);
   }
   if (proof && countItems.length && 'IntersectionObserver' in window && !reducedMotion) {
     const proofObserver = new IntersectionObserver((entries) => {
-      if (!entries.some((entry) => entry.isIntersecting)) return;
-      countItems.forEach(countToFinal);
-      proofObserver.disconnect();
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        countToFinal(entry.target);
+        proofObserver.unobserve(entry.target);
+      });
     }, { threshold: .22 });
-    proofObserver.observe(proof);
+    countItems.forEach((element) => proofObserver.observe(element));
   }
 
   /* One shared form: moves into the selected free-service card or final consultation. */

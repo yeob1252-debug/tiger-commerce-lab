@@ -9,9 +9,15 @@
 .jogane-metrics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin-top: 56px; border-top: 2px solid #1b211c; border-bottom: 1px solid #cfd4cc; }
 .jogane-metric { min-width: 0; padding: 28px 24px 28px 0; }
 .jogane-metric + .jogane-metric { border-left: 1px solid #cfd4cc; padding-left: 24px; }
-.jogane-channel { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; }
-.jogane-channel > span { font-family: var(--tech); font-weight: 700; }
-.jogane-channel a { color: #59605a; white-space: nowrap; text-decoration: underline; text-underline-offset: 4px; }
+.jogane-channel { width: 100%; }
+.jogane-channel .jogane-social-link { display: grid; grid-template-columns: 44px minmax(0,1fr) auto; align-items: center; gap: 12px; min-height: 84px; padding: 14px 16px; color: #161916; background: #fff; border: 1px solid #b9c2b8; border-radius: 14px; text-decoration: none; transition: border-color .15s, background-color .15s, box-shadow .15s; }
+.jogane-social-icon { display: block; width: 44px; height: 44px; object-fit: contain; }
+.jogane-social-name { font-size: 18px; font-weight: 800; line-height: 1.4; white-space: nowrap; }
+.jogane-social-action { display: inline-flex; align-items: center; gap: 5px; font-size: 14px; font-weight: 700; line-height: 1.4; white-space: nowrap; }
+.jogane-social-action > span { font-size: 21px; line-height: 1; }
+.jogane-channel .jogane-social-link:hover { border-color: #50694f; background: #fafcf8; box-shadow: 0 4px 14px #17221b12; }
+.jogane-channel .jogane-social-link:active { background: #e9efe4; }
+@media (prefers-reduced-motion: reduce) { .jogane-channel .jogane-social-link { transition: none; } }
 .jogane-number { display: flex; gap: 8px; align-items: baseline; min-height: 78px; margin: 34px 0 16px; white-space: nowrap; }
 .jogane-number strong { font: 700 58px/1.1 var(--tech); display: inline-block; min-width: 3.6ch; font-variant-numeric: tabular-nums; text-align: right; }
 .jogane-number > span { font-size: 18px; font-weight: 750; }
@@ -60,7 +66,9 @@
   .jogane-number-exact strong { font-size: 34px; }
   .jogane-metric { padding-right: 14px; }
   .jogane-metric + .jogane-metric { padding-left: 14px; }
-  .jogane-channel { flex-wrap: wrap; }
+  .jogane-channel .jogane-social-link { grid-template-columns: 36px minmax(0,1fr); gap: 8px 10px; padding: 12px; }
+  .jogane-social-icon { width: 36px; height: 36px; grid-row: span 2; }
+  .jogane-social-action { grid-column: 2; }
   .jogane-commerce { gap: 36px; padding: 36px; }
 }
 @media (max-width: 809px) {
@@ -73,7 +81,7 @@
   .jogane-metrics { grid-template-columns: 1fr; margin-top: 30px; }
   .jogane-metric, .jogane-metric + .jogane-metric { padding: 26px 0; border-left: 0; }
   .jogane-metric + .jogane-metric { border-top: 1px solid #cfd4cc; }
-  .jogane-channel { font-size: 13px; }
+  .jogane-channel .jogane-social-link { min-height: 88px; }
   .jogane-number { min-height: 68px; margin: 22px 0 12px; }
   .jogane-number strong { font-size: 56px; }
   .jogane-number-exact strong { font-size: 49px; }

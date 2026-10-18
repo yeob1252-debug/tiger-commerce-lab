@@ -2,11 +2,20 @@ import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const commonPath = path.join(projectRoot, 'data', 'proposals', '_common.json');
 const outputDir = path.join(projectRoot, 'data', 'proposals');
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+// New proposals use the representative-approved editorial layout.
+// Keep the legacy generator available for explicitly requested old-format work.
+if (!process.argv.includes('--legacy') && !process.argv.includes('--self-test')) {
+  const run = spawnSync(process.env.PYTHON || 'python', ['-X', 'utf8', path.join(projectRoot, 'tools', 'proposal-editorial', 'build.py'), ...process.argv.slice(2)], { stdio: 'inherit' });
+  if (run.error) console.error(run.error.message);
+  process.exit(run.status ?? 1);
+}
 
 function fail(message) {
   throw new Error(message);

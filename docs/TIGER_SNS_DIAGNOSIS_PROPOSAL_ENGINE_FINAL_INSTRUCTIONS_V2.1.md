@@ -1,5 +1,7 @@
 # TIGER 매장 맞춤 제안서 운영 매뉴얼 v2.1
 
+> 2026-10-18 대표 최신 승인: **새 고객 제안서의 기본 디자인과 생성 경로는 [승인된 editorial 형식](../tools/proposal-editorial/README.md)** 이다. `node tools/create-proposal.mjs --input <고객.editorial.json>`으로 생성한다. 아래 5영역 규칙은 기존 `/proposal/<slug>` 유지보수용이며, 구형 입력 생성은 `--legacy`를 명시한다. 사실/제안 구분과 `_common.json` 가격 정본 원칙은 계속 적용한다.
+
 ## 목적과 상태
 
 - 매장 정보 brief를 검증된 5영역 제안서 JSON으로 변환한다.

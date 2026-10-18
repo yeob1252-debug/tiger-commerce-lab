@@ -1,0 +1,72 @@
+{
+  "client_label": "김해 반찬·샐러드 SNS 운영 제안",
+  "hero_first": "맛있는 반찬,",
+  "hero_second": "아는 손님만",
+  "hero_third": "찾고 있다면.",
+  "hero_lead": "가게를 알릴 콘텐츠부터, 다시 찾을 통로까지.",
+  "hero_sub": "SNS 기획·제작·게시를 맡고, 다음 행동을 함께 설계합니다.",
+  "client_note": "매장 링크 확인 전 제안입니다. 목표·원본·예산을 확인한 뒤 범위를 확정합니다.",
+  "asset_base": "https://www.tigercommercelab.com/proposals/banchan-salad/assets/",
+  "remote_note": "제공 사진·영상으로 원격 진행합니다. 김해 방문 촬영은 별도입니다.",
+  "reply_text": "매장 링크는 ____ 입니다. 지금은 방문 / 포장·픽업 / 배달 중 ____ 를 먼저 늘리고 싶어요.",
+  "proposal_date": "2026.10.18",
+  "plans": [
+    {
+      "id": "BASIC",
+      "title": "꾸준히 알릴 사람이 필요하다면.",
+      "role": "월 콘텐츠 기획·제작·게시",
+      "months": 6,
+      "features": [
+        "제공 원본으로 콘텐츠 제작",
+        "합의한 SNS 채널에 게시"
+      ]
+    },
+    {
+      "id": "PERFORMANCE",
+      "title": "알린 다음, 방문·주문까지 살펴야 한다면.",
+      "role": "콘텐츠 운영 + 고객 행동 경로 점검",
+      "months": 12,
+      "features": [
+        "플레이스 연계·댓글 반응 확인",
+        "월 운영 요약·판매 경로 개선안"
+      ]
+    }
+  ],
+  "approach_label": "반찬·샐러드에 적용할 첫 방향",
+  "approach_first": "메뉴 이름 대신,",
+  "approach_second": "먹고 싶은 순간을.",
+  "approach_lead_first": "사진에 메뉴 이름만 적기보다,",
+  "approach_lead_second": "누가 언제 먹을지부터 보여주겠습니다.",
+  "approach_note": "첫 기획 예시입니다. 실제 메뉴·가격·원본을 확인한 뒤 확정합니다.",
+  "free_answer_first": "다음 메뉴 사진에는 구성·가격·구매 방법을 함께 적어보세요.",
+  "free_answer_second": "본 사람이 어디서 주문할지 바로 알 수 있게요.",
+  "ideas": [
+    {
+      "id": "banchan",
+      "tab": "반찬의 첫 콘텐츠",
+      "audience": "퇴근 후 저녁을 고민하는 고객에게",
+      "first": "밥은 있는데,",
+      "second": "반찬이 없다면?",
+      "steps": [
+        "밥 옆에 반찬을 놓는 장면",
+        "한 끼 구성·가격·양",
+        "가능한 픽업·주문 안내"
+      ]
+    },
+    {
+      "id": "salad",
+      "tab": "샐러드의 첫 콘텐츠",
+      "audience": "점심 한 끼를 고르는 고객에게",
+      "first": "샐러드 한 통,",
+      "second": "열어보면 뭐가 들었을까요?",
+      "steps": [
+        "뚜껑을 열어 실제 구성을",
+        "용기 크기·재료·드레싱",
+        "메뉴 상세·구매 방법"
+      ]
+    }
+  ],
+  "template_version": "TIGER_EDITORIAL_V1",
+  "slug": "banchan-salad",
+  "channel": "숨고"
+}

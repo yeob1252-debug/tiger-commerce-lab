@@ -497,7 +497,7 @@
   /* Operation showcase */
   const operationData = {
     dashboard: { eyebrow: 'VISIBLE WORKFLOW', title: '진행 상황을 숨기지 않는다.', description: '기획·제작·검수·게시·성과 확인 과정을 전용 화면에서 함께 확인한다.', image: 'assets/home/v6/tiger-dashboard-example.webp', alt: 'TIGER 음식점 SNS 운영 전용 Dashboard 예시 화면', caption: '전용 Dashboard 업무 화면 예시입니다.' },
-    live: { eyebrow: 'AWARD-WINNING LIVE COMMERCE', title: 'GRIP 선정 24·25 신인판매왕, 팔아야산다2 우승 핫 쇼호스트.', description: '직접 팔아본 경험을 바탕으로 상품선정, 방송기획, 대본·큐시트, 환경 세팅, 사장님·직원 교육, 사전 홍보, 방송 지원, 재구매 콘텐츠까지 연결한다.', image: 'assets/home/v6/menu-to-commerce.webp', alt: '대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면', caption: '메뉴 → 상품 → 배송 → 자체 LIVE' },
+    live: { eyebrow: 'AWARD-WINNING LIVE COMMERCE', title: '2024년 그립 신인판매왕. 2025년 팔아야산다2 우승.', description: '직접 팔아본 경험을 바탕으로 상품선정, 방송기획, 대본·큐시트, 환경 세팅, 사장님·직원 교육, 사전 홍보, 방송 지원, 재구매 콘텐츠까지 연결한다.', image: 'assets/home/v6/menu-to-commerce.webp', alt: '대표메뉴가 상품과 자체 라이브커머스로 이어지는 장면', caption: '메뉴 → 상품 → 배송 → 자체 LIVE' },
     community: { eyebrow: 'OPTIONAL EXPANSION', title: '지역 맘커뮤니티에 자연스럽게 발견되는 선택형 확장.', description: '실제 체험과 실제 혜택을 기반으로 후기형·핫딜형을 구분해 운영한다. 월 30건 기준 범위와 비용은 별도 상담하며 허위후기와 가짜 성과를 만들지 않는다.', image: 'assets/home/v6/mom-community-spread.webp', alt: '지역 맘커뮤니티에서 음식점 콘텐츠가 공유되고 확산되는 운영 장면 예시', caption: '맘커뮤니티 확산 운영 장면 예시 · 실제 후기·성과값 아님' },
   };
   const operationShowcase = $('.operation-showcase');

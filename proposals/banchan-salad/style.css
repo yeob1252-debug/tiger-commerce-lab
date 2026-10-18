@@ -17,3 +17,11 @@ html{scroll-behavior:auto;scroll-padding-top:76px}.section{scroll-margin-top:0}.
 
 .proof-shopping{align-items:start}.shopping-screen img{max-height:none!important;aspect-ratio:1.2;object-fit:cover!important;object-position:46% center}.shopping-screen{overflow:hidden}.proof-shopping .link-row{flex-wrap:wrap;gap:10px 16px}
 @media(max-width:700px){.shopping-screen img{aspect-ratio:1.2;object-fit:cover!important}.proof-shopping{display:flex;flex-direction:column}.proof-shopping .shopping-screen{width:100%}}
+
+/* r77: keep the tiger face centered throughout the safe approach segment. */
+.hero-art{background:#000}
+.hero-art video{object-fit:contain;object-position:center}
+.hero-art:after{background:linear-gradient(90deg,#090a0b 0%,transparent 16%,transparent 84%,#090a0b 100%),linear-gradient(0deg,#090a0b 0%,transparent 15%)}
+.hero-art>span{right:auto;left:7%;bottom:7%;font-size:11px;text-shadow:0 1px 8px #000}
+@media(max-width:1000px) and (min-width:651px){.hero-art video{height:75%;top:10%}.hero-art>span{bottom:10%}}
+@media(max-width:650px){.hero-art{height:360px;min-height:360px;margin:0 20px;border-top:0}.hero-art video{height:100%;top:0}.hero-art>span{left:4%;bottom:7%;font-size:9px}.hero-art #motionToggle{top:10px;right:10px}}

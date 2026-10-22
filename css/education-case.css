@@ -1,0 +1,35 @@
+/* Same case evidence, expressed with Tiger's existing orange/black palette. */
+.education125{margin-top:64px;padding-top:56px;border-top:1px solid var(--line);position:relative}
+.education-heading125{max-width:980px;margin-bottom:38px}
+.education-heading125 h3{font:800 clamp(28px,3.2vw,44px)/1.3 var(--display);letter-spacing:-.035em;word-break:keep-all}
+.education-heading125 h3>span{color:var(--orange)}
+.education-heading125>p:last-child{color:var(--muted);font-size:16px;line-height:1.8;margin-top:20px}
+.education-evidence125{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
+.education-photo125{margin:0;min-width:0}
+.education-photo125 img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line)}
+.education-photo125 figcaption{font-size:12px;line-height:1.6;margin-top:12px;color:#aba49b}
+.education-result125{min-width:0;padding:30px 0}
+.education-label125{color:#c5b5a0;font-size:14px;line-height:1.7;margin-bottom:22px;word-break:keep-all}
+.education-sales125{margin:0;font-variant-numeric:tabular-nums}
+.education-sales125>span{font-size:14px;display:block;margin-bottom:10px;color:#c5b5a0}
+.education-sales125 strong{display:inline-block;color:var(--white);font:800 clamp(48px,5.5vw,80px)/1.12 var(--display);letter-spacing:-.06em;white-space:nowrap;isolation:isolate;position:relative}
+.education-sales125 strong:after{content:'';position:absolute;bottom:0;left:0;right:0;height:18%;background:#a6500a;z-index:-1;transform-origin:left;transform:scaleX(1)}
+.education-sales125 small{font-size:.38em;font-weight:600;letter-spacing:-.035em;margin:0 .09em;color:#ffc268}
+.education-broadcast125{font-size:16px;color:#c7c0b5;margin-top:25px;line-height:1.7}
+.education-broadcast125 b{color:var(--orange);font:700 28px var(--display);margin-right:12px}
+.education-period125{font-size:12px;line-height:1.8;color:#a9a299;margin-top:18px}
+.education-footer125{margin-top:38px;padding-top:30px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px}
+.education-footer125>div>p:first-child{font:600 18px/1.7 var(--display);color:#e7e0d5;margin:0}
+.education-history125{font-size:12px;line-height:1.9;color:#b6ac9c;margin-top:12px;max-width:530px;word-break:keep-all}
+.education-link125{display:inline-flex;align-items:center;gap:20px;min-height:50px;color:#ffc268;font-size:13px;border-bottom:1px solid #7d531f;margin-top:8px}
+.education-link125:hover{color:#fff}
+.education-footer125 .live-commerce-actions{flex-direction:column;margin:0;align-items:stretch;gap:10px}
+.education-footer125 .button{min-height:52px;white-space:normal}
+.education-scope125{font-size:12px;line-height:1.9;color:#a9a299;margin-top:28px;word-break:keep-all}
+.case-arrived .education-result125{animation:education-rise125 .65s cubic-bezier(.2,.7,.2,1) both}
+.case-arrived .education-sales125 strong:after{animation:education-mark125 .85s .1s cubic-bezier(.2,.7,.2,1) both}
+@keyframes education-rise125{from{transform:translateY(12px)}to{transform:translateY(0)}}
+@keyframes education-mark125{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:900px){.education-evidence125{gap:30px}.education-sales125 strong{font-size:54px}.education-footer125{grid-template-columns:1fr}.education-footer125 .live-commerce-actions{flex-direction:row;flex-wrap:wrap}.education-footer125 .button{flex:1}}
+@media(max-width:600px){.education125{margin-top:42px;padding-top:34px}.education-heading125{margin-bottom:28px}.education-heading125 h3{font-size:28px;line-height:1.35}.education-heading125>.kicker{font-size:11px}.education-heading125>p:last-child{font-size:14px;margin-top:16px}.education-evidence125{grid-template-columns:1fr;gap:26px}.education-result125{padding:0}.education-label125{font-size:12px;margin-bottom:14px}.education-sales125 strong{font-size:clamp(48px,14vw,68px)}.education-broadcast125{font-size:14px;margin-top:16px}.education-period125{font-size:11px}.education-footer125{margin-top:26px;padding-top:24px;gap:24px}.education-footer125>div>p:first-child{font-size:16px}.education-footer125 .live-commerce-actions{flex-direction:column}.education-history125{font-size:12px}.education-scope125{font-size:11px;margin-top:20px}}
+@media(prefers-reduced-motion:reduce){.education125 *{animation:none!important;transition:none!important;transform:none!important}}

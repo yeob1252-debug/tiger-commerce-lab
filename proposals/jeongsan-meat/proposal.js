@@ -1,0 +1,11 @@
+(()=>{'use strict';const v=document.getElementById('tigerMotion'),b=document.getElementById('motionToggle'),reduced=matchMedia('(prefers-reduced-motion: reduce)');let stopped=reduced.matches,visible=true,queued=false;
+ const sync=()=>{const label=v.ended?'다시 재생':v.paused?'영상 재생':'일시 정지';b.textContent=label;b.setAttribute('aria-label','호랑이 '+label)};
+ const play=()=>{if(v.ended)v.currentTime=0;v.play().then(sync).catch(sync)};
+ b.addEventListener('click',()=>{if(v.paused||v.ended){stopped=false;play()}else{stopped=true;v.pause()}});['play','pause','ended','error'].forEach(e=>v.addEventListener(e,sync));
+ new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(!visible)v.pause();else if(!stopped&&!reduced.matches&&!v.ended)play()},{threshold:.15}).observe(v);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)v.pause();else if(visible&&!stopped&&!reduced.matches&&!v.ended)play()});
+ reduced.addEventListener('change',()=>{if(reduced.matches){stopped=true;v.pause();document.querySelectorAll('.is-pending').forEach(e=>e.classList.remove('is-pending'))}});sync();
+ const update=()=>{queued=false;document.documentElement.style.setProperty('--read',Math.min(1,scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)))};addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(update)}},{passive:true});addEventListener('resize',update);update();
+ if(!reduced.matches){document.documentElement.classList.add('motion-ready');const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('is-pending');io.unobserve(e.target)}}),{threshold:.05,rootMargin:'0px 0px 30px 0px'});document.querySelectorAll('.section h2,.route-row,.reel-list article,.case-metric,.asset-line').forEach(e=>{e.classList.add('reveal');if(e.getBoundingClientRect().top>innerHeight)e.classList.add('is-pending');io.observe(e)})}
+ document.getElementById('copyReply').addEventListener('click',async()=>{const status=document.getElementById('copyStatus');document.querySelector('.reply-example').open=true;try{await navigator.clipboard.writeText(document.getElementById('replyText').textContent.trim());status.textContent='복사했습니다. 받은 숨고 채팅에 붙여 넣고 괄호 부분을 채워주세요.'}catch{status.textContent='아래 답장 예시를 직접 복사해 받은 숨고 채팅에 보내주세요.'}});
+})();

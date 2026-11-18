@@ -68,7 +68,7 @@
     const button=form.querySelector('button[type="submit"]');pending=true;button.disabled=true;button.textContent='점검 자료를 준비하고 있습니다…';
     let result;
     try{result=await send(payload);}catch(e){error.textContent=e.message;error.hidden=false;return;}
-    finally{pending=false;button.disabled=false;button.textContent='무료점검 신청하기';}
+    finally{pending=false;button.disabled=false;button.textContent='우리 메뉴 무료점검 받기';}
     const summary = document.querySelector('#previewInputSummary');
     summary.replaceChildren();
     const rows=[['매장',field('storeName').value.trim()],['지역',field('storeArea').value.trim()],['메뉴',field('menu').value.trim()],['영업 종류',values('businessType').join(', ')],['판매 방식',values('salesMethod').join(', ')],['이메일',field('email').value.trim()]];
@@ -76,7 +76,7 @@
     for(const [key,value] of rows){const row=document.createElement('div');const dt=document.createElement('dt');const dd=document.createElement('dd');dt.textContent=key;dd.textContent=value;row.append(dt,dd);summary.append(row);}
     form.hidden=true;
     const success=document.querySelector('#previewSuccess');success.hidden=false;success.querySelector('h2').focus();
-    document.querySelector('#deliveryMessage').textContent=result.mailSent?'입력하신 이메일로 점검 보고서를 보냈습니다. 수신까지 잠시 걸릴 수 있으며, 보이지 않으면 스팸함도 확인해주세요.':'신청은 저장됐지만 보고서 메일 발송을 확인하지 못했습니다. 카카오톡으로 접수번호를 알려주시면 확인해드리겠습니다.';
+    document.querySelector('#deliveryMessage').textContent=result.mailSent?'입력하신 이메일로 점검 보고서를 보냈습니다. 수신까지 잠시 걸릴 수 있으며, 보이지 않으면 스팸함도 확인해주세요.':'신청은 저장됐지만 보고서 메일 발송을 확인하지 못했습니다. 홈페이지 상담 신청에서 접수번호를 알려주시면 확인해드리겠습니다.';
     document.querySelector('#submissionId').textContent='접수번호: '+result.leadId;
     if(typeof window.tigerReadinessReceived==='function')window.tigerReadinessReceived(result.leadId);
   });

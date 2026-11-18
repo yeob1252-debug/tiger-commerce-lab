@@ -78,6 +78,7 @@
     const success=document.querySelector('#previewSuccess');success.hidden=false;success.querySelector('h2').focus();
     document.querySelector('#deliveryMessage').textContent=result.mailSent?'입력하신 이메일로 점검 보고서를 보냈습니다. 수신까지 잠시 걸릴 수 있으며, 보이지 않으면 스팸함도 확인해주세요.':'신청은 저장됐지만 보고서 메일 발송을 확인하지 못했습니다. 카카오톡으로 접수번호를 알려주시면 확인해드리겠습니다.';
     document.querySelector('#submissionId').textContent='접수번호: '+result.leadId;
+    if(typeof window.tigerReadinessReceived==='function')window.tigerReadinessReceived(result.leadId);
   });
   document.querySelector('#editPreview').addEventListener('click',()=>{document.querySelector('#previewSuccess').hidden=true;form.hidden=false;form.elements.storeName.focus();});
 })();

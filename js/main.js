@@ -420,17 +420,15 @@
   function renderPlans() {
     if (!planGrid) return;
     planGrid.innerHTML = planState.items.map((plan, index) => {
-      const included = planState.features.filter((row) => row.values[index] && (index === 0 || !row.values[index - 1])).map((row) => row.label);
-      if (index > 0) included.unshift(`${planState.items[index - 1].name} 운영 범위 포함`);
-      const highlight = false;
-      const purpose = { BASIC: '채널 운영 시작', GROWTH: '콘텐츠·반응 관리', PERFORMANCE: '방문·판매 연결', COMMERCE: '자체 라이브 준비' };
+      const included = planState.features.filter((row) => row.values[index]).map((row) => row.label);
+      const highlight = plan.id === 'PERFORMANCE';
       return `<article class="plan-card${highlight ? ' is-highlight' : ''}" data-plan-card="${escapeHtml(plan.id)}">
-        ${highlight ? '<span class="plan-badge">TIGER RECOMMENDED</span>' : ''}
-        <p class="flow-plan-purpose">${escapeHtml(purpose[plan.id] || plan.name)}</p><h3>${escapeHtml(plan.name)}</h3><p class="plan-desire">${escapeHtml(plan.desire)}</p>
-        <p class="plan-price">${toManwon(priceFor(plan))}<span>/월 · ${escapeHtml(planState.vat)}</span></p><p class="flow-plan-term">${planState.term}개월 계약 기준</p>
-        <p class="plan-qty">쇼츠 ${plan.shorts} · 카드뉴스 ${plan.card_news} · Threads ${plan.threads} · 블로그 ${plan.blog}</p>
+        ${highlight ? '<span class="plan-badge">TIGER 추천</span>' : ''}
+        <p class="plan-purpose">${escapeHtml(({BASIC:"채널 운영 시작",GROWTH:"콘텐츠·반응 관리",PERFORMANCE:"방문·판매 연결",COMMERCE:"자체 라이브 준비"})[plan.id])}</p><h3>${escapeHtml(plan.name)}</h3><p class="plan-desire">${escapeHtml(plan.desire)}</p>
+        <p class="plan-price">${toManwon(priceFor(plan))}<span>/월 · ${escapeHtml(planState.vat)}</span></p>
+        <p class="plan-contract">${planState.term}개월 계약 기준</p><p class="plan-qty">쇼츠 ${plan.shorts} · 카드뉴스 ${plan.card_news} · Threads ${plan.threads} · 블로그 ${plan.blog}</p>
         <ul class="plan-features">${included.map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul>
-        <button type="button" class="button ${highlight ? 'button-primary' : 'button-ghost'}" data-plan-consult="${escapeHtml(plan.id)}">${escapeHtml(purpose[plan.id] || plan.name)} 상담하기</button>
+        <button type="button" class="button ${highlight ? 'button-primary' : 'button-ghost'}" data-plan-consult="${escapeHtml(plan.id)}">${escapeHtml(plan.cta_label)}</button>
       </article>`;
     }).join('');
     $$('[data-plan-consult]', planGrid).forEach((button) => button.addEventListener('click', () => {

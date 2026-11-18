@@ -28,6 +28,7 @@
   function reset(){active=-1;scenes.forEach(scene=>{scene.inert=false;});select(0);schedule();}
   addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);pinned.addEventListener('change',reset);reduced.addEventListener('change',reset);select(0);
   const filmStory=document.querySelector('[data-case-story]'),video=filmStory?.querySelector('video'),play=filmStory?.querySelector('.jogane-play');
+  if(filmStory)new IntersectionObserver(entries=>{if(entries[0].isIntersecting)filmStory.classList.add('is-visible');},{threshold:.15}).observe(filmStory);
   let inView=false,userPaused=false,autoSuspended=true;
   function pause(){if(video){autoSuspended=true;video.pause();}}
   async function start(explicit=false){
@@ -41,7 +42,6 @@
     video.addEventListener('pause',()=>{if(!autoSuspended&&!video.ended)userPaused=true;});
     video.addEventListener('ended',()=>{play.hidden=false;play.innerHTML='영상 다시 보기 <span aria-hidden="true">↻</span>';play.setAttribute('aria-label','조가네 실제 영상 다시 재생');});
     new IntersectionObserver(entries=>{const e=entries[0];inView=e.isIntersecting&&e.intersectionRatio>=.3;if(inView)start();else pause();},{threshold:[0,.3,.65]}).observe(video);
-    new IntersectionObserver(entries=>{if(entries[0].isIntersecting)filmStory.classList.add('is-visible');},{threshold:.15}).observe(filmStory);
     addEventListener('tiger:video-claim',event=>{if(event.detail?.video!==video)pause();});
     document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();else if(inView)start();});
     reduced.addEventListener('change',()=>{if(reduced.matches)pause();else if(inView)start();});

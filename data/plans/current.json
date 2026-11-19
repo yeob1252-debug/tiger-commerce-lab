@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "offer_revision": "2026-11-19-owner-live",
+  "_comment": "Current homepage offer. Existing customer proposal data/proposals/_common.json remains a separate legacy terms source; do not rewrite old proposals when editing this offer.",
+  "plans": {
+    "default_term_months": 12,
+    "vat_included": false,
+    "vat_label": "VAT 별도",
+    "terms": [{"months":12,"label":"12개월 계약"},{"months":6,"label":"6개월 계약"}],
+    "items": [
+      {"id":"BASIC","name":"BASIC","price_krw":990000,"prices":{"12":990000,"6":1200000},"shorts":2,"card_news":2,"desire":"멈춘 채널부터 다시 꾸준히 움직이고 싶은 매장","cta_label":"BASIC으로 채널 시작하기"},
+      {"id":"GROWTH","name":"GROWTH","price_krw":1500000,"prices":{"12":1500000,"6":1800000},"shorts":3,"card_news":4,"desire":"꾸준한 콘텐츠와 반응 관리로 고객 접점을 늘리고 싶은 매장","cta_label":"GROWTH로 고객접점 늘리기"},
+      {"id":"PERFORMANCE","name":"PERFORMANCE","price_krw":3000000,"prices":{"12":3000000,"6":3600000},"shorts":4,"card_news":6,"desire":"발견을 방문·문의·판매까지 연결하고 싶은 매장","cta_label":"PERFORMANCE로 통합운영 상담하기"},
+      {"id":"COMMERCE","name":"COMMERCE","price_krw":5000000,"prices":{"12":5000000,"6":6000000},"shorts":6,"card_news":8,"desire":"사장님이 직접 판매하는 라이브를 시작하고 싶은 브랜드","cta_label":"COMMERCE 자체 라이브 구축 상담"}
+    ],
+    "feature_rows": [
+      {"label":"SNS 채널 운영","values":[true,true,true,true]},
+      {"label":"플랫폼 업로드","values":[true,true,true,true]},
+      {"label":"콘텐츠 기획","values":[true,true,true,true]},
+      {"label":"댓글·반응 관리","values":[false,true,true,true]},
+      {"label":"네이버 플레이스 연계","values":[false,true,true,true]},
+      {"label":"월간 성과 분석","values":[false,true,true,true]},
+      {"label":"판매채널 연결 전략","values":[false,false,true,true]},
+      {"label":"자체 라이브 구축·교육","values":[false,false,false,true]},
+      {"label":"초기 실제 방송 동행","values":[false,false,false,true]}
+    ]
+  }
+}

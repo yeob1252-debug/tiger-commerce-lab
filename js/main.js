@@ -424,7 +424,7 @@
       const highlight = plan.id === 'PERFORMANCE';
       return `<article class="plan-card${highlight ? ' is-highlight' : ''}" data-plan-card="${escapeHtml(plan.id)}">
         ${highlight ? '<span class="plan-badge">TIGER 추천</span>' : ''}
-        <p class="plan-purpose">${escapeHtml(({BASIC:"채널 운영 시작",GROWTH:"콘텐츠·반응 관리",PERFORMANCE:"방문·판매 연결",COMMERCE:"자체 라이브 준비"})[plan.id])}</p><h3>${escapeHtml(plan.name)}</h3><p class="plan-desire">${escapeHtml(plan.desire)}</p>
+        <p class="plan-purpose">${escapeHtml(({BASIC:"채널 운영 시작",GROWTH:"콘텐츠·반응 관리",PERFORMANCE:"방문·판매 연결",COMMERCE:"자체 라이브 구축"})[plan.id])}</p><h3>${escapeHtml(plan.name)}</h3><p class="plan-desire">${escapeHtml(plan.desire)}</p>
         <p class="plan-price">${toManwon(priceFor(plan))}<span>/월 · ${escapeHtml(planState.vat)}</span></p>
         <p class="plan-contract">${planState.term}개월 계약 기준</p>
         <div class="plan-deliverables"><p class="plan-original">월 원본 영상 <strong>${plan.shorts}<span>편</span></strong></p>
@@ -479,7 +479,7 @@
   }
 
   if (planGrid && planTermToggle) {
-    fetch('/data/proposals/_common.json')
+    fetch('/data/plans/current.json?v=20261119-owner-live')
       .then((response) => { if (!response.ok) throw new Error(`HTTP ${response.status}`); return response.json(); })
       .then((common) => {
         const plans = common.plans || {};

@@ -656,7 +656,8 @@
         if (message.ok) settle(() => resolve(message));
         else settle(() => reject(new Error(message.message || '접수 저장에 실패했습니다.')));
       };
-      const timeoutId = window.setTimeout(() => settle(() => reject(new Error('접수 확인 시간이 초과되었습니다.'))), 15000);
+      // Apps Script cold starts and mail delivery can outlast 15s; match readiness intake.
+      const timeoutId = window.setTimeout(() => settle(() => reject(new Error('접수 확인 시간이 초과되었습니다.'))), 55000);
       window.addEventListener('message', onMessage);
       document.body.appendChild(form);
       form.submit();

@@ -2,7 +2,7 @@
   'use strict';
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const slots = [...document.querySelectorAll('[data-motion-clip]')];
-  const sources = { food: 'assets/home/video-upgrade/tiger-food-detail-v1.mp4', live: 'assets/home/video-upgrade/tiger-live-commerce-web-v1.mp4', joganeStory:'assets/home/r7/jogane-story.mp4?v=20261119-7', shop:'assets/home/r7/shop.mp4', filming:'assets/home/r7/filming.mp4', editing:'assets/home/r7/editing.mp4' };
+  const sources = { field:'assets/home/jogane/field-story.mp4', food: 'assets/home/video-upgrade/tiger-food-detail-v1.mp4', live: 'assets/home/video-upgrade/tiger-live-commerce-web-v1.mp4', joganeStory:'assets/home/r7/jogane-story.mp4?v=20261119-7', shop:'assets/home/r7/shop.mp4', filming:'assets/home/r7/filming.mp4', editing:'assets/home/r7/editing.mp4' };
   const players = new Map();
   const records = new Map();
   // Lucide Play, Pause, RotateCcw, Bookmark and MessageCircle (ISC, lucide.dev).

@@ -1,0 +1,195 @@
+/* R9. Viewport-safe stages, editorial media, concise offer comparison. */
+.tiger-six .owner-story { padding-top:64px; background:#f2f1e9; }
+.tiger-six .owner-heading { grid-template-columns:1.3fr .7fr; gap:16px 5%; }
+.tiger-six .owner-heading h2 { font-size:clamp(36px,4.3vw,62px); line-height:1.18; }
+.tiger-six .owner-heading-note { display:block; align-self:end; margin:0 0 8px; font-size:16px; }
+.tiger-six .owner-heading-note strong { font-size:23px; }
+.tiger-six .owner-heading-note span { margin-top:12px; }
+.tiger-six .owner-track { margin-top:24px; height:auto; min-height:0; }
+.tiger-six .owner-stage { position:relative; top:auto; height:auto; min-height:0; max-height:none; grid-template-columns:1.1fr 1fr; grid-template-rows:55px auto; gap:22px 6%; padding-block:20px; align-content:center; }
+.tiger-six .owner-track.is-pinned { height:calc(500px + 45svh); }
+.tiger-six .owner-track.is-pinned .owner-stage { position:sticky; top:85px; }
+.tiger-six .owner-states { grid-column:2; grid-row:1; width:100%; gap:12px; }
+.tiger-six .owner-states button { min-height:50px; padding:10px 0; font-size:16px; max-width:none; }
+.tiger-six .owner-film { grid-column:1; grid-row:1/3; width:100%; justify-self:stretch; transform:none; }
+.tiger-six .owner-phone { padding:0; border-radius:20px; background:#1b2019; box-shadow:0 20px 60px #23301c20; }
+.tiger-six .owner-media-stack { border-radius:20px; }
+.tiger-six .owner-media { position:relative; transform:translateY(12px) scale(1.025); }
+.tiger-six .owner-media.is-active { transform:none; }
+.tiger-six .owner-film .motion-slot { height:460px; max-height:none; border-radius:0; }
+.tiger-six .owner-film .motion-slot :is(img,video) { object-fit:cover; }
+.tiger-six .owner-media[data-owner-media="2"] .motion-slot :is(img,video) { object-fit:contain; background:#f2f1e9; }
+.tiger-six .owner-film figcaption { position:absolute; inset:auto 0 0; padding:70px 28px 24px; background:linear-gradient(transparent,#10180ae8); pointer-events:none; }
+.tiger-six .owner-film figcaption span { font-size:22px; }
+.tiger-six .owner-film figcaption small { font-size:12px; color:#d8decf; }
+.tiger-six .owner-scenes { grid-column:2; grid-row:2; align-self:center; }
+.tiger-six .owner-scene h3 { font-size:clamp(29px,2.7vw,40px); line-height:1.28; }
+.tiger-six .owner-state-label { display:block; font-size:14px; margin:0 0 18px; color:#73796a; }
+.tiger-six .owner-scene>p:not(.owner-state-label) { font-size:17px; line-height:1.7; margin:22px 0; }
+.tiger-six .owner-scene>strong { font-size:16px; line-height:1.7; display:block; }
+.tiger-six .owner-scene>strong b { color:#95651f; font-size:25px; white-space:nowrap; }
+.tiger-six .owner-page { display:none; }
+.tiger-six .owner-bridge { padding-block:26px 55px; }
+.tiger-six .owner-bridge strong { font-size:25px; }
+.tiger-six .owner-bridge strong br { display:none; }
+
+/* Pin only when the entire stage actually fits; low-height screens remain usable. */
+.tiger-six .service-track { height:auto; min-height:0; padding-bottom:45px; }
+.tiger-six .service-stage { position:relative; top:auto; height:auto; min-height:0; max-height:none; padding-block:25px; }
+.tiger-six .service-track.is-pinned { height:calc(670px + 70svh); }
+.tiger-six .service-track.is-pinned .service-stage { position:sticky; top:85px; }
+.tiger-six .director-track.is-pinned { height:calc(650px + 40svh); }
+.tiger-six .director-heading { margin-bottom:24px; }
+.tiger-six .director-stage { padding-block:20px; }
+.tiger-six .director-stage .award-note { font-size:12px; }
+
+/* Four concise cards, with the complete included-work list available on demand. */
+.tiger-six #plans .section-heading { margin-bottom:35px; }
+.tiger-six #plans .plan-entry { align-self:end; padding-left:25px; }
+.tiger-six .plan-entry small { font-size:14px; line-height:1.7; }
+.tiger-six .plan-journey { height:auto; }
+.tiger-six .plan-selection-stage { position:relative; top:auto; }
+.tiger-six .plan-journey.is-pinned { height:calc(740px + 65svh); }
+.tiger-six .plan-journey.is-pinned .plan-selection-stage { position:sticky; top:85px; }
+.tiger-six .plan-grid { align-items:start; gap:16px; }
+.tiger-six .plan-card,.tiger-six .plan-card.is-highlight { min-height:0; padding:24px 20px; border-width:1px; }
+.tiger-six .plan-card .plan-purpose { font-size:14px; min-height:0; margin:0 0 10px; }
+.tiger-six .plan-card h3 { margin:0; font-size:21px; }
+.tiger-six .plan-card .plan-price { font-size:47px; margin:17px 0 6px; line-height:1.2; }
+.tiger-six .plan-card .plan-price>span { display:block; margin-top:6px; font-size:13px; }
+.tiger-six .plan-card .plan-contract { margin:0; font-size:13px; }
+.tiger-six .plan-deliverables { margin-top:18px; padding:16px 0 12px; }
+.tiger-six .plan-original { font-size:14px; margin:0 0 12px; }
+.tiger-six .plan-original>strong { font-size:39px; }
+.tiger-six .plan-distribution { font-size:13px; line-height:1.7; margin:0; }
+.tiger-six .plan-card .plan-qty { padding:0; font-size:14px; margin:10px 0 0; display:flex; justify-content:space-between; gap:6px; }
+.tiger-six .plan-focus { margin:16px 0 12px; font-size:14px; line-height:1.8; color:#e0e5d6; min-height:51px; }
+.tiger-six .plan-more { border:0; margin:0; padding:0; }
+.tiger-six .plan-more summary { color:#c5b78f; font-size:14px; padding:10px 0; cursor:pointer; list-style:revert; }
+.tiger-six .plan-more>p { font-size:14px; line-height:1.75; color:#a7b199; }
+.tiger-six .plan-more .plan-features { margin:14px 0; padding:0; gap:8px; }
+.tiger-six .plan-more .plan-features li { font-size:14px; }
+.tiger-six .plan-card .button { min-height:48px; margin-top:14px; padding:12px 8px; font-size:13px; line-height:1.6; }
+.tiger-six .plan-journey-nav button { min-height:48px; font-size:14px; }
+.tiger-six .plan-selection-stage .plan-toolbar { margin:12px 0 25px; }
+.tiger-six .plan-destination { padding-top:22px; }
+.tiger-six .plan-destination strong { font-size:20px; }
+.tiger-six .plan-destination p { font-size:14px; line-height:1.7; }
+.tiger-six .plan-card.is-highlight .plan-badge { left:18px; border-radius:20px; font-size:12px; padding:6px 12px; }
+.tiger-six .plan-journey:not(.is-pinned) .plan-card .plan-badge { opacity:1; transform:none; }
+.tiger-six .plan-card .plan-badge { right:auto; width:auto; }
+.tiger-six .plan-card.is-current { transform:none; border-color:#f6d49a; box-shadow:0 0 0 1px #f6d49a70,0 12px 40px #bd862b25; }
+.tiger-six .scope-summary h3 b { font-size:1.4em; color:var(--gold); }
+.tiger-six .plan-scope { margin-top:38px; }
+.tiger-six .plan-destination { margin-top:10px; }
+.tiger-six .scope-summary p,.tiger-six .mall-option p { font-size:15px; line-height:1.8; }
+
+/* A cost example, not a profit promise. Conditions stay beside the figures. */
+.fee-comparison { margin-top:85px; }
+.fee-comparison header h3 { font:750 clamp(30px,3.6vw,50px)/1.3 var(--display); letter-spacing:-.05em; margin:16px 0; color:#253025; }
+.fee-comparison header h3 strong { color:#94611f; }
+.fee-comparison header>p:last-child { color:#606956; font-size:15px; line-height:1.7; }
+.fee-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-top:30px; }
+.fee-card { background:#e8eadd; padding:30px 26px; border-radius:18px; border:1px solid #c7cdbb; }
+.fee-card>span { font-size:14px; color:#606a53; }
+.fee-card h4 { font:750 25px/1.4 var(--display); color:#273022; margin:10px 0 25px; }
+.fee-card .fee-number { margin:0 0 22px; display:flex; flex-wrap:wrap; align-items:baseline; gap:7px; color:#26371c; }
+.fee-number strong { font:600 clamp(29px,3.1vw,45px)/1.15 var(--body); letter-spacing:-.065em; font-variant-numeric:tabular-nums; }
+.fee-number strong em { font-size:.65em; padding-inline:3px; color:#7e896e; }
+.fee-number>span { font-size:17px; }
+.fee-card>p:not(.fee-number) { font-size:14px; line-height:1.7; color:#35432b; }
+.fee-card small { display:block; border-top:1px solid #bcc4ad; padding-top:17px; margin-top:18px; color:#5c674f; font-size:14px; line-height:1.8; }
+.fee-owned { background:#192617; border-color:#b39c61; }
+.fee-owned :is(h4,.fee-number) { color:#f5d08a; }
+.fee-owned>span,.fee-owned>p:not(.fee-number),.fee-owned small { color:#c1cdb5; }
+.fee-owned small { border-color:#61704c; }
+.fee-caveat { font-size:14px; line-height:1.8; color:#57634b; margin-top:22px; }
+.fee-sources { border-block:1px solid #c2cbb5; padding:18px 0; margin-top:20px; color:#56634a; font-size:14px; line-height:1.85; }
+.fee-sources summary { cursor:pointer; font-weight:650; }
+.fee-sources a { display:inline-block; margin:0 20px 8px 0; text-decoration:underline; text-underline-offset:4px; }
+.tiger-six .shop-screen .motion-slot { height:470px; }
+.tiger-six .shop-journey li p { font-size:16px; line-height:1.75; }
+.tiger-six .shop-bottom p>span { font-size:15px; line-height:1.8; }
+
+@media(max-width:1199px) {
+ .tiger-six .owner-heading { grid-template-columns:1fr; }
+ .tiger-six .owner-heading-note { display:none; }
+ .tiger-six .owner-stage { grid-template-columns:1fr 1fr; gap:20px 4%; }
+ .tiger-six .owner-states { gap:8px; }
+ .tiger-six .owner-states button { font-size:14px; }
+ .tiger-six .owner-film .motion-slot { height:420px; }
+ .tiger-six .owner-track.is-pinned { height:calc(460px + 55svh); }
+ .tiger-six .plan-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 20px; }
+ .tiger-six .plan-journey-nav { position:static; }
+ .tiger-six .plan-card h3 { font-size:24px; }
+ .tiger-six .director-track.is-pinned { height:calc(570px + 30svh); }
+ .tiger-six .director-stage .award-stack { height:420px; }
+ .fee-grid { gap:12px; }.fee-card { padding:23px 17px; }.fee-card h4 { font-size:21px; }.fee-number strong { font-size:30px; }
+}
+@media(max-width:600px) {
+ .tiger-six .owner-story { padding-top:40px; }
+ .tiger-six .owner-heading .kicker { font-size:13px; }
+ .tiger-six .owner-heading h2 { font-size:34px; margin-top:14px; }
+ .tiger-six .owner-track { margin-top:15px; }
+ .tiger-six .owner-stage { grid-template-columns:1fr; grid-template-rows:auto auto auto; gap:15px; padding:0 0 16px; }
+ .tiger-six .owner-track.is-pinned { height:calc(550px + 55svh); }
+ .tiger-six .owner-track.is-pinned .owner-stage { top:65px; }
+ .tiger-six .owner-states { grid-column:1; grid-row:1; gap:8px; }
+ .tiger-six .owner-states button { font-size:14px; padding:10px 0; min-height:44px; }
+ .tiger-six .owner-film { grid-column:1; grid-row:2; width:100%; }
+ .tiger-six .owner-phone,.tiger-six .owner-media-stack { border-radius:15px; }
+ .tiger-six .owner-film .motion-slot { height:clamp(220px,34svh,290px); }
+ .tiger-six .owner-film figcaption { padding:45px 18px 16px; }
+ .tiger-six .owner-film figcaption span { font-size:18px; }
+ .tiger-six .owner-film figcaption small { font-size:11px; margin-top:3px; }
+ .tiger-six .owner-scenes { grid-column:1; grid-row:3; }
+ .tiger-six .owner-state-label { display:none; }
+ .tiger-six .owner-scene h3 { font-size:27px; line-height:1.3; }
+ .tiger-six .owner-scene>p:not(.owner-state-label) { font-size:15px; margin:12px 0 10px; }
+ .tiger-six .owner-scene>strong { font-size:14px; }
+ .tiger-six .owner-scene>strong b { font-size:21px; }
+ .tiger-six .owner-bridge { padding-block:20px 38px; }
+ .tiger-six .owner-bridge strong { font-size:22px; }.tiger-six .owner-bridge strong br { display:block; }
+ .tiger-six .service-stage { padding-block:18px; }
+ .tiger-six .service-track.is-pinned { height:calc(560px + 60svh); }
+ .tiger-six .service-track.is-pinned .service-stage { top:65px; }
+ .tiger-six .work-copy h3 { font-size:26px; }.tiger-six .work-copy p { font-size:15px; }.tiger-six .work-copy>span { font-size:12px; }
+ .tiger-six .director-stage { grid-template-columns:1fr 1fr; gap:24px 20px; }
+ .tiger-six .director-stage .award-stack { height:280px; }
+ .tiger-six .director-intro strong { font-size:24px; }
+ .tiger-six .director-intro>span { font-size:15px; }
+ .tiger-six .director-stage .award-controls button { font-size:12px; }
+ .tiger-six .director-stage .award-note { font-size:11px; }
+ .tiger-six .director-credentials dt strong { font-size:66px; }
+ .tiger-six .director-credentials dd span { font-size:12px; }
+ .tiger-six #plans .section-heading { gap:25px; margin-bottom:22px; }
+ .tiger-six #plans .plan-entry { padding-left:19px; }
+ .tiger-six .plan-entry p strong { font-size:58px; }
+ .tiger-six .plan-journey-nav { position:relative; top:auto; gap:0; }
+ .tiger-six .plan-journey-nav button { font-size:0; min-width:0; padding:12px 2px; letter-spacing:-.035em; }
+ .tiger-six .plan-journey-nav button::before { content:attr(data-short-label); font-size:13px; }
+ .tiger-six .plan-journey-nav { min-height:48px; }
+ .tiger-six .plan-selection-stage .plan-toolbar { margin:15px 0 25px; flex-wrap:wrap; gap:12px; }
+ .tiger-six .plan-grid { display:grid; grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:calc(100% - 22px); gap:14px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; padding:18px 1px 20px; margin-top:-10px; scrollbar-width:thin; scrollbar-color:#c7a557 #27311f; }
+ .tiger-six .plan-card,.tiger-six .plan-card.is-highlight { padding:27px 24px; min-height:0; scroll-snap-align:start; opacity:1; transform:none; }
+ .tiger-six .plan-card h3 { font-size:25px; }
+ .tiger-six .plan-card .plan-price { font-size:55px; }
+ .tiger-six .plan-card .plan-price>span { font-size:14px; }
+ .tiger-six .plan-card .button { font-size:14px; min-height:50px; }
+ .tiger-six .plan-original { font-size:16px; }
+ .tiger-six .plan-original>strong { font-size:44px; }
+ .tiger-six .plan-focus { font-size:15px; }
+ .tiger-six .plan-destination { padding-top:18px; text-align:left; }
+ .tiger-six .plan-destination strong { font-size:22px; line-height:1.5; }
+ .tiger-six .plan-scope { margin-top:30px; }
+ .tiger-six .shop-screen .motion-slot { height:400px; }
+ .fee-comparison { margin-top:55px; }.fee-comparison header h3 { font-size:30px; }.fee-grid { grid-template-columns:1fr; gap:14px; margin-top:24px; }
+ .fee-card { padding:25px; }.fee-card h4 { font-size:24px; margin-bottom:18px; }.fee-number strong { font-size:48px; }.fee-card .fee-number { margin-bottom:16px; }.fee-card small { margin-top:13px; padding-top:13px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .tiger-six .owner-track,.tiger-six .service-track,.tiger-six .director-track,.tiger-six .plan-journey { height:auto!important; }
+ .tiger-six .owner-media { transform:none; }.tiger-six .owner-media-stack { display:block; }.tiger-six .owner-film { max-width:600px; margin:20px auto; }
+ .tiger-six .owner-film figcaption { position:static; padding:18px; background:#172012; }.tiger-six .owner-stage { display:block; }.tiger-six .owner-scene { padding:20px 0; }
+ .tiger-six .owner-stage,.tiger-six .service-stage,.tiger-six .director-stage,.tiger-six .plan-selection-stage { position:relative!important; top:auto!important; }
+ .tiger-six .plan-card { transform:none!important; transition:none!important; }
+}

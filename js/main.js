@@ -424,13 +424,13 @@
       const highlight = plan.id === 'PERFORMANCE';
       return `<article class="plan-card${highlight ? ' is-highlight' : ''}" data-plan-card="${escapeHtml(plan.id)}">
         ${highlight ? '<span class="plan-badge">TIGER 추천</span>' : ''}
-        <p class="plan-purpose">${escapeHtml(({BASIC:"채널 운영 시작",GROWTH:"콘텐츠·반응 관리",PERFORMANCE:"방문·판매 연결",COMMERCE:"자체 라이브 구축"})[plan.id])}</p><h3>${escapeHtml(plan.name)}</h3><p class="plan-desire">${escapeHtml(plan.desire)}</p>
+        <p class="plan-purpose">${escapeHtml(({BASIC:"멈춘 SNS, 다시 시작",GROWTH:"올리고, 반응까지 관리",PERFORMANCE:"방문·판매 연결까지",COMMERCE:"내가 직접 하는 라이브"})[plan.id])}</p><h3>${escapeHtml(plan.name)}</h3>
         <p class="plan-price">${toManwon(priceFor(plan))}<span>/월 · ${escapeHtml(planState.vat)}</span></p>
         <p class="plan-contract">${planState.term}개월 계약 기준</p>
         <div class="plan-deliverables"><p class="plan-original">월 원본 영상 <strong>${plan.shorts}<span>편</span></strong></p>
-        <dl class="plan-channels"><div><dt>유튜브 쇼츠</dt><dd>${plan.shorts}회</dd></div><div><dt>틱톡</dt><dd>${plan.shorts}회</dd></div><div><dt>인스타그램 릴스</dt><dd>${plan.shorts}회</dd></div></dl>
-        <p class="plan-distribution">동일 기본 영상의 3채널 게시 · 총 ${plan.shorts * 3}회</p><p class="plan-qty">카드뉴스 월 ${plan.card_news}건</p></div>
-        <ul class="plan-features">${included.map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul>
+        <p class="plan-distribution">유튜브 · 틱톡 · 인스타그램 각 ${plan.shorts}회<br>동일 원본의 3채널 게시 · 총 ${plan.shorts * 3}회</p><p class="plan-qty">카드뉴스 <b>월 ${plan.card_news}건</b></p></div>
+        <p class="plan-focus">${({BASIC:'월 주제 기획 · 콘텐츠 제작<br>채널 게시 운영',GROWTH:'BASIC 범위 + 댓글·반응 관리<br>월간 분석 · 플레이스 연계',PERFORMANCE:'GROWTH 범위 + 판매 동선 점검<br>방문·문의·주문 연결 전략',COMMERCE:'PERFORMANCE 범위 + 라이브 구축<br>진행 교육 · 초기 실제 방송 동행'})[plan.id]}</p>
+        <details class="plan-more"><summary>포함 업무 자세히 보기</summary><p class="plan-desire">${escapeHtml(plan.desire)}</p><ul class="plan-features">${included.map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul><p>제작 규격·횟수와 제외 범위는 아래 공통 안내를 확인하세요.</p></details>
         <button type="button" class="button ${highlight ? 'button-primary' : 'button-ghost'}" data-plan-consult="${escapeHtml(plan.id)}">${escapeHtml(plan.cta_label)}</button>
       </article>`;
     }).join('');

@@ -19,7 +19,7 @@
     const record = {
       root, track:root.querySelector(trackSelector), stage:root.querySelector(stageSelector),
       panels:[...root.querySelectorAll(panelSelectors)], buttons:[...root.querySelectorAll(buttonSelector)],
-      count, key, active:-1
+      count, key, active:-1, manual:null, manualY:0
     };
     function activate(index) {
       if (record.active === index && !reduce.matches) return;
@@ -40,7 +40,9 @@
     record.activate = activate;
     record.buttons.forEach((button,index) => button.addEventListener('click', () => {
       activate(index);
+      record.manual=index;record.manualY=scrollY;
       if (reduce.matches) return;
+      if (!record.track.classList.contains('is-pinned')) return;
       const top = parseFloat(getComputedStyle(record.stage).top) || 0;
       const budget = Math.max(1, record.track.offsetHeight - record.stage.offsetHeight);
       const destination = record.track.getBoundingClientRect().top + scrollY - top + budget * ((index + .24) / count);
@@ -96,13 +98,18 @@
   function draw() {
     scheduled = false;
     scenes.forEach(record => {
-      if (reduce.matches) { record.activate(0); return; }
+      const tallTablet=innerWidth>600&&innerWidth<1100&&record.stage.offsetHeight<innerHeight*.65;
+      const canPin=!reduce.matches&&!tallTablet&&record.stage.offsetHeight<=innerHeight-(innerWidth<=600?145:115);
+      record.track.classList.toggle('is-pinned',canPin);
+      if (reduce.matches) { record.activate(record.manual??0); return; }
+      if (!canPin) { record.activate(record.manual??0); return; }
       const r = record.track.getBoundingClientRect();
       const top = parseFloat(getComputedStyle(record.stage).top) || 0;
       const budget = Math.max(1, record.track.offsetHeight - record.stage.offsetHeight);
       const p = clamp((top - r.top) / budget);
       record.root.style.setProperty(`--${record.key}-progress`,Math.max(.045,p).toFixed(4));
-      record.activate(Math.min(record.count-1,Math.floor(p * record.count)));
+      if(record.manual!==null&&Math.abs(scrollY-record.manualY)>30)record.manual=null;
+      record.activate(record.manual??Math.min(record.count-1,Math.floor(p * record.count)));
     });
     if (proof) {
       const r = proof.getBoundingClientRect();
@@ -141,7 +148,7 @@
   function drawAwards() {
     if(!gallery)return;
     if(awardManual!==null&&Math.abs(scrollY-awardManualY)>100)awardManual=null;
-    const canPin=!reduce.matches&&directorStage.offsetHeight<=innerHeight-(innerWidth<=600?145:110);
+    const canPin=!reduce.matches&&innerWidth>=1100&&directorStage.offsetHeight<=innerHeight-110;
     directorTrack.classList.toggle('is-pinned',canPin);
     const top=innerWidth<=600?65:90;
     const p=canPin?clamp((top-directorTrack.getBoundingClientRect().top)/Math.max(1,directorTrack.offsetHeight-directorStage.offsetHeight)):clamp((innerHeight*.7-gallery.getBoundingClientRect().top)/(innerHeight*.65));
@@ -179,6 +186,7 @@
   let planManual=null,planManualY=0,planManualUntil=0;
   function drawPlans() {
     if(!planJourney||!planGrid.children.length)return;
+    if(innerWidth<=600)planManual=null;
     const cards=[...planGrid.querySelectorAll('.plan-card')];
     let index=0,finale=false;
     const canPin=pinnedPlans.matches&&planStage.offsetHeight<=innerHeight-100;
@@ -187,22 +195,21 @@
       const p=clamp((90-planJourney.getBoundingClientRect().top)/Math.max(1,planJourney.offsetHeight-planStage.offsetHeight));
       const step=Math.min(4,Math.floor(p*5));
       index=[0,1,2,3,2][step];finale=step===4;
+    } else if(innerWidth<=600) {
+      const center=planGrid.getBoundingClientRect().left+planGrid.clientWidth/2;
+      let nearest=Infinity;
+      cards.forEach((card,i)=>{const r=card.getBoundingClientRect(),distance=Math.abs((r.left+r.right)/2-center);if(distance<nearest){nearest=distance;index=i;}});
+    } else if(innerWidth<1200) {
+      let nearest=Infinity;
+      cards.forEach((card,i)=>{const r=card.getBoundingClientRect(),distance=Math.abs((r.top+r.bottom)/2-innerHeight*.5);if(distance<nearest){nearest=distance;index=i;}});
     } else {
-      if(innerWidth>=1200) {
-        const r=planGrid.getBoundingClientRect();
-        const p=clamp((innerHeight*.65-r.top)/Math.max(1,r.height));
-        index=Math.min(3,Math.floor(p*4));
-      } else {
-        const center=innerHeight*.48;
-        let nearest=Infinity;
-        cards.forEach((card,i)=>{const r=card.getBoundingClientRect(),distance=Math.abs((r.top+r.bottom)/2-center);if(distance<nearest){nearest=distance;index=i;}});
-      }
-      finale=planStage.querySelector('.plan-destination').getBoundingClientRect().top<innerHeight*.8;
-      if(finale)index=2;
+      // All wide-desktop offers are visible together. Selection is intentional,
+      // not inferred from their shared vertical position.
+      index=planManual??2;
     }
     if(planManual!==null) {
       if(performance.now()<planManualUntil)planManualY=scrollY;
-      else if(Math.abs(scrollY-planManualY)>100)planManual=null;
+      else if((canPin||(innerWidth>600&&innerWidth<1200))&&Math.abs(scrollY-planManualY)>100)planManual=null;
       if(planManual!==null){index=planManual;finale=false;}
     }
     planJourney.style.setProperty('--plan-index',index);
@@ -213,9 +220,11 @@
   }
   planButtons.forEach((button,index)=>button.addEventListener('click',()=>{
     const card=planGrid.querySelectorAll('.plan-card')[index];if(!card)return;
-    const top=planJourney.classList.contains('is-pinned')?planJourney.getBoundingClientRect().top+scrollY-90+Math.max(1,planJourney.offsetHeight-planStage.offsetHeight)*(index+.3)/5:card.getBoundingClientRect().top+scrollY-135;
-    planManual=index;planManualY=scrollY;planManualUntil=performance.now()+1200;
-    scrollTo({top,behavior:reduce.matches?'instant':'smooth'});
+    const isPinned=planJourney.classList.contains('is-pinned');
+    planManual=innerWidth<=600?null:index;planManualY=scrollY;planManualUntil=performance.now()+1200;
+    if(innerWidth<=600)planGrid.scrollTo({left:card.offsetLeft-planGrid.firstElementChild.offsetLeft,behavior:reduce.matches?'instant':'smooth'});
+    else if(isPinned)scrollTo({top:planJourney.getBoundingClientRect().top+scrollY-90+Math.max(1,planJourney.offsetHeight-planStage.offsetHeight)*(index+.3)/5,behavior:reduce.matches?'instant':'smooth'});
+    else if(innerWidth<1200)scrollTo({top:card.getBoundingClientRect().top+scrollY-100,behavior:reduce.matches?'instant':'smooth'});
     schedule();
   }));
   const reveal = new IntersectionObserver(entries=>entries.forEach(entry=>{
@@ -223,8 +232,16 @@
   }),{threshold:.12});
   function bindPlans(){planGrid?.querySelectorAll('.plan-card:not([data-motion-card])').forEach((card,i)=>{
     card.dataset.motionCard='true';card.style.transitionDelay=`${(i%4)*70}ms`;reveal.observe(card);
+    const details=card.querySelector('details');
+    let disclosureTop=null;
+    details?.querySelector('summary').addEventListener('click',()=>{disclosureTop=details.getBoundingClientRect().top;planManual=i;planManualY=scrollY;planManualUntil=performance.now()+1200;});
+    details?.addEventListener('toggle',()=>{
+      drawPlans();
+      if(disclosureTop!==null&&innerWidth>600){scrollBy({top:details.getBoundingClientRect().top-disclosureTop,behavior:'instant'});disclosureTop=null;}
+      schedule();
+    });
   });schedule();}
-  if(planGrid){new MutationObserver(bindPlans).observe(planGrid,{childList:true});bindPlans();}
+  if(planGrid){new MutationObserver(bindPlans).observe(planGrid,{childList:true});planGrid.addEventListener('scroll',schedule,{passive:true});new ResizeObserver(schedule).observe(planGrid);bindPlans();}
   reduce.addEventListener('change',()=>{if(reduce.matches){cancelAnimationFrame(countFrame);document.querySelectorAll('[data-director-count]').forEach(n=>n.textContent=n.dataset.directorCount);}awardActive=-1;schedule();});
   schedule();
 })();

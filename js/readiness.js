@@ -60,14 +60,15 @@
     if (!space.hidden && !field('space').value) failures.push({message:'제조·포장 공간을 선택해주세요. 잘 모름도 선택할 수 있습니다.',element:field('space')});
     if (!field('email').value.trim() || !field('email').validity.valid) failures.push({message:'보고서를 받을 이메일 주소를 확인해주세요.',element:field('email')});
     if (!field('consent').checked) failures.push({message:'개인정보 수집·이용 안내를 확인하고 동의해주세요.',element:field('consent')});
-    if (failures.length) {error.textContent=failures[0].message;error.hidden=false;failures[0].element.focus();return;}
+    if (failures.length) {if(window.tigerFunnel)window.tigerFunnel.record('validation_error');error.textContent=failures[0].message;error.hidden=false;failures[0].element.focus();return;}
     const payload={mode:'readiness',storeName:field('storeName').value.trim(),storeArea:field('storeArea').value.trim(),menu:field('menu').value.trim(),businessType:values('businessType'),salesMethod:values('salesMethod'),space:field('space').value,email:field('email').value.trim(),consent:true,website:field('website').value,source:location.pathname+(()=>{const q=new URLSearchParams(location.search),s=new URLSearchParams();for(const k of ['utm_source','utm_medium','utm_campaign','utm_content'])if(q.has(k))s.set(k,q.get(k).slice(0,40));return s.size?'?'+s.toString():'';})()};
     const body=JSON.stringify(payload);
     if(body!==retryBody){retryId='TREADY-'+crypto.randomUUID();retryBody=body;}
     payload.leadId=retryId;
+    if(window.tigerFunnel){if(payload.storeName.includes('[TEST]'))window.tigerFunnel.markTest();payload.measurement=window.tigerFunnel.context();window.tigerFunnel.record('submit_attempt');}
     const button=form.querySelector('button[type="submit"]');pending=true;button.disabled=true;button.textContent='점검 자료를 준비하고 있습니다…';
     let result;
-    try{result=await send(payload);}catch(e){error.textContent=e.message;error.hidden=false;return;}
+    try{result=await send(payload);}catch(e){if(window.tigerFunnel)window.tigerFunnel.record('submit_error');error.textContent=e.message;error.hidden=false;return;}
     finally{pending=false;button.disabled=false;button.textContent='우리 메뉴 무료점검 받기';}
     const summary = document.querySelector('#previewInputSummary');
     summary.replaceChildren();

@@ -82,7 +82,7 @@
       record.slot.appendChild(video);
     }
     if (!video.getAttribute('src')) video.src = sources[player.key];
-    if ((explicit && record.completed) || (changedOwner && !record.started)) video.currentTime = 0;
+    if ((explicit && record.completed) || (changedOwner && !record.started)) video.currentTime = Number(record.slot.dataset.startTime) || 0;
     record.userPaused = false; record.blocked = false; record.completed = false; record.started = true;
     const request = ++player.request;
     state(record, 'loading');

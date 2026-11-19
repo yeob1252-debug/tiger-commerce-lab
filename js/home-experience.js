@@ -1,4 +1,4 @@
-/* R8 scene choreography. No intake, price, account or analytics mutations. */
+/* R10 choreography. Reading states are independent of recommendation badges. */
 (() => {
   'use strict';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
@@ -98,8 +98,8 @@
   function draw() {
     scheduled = false;
     scenes.forEach(record => {
-      const tallTablet=innerWidth>600&&innerWidth<1100&&record.stage.offsetHeight<innerHeight*.65;
-      const canPin=!reduce.matches&&!tallTablet&&record.stage.offsetHeight<=innerHeight-(innerWidth<=600?145:115);
+      const canPin=!reduce.matches&&innerWidth>=1100&&record.stage.offsetHeight<=innerHeight-115;
+      record.track.style.setProperty(`--${record.key}-stage-height`,`${record.stage.offsetHeight}px`);
       record.track.classList.toggle('is-pinned',canPin);
       if (reduce.matches) { record.activate(record.manual??0); return; }
       if (!canPin) { record.activate(record.manual??0); return; }
@@ -149,12 +149,13 @@
     if(!gallery)return;
     if(awardManual!==null&&Math.abs(scrollY-awardManualY)>100)awardManual=null;
     const canPin=!reduce.matches&&innerWidth>=1100&&directorStage.offsetHeight<=innerHeight-110;
+    directorTrack.style.setProperty('--director-stage-height',`${directorStage.offsetHeight}px`);
     directorTrack.classList.toggle('is-pinned',canPin);
     const top=innerWidth<=600?65:90;
-    const p=canPin?clamp((top-directorTrack.getBoundingClientRect().top)/Math.max(1,directorTrack.offsetHeight-directorStage.offsetHeight)):clamp((innerHeight*.7-gallery.getBoundingClientRect().top)/(innerHeight*.65));
-    director.dataset.directorStep=String(p>.5?1:0);
+    const p=canPin?clamp((top-directorTrack.getBoundingClientRect().top)/Math.max(1,directorTrack.offsetHeight-directorStage.offsetHeight)):clamp((innerHeight*.25-gallery.getBoundingClientRect().top)/Math.max(1,gallery.offsetHeight*.6));
+    director.dataset.directorStep=String(p>.45?1:0);
     director.style.setProperty('--director-progress',p.toFixed(4));
-    showAward(reduce.matches?0:awardManual??(p>.62?1:0));
+    showAward(reduce.matches?0:awardManual??(p>.45?1:0));
   }
   const counted = document.querySelector('.director-credentials');
   let countFrame=0;
@@ -176,13 +177,13 @@
     else if(e.target.matches('.broadcast-frame'))e.target.dataset.liveVisible=String(e.isIntersecting);
     else { e.target.classList.toggle('is-visible',e.isIntersecting); if(e.isIntersecting)e.target.classList.add('is-in-view'); }
   }),{threshold:.3});
-  document.querySelectorAll('[data-keyword],.broadcast-frame,.shop-screen,.evergreen-scene').forEach(e=>keywordObserver.observe(e));
+  document.querySelectorAll('[data-keyword],.broadcast-frame,.shop-screen,.evergreen-scene,[data-channel-deck]').forEach(e=>keywordObserver.observe(e));
   const planGrid = document.querySelector('#planGrid');
   const planJourney=document.querySelector('[data-plan-journey]');
   const planStage=document.querySelector('.plan-selection-stage');
   const planButtons=[...document.querySelectorAll('[data-plan-select]')];
   document.querySelector('.plan-recommend-cta')?.addEventListener('click',()=>planGrid.querySelector('[data-plan-consult="PERFORMANCE"]')?.click());
-  const pinnedPlans=matchMedia('(min-width:1200px) and (min-height:850px) and (prefers-reduced-motion:no-preference)');
+  const pinnedPlans=matchMedia('(min-width:1200px) and (min-height:820px) and (prefers-reduced-motion:no-preference)');
   let planManual=null,planManualY=0,planManualUntil=0;
   function drawPlans() {
     if(!planJourney||!planGrid.children.length)return;
@@ -190,22 +191,19 @@
     const cards=[...planGrid.querySelectorAll('.plan-card')];
     let index=0,finale=false;
     const canPin=pinnedPlans.matches&&planStage.offsetHeight<=innerHeight-100;
+    planJourney.style.setProperty('--plan-stage-height',`${planStage.offsetHeight}px`);
     planJourney.classList.toggle('is-pinned',canPin);
     if(canPin) {
       const p=clamp((90-planJourney.getBoundingClientRect().top)/Math.max(1,planJourney.offsetHeight-planStage.offsetHeight));
-      const step=Math.min(4,Math.floor(p*5));
-      index=[0,1,2,3,2][step];finale=step===4;
+      index=Math.min(3,Math.floor(p*4));finale=p>=.98;
     } else if(innerWidth<=600) {
       const center=planGrid.getBoundingClientRect().left+planGrid.clientWidth/2;
       let nearest=Infinity;
       cards.forEach((card,i)=>{const r=card.getBoundingClientRect(),distance=Math.abs((r.left+r.right)/2-center);if(distance<nearest){nearest=distance;index=i;}});
-    } else if(innerWidth<1200) {
-      let nearest=Infinity;
-      cards.forEach((card,i)=>{const r=card.getBoundingClientRect(),distance=Math.abs((r.top+r.bottom)/2-innerHeight*.5);if(distance<nearest){nearest=distance;index=i;}});
     } else {
       // All wide-desktop offers are visible together. Selection is intentional,
       // not inferred from their shared vertical position.
-      index=planManual??2;
+      index=planManual??0;
     }
     if(planManual!==null) {
       if(performance.now()<planManualUntil)planManualY=scrollY;
@@ -223,7 +221,7 @@
     const isPinned=planJourney.classList.contains('is-pinned');
     planManual=innerWidth<=600?null:index;planManualY=scrollY;planManualUntil=performance.now()+1200;
     if(innerWidth<=600)planGrid.scrollTo({left:card.offsetLeft-planGrid.firstElementChild.offsetLeft,behavior:reduce.matches?'instant':'smooth'});
-    else if(isPinned)scrollTo({top:planJourney.getBoundingClientRect().top+scrollY-90+Math.max(1,planJourney.offsetHeight-planStage.offsetHeight)*(index+.3)/5,behavior:reduce.matches?'instant':'smooth'});
+    else if(isPinned)scrollTo({top:planJourney.getBoundingClientRect().top+scrollY-85+Math.max(1,planJourney.offsetHeight-planStage.offsetHeight)*(index+.15)/4,behavior:reduce.matches?'instant':'smooth'});
     else if(innerWidth<1200)scrollTo({top:card.getBoundingClientRect().top+scrollY-100,behavior:reduce.matches?'instant':'smooth'});
     schedule();
   }));

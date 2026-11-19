@@ -2,7 +2,7 @@
   'use strict';
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const slots = [...document.querySelectorAll('[data-motion-clip]')];
-  const sources = { food: 'assets/home/video-upgrade/tiger-food-detail-v1.mp4', live: 'assets/home/video-upgrade/tiger-live-commerce-web-v1.mp4' };
+  const sources = { food: 'assets/home/video-upgrade/tiger-food-detail-v1.mp4', live: 'assets/home/video-upgrade/tiger-live-commerce-web-v1.mp4', joganeStory:'assets/home/r7/jogane-story.mp4?v=20261119-7', shop:'assets/home/r7/shop.mp4', filming:'assets/home/r7/filming.mp4', editing:'assets/home/r7/editing.mp4' };
   const players = new Map();
   const records = new Map();
   // Lucide Play, Pause, RotateCcw, Bookmark and MessageCircle (ISC, lucide.dev).
@@ -61,7 +61,7 @@
     return player;
   }
   function visible(record) {
-    const scene = record.slot.closest('[data-phone-scene]');
+    const scene = record.slot.closest('[data-phone-scene],[data-owner-media],[data-work-visual]');
     if (scene && (!scene.classList.contains('is-active') || scene.inert || scene.getAttribute('aria-hidden') === 'true')) return 0;
     if (!record.slot.getClientRects().length || getComputedStyle(record.slot).visibility !== 'visible') return 0;
     const box = record.slot.getBoundingClientRect();
@@ -136,6 +136,7 @@
   slots.forEach(slot => observer.observe(slot));
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule);
+  window.addEventListener('tiger:scene-step', schedule);
   window.addEventListener('tiger:story-step', () => {
     for (const player of players.values()) {
       if (player.owner && visible(player.owner) === 0) pause(player, 'paused-hidden-stage');

@@ -1,4 +1,4 @@
-/* R6: one presentation layer. Original brand, independent scene composition. */
+/* Tiger presentation layer. R6 case scene preserved; R7 feedback refinements below. */
 .tiger-six { --gold:#efbc63; --paper:#f2f2ed; --ink:#171915; --gutter:clamp(22px,5vw,76px); }
 .tiger-six h1,.tiger-six h2,.tiger-six h3 { word-break:keep-all; text-wrap:balance; }
 .tiger-six em { font-style:normal; }

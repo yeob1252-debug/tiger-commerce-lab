@@ -47,6 +47,11 @@
     video.setAttribute('tabindex', '-1'); video.disablePictureInPicture = true;
     const player = { video, key, owner: null, request: 0 };
     players.set(key, player);
+    // A screen-recording may include an intro; keep its labelled product segment in view.
+    video.addEventListener('timeupdate', () => {
+      const loopStart = Number(player.owner?.slot.dataset.loopStart) || 0;
+      if (loopStart > 0 && video.readyState >= 2 && video.currentTime < loopStart - .15) video.currentTime = loopStart;
+    });
     video.addEventListener('ended', () => {
       if (!player.owner) return;
       player.owner.completed = true;

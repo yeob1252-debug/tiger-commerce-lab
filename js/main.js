@@ -713,15 +713,18 @@
   const footer = $('#siteFooter');
   let heroPassed = false;
   let footerVisible = false;
+  let startHubVisible = false;
   let formFocused = false;
   function updateMobileCta() {
     const formClosed = Boolean(formShell?.hidden) && !formFocused;
-    homeMobileCta?.classList.toggle('is-hidden', !formClosed);
+    homeMobileCta?.classList.toggle('is-hidden', !(heroPassed && !footerVisible && !startHubVisible && formClosed));
     mobileFixedCta?.classList.toggle('is-hidden', !(heroPassed && !footerVisible && formClosed));
   }
   if (mobileFixedCta && 'IntersectionObserver' in window) {
     if (hero) new IntersectionObserver((entries) => { heroPassed = !entries[0].isIntersecting; updateMobileCta(); }, { threshold: 0 }).observe(hero);
     if (footer) new IntersectionObserver((entries) => { footerVisible = entries[0].isIntersecting; updateMobileCta(); }, { threshold: .05 }).observe(footer);
+    const startHub = $('#free-checks');
+    if (startHub) new IntersectionObserver((entries) => { startHubVisible = entries[0].isIntersecting; updateMobileCta(); }, { threshold: 0 }).observe(startHub);
     diagnosisForm?.addEventListener('focusin', () => { formFocused = true; updateMobileCta(); });
     diagnosisForm?.addEventListener('focusout', () => { formFocused = false; updateMobileCta(); });
   }

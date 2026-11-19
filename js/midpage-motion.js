@@ -42,7 +42,7 @@
   function playerFor(key) {
     if (players.has(key)) return players.get(key);
     const video = document.createElement('video');
-    video.muted = true; video.defaultMuted = true; video.playsInline = true; video.preload = 'none';
+    video.muted = true; video.defaultMuted = true; video.playsInline = true; video.loop = true; video.preload = 'none';
     video.setAttribute('muted', ''); video.setAttribute('playsinline', ''); video.setAttribute('aria-hidden', 'true');
     video.setAttribute('tabindex', '-1'); video.disablePictureInPicture = true;
     const player = { video, key, owner: null, request: 0 };

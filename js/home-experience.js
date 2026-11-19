@@ -1,4 +1,4 @@
-/* R6 scene choreography. No intake, price, account or analytics mutations. */
+/* R8 scene choreography. No intake, price, account or analytics mutations. */
 (() => {
   'use strict';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
@@ -125,6 +125,9 @@
   addEventListener('resize',schedule,{passive:true});
   reduce.addEventListener('change',()=>{if(video&&reduce.matches)video.pause();scenes.forEach(r=>r.active=-1);schedule();});
   const gallery = document.querySelector('[data-award-gallery]');
+  const director = document.querySelector('#director');
+  const directorTrack = document.querySelector('.director-track');
+  const directorStage = document.querySelector('.director-stage');
   const awards = [...document.querySelectorAll('[data-award]')];
   const awardButtons = [...document.querySelectorAll('[data-award-select]')];
   let awardActive=-1, awardManual=null, awardManualY=0;
@@ -138,7 +141,12 @@
   function drawAwards() {
     if(!gallery)return;
     if(awardManual!==null&&Math.abs(scrollY-awardManualY)>100)awardManual=null;
-    const p=clamp((innerHeight*.7-gallery.getBoundingClientRect().top)/(innerHeight*.65));
+    const canPin=!reduce.matches&&directorStage.offsetHeight<=innerHeight-(innerWidth<=600?145:110);
+    directorTrack.classList.toggle('is-pinned',canPin);
+    const top=innerWidth<=600?65:90;
+    const p=canPin?clamp((top-directorTrack.getBoundingClientRect().top)/Math.max(1,directorTrack.offsetHeight-directorStage.offsetHeight)):clamp((innerHeight*.7-gallery.getBoundingClientRect().top)/(innerHeight*.65));
+    director.dataset.directorStep=String(p>.5?1:0);
+    director.style.setProperty('--director-progress',p.toFixed(4));
     showAward(reduce.matches?0:awardManual??(p>.62?1:0));
   }
   const counted = document.querySelector('.director-credentials');
@@ -159,14 +167,16 @@
   const keywordObserver=new IntersectionObserver(entries=>entries.forEach(e=>{
     if(e.target.matches('[data-keyword]')&&e.isIntersecting){e.target.classList.add('is-in-view');keywordObserver.unobserve(e.target);}
     else if(e.target.matches('.broadcast-frame'))e.target.dataset.liveVisible=String(e.isIntersecting);
+    else { e.target.classList.toggle('is-visible',e.isIntersecting); if(e.isIntersecting)e.target.classList.add('is-in-view'); }
   }),{threshold:.3});
-  document.querySelectorAll('[data-keyword],.broadcast-frame').forEach(e=>keywordObserver.observe(e));
+  document.querySelectorAll('[data-keyword],.broadcast-frame,.shop-screen,.evergreen-scene').forEach(e=>keywordObserver.observe(e));
   const planGrid = document.querySelector('#planGrid');
   const planJourney=document.querySelector('[data-plan-journey]');
   const planStage=document.querySelector('.plan-selection-stage');
   const planButtons=[...document.querySelectorAll('[data-plan-select]')];
   document.querySelector('.plan-recommend-cta')?.addEventListener('click',()=>planGrid.querySelector('[data-plan-consult="PERFORMANCE"]')?.click());
   const pinnedPlans=matchMedia('(min-width:1200px) and (min-height:850px) and (prefers-reduced-motion:no-preference)');
+  let planManual=null,planManualY=0,planManualUntil=0;
   function drawPlans() {
     if(!planJourney||!planGrid.children.length)return;
     const cards=[...planGrid.querySelectorAll('.plan-card')];
@@ -178,11 +188,22 @@
       const step=Math.min(4,Math.floor(p*5));
       index=[0,1,2,3,2][step];finale=step===4;
     } else {
-      const center=innerHeight*.48;
-      let nearest=Infinity;
-      cards.forEach((card,i)=>{const r=card.getBoundingClientRect(),distance=Math.abs((r.top+r.bottom)/2-center);if(distance<nearest){nearest=distance;index=i;}});
+      if(innerWidth>=1200) {
+        const r=planGrid.getBoundingClientRect();
+        const p=clamp((innerHeight*.65-r.top)/Math.max(1,r.height));
+        index=Math.min(3,Math.floor(p*4));
+      } else {
+        const center=innerHeight*.48;
+        let nearest=Infinity;
+        cards.forEach((card,i)=>{const r=card.getBoundingClientRect(),distance=Math.abs((r.top+r.bottom)/2-center);if(distance<nearest){nearest=distance;index=i;}});
+      }
       finale=planStage.querySelector('.plan-destination').getBoundingClientRect().top<innerHeight*.8;
       if(finale)index=2;
+    }
+    if(planManual!==null) {
+      if(performance.now()<planManualUntil)planManualY=scrollY;
+      else if(Math.abs(scrollY-planManualY)>100)planManual=null;
+      if(planManual!==null){index=planManual;finale=false;}
     }
     planJourney.style.setProperty('--plan-index',index);
     planJourney.dataset.planFinale=String(finale);
@@ -193,7 +214,9 @@
   planButtons.forEach((button,index)=>button.addEventListener('click',()=>{
     const card=planGrid.querySelectorAll('.plan-card')[index];if(!card)return;
     const top=planJourney.classList.contains('is-pinned')?planJourney.getBoundingClientRect().top+scrollY-90+Math.max(1,planJourney.offsetHeight-planStage.offsetHeight)*(index+.3)/5:card.getBoundingClientRect().top+scrollY-135;
+    planManual=index;planManualY=scrollY;planManualUntil=performance.now()+1200;
     scrollTo({top,behavior:reduce.matches?'instant':'smooth'});
+    schedule();
   }));
   const reveal = new IntersectionObserver(entries=>entries.forEach(entry=>{
     if(entry.isIntersecting){entry.target.classList.add('is-present');reveal.unobserve(entry.target);}

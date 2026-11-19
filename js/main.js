@@ -426,7 +426,10 @@
         ${highlight ? '<span class="plan-badge">TIGER 추천</span>' : ''}
         <p class="plan-purpose">${escapeHtml(({BASIC:"채널 운영 시작",GROWTH:"콘텐츠·반응 관리",PERFORMANCE:"방문·판매 연결",COMMERCE:"자체 라이브 준비"})[plan.id])}</p><h3>${escapeHtml(plan.name)}</h3><p class="plan-desire">${escapeHtml(plan.desire)}</p>
         <p class="plan-price">${toManwon(priceFor(plan))}<span>/월 · ${escapeHtml(planState.vat)}</span></p>
-        <p class="plan-contract">${planState.term}개월 계약 기준</p><p class="plan-qty">쇼츠 ${plan.shorts} · 카드뉴스 ${plan.card_news} · Threads ${plan.threads} · 블로그 ${plan.blog}</p>
+        <p class="plan-contract">${planState.term}개월 계약 기준</p>
+        <div class="plan-deliverables"><p class="plan-original">월 원본 영상 <strong>${plan.shorts}<span>편</span></strong></p>
+        <dl class="plan-channels"><div><dt>유튜브 쇼츠</dt><dd>${plan.shorts}회</dd></div><div><dt>틱톡</dt><dd>${plan.shorts}회</dd></div><div><dt>인스타그램 릴스</dt><dd>${plan.shorts}회</dd></div></dl>
+        <p class="plan-distribution">동일 기본 영상의 3채널 게시 · 총 ${plan.shorts * 3}회</p><p class="plan-qty">카드뉴스 월 ${plan.card_news}건</p></div>
         <ul class="plan-features">${included.map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul>
         <button type="button" class="button ${highlight ? 'button-primary' : 'button-ghost'}" data-plan-consult="${escapeHtml(plan.id)}">${escapeHtml(plan.cta_label)}</button>
       </article>`;

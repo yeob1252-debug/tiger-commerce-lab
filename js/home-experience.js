@@ -182,6 +182,10 @@
   const planJourney=document.querySelector('[data-plan-journey]');
   const planStage=document.querySelector('.plan-selection-stage');
   const planButtons=[...document.querySelectorAll('[data-plan-select]')];
+  const previousPlan=document.querySelector('[data-plan-prev]');
+  const nextPlan=document.querySelector('[data-plan-next]');
+  const planPosition=document.querySelector('#planPosition');
+  const planName=document.querySelector('#planCurrentName');
   document.querySelector('.plan-recommend-cta')?.addEventListener('click',()=>planGrid.querySelector('[data-plan-consult="PERFORMANCE"]')?.click());
   const pinnedPlans=matchMedia('(min-width:1200px) and (min-height:820px) and (prefers-reduced-motion:no-preference)');
   let planManual=null,planManualY=0,planManualUntil=0;
@@ -215,16 +219,34 @@
     planJourney.dataset.activePlan=String(index);
     cards.forEach((card,i)=>card.classList.toggle('is-current',i===index));
     planButtons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
+    if(planPosition)planPosition.textContent=`${index+1} / ${cards.length}`;
+    if(planName)planName.textContent=cards[index]?.querySelector('h3')?.textContent||'';
+    if(previousPlan)previousPlan.disabled=index===0;
+    if(nextPlan)nextPlan.disabled=index===cards.length-1;
   }
-  planButtons.forEach((button,index)=>button.addEventListener('click',()=>{
+  function selectPlan(index) {
     const card=planGrid.querySelectorAll('.plan-card')[index];if(!card)return;
     const isPinned=planJourney.classList.contains('is-pinned');
     planManual=innerWidth<=600?null:index;planManualY=scrollY;planManualUntil=performance.now()+1200;
-    if(innerWidth<=600)planGrid.scrollTo({left:card.offsetLeft-planGrid.firstElementChild.offsetLeft,behavior:reduce.matches?'instant':'smooth'});
+    if(innerWidth<=600){
+      planGrid.scrollTo({left:card.offsetLeft-planGrid.firstElementChild.offsetLeft,behavior:reduce.matches?'instant':'smooth'});
+      const top=planGrid.getBoundingClientRect().top;
+      if(top<115||top>innerHeight*.5)scrollTo({top:scrollY+top-120,behavior:reduce.matches?'instant':'smooth'});
+    }
     else if(isPinned)scrollTo({top:planJourney.getBoundingClientRect().top+scrollY-85+Math.max(1,planJourney.offsetHeight-planStage.offsetHeight)*(index+.15)/4,behavior:reduce.matches?'instant':'smooth'});
     else if(innerWidth<1200)scrollTo({top:card.getBoundingClientRect().top+scrollY-100,behavior:reduce.matches?'instant':'smooth'});
     schedule();
-  }));
+  }
+  planButtons.forEach((button,index)=>button.addEventListener('click',()=>selectPlan(index)));
+  previousPlan?.addEventListener('click',()=>selectPlan(Math.max(0,Number(planJourney.dataset.activePlan)-1)));
+  nextPlan?.addEventListener('click',()=>selectPlan(Math.min(planButtons.length-1,Number(planJourney.dataset.activePlan)+1)));
+  planGrid?.addEventListener('keydown',event=>{
+    if(innerWidth>600||event.target!==planGrid||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;
+    event.preventDefault();
+    const current=Number(planJourney.dataset.activePlan)||0;
+    const next=event.key==='Home'?0:event.key==='End'?planButtons.length-1:current+(event.key==='ArrowRight'?1:-1);
+    selectPlan(Math.max(0,Math.min(planButtons.length-1,next)));
+  });
   const reveal = new IntersectionObserver(entries=>entries.forEach(entry=>{
     if(entry.isIntersecting){entry.target.classList.add('is-present');reveal.unobserve(entry.target);}
   }),{threshold:.12});
@@ -238,7 +260,16 @@
       if(disclosureTop!==null&&innerWidth>600){scrollBy({top:details.getBoundingClientRect().top-disclosureTop,behavior:'instant'});disclosureTop=null;}
       schedule();
     });
-  });schedule();}
+  });
+    if(planGrid?.dataset.restorePlan!==undefined){
+      const index=Number(planGrid.dataset.restorePlan)||0;
+      delete planGrid.dataset.restorePlan;
+      const cards=[...planGrid.querySelectorAll('.plan-card')];
+      if(innerWidth<=600&&cards[index])planGrid.scrollTo({left:cards[index].offsetLeft-cards[0].offsetLeft,behavior:'instant'});
+      else if(index>0){planManual=index;planManualY=scrollY;}
+    }
+    schedule();
+  }
   if(planGrid){new MutationObserver(bindPlans).observe(planGrid,{childList:true});planGrid.addEventListener('scroll',schedule,{passive:true});new ResizeObserver(schedule).observe(planGrid);bindPlans();}
   reduce.addEventListener('change',()=>{if(reduce.matches){cancelAnimationFrame(countFrame);document.querySelectorAll('[data-director-count]').forEach(n=>n.textContent=n.dataset.directorCount);}awardActive=-1;schedule();});
   schedule();

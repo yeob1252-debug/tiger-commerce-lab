@@ -318,9 +318,9 @@
   consultSlot?.appendChild(formShell);
 
   const FORM_MODES = {
-    general: { label: '1:1 CONSULTATION', title: 'TIGER 통합운영 상담', description: '신규유치·팬심·방문·판매·자체 LIVE 중 지금 필요한 목표를 확인한다.', inquiry: 'SNS 통합운영 상담' },
-    place: { label: 'FREE CHECK 01', title: '네이버 플레이스 무료점검', description: '검색한 고객이 방문하지 않는 이유를 확인한다.', inquiry: '네이버 플레이스 무료점검' },
-    nationwide: { label: 'FREE CHECK 02', title: '온라인판매 가능성 체크리스트', description: '대표메뉴와 행정·공간·포장·배송 조건을 확인해 가능한 실행순서를 정리한다.', inquiry: '온라인판매 가능성 점검' },
+    general: { label: '대표 직접 상담', title: '우리 매장 운영 상담', description: '지금 가장 필요한 일을 알려주세요. 대표가 직접 듣고, 운영 범위와 비용을 함께 정합니다.', inquiry: 'SNS 통합운영 상담' },
+    place: { label: '매장 방문 안내 점검', title: '네이버 플레이스 무료점검', description: '메뉴·위치·영업 정보에서 손님이 방문 전에 궁금해할 내용을 점검해드립니다.', inquiry: '네이버 플레이스 무료점검' },
+    nationwide: { label: '온라인 판매 준비 점검', title: '온라인판매 가능성 체크리스트', description: '대표메뉴와 행정·공간·포장·배송 조건을 살펴보고, 먼저 준비할 일을 정리해드립니다.', inquiry: '온라인판매 가능성 점검' },
   };
 
   function setHiddenField(id, value = '') {
@@ -408,6 +408,16 @@
   $$('[data-consult-open]').forEach((button) => button.addEventListener('click', () => openForm('general', { sourceSection: 'contact', sourceCTA: button.dataset.sourceCta || 'consult-open' })));
   $$('[data-intake-open="nationwide"]').forEach((button) => button.addEventListener('click', () => openForm('nationwide', { sourceSection: 'live-commerce', sourceCTA: 'live-commerce-nationwide' })));
 
+  // Consultation links must land on an open form, not another explanation section.
+  function openLinkedConsultation() {
+    const query = new URLSearchParams(location.search);
+    if (query.get('consult') === '1' || location.hash === '#contact') {
+      openForm('general', { sourceSection: 'direct-link', sourceCTA: 'linked-consultation' });
+    }
+  }
+  addEventListener('hashchange', openLinkedConsultation);
+  queueMicrotask(openLinkedConsultation);
+
   /* Plans */
   const planGrid = $('#planGrid');
   const planTermToggle = $('#planTermToggle');
@@ -419,6 +429,12 @@
   function priceFor(plan) { return plan.prices?.[String(planState.term)] ?? plan.price_krw; }
   function renderPlans() {
     if (!planGrid) return;
+    const selectedIndex = [...planGrid.children].findIndex(card => card.classList.contains('is-current'));
+    planGrid.dataset.restorePlan = String(Math.max(0, selectedIndex));
+    const entryPrice = document.querySelector('.plan-entry p strong');
+    const entryTerm = document.querySelector('.plan-entry>span');
+    if (entryPrice && planState.items[0]) entryPrice.textContent = String(Math.round(priceFor(planState.items[0]) / 10000));
+    if (entryTerm) entryTerm.textContent = `${planState.term}개월 계약 · ${planState.vat}`;
     planGrid.innerHTML = planState.items.map((plan, index) => {
       const included = planState.features.filter((row) => row.values[index]).map((row) => row.label);
       const highlight = plan.id === 'PERFORMANCE';
@@ -427,7 +443,7 @@
         <p class="plan-purpose">${escapeHtml(({BASIC:"멈춘 SNS, 다시 시작",GROWTH:"올리고, 반응까지 관리",PERFORMANCE:"방문·판매 연결까지",COMMERCE:"내가 직접 하는 라이브"})[plan.id])}</p><h3>${escapeHtml(plan.name)}</h3>
         <p class="plan-price">${toManwon(priceFor(plan))}<span>/월 · ${escapeHtml(planState.vat)}</span></p>
         <p class="plan-contract">${planState.term}개월 계약 기준</p>
-        <p class="plan-focus">${({BASIC:'월 주제 기획 · 콘텐츠 제작<br>채널 게시 운영',GROWTH:'BASIC 범위 + 댓글·반응 관리<br>월간 분석 · 플레이스 연계',PERFORMANCE:'GROWTH 범위 + 판매 동선 점검<br>방문·문의·주문 연결 전략',COMMERCE:'PERFORMANCE 범위 + 라이브 구축<br>진행 교육 · 초기 실제 방송 동행'})[plan.id]}</p>
+        <p class="plan-focus">${({BASIC:'월 주제계획 1회 + 콘텐츠 제작<br>유튜브·틱톡·인스타그램 게시',GROWTH:'BASIC 포함 + 댓글 확인 주 2회<br>월간 운영 요약·개선안 1회',PERFORMANCE:'GROWTH 포함 + 판매 동선 점검표<br>우선 개선안 월 1회',COMMERCE:'PERFORMANCE 포함 + 방송 구축<br>교육·리허설·초기 실제 방송 동행'})[plan.id]}</p>
         <div class="plan-deliverables"><p class="plan-original">월 원본 영상 <strong>${plan.shorts}<span>편</span></strong></p>
         <p class="plan-distribution">유튜브 · 틱톡 · 인스타그램 각 ${plan.shorts}회<br>동일 원본의 3채널 게시 · 총 ${plan.shorts * 3}회</p><p class="plan-qty">카드뉴스 <b>월 ${plan.card_news}건</b></p></div>
         <details class="plan-more"><summary>포함 업무 자세히 보기</summary><p class="plan-desire">${escapeHtml(plan.desire)}</p><ul class="plan-features">${included.map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul><p>제작 규격·횟수와 제외 범위는 아래 공통 안내를 확인하세요.</p></details>

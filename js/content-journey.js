@@ -8,11 +8,14 @@
   const clamp = value => Math.max(0, Math.min(1, value));
   function draw() {
     scheduled = false;
-    objects.forEach((item, index) => {
+    objects.forEach(item => {
       const box = item.getBoundingClientRect();
-      // Local geometry keeps mobile, reverse, reload and fast scroll deterministic.
-      const stagger = innerWidth > 600 && item.classList.contains('platform-destination') ? [...item.parentElement.children].indexOf(item) * 70 : 0;
-      const progress = reduce.matches ? 1 : clamp((innerHeight * .96 - box.top - stagger) / Math.min(300, innerHeight * .42));
+      const channel = item.classList.contains('platform-destination');
+      // Channel labels stay still and readable. Only the visual arrives, in reading order.
+      // Mobile rows use their own viewport position, with no timeouts or scroll trapping.
+      const stagger = channel && innerWidth > 600 ? [...item.parentElement.children].indexOf(item) * 140 : 0;
+      const distance = channel ? Math.min(220, innerHeight * .28) : Math.min(300, innerHeight * .42);
+      const progress = reduce.matches ? 1 : clamp((innerHeight * (channel ? .90 : .96) - box.top - stagger) / distance);
       item.style.setProperty('--arrive', progress.toFixed(4));
       item.dataset.arrived = String(progress >= .99);
     });

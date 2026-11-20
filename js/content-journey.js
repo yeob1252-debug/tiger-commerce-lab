@@ -5,7 +5,7 @@
   const objects = [...document.querySelectorAll('[data-arrive]')];
   const platforms = document.querySelector('[data-platform-stage]');
   const reach = document.querySelector('.reach-network');
-  const audience = [...document.querySelectorAll('[data-reach-node]')];
+  const reachPoints = [...document.querySelectorAll('[data-reach-node]')];
   let scheduled = false;
   const clamp = value => Math.max(0, Math.min(1, value));
   function draw() {
@@ -31,9 +31,12 @@
       // finish the story before its outcomes leave the viewport, in either direction.
       const box = reach.getBoundingClientRect();
       const progress = reduce.matches ? 1 : clamp((innerHeight * .93 - box.top) / Math.min(box.height + 45, innerHeight * .58));
-      reach.closest('[data-reach-story]').style.setProperty('--reach-progress', progress.toFixed(4));
-      audience.forEach((node, index) => {
-        const arrival = reduce.matches ? 1 : clamp((progress - index * .095) / .45);
+      const story = reach.closest('[data-reach-story]');
+      story.style.setProperty('--reach-progress', progress.toFixed(4));
+      story.style.setProperty('--reach-spread', clamp(progress / .72).toFixed(4));
+      story.style.setProperty('--reach-convert', clamp((progress - .66) / .34).toFixed(4));
+      reachPoints.forEach((node, index) => {
+        const arrival = reduce.matches ? 1 : clamp((progress - .12 - index * .06) / .27);
         node.style.setProperty('--reach-arrive', arrival.toFixed(4));
       });
     }

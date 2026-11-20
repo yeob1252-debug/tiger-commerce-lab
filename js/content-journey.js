@@ -1,9 +1,11 @@
-/* R11: viewport arrivals. Text is never hidden or tied to a trapped scroll timeline. */
+/* Viewport arrivals. Essential text stays readable; no timers or trapped scrolling. */
 (() => {
   'use strict';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const objects = [...document.querySelectorAll('[data-arrive]')];
   const platforms = document.querySelector('[data-platform-stage]');
+  const reach = document.querySelector('.reach-network');
+  const audience = [...document.querySelectorAll('[data-reach-node]')];
   let scheduled = false;
   const clamp = value => Math.max(0, Math.min(1, value));
   function draw() {
@@ -23,6 +25,17 @@
       const box = platforms.getBoundingClientRect();
       const progress = reduce.matches ? 1 : clamp((innerHeight * .86 - box.top) / Math.min(440, innerHeight * .65));
       platforms.style.setProperty('--posting-progress', progress.toFixed(4));
+    }
+    if (reach) {
+      // Measure the stationary network, never a transformed child. Short screens
+      // finish the story before its outcomes leave the viewport, in either direction.
+      const box = reach.getBoundingClientRect();
+      const progress = reduce.matches ? 1 : clamp((innerHeight * .93 - box.top) / Math.min(box.height + 45, innerHeight * .58));
+      reach.closest('[data-reach-story]').style.setProperty('--reach-progress', progress.toFixed(4));
+      audience.forEach((node, index) => {
+        const arrival = reduce.matches ? 1 : clamp((progress - index * .095) / .45);
+        node.style.setProperty('--reach-arrive', arrival.toFixed(4));
+      });
     }
   }
   function schedule() {

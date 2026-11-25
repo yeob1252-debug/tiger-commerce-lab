@@ -1,0 +1,86 @@
+/* One real commerce case; isolated from existing video, pricing and intake styles. */
+.jang-case { background:#f2f2ed; color:#1c261b; padding-block:84px 90px; overflow:clip; scroll-margin-top:90px; }
+.jang-case-layout { display:grid; grid-template-columns:1.06fr 1fr; grid-template-rows:auto 1fr; column-gap:7%; align-items:start; }
+.jang-case-heading { grid-column:2; grid-row:1; }
+.jang-case-heading .kicker { color:#8b6029; font:650 15px/1.6 var(--body); margin:0 0 20px; }
+.jang-case-heading h2 { margin:0; font:800 clamp(34px,3.5vw,51px)/1.25 var(--display); letter-spacing:-.05em; }
+.jang-case-heading h2 em { color:#94611f; font-style:normal; }
+.jang-case-intro { color:#536249; margin-top:22px; font:450 19px/1.7 var(--body); }
+.jang-case-visual { grid-column:1; grid-row:1 / 3; position:relative; padding:0 0 76px; margin-top:4px; }
+.jang-case-food { position:relative; margin:0; overflow:hidden; border-radius:20px 20px 70px 20px; background:#1c261b; }
+.jang-case-food>img { display:block; width:100%; height:auto; aspect-ratio:1/1.12; object-fit:cover; object-position:47% 50%; }
+.jang-case-food::after { content:""; position:absolute; inset:40% 0 0; background:linear-gradient(transparent,#10180bed); pointer-events:none; }
+.jang-case-food figcaption { position:absolute; z-index:1; left:7%; right:7%; bottom:8%; color:#fff9ef; }
+.jang-case-food figcaption span { display:block; margin-bottom:6px; font:500 16px/1.5 var(--body); color:#f0c98b; }
+.jang-case-food figcaption strong { display:block; font:750 clamp(26px,2.4vw,36px)/1.4 var(--display); letter-spacing:-.05em; }
+.jang-case-chef { position:absolute; bottom:0; right:-24px; width:31%; min-width:120px; margin:0; border-radius:80px 80px 15px 15px; background:linear-gradient(150deg,#d4c8b0,#e6dfcf); box-shadow:0 15px 35px #1921131f; overflow:hidden; border:5px solid #f2f2ed; }
+.jang-case-chef img { width:100%; height:auto; aspect-ratio:1/1.35; object-fit:cover; object-position:center top; }
+.jang-case-chef figcaption { padding:10px 5px; background:#1c261b; color:#f7ead5; text-align:center; font:550 13px/1.5 var(--body); }
+.jang-case-detail { grid-column:2; grid-row:2; padding-top:25px; min-width:0; }
+.jang-case-locations { display:flex; gap:28px; padding-bottom:24px; border-bottom:1px solid #c8cdbf; }
+.jang-case-locations p { margin:0; }
+.jang-case-locations span { display:block; margin-bottom:5px; font:550 13px/1.5 var(--body); color:#69765e; }
+.jang-case-locations strong { font:700 19px/1.5 var(--display); letter-spacing:-.04em; }
+.jang-case-role { margin:25px 0 22px; font:500 20px/1.65 var(--body); letter-spacing:-.035em; }
+.jang-case-role strong { color:#8b5b20; font-weight:750; }
+.jang-case-work { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr; gap:13px; }
+.jang-case-work li { display:grid; grid-template-columns:27px 125px 1fr; align-items:baseline; gap:8px; }
+.jang-case-work li>span { color:#a2783f; font:600 13px/1.5 var(--body); font-variant-numeric:tabular-nums; }
+.jang-case-work strong { font:700 17px/1.6 var(--body); letter-spacing:-.03em; }
+.jang-case-work p { color:#5a6652; font:400 15px/1.6 var(--body); }
+.jang-case-more { display:inline-flex; min-height:50px; align-items:center; margin-top:24px; color:#384b2a; font:650 15px/1.6 var(--body); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:7px; }
+.jang-case-more:hover { color:#8b5b20; }
+/* The new in-page link lands below the existing fixed navigation. */
+.tiger-r14 #own-shop { scroll-margin-top:105px; }
+/* Content is visible without JavaScript and never disappears when scrolling back. */
+.jang-case-motion [data-jang-reveal] { transition:transform .85s cubic-bezier(.2,.75,.2,1),opacity .7s ease; }
+.jang-case-motion [data-jang-reveal]:not(.is-revealed) { opacity:0; transform:translateY(30px); }
+.jang-case-motion .jang-case-visual:not(.is-revealed) { transform:translate(-25px,30px) rotate(-2deg); }
+.jang-case-work li:nth-child(2) { transition-delay:100ms; }
+.jang-case-work li:nth-child(3) { transition-delay:200ms; }
+@media(min-width:1100px) { .jang-case-visual { position:sticky; top:110px; } }
+@media(max-width:1099px) {
+  .jang-case { padding-block:65px; }
+  .jang-case-layout { column-gap:5%; }
+  .jang-case-visual { padding-bottom:58px; }
+  .jang-case-chef { right:-14px; }
+  .jang-case-work li { grid-template-columns:25px 1fr; gap:2px 8px; }
+  .jang-case-work li p { grid-column:2; }
+}
+@media(max-width:809px) {
+  .jang-case-layout { grid-template-columns:1fr; }
+  .jang-case-heading,.jang-case-visual,.jang-case-detail { grid-column:1; grid-row:auto; }
+  .jang-case-heading { margin-bottom:28px; }
+  .jang-case-heading h2 { font-size:clamp(33px,6vw,46px); }
+  .jang-case-intro { margin-top:18px; font-size:18px; }
+  .jang-case-visual { width:100%; max-width:550px; margin:0; padding-bottom:49px; }
+  .jang-case-food { border-radius:16px 16px 54px 16px; }
+  .jang-case-food>img { aspect-ratio:1/.95; }
+  .jang-case-food figcaption { left:7%; bottom:9%; right:26%; }
+  .jang-case-food figcaption strong { font-size:clamp(24px,5.5vw,32px); }
+  .jang-case-chef { width:29%; min-width:105px; right:-8px; border-width:4px; }
+  .jang-case-chef figcaption { font-size:11px; padding:8px 3px; }
+  .jang-case-detail { padding-top:24px; }
+  .jang-case-locations { gap:0; }
+  .jang-case-locations p { flex:1; }
+  .jang-case-role { margin-block:22px; }
+  .jang-case-work { gap:16px; }
+  .jang-case-work li { grid-template-columns:26px 1fr; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .jang-case-motion [data-jang-reveal] { opacity:1!important; transform:none!important; transition:none!important; }
+}
+@media(min-width:650px) and (max-width:809px) {
+  .jang-case-layout { grid-template-columns:1.05fr 1fr; column-gap:7%; }
+  .jang-case-heading { grid-column:1 / -1; }
+  .jang-case-visual { grid-column:1; grid-row:2; }
+  .jang-case-detail { grid-column:2; grid-row:2; padding-top:0; }
+  .jang-case-food>img { aspect-ratio:1/1.25; }
+  .jang-case-locations { flex-direction:column; gap:16px; padding-bottom:20px; }
+  .jang-case-locations p { display:flex; align-items:baseline; gap:10px; }
+  .jang-case-locations strong { font-size:17px; }
+  .jang-case-role { font-size:18px; }
+  .jang-case-work strong { font-size:16px; }
+  .jang-case-work p { font-size:14px; }
+  .jang-case-more { font-size:14px; }
+}

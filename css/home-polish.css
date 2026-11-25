@@ -77,7 +77,7 @@
 .report-preview-link { display:flex; align-items:center; min-height:50px; margin-top:14px; font-size:15px; color:#405034; text-decoration:underline; text-underline-offset:5px; }
 .tiger-r14 .start-consult { margin:35px 0 0; background:#1e2c18!important; }
 .tiger-r14 .start-consult .button { background:#f6b342; }
-.tiger-r14 .shared-form-shell { scroll-margin-top:95px; }
+.tiger-r14 .shared-form-shell { scroll-margin-top:95px; color:#f2f2ed; }
 .form-optional { border:1px solid #526045; border-radius:8px; padding:0 14px; }
 .form-optional summary { cursor:pointer; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; min-height:52px; font-size:15px; }
 .form-optional summary span { color:#a9b799; font-size:13px; }

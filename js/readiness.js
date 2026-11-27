@@ -5,6 +5,16 @@
   const error = document.querySelector('#readinessError');
   const space = document.querySelector('#spaceQuestion');
   const endpoint = 'https://script.google.com/macros/s/AKfycbwiFxOMP-nPOJK_KIOEOaB6SfaktJz8b9EPmlSRKtyx85pnrlhMdtXqTt1wpVurmaxf/exec';
+  const smsConsent = form.elements.namedItem('smsConsent');
+  const phone = form.elements.namedItem('phone');
+  smsConsent.addEventListener('change', () => {
+    document.querySelector('#smsPhoneField').hidden = !smsConsent.checked;
+    phone.disabled = !smsConsent.checked;
+    phone.required = smsConsent.checked;
+    smsConsent.setAttribute('aria-expanded', String(smsConsent.checked));
+    if (!smsConsent.checked) phone.value = '';
+  });
+  const normalizedPhone = () => phone.value.replace(/[\s()-]/g,'').replace(/^\+82/,'0');
   let pending = false;
   let retryId = '';
   let retryBody = '';
@@ -59,9 +69,10 @@
     }
     if (!space.hidden && !field('space').value) failures.push({message:'제조·포장 공간을 선택해주세요. 잘 모름도 선택할 수 있습니다.',element:field('space')});
     if (!field('email').value.trim() || !field('email').validity.valid) failures.push({message:'보고서를 받을 이메일 주소를 확인해주세요.',element:field('email')});
+    if (smsConsent.checked && !/^01(?:0\d{8}|[16789]\d{7,8})$/.test(normalizedPhone())) failures.push({message:'문자 안내를 받을 휴대폰 번호를 확인해주세요.',element:phone});
     if (!field('consent').checked) failures.push({message:'개인정보 수집·이용 안내를 확인하고 동의해주세요.',element:field('consent')});
     if (failures.length) {if(window.tigerFunnel)window.tigerFunnel.record('validation_error');error.textContent=failures[0].message;error.hidden=false;failures[0].element.focus();return;}
-    const payload={mode:'readiness',storeName:field('storeName').value.trim(),storeArea:field('storeArea').value.trim(),menu:field('menu').value.trim(),businessType:values('businessType'),salesMethod:values('salesMethod'),space:field('space').value,email:field('email').value.trim(),consent:true,website:field('website').value,source:location.pathname+(()=>{const q=new URLSearchParams(location.search),s=new URLSearchParams();for(const k of ['utm_source','utm_medium','utm_campaign','utm_content'])if(q.has(k))s.set(k,q.get(k).slice(0,40));return s.size?'?'+s.toString():'';})()};
+    const payload={mode:'readiness',storeName:field('storeName').value.trim(),storeArea:field('storeArea').value.trim(),menu:field('menu').value.trim(),businessType:values('businessType'),salesMethod:values('salesMethod'),space:field('space').value,email:field('email').value.trim(),consent:true,smsConsent:smsConsent.checked,phone:smsConsent.checked?normalizedPhone():'',website:field('website').value,source:location.pathname+(()=>{const q=new URLSearchParams(location.search),s=new URLSearchParams();for(const k of ['utm_source','utm_medium','utm_campaign','utm_content'])if(q.has(k))s.set(k,q.get(k).slice(0,40));return s.size?'?'+s.toString():'';})()};
     const body=JSON.stringify(payload);
     if(body!==retryBody){retryId='TREADY-'+crypto.randomUUID();retryBody=body;}
     payload.leadId=retryId;
@@ -78,6 +89,7 @@
     form.hidden=true;
     const success=document.querySelector('#previewSuccess');success.hidden=false;success.querySelector('h2').focus();
     document.querySelector('#deliveryMessage').textContent=result.mailSent?'입력하신 이메일로 점검 보고서를 보냈습니다. 수신까지 잠시 걸릴 수 있으며, 보이지 않으면 스팸함도 확인해주세요.':'신청은 저장됐지만 보고서 메일 발송을 확인하지 못했습니다. 홈페이지 상담 신청에서 접수번호를 알려주시면 확인해드리겠습니다.';
+    if (result.mailSent && result.smsQueued) document.querySelector('#deliveryMessage').textContent += ' 선택하신 문자 안내는 오전 9시~오후 8시에 순차 발송됩니다.';
     document.querySelector('#submissionId').textContent='접수번호: '+result.leadId;
     if(typeof window.tigerReadinessReceived==='function')window.tigerReadinessReceived(result.leadId);
   });

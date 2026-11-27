@@ -80,3 +80,13 @@
 .readiness-button{border-radius:10px;min-height:52px;font-weight:700;justify-content:center;text-align:center;gap:0}
 .readiness-reassurance{font-size:14px;line-height:1.8;color:#c7cdbf;margin:16px 0}
 .readiness-case{gap:0}.rp-description{font-size:17px}.rp-benefits li{font-size:14px}.rp-sheet a{display:inline-flex;align-items:center;min-height:50px}.readiness-body :is(a,button,summary):focus-visible{outline:3px solid #f3bd69;outline-offset:4px}
+
+/* Optional delivery notice: keep the existing editorial form rhythm. */
+.readiness-sms{margin:24px 0;padding:22px 0;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18)}
+.sms-choice{display:flex;align-items:flex-start;gap:12px;font-size:18px;line-height:1.5;font-weight:700;cursor:pointer}
+.sms-choice input{flex:0 0 22px;width:22px;height:22px;margin:3px 0 0;accent-color:#ffb74b}
+.sms-choice small{color:#ffb74b;font-size:14px;white-space:nowrap}
+.sms-hint{font-size:15px;line-height:1.7;opacity:.8;margin:10px 0 0 34px}
+.readiness-sms .readiness-field{margin:20px 0 0}.readiness-sms [hidden]{display:none!important}
+.readiness-sms input[type="tel"]{display:block;width:100%;box-sizing:border-box;padding:14px 16px;border:1px solid #45443c;border-radius:0;background:#080808;color:#f5f1e8;font:400 16px 'Pretendard','Malgun Gothic',sans-serif;outline-offset:3px}
+@media(max-width:480px){.sms-choice{font-size:17px}.sms-hint{font-size:14px;margin-left:0}.readiness-sms{padding:20px 0}}
